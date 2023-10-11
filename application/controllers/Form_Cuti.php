@@ -1,0 +1,104 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Form_Cuti extends CI_Controller {
+	
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('m_cuti');
+		$this->load->model('m_user');
+		$this->load->model('m_jenis_kelamin');
+	}
+	
+	public function view_operator()
+	{
+		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 1) {
+			// Menggunakan ID pengguna dari sesi saat ini
+			$id_user = $this->session->userdata('id_user');
+			
+			// Hitung total cuti dalam setahun
+			$total_hari_cuti = $this->m_cuti->hitung_total_hari_cuti_dalam_setahun($id_user);
+
+			if ($total_hari_cuti >= 12) {
+				// Total cuti dalam setahun lebih dari atau sama dengan 12, Anda dapat mengarahkan pengguna ke tampilan lain
+				redirect('operator/dashboard');
+			} else {
+				// Total cuti dalam setahun kurang dari 12, muat tampilan pengajuan cuti
+				$data['operator_data'] = $this->m_user->get_operator_by_id($this->session->userdata('id_user'))->result_array();
+				$data['operator'] = $this->m_user->get_operator_by_id($this->session->userdata('id_user'))->row_array();
+				$data['jenis_kelamin'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
+				$this->load->view('operator/form_pengajuan_cuti', $data);
+			}
+		} else {
+			$this->session->set_flashdata('loggin_err', 'loggin_err');
+			redirect('Login/index');
+		}
+	}
+
+	 public function proses_cuti() {
+		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 1) {
+			// Menggunakan ID pengguna dari sesi saat ini
+			$id_user = $this->input->post("id_user");
+			$alasan = $this->input->post("alasan");
+			$perihal_cuti = $this->input->post("perihal_cuti");
+			$mulai = $this->input->post("mulai");
+			$berakhir = $this->input->post("berakhir");
+
+			// Hitung jumlah hari cuti
+			$total_hari_cuti = $this->hitung_total_cuti($mulai, $berakhir);
+
+			if ($total_hari_cuti > 12) {
+				$this->session->set_flashdata('cuti_limit_exceeded', 'cuti_limit_exceeded');
+				redirect('Dashboard/dashboard_operator');
+			}else {
+				$tahun = date("Y");
+
+				$nomor_urut = mt_rand(1, 9999);
+				$nomor_urut_cuti = $nomor_urut . "-SP-Cuti-" . $tahun;
+
+				$id_status_cuti1 = 1;
+				$id_status_cuti2 = 1;
+				$id_status_cuti3 = 1;
+
+				// Memasukkan data cuti ke dalam database
+				$hasil = $this->m_cuti->insert_data_cuti($nomor_urut_cuti, $id_user, $alasan, $mulai, $berakhir, $id_status_cuti1, $id_status_cuti2, $id_status_cuti3, $perihal_cuti, $total_hari_cuti);
+
+				if ($hasil == false) {
+					$this->session->set_flashdata('eror_input', 'eror_input');
+				} else {
+					$this->session->set_flashdata('input', 'input');
+				}
+				redirect('Dashboard/dashboard_operator');
+				}
+		}else {
+			$this->session->set_flashdata('loggin_err', 'loggin_err');
+			redirect('Login/index');
+		}
+	}
+
+
+    private function hitung_total_cuti($mulai, $berakhir) 
+	{
+		$tanggal_mulai = new DateTime($mulai);
+		$tanggal_berakhir = new DateTime($berakhir);
+
+		$total_hari_cuti = 0;
+
+		while ($tanggal_mulai <= $tanggal_berakhir) {
+			// Periksa apakah hari saat ini bukan hari Sabtu (6) dan Minggu (7)
+			if ($tanggal_mulai->format('N') != 6 && $tanggal_mulai->format('N') != 7) {
+				$total_hari_cuti++;
+			}
+			$tanggal_mulai->modify('+1 day');
+		}
+
+		// Jika total hari cuti adalah 5, tambahkan 1
+		if ($total_hari_cuti == 5) {
+			$total_hari_cuti++;
+		}
+
+		return $total_hari_cuti;
+	}
+
+}
