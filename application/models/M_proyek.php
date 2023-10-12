@@ -21,7 +21,7 @@ class M_proyek extends CI_Model
             return false; // Proyek tidak akan disimpan jika gaji = 0
         }else{
             $this->db->trans_start();
-            $this->db->query("UPDATE status_proyek SET nama_proyek='$nama_proyek',gaji='$gaji' WHERE id_status_proyek = $id_status_proyek");
+            $this->db->query("UPDATE status_proyek SET nama_proyek='$nama_proyek',gaji_proyek='$gaji' WHERE id_status_proyek = $id_status_proyek");
             $this->db->trans_complete();
 
             if ($this->db->trans_status() == true) {
@@ -53,7 +53,7 @@ class M_proyek extends CI_Model
             return false; // Proyek tidak akan disimpan jika gaji = 0
         }else{
             $this->db->trans_start();
-            $this->db->query("INSERT INTO status_proyek(nama_proyek,gaji) VALUES ('$nama_proyek','$gaji')");
+            $this->db->query("INSERT INTO status_proyek(nama_proyek,gaji_proyek) VALUES ('$nama_proyek','$gaji')");
             $this->db->trans_complete();
             
             if ($this->db->trans_status() == true) {

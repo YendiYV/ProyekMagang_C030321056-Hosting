@@ -143,14 +143,14 @@
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3><?=$operator['total_user']?></h3>
+                                    <h3><?=$penempatan['total_penempatan']?></h3>
 
                                     <p>Total Penempatan</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-location"></i>
                                 </div>
-                                <a href="<?=base_url();?>operator/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>penempatan/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>

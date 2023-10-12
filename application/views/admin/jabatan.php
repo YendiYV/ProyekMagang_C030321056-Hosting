@@ -99,6 +99,9 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Data Jabatan</h1>
+                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
+                                Tambah Jabatan
+                            </button>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
@@ -107,11 +110,6 @@
                                 <li class="breadcrumb-item active">Jabatan</li>
                             </ol>
                         </div><!-- /.col -->
-
-                        <button type="button" class="btn btn-primary mt-3" data-toggle="modal"
-                            data-target="#exampleModal">
-                            Tambah Jabatan
-                        </button>
                         <br>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -146,7 +144,7 @@
                                             $no++;
                                             $id_level = $jabatan_item['id_level'];
                                             $operator_level = $jabatan_item['operator_level'];
-                                            $gaji = $jabatan_item['gaji'];
+                                            $gaji = $jabatan_item['gaji_level'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
@@ -265,7 +263,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Rp</span>
                                         </div>
-                                        <input type="number" class="form-control" aria-describedby="gaji" id="gaji" name="gaji" required>
+                                        <input type="number" class="form-control" aria-describedby="gaji" id="gaji" name="gaji"">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>

@@ -21,7 +21,7 @@ class M_jabatan extends CI_Model
             return false; // Jabatan tidak akan disimpan jika gaji = 0
         }else{
             $this->db->trans_start();
-            $this->db->query("UPDATE operator_level SET operator_level='$operator_level',gaji='$gaji' WHERE id_level = $id_level");
+            $this->db->query("UPDATE operator_level SET operator_level='$operator_level',gaji_level='$gaji' WHERE id_level = $id_level");
             $this->db->trans_complete();
 
             if ($this->db->trans_status() == true) {
@@ -53,7 +53,7 @@ class M_jabatan extends CI_Model
             return false; // Jabatan tidak akan disimpan jika gaji = 0
         }else{
             $this->db->trans_start();
-            $this->db->query("INSERT INTO operator_level(operator_level,gaji) VALUES ('$operator_level','$gaji')");
+            $this->db->query("INSERT INTO operator_level(operator_level,gaji_level) VALUES ('$operator_level','$gaji')");
             $this->db->trans_complete();
             
             if ($this->db->trans_status() == true) {

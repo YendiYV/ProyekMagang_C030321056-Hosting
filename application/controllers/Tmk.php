@@ -1,41 +1,37 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Penempatan extends CI_Controller {
+class Tmk extends CI_Controller {
     public function __construct()
 	{
 		parent::__construct();
         $this->load->model('m_user');
-		$this->load->model('m_penempatan');
-        $this->load->model('m_um');
+		$this->load->model('m_tmk');
 	}
 
     public function view_admin()
     {
         if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
-            $data['penempatan'] = $this->m_penempatan->get_all_penempatan();
-            $data['tipe_um'] = $this->m_um->get_all_um()->result_array();
-            $this->load->view('admin/penempatan', $data);
+            $data['tmk'] = $this->m_tmk->get_all_tmk();
+            $this->load->view('admin/tmk', $data);
         } else {
             // Handle kasus ketika pengguna tidak memiliki hak akses
             $this->session->set_flashdata('loggin_err', 'loggin_err');
             redirect('Login/index');
         }
     }
-    public function edit_penempatan()
+    public function edit_tmk()
     {
         if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 2) {
-            $id_penempatan = $this->input->post("id_penempatan");
-            $nama_penempatan = $this->input->post("nama_penempatan");
-            $gaji = $this->input->post("gaji");
-            $tipe_um = $this->input->post("tipe_um");
-            if ($gaji !== null) {
+            $id_status_tmk = $this->input->post("id_status_tmk");
+            $rupiah_tmk = $this->input->post("rupiah_tmk");
+            if ($rupiah_tmk !== null) {
                 $this->session->set_flashdata('edit');
-                $hasil = $this->m_penempatan->edit_penempatan($id_penempatan,$nama_penempatan,$gaji,$tipe_um);
-                redirect('Penempatan/view_admin');
+                $hasil = $this->m_tmk->edit_tmk($id_status_tmk, $rupiah_tmk);
+                redirect('Tmk/view_admin');
             } else {
                 $this->session->set_flashdata('eror_edit');
-                redirect('Penempatan/view_admin');
+                redirect('Tmk/view_admin');
             }
             
         }else {
@@ -44,29 +40,27 @@ class Penempatan extends CI_Controller {
         }
     }
 
-    public function delete_penempatan($id_penempatan)
+    public function delete_tmk($id_status_tmk)
     {
         if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 2) {
-            $this->m_penempatan->delete_penempatan($id_penempatan);
-            redirect('Penempatan/view_admin');
+            $this->m_tmk->delete_penempatan($id_status_tmk);
+            redirect('Tmk/view_admin');
         }else {
                 $this->session->set_flashdata('loggin_err', 'loggin_err');
                 redirect('Login/index');
         }
     }
 
-    public function tambah_penempatan() {
+    public function tambah_tmk() {
         if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 2) {
-            $nama_penempatan = $this->input->post('nama_penempatan');
-            $gaji = $this->input->post('gaji');
-            $tipe_um = $this->input->post("tipe_um");
-            if ($gaji !== null) {
+            $rupiah_tmk = $this->input->post('rupiah_tmk');
+            if ($rupiah_tmk !== null) {
                 $this->session->set_flashdata('input');
-                $hasil = $this->m_penempatan->insert_penempatan($nama_penempatan,$gaji,$tipe_um);
-                redirect('Penempatan/view_admin');
+                $hasil = $this->m_tmk->insert_tmk($rupiah_tmk);
+                redirect('Tmk/view_admin');
             } else {
-                $this->session->set_flashdata('eror', 'Terjadi kesalahan saat mengubah penempatan.');
-                redirect('Penempatan/view_admin');
+                $this->session->set_flashdata('eror', 'Terjadi kesalahan saat insert TMK.');
+                redirect('Tmk/view_admin');
             }
         }else {
                 $this->session->set_flashdata('loggin_err', 'loggin_err');

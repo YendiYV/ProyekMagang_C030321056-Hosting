@@ -23,7 +23,11 @@ class M_cuti extends CI_Model
 
     public function get_all_cuti_by_id_cuti($id_cuti)
     {
-        $hasil = $this->db->query("SELECT * FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE cuti.id_cuti='$id_cuti'");
+        $hasil = $this->db->query("SELECT * FROM cuti JOIN user ON cuti.id_user = user.id_user 
+                                   JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail 
+                                   LEFT JOIN status_proyek ON user_detail.proyek = status_proyek.id_status_proyek
+                                   LEFT JOIN operator_level ON user_detail.jabatan = operator_level.id_level
+                                   WHERE cuti.id_cuti='$id_cuti'");
         return $hasil;
     }
 

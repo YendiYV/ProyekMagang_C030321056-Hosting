@@ -36,7 +36,13 @@
                 <li class="nav-item">
                     <a href="<?= base_url();?>Cuti/view_admin" class="nav-link">
                         <i class="nav-icon fas fa-envelope"></i>
-                        <p>Cuti</p>
+                        <p>Data Cuti</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Gaji/view_admin" class="nav-link">
+                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                        <p>Data Gaji</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -55,6 +61,12 @@
                     <a href="<?= base_url();?>Penempatan/view_admin" class="nav-link">
                         <i class="nav-icon fas fa-map"></i>
                         <p>Data Penempatan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Tmk/view_admin" class="nav-link">
+                        <i class="nav-icon fas fa-chart-bar"></i>
+                        <p>Data TMK</p>
                     </a>
                 </li>
                 <li class="nav-item">

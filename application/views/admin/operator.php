@@ -98,7 +98,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Operator</h1>
+                            <h1 class="m-0">Data Operator</h1>
+                            
+                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal"
+                            data-target="#exampleModal">
+                            Tambah Operator
+                        </button>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
@@ -107,11 +112,6 @@
                                 <li class="breadcrumb-item active">Operator</li>
                             </ol>
                         </div><!-- /.col -->
-
-                        <button type="button" class="btn btn-primary mt-3" data-toggle="modal"
-                            data-target="#exampleModal">
-                            Tambah Operator
-                        </button>
                         <br>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -142,6 +142,7 @@
                                                 <th>Alamat</th>
                                                 <th>Proyek</th>
                                                 <th>Jabatan</th>
+                                                <th>Penempatan</th>
                                                 <th>Aksi</th>
                                                 
                                             </tr>
@@ -161,6 +162,7 @@
                                             $id_jenis_kelamin = $i['id_jenis_kelamin'];
                                             $no_telp = $i['no_telp'];
                                             $alamat = $i['alamat'];
+                                            $penempatan = $i['nama_penempatan'];
                                             $nama_proyek = $i['nama_proyek'];
                                             $operator_level = $i['operator_level'];
 
@@ -175,6 +177,7 @@
                                                 <td><?= $alamat ?></td>
                                                 <td><?= $nama_proyek ?></td>
                                                 <td><?= $operator_level?></td>
+                                                <td><?= $penempatan ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
@@ -275,6 +278,20 @@
                                                                         id="password" aria-describedby="password"
                                                                         name="password" value="<?= $password ?>" required>
                                                                 </div>
+                                                                <script>
+                                                                    var passwordInput = document.getElementById("password");
+                                                                    var showPasswordButton = document.getElementById("showPassword");
+
+                                                                    showPasswordButton.addEventListener("click", function() {
+                                                                        if (passwordInput.type === "password") {
+                                                                            passwordInput.type = "text";
+                                                                            showPasswordButton.textContent = "Hide Password";
+                                                                        } else {
+                                                                            passwordInput.type = "password";
+                                                                            showPasswordButton.textContent = "Show Password";
+                                                                        }
+                                                                    });
+                                                                    </script>
                                                                 <div class="form-group">
                                                                     <label for="nama_lengkap">Nama Lengkap</label>
                                                                     <input type="text" class="form-control"
@@ -342,8 +359,19 @@
                                                                         <?php endforeach; ?>
                                                                     </select>
                                                                 </div>
-                                                                <button type="submit"
-                                                                    class="btn btn-primary">Submit</button>
+                                                                <div class="form-group">
+                                                                    <label for="penempatan">Penempatan</label>
+                                                                        <select class="form-control" id="penempatan" name="penempatan" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                                <?php foreach ($nama_penempatan_list as $npl) : 
+                                                                                    $id = $npl["id_penempatan"];
+                                                                                    $nama_penempatan = $npl["nama_penempatan"];
+                                                                                ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_penempatan ?></option>
+                                                                                <?php endforeach; ?>
+                                                                        </select>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">Submit</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -379,7 +407,8 @@
                             <form action="<?=base_url();?>operator/tambah_operator" method="POST">
                                 <div class="form-group">
                                     <label for="username">NIP</label>
-                                    <input type="text" class="form-control" id="username" aria-describedby="username" name="username" required pattern="[A-Z0-9]{10}>
+                                    <input type="text" class="form-control" id="username" aria-describedby="username" name="username" required pattern="[A-Za-z0-9]{10}">
+
                                     <small class="text-muted" style="font-size: smaller;">Format :1234567PKY</small>
                                 </div>
                                 <div class="form-group row">
@@ -451,15 +480,28 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="jabatan">Jabatan</label>
-                                    <select class="form-control" id="jabatan" name="jabatan" required>
-                                        <option value="Kosong">Tidak Ada</option>
-                                        <option value="Operator 1">Operator 1</option>
-                                        <option value="Operator 2">Operator 2</option>
-                                        <option value="Operator 3">Operator 3</option>
-                                        <option value="Operator 4">Operator 4</option>
-                                        <!-- Tambahkan pilihan jabatan lainnya sesuai kebutuhan -->
-                                    </select>
+                                    <label for="operator_level">Jabatan</label>
+                                        <select class="form-control" id="operator_level" name="operator_level" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_level_list as $nl) : 
+                                                    $id = $nl["id_level"];
+                                                    $nama_jabatan = $nl["operator_level"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_jabatan ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="penempatan">Penempatan</label>
+                                        <select class="form-control" id="penempatan" name="penempatan" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_penempatan_list as $npl) : 
+                                                    $id = $npl["id_penempatan"];
+                                                    $nama_penempatan = $npl["nama_penempatan"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_penempatan ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
                             </form>
