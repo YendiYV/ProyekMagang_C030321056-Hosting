@@ -1,29 +1,27 @@
 <?php
 
-class M_penempatan extends CI_Model
+class M_delta extends CI_Model
 {
-    public function get_all_penempatan()
+    public function get_all_delta()
     {
-        $query = $this->db->query('SELECT status_um.* , status_penempatan.*
-                                   FROM status_penempatan
-                                   LEFT JOIN status_um ON status_penempatan.um = status_um.id_status_um');
+        $query = $this->db->query('SELECT * FROM status_delta');
         return $query->result_array();
     }
 
-    public function count_all_penempatan()
+    public function count_all_delta()
     {
-        $hasil = $this->db->query('SELECT COUNT(id_penempatan) as total_penempatan FROM status_penempatan ');
+        $hasil = $this->db->query('SELECT COUNT(id_level) as total_delta FROM status_delta ');
         return $hasil;
     }
 
-    public function edit_penempatan($id_penempatan,$nama_penempatan,$gaji,$tipe_um)
+    public function edit_delta($id_level,$nama_delta,$gaji_delta)
     {
-        if ($gaji == 0) {
+        if ($gaji_delta == 0) {
             $this->session->set_flashdata('eror_edit','eror_edit');
             return false; // Jabatan tidak akan disimpan jika gaji = 0
         }else{
             $this->db->trans_start();
-            $this->db->query("UPDATE status_penempatan SET nama_penempatan='$nama_penempatan',gaji_penempatan='$gaji' , um= '$tipe_um' WHERE id_penempatan = $id_penempatan");
+            $this->db->query("UPDATE status_delta SET nama_delta='$nama_delta',gaji_delta='$gaji_delta' WHERE id_level = $id_level_delta");
             $this->db->trans_complete();
 
             if ($this->db->trans_status() == true) {
@@ -34,10 +32,10 @@ class M_penempatan extends CI_Model
         }
     }
 
-    public function delete_penempatan($id_penempatan)
+    public function delete_delta($id_level)
     {
         $this->db->trans_start();
-        $this->db->query("DELETE FROM status_penempatan WHERE id_penempatan='$id_penempatan'");
+        $this->db->query("DELETE FROM status_delta WHERE id_level_delta='$id_level'");
         $this->db->trans_complete();
 
         if ($this->db->trans_status() == true) {
@@ -48,14 +46,14 @@ class M_penempatan extends CI_Model
     }
 
 
-    public function insert_penempatan($nama_penempatan,$tipe_um,$gaji)
+    public function insert_delta($nama_delta,$gaji_delta)
     {
-        if ($gaji == 0) {
+        if ($gaji_delta == 0) {
             $this->session->set_flashdata('eror','eror');
             return false; // Jabatan tidak akan disimpan jika gaji = 0
         }else{
             $this->db->trans_start();
-            $this->db->query("INSERT INTO status_penempatan(nama_penempatan,um,gaji_penempatan) VALUES ('$nama_penempatan','$tipe_um','$gaji')");
+            $this->db->query("INSERT INTO status_delta(nama_delta,gaji_delta) VALUES ('$nama_delta','$gaji_delta')");
             $this->db->trans_complete();
             
             if ($this->db->trans_status() == true) {

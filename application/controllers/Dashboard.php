@@ -12,6 +12,8 @@ class Dashboard extends CI_Controller {
 		$this->load->model('m_jabatan');
 		$this->load->model('m_proyek');
 		$this->load->model('m_penempatan');
+		$this->load->model('m_bpk');
+		$this->load->model('m_delta');
 	}
 
 	public function dashboard_super_admin()
@@ -45,6 +47,8 @@ class Dashboard extends CI_Controller {
 			$data['jabatan'] = $this->m_jabatan->count_all_jabatan()->row_array();
 			$data['proyek'] = $this->m_proyek->count_all_proyek()->row_array();
 			$data['penempatan'] = $this->m_penempatan->count_all_penempatan()->row_array();
+			$data['bpk'] = $this->m_bpk->count_all_bpk()->row_array();
+			$data['delta'] = $this->m_delta->count_all_delta()->row_array();
 			$this->load->view('admin/dashboard', $data);
 
 		}else{

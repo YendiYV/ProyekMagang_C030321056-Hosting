@@ -11,6 +11,8 @@ class operator extends CI_Controller {
 		$this->load->model('m_proyek');
 		$this->load->model('m_jabatan');
 		$this->load->model('m_penempatan');
+		$this->load->model('m_bpk');
+		$this->load->model('m_delta');
 	}
 	
 	public function view_manager()
@@ -57,6 +59,8 @@ class operator extends CI_Controller {
 			$data['nama_proyek_list'] = $this->m_proyek->get_all_proyek();
 			$data['nama_level_list'] = $this->m_jabatan->get_all_jabatan();
 			$data['nama_penempatan_list'] = $this->m_penempatan->get_all_penempatan();
+			$data['nama_bpk_list'] = $this->m_bpk->get_all_bpk();
+			$data['nama_delta_list'] = $this->m_delta->get_all_delta();
 			$this->load->view('admin/operator', $data);
 
 		}else{

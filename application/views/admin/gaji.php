@@ -172,15 +172,16 @@
                                             $penempatan = $i['gaji_penempatan'];
                                             $nama_proyek = $i['gaji_proyek'];
                                             $operator_level = $i['gaji_level'];
-
+                                            $tahun_tmk= $i['rupiah_tmk'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $username ?></td>
                                                 <td><?= $nama_lengkap ?></td>
-                                                <td><?= $operator_level ?></td>
-                                                <td><?= $nama_proyek ?></td>
-                                                <td><?= $penempatan ?></td>
+                                                <td><?= number_format($operator_level, 0, '', '.') ?></td>
+                                                <td><?= number_format($nama_proyek, 0, '', '.') ?></td>
+                                                <td><?= number_format($penempatan, 0, '', '.') ?></td>
+                                                <td><?= number_format($tahun_tmk, 0, '', '.') ?></td>
                                             </tr>
                                             <?php endforeach; ?>
                                         </tbody>

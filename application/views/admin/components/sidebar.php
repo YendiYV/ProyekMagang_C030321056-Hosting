@@ -70,6 +70,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= base_url();?>Bpk/view_admin" class="nav-link">
+                        <i class="nav-icon fas fa-coins"></i>
+                        <p>Data BPK</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Delta/view_admin" class="nav-link">
+                        <i class="nav-icon fas fa-cubes"></i>
+                        <p>Data Delta</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= base_url();?>Settings/view_admin" class="nav-link">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>Settings</p>

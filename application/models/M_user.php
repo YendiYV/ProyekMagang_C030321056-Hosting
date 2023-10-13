@@ -11,6 +11,8 @@ class M_user extends CI_Model
                                     LEFT JOIN status_proyek ON user_detail.proyek = status_proyek.id_status_proyek
                                     LEFT JOIN operator_level ON user_detail.jabatan = operator_level.id_level
                                     LEFT JOIN status_penempatan ON user_detail.penempatan = status_penempatan.id_penempatan
+                                    LEFT JOIN status_bpk ON user_detail.bpk = status_bpk.id_level_bpk
+                                    LEFT JOIN status_delta ON user_detail.delta = status_delta.id_level_delta
                                     WHERE user.id_user_level = 1
                                     ORDER BY user.username ASC
                                 ');

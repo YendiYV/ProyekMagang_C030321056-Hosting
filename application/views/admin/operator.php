@@ -143,6 +143,8 @@
                                                 <th>Proyek</th>
                                                 <th>Jabatan</th>
                                                 <th>Penempatan</th>
+                                                <th>BPK</th>
+                                                <th>Delta</th>
                                                 <th>Aksi</th>
                                                 
                                             </tr>
@@ -165,7 +167,8 @@
                                             $penempatan = $i['nama_penempatan'];
                                             $nama_proyek = $i['nama_proyek'];
                                             $operator_level = $i['operator_level'];
-
+                                            $nama_bpk = $i['nama_bpk'];
+                                            $nama_delta = $i['nama_delta'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
@@ -178,6 +181,8 @@
                                                 <td><?= $nama_proyek ?></td>
                                                 <td><?= $operator_level?></td>
                                                 <td><?= $penempatan ?></td>
+                                                <td><?= $nama_bpk ?></td>
+                                                <td><?= $nama_delta ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
