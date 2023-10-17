@@ -42,7 +42,7 @@
                 <li class="nav-item">
                     <a href="<?= base_url();?>Gaji/view_admin" class="nav-link">
                         <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                        <p>Data Gaji</p>
+                        <p>Data THP</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -55,6 +55,12 @@
                     <a href="<?= base_url();?>Jabatan/view_admin" class="nav-link">
                         <i class="nav-icon fas fa-people-arrows"></i>
                         <p>Data Jabatan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Transport/view_admin" class="nav-link">
+                        <i class="nav-icon fas fa-motorcycle"></i>
+                        <p>Tunjangan Transport</p>
                     </a>
                 </li>
                 <li class="nav-item">

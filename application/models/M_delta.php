@@ -10,7 +10,7 @@ class M_delta extends CI_Model
 
     public function count_all_delta()
     {
-        $hasil = $this->db->query('SELECT COUNT(id_level) as total_delta FROM status_delta ');
+        $hasil = $this->db->query('SELECT COUNT(id_level_delta) as total_delta FROM status_delta ');
         return $hasil;
     }
 

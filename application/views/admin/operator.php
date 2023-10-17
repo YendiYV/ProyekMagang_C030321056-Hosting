@@ -3,6 +3,19 @@
 
 <head>
     <?php $this->load->view("admin/components/header.php") ?>
+    <style>
+        .responsive-table {
+            width: 100%;
+            max-width: 100%;
+            table-layout: auto;
+        }
+        @media screen and (max-width: 768px) {
+            /* Aturan CSS untuk layar yang lebih kecil */
+            .responsive-table {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -132,7 +145,7 @@
                                 <div class="card-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                     <thead>
-                                            <tr>
+                                            <tr class="header-row">
                                                 <th>No</th>
                                                 <th>NIP</th>
                                                 <th>Nama Lengkap</th>
@@ -145,6 +158,11 @@
                                                 <th>Penempatan</th>
                                                 <th>BPK</th>
                                                 <th>Delta</th>
+                                                <th>Tunjangan Transport</th>
+                                                <th>Tunjangan 2</th>
+                                                <th>Tunjangan 3</th>
+                                                <th>Tunjangan 4</th>
+                                                <th>Tunjangan 5</th>
                                                 <th>Aksi</th>
                                                 
                                             </tr>
@@ -169,6 +187,7 @@
                                             $operator_level = $i['operator_level'];
                                             $nama_bpk = $i['nama_bpk'];
                                             $nama_delta = $i['nama_delta'];
+                                            $transport = $i['nama_transport'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
@@ -183,6 +202,7 @@
                                                 <td><?= $penempatan ?></td>
                                                 <td><?= $nama_bpk ?></td>
                                                 <td><?= $nama_delta ?></td>
+                                                <td><?= $transport ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
@@ -376,6 +396,44 @@
                                                                                 <?php endforeach; ?>
                                                                         </select>
                                                                 </div>
+                                                                 <div class="form-group">
+                                                                    <label for="$nama_bpk_list">BPK</label>
+                                                                        <select class="form-control" id="bpk" name="bpk" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                                <?php foreach ($nama_bpk_list as $nbl) : 
+                                                                                    $id = $nbl["id_level_bpk"];
+                                                                                    $nama_bpk = $nbl["nama_bpk"];
+                                                                                ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_bpk?></option>
+                                                                                <?php endforeach; ?>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="delta">Delta</label>
+                                                                        <select class="form-control" id="delta" name="delta" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                                <?php foreach ($nama_delta_list as $ndl) : 
+                                                                                    $id = $ndl["id_level_delta"];
+                                                                                    $nama_delta = $ndl["nama_delta"];
+                                                                                    $nama_delta = $ndl["nama_delta"];
+                                                                                ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_delta ?></option>
+                                                                                <?php endforeach; ?>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="transport">Tunjangan Transport</label>
+                                                                        <select class="form-control" id="transport" name="transport" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                                <?php foreach ($nama_transport_list as $ntl) : 
+                                                                                    $id = $ntl["id_transport"];
+                                                                                    $nama_transport = $ntl["nama_transport"];
+                                                                                    $tunjangan_transport = $ntl["tunjangan_transport"];
+                                                                                ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_transport ?> = <?= $tunjangan_transport ?></option>
+                                                                                <?php endforeach; ?>
+                                                                        </select>
+                                                                </div>
                                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                                             </form>
                                                         </div>
@@ -508,6 +566,43 @@
                                                 <?php endforeach; ?>
                                         </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="$nama_bpk_list">BPK</label>
+                                        <select class="form-control" id="bpk" name="bpk" required>
+                                            <option value="0">Tidak ada</option>
+                                            <?php foreach ($nama_bpk_list as $nbl) : 
+                                                $id = $nbl["id_level_bpk"];
+                                                $nama_bpk = $nbl["nama_bpk"];
+                                            ?>
+                                            <option value="<?= $id ?>"><?= $nama_bpk?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="delta">Delta</label>
+                                        <select class="form-control" id="delta" name="delta" required>
+                                            <option value="0">Tidak ada</option>
+                                            <?php foreach ($nama_delta_list as $ndl) : 
+                                            $id = $ndl["id_level_delta"];
+                                            $nama_delta = $ndl["nama_delta"];
+                                            ?>
+                                        <option value="<?= $id ?>"><?= $nama_delta ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="transport">Tunjangan Transport</label>
+                                        <select class="form-control" id="transport" name="transport" required>
+                                            <option value="0">Tidak ada</option>
+                                            <?php foreach ($nama_transport_list as $ntl) : 
+                                                $id = $ntl["id_transport"];
+                                                $nama_transport = $ntl["nama_transport"];
+                                                $tunjangan_transport = $ntl["tunjangan_transport"];
+                                            ?>
+                                            <option value="<?= $id ?>"><?= $nama_transport ?> = <?= $tunjangan_transport ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                    </div>
                                 <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
                             </form>
                         </div>

@@ -4,6 +4,19 @@
 <head>
     <?php $this->load->view("admin/components/header.php") ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <style>
+        .responsive-table {
+            width: 100%;
+            max-width: 100%;
+            table-layout: auto;
+        }
+        @media screen and (max-width: 768px) {
+            /* Aturan CSS untuk layar yang lebih kecil */
+            .responsive-table {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -135,7 +148,7 @@
                                         XLSX.writeFile(wb, "Rekap Cuti.xlsx");
                                     });
                                     </script>
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table id="example1" class="table table-bordered table-striped responsive-table">
                                         <thead>
                                         <br>
                                             <tr>

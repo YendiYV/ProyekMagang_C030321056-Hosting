@@ -104,7 +104,7 @@
                                     <p>Data Cuti Tertunda</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="ion ion-help"></i>
+                                    <i class="ion ion-loop"></i>
                                 </div>
                                 <a href="<?=base_url();?>Cuti/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
@@ -173,12 +173,27 @@
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
+                                    <h3><?=$tmk['total_tmk']?></h3>
+
+                                    <p>Data TMK</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+                                <a href="<?=base_url();?>BPK/view_admin" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-success">
+                                <div class="inner">
                                     <h3><?=$bpk['total_bpk']?></h3>
 
                                     <p>Data BPK</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="ion ion-document-text"></i>
+                                    <i class="ion ion-card"></i>
                                 </div>
                                 <a href="<?=base_url();?>BPK/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
@@ -187,14 +202,14 @@
                         <!-- ./col -->
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-success">
+                            <div class="small-box bg-danger">
                                 <div class="inner">
                                     <h3><?=$delta['total_delta']?></h3>
 
                                     <p>Data Delta</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="ion ion-checkmark-round"></i>
+                                    <i class="ion ion-cube"></i>
                                 </div>
                                 <a href="<?=base_url();?>Delta/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>

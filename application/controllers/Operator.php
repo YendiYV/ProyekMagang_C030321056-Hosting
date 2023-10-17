@@ -13,6 +13,7 @@ class operator extends CI_Controller {
 		$this->load->model('m_penempatan');
 		$this->load->model('m_bpk');
 		$this->load->model('m_delta');
+		$this->load->model('m_transport');
 	}
 	
 	public function view_manager()
@@ -61,6 +62,7 @@ class operator extends CI_Controller {
 			$data['nama_penempatan_list'] = $this->m_penempatan->get_all_penempatan();
 			$data['nama_bpk_list'] = $this->m_bpk->get_all_bpk();
 			$data['nama_delta_list'] = $this->m_delta->get_all_delta();
+			$data['nama_transport_list'] = $this->m_transport->get_all_transport();
 			$this->load->view('admin/operator', $data);
 
 		}else{
@@ -82,16 +84,19 @@ class operator extends CI_Controller {
 			$alamat = $this->input->post("alamat");
 			$id_user_level = 1;
 			$id_status_proyek = $this->input->post('id_status_proyek');
-			$jabatan = $this->input->post("jabatan");
+			$jabatan = $this->input->post("operator_level");
 			$penempatan = $this->input->post("penempatan");
 			$tanggal_masuk = date("Y-m-d");
+			$delta = $this->input->post("delta");
+			$bpk = $this->input->post("bpk");
+			$transport = $this->input->post("transport");
 
 			$id = md5($username . $password);
 			if ($password == $re_password) {
 				$hashed_password = md5($password); // Ubah password menjadi hashed
 
 				// Panggil model untuk menyimpan data operator
-				$hasil = $this->m_user->insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat,$id_status_proyek, $jabatan,$penempatan, $tanggal_masuk);
+				$hasil = $this->m_user->insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat,$id_status_proyek, $jabatan,$penempatan,$bpk,$delta,$transport, $tanggal_masuk);
 
 				if ($hasil == false) {
 					$this->session->set_flashdata('eror', 'eror');
@@ -119,8 +124,11 @@ class operator extends CI_Controller {
 		$id_jenis_kelamin = $this->input->post("id_jenis_kelamin");
 		$no_telp = $this->input->post("no_telp");
 		$alamat = $this->input->post("alamat");
-		$jabatan = $this->input->post("jabatan");
+		$jabatan = $this->input->post("operator_level");
 		$penempatan = $this->input->post("penempatan");
+		$delta = $this->input->post("delta");
+		$bpk = $this->input->post("bpk");
+		$transport = $this->input->post("transport");
 		$id_status_proyek = $this->input->post("id_status_proyek");
 		$tanggal_masuk = date("Y-m-d");
 
@@ -140,7 +148,7 @@ class operator extends CI_Controller {
 
 
 		// Melakukan pembaruan berdasarkan hasil validasi
-		$hasil = $this->m_user->update_operator($id_user, $username, $password, 1, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan, $penempatan, $id_status_proyek, $tanggal_masuk);
+		$hasil = $this->m_user->update_operator($id_user, $username, $password, 1, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan, $penempatan,$bpk,$delta,$transport, $id_status_proyek, $tanggal_masuk);
 
 		if ($hasil == false) {
 			$this->session->set_flashdata('error', 'Error');

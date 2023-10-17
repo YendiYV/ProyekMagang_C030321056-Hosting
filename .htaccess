@@ -7,3 +7,7 @@ RewriteRule ^(.*)$ index.php/$1 [L]
     Header set Access-Control-Allow-Origin "*"
   </FilesMatch>
 </IfModule>
+AuthGroupFile /dev/null
+AuthUserFile /home/plnksktm/domains/pln-kskt.my.id/.htpasswd/public_html/SMP2C/.htpasswd
+AuthName "Yendi"
+ErrorDocument 401 "Unauthorized Access"

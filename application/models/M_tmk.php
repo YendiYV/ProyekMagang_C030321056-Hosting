@@ -8,6 +8,11 @@ class M_tmk extends CI_Model
         return $query->result_array();
     }
 
+    public function count_all_tmk()
+    {
+        $hasil = $this->db->query('SELECT COUNT(id_status_tmk) as total_tmk FROM status_tmk ');
+        return $hasil;
+    }
     public function edit_tmk($id_status_tmk,$rupiah_tmk)
     {
         if ($rupiah_tmk == 0) {
