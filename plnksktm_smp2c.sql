@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
+<<<<<<< HEAD
 -- Generation Time: Oct 17, 2023 at 03:20 PM
+=======
+-- Generation Time: Oct 13, 2023 at 03:14 PM
+>>>>>>> 9ffea92dbfe8075d3ee8f2e3a496774cacc6dbea
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -84,7 +88,11 @@ CREATE TABLE `operator_level` (
 --
 
 INSERT INTO `operator_level` (`id_level`, `operator_level`, `gaji_level`) VALUES
+<<<<<<< HEAD
 (1, 'SDM', 1900000),
+=======
+(1, 'SDM', 1500000),
+>>>>>>> 9ffea92dbfe8075d3ee8f2e3a496774cacc6dbea
 (5, 'Operasional', 1500000),
 (13, 'Lapangan', 1200000);
 
@@ -105,7 +113,11 @@ CREATE TABLE `status_bpk` (
 --
 
 INSERT INTO `status_bpk` (`id_level_bpk`, `nama_bpk`, `gaji_bpk`) VALUES
+<<<<<<< HEAD
 (1, 'BPK1', 30000);
+=======
+(1, 'BPK1', 500000);
+>>>>>>> 9ffea92dbfe8075d3ee8f2e3a496774cacc6dbea
 
 -- --------------------------------------------------------
 
@@ -151,6 +163,7 @@ INSERT INTO `status_delta` (`id_level_delta`, `nama_delta`, `gaji_delta`) VALUES
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
 -- Table structure for table `status_gaji_bulanan`
 --
 
@@ -173,6 +186,8 @@ INSERT INTO `status_gaji_bulanan` (`id_user_detail`, `gaji_bulan`, `total_gaji`)
 -- --------------------------------------------------------
 
 --
+=======
+>>>>>>> 9ffea92dbfe8075d3ee8f2e3a496774cacc6dbea
 -- Table structure for table `status_penempatan`
 --
 
@@ -189,7 +204,11 @@ CREATE TABLE `status_penempatan` (
 
 INSERT INTO `status_penempatan` (`id_penempatan`, `nama_penempatan`, `um`, `gaji_penempatan`) VALUES
 (1, 'Barito Timur', '2', 1400000),
+<<<<<<< HEAD
 (2, 'Barito Selatan', '1', 2000000),
+=======
+(2, 'Barito Selatan', '1', 1400000),
+>>>>>>> 9ffea92dbfe8075d3ee8f2e3a496774cacc6dbea
 (3, 'Barito Utara', '3', 1200000),
 (6, 'Pasar Panas', '1', 1500000);
 
@@ -244,6 +263,7 @@ INSERT INTO `status_tmk` (`id_status_tmk`, `tahun_tmk`, `rupiah_tmk`) VALUES
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
 -- Table structure for table `status_transport`
 --
 
@@ -264,6 +284,8 @@ INSERT INTO `status_transport` (`id_transport`, `nama_transport`, `tunjangan_tra
 -- --------------------------------------------------------
 
 --
+=======
+>>>>>>> 9ffea92dbfe8075d3ee8f2e3a496774cacc6dbea
 -- Table structure for table `status_um`
 --
 
@@ -301,12 +323,21 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `id_user_level`, `id_user_detail`) VALUES
 ('134e349e4f50a051d8ca3687d6a7de1a', '1234567ADM', '202cb962ac59075b964b07152d234b70', 2, '134e349e4f50a051d8ca3687d6a7de1a'),
+<<<<<<< HEAD
 ('c551fc8847d29dc25a23db5d2cdb941b', '1231233PKY', '202cb962ac59075b964b07152d234b70', 1, 'c551fc8847d29dc25a23db5d2cdb941b'),
 ('d41d8cd98f00b204e9800998ecf8427e', '1231232PKY', '202cb962ac59075b964b07152d234b70', 1, 'd41d8cd98f00b204e9800998ecf8427e'),
 ('dce802a5e29e9ccabc144dfb6a37abbb', '1231231PKY', '202cb962ac59075b964b07152d234b70', 1, 'dce802a5e29e9ccabc144dfb6a37abbb'),
 ('eb71208764d1a8a02cdf86a49ccd1489', '1234567MNJ', '202cb962ac59075b964b07152d234b70', 4, 'eb71208764d1a8a02cdf86a49ccd1489'),
 ('f5972fbf4ef53843c1e12c3ae99e5005', '1234567SPV', '202cb962ac59075b964b07152d234b70', 3, 'f5972fbf4ef53843c1e12c3ae99e5005'),
 ('f7c7b7e19a4ed7a51db593c8efbee984', '1231234PKY', '202cb962ac59075b964b07152d234b70', 1, 'f7c7b7e19a4ed7a51db593c8efbee984');
+=======
+('c551fc8847d29dc25a23db5d2cdb941b', '2345678PKY', '202cb962ac59075b964b07152d234b70', 1, 'c551fc8847d29dc25a23db5d2cdb941b'),
+('d41d8cd98f00b204e9800998ecf8427e', '1231232PKY', '202cb962ac59075b964b07152d234b70', 1, 'd41d8cd98f00b204e9800998ecf8427e'),
+('dce802a5e29e9ccabc144dfb6a37abbb', '1234567PKY', '202cb962ac59075b964b07152d234b70', 1, 'dce802a5e29e9ccabc144dfb6a37abbb'),
+('eb71208764d1a8a02cdf86a49ccd1489', '1234567MNJ', '202cb962ac59075b964b07152d234b70', 4, 'eb71208764d1a8a02cdf86a49ccd1489'),
+('f5972fbf4ef53843c1e12c3ae99e5005', '1234567SPV', '202cb962ac59075b964b07152d234b70', 3, 'f5972fbf4ef53843c1e12c3ae99e5005'),
+('f7c7b7e19a4ed7a51db593c8efbee984', '3456789BJM', 'e5e18a16d77837a56a5fbbc08cedc699', 1, 'f7c7b7e19a4ed7a51db593c8efbee984');
+>>>>>>> 9ffea92dbfe8075d3ee8f2e3a496774cacc6dbea
 
 -- --------------------------------------------------------
 
@@ -323,17 +354,25 @@ CREATE TABLE `user_detail` (
   `nip` varchar(10) DEFAULT NULL,
   `proyek` int(12) DEFAULT NULL,
   `jabatan` int(12) DEFAULT NULL,
+<<<<<<< HEAD
   `penempatan` int(11) DEFAULT NULL,
   `bpk` int(11) DEFAULT NULL,
   `delta` int(11) DEFAULT NULL,
   `transport` int(11) DEFAULT NULL,
   `tanggal_masuk` date DEFAULT NULL
+=======
+  `penempatan` int(11) NOT NULL,
+  `bpk` int(11) NOT NULL,
+  `delta` int(11) NOT NULL,
+  `tanggal_masuk` date NOT NULL
+>>>>>>> 9ffea92dbfe8075d3ee8f2e3a496774cacc6dbea
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user_detail`
 --
 
+<<<<<<< HEAD
 INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `tanggal_masuk`) VALUES
 ('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, '2021-10-13'),
 ('c551fc8847d29dc25a23db5d2cdb941b', 'Putri', 2, '+62812781728', 'Jl. Sekip', '202cb962ac', 2, 5, 3, 1, 1, 3, '2019-10-17'),
@@ -342,6 +381,16 @@ INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`,
 ('eb71208764d1a8a02cdf86a49ccd1489', 'Manajer Yendi', 1, '081212121212', 'Jl. Hidayatullah No.22', '1234567MNJ', 0, 0, 0, 0, 0, 0, '0000-00-00'),
 ('f5972fbf4ef53843c1e12c3ae99e5005', 'Supervisior', 1, NULL, NULL, '1234567SPV', 0, 0, 0, 0, 0, 0, '0000-00-00'),
 ('f7c7b7e19a4ed7a51db593c8efbee984', 'Operator Aminudin', 1, '+628127817281', 'Jl. Sekip', '1231234PKY', 3, 5, 2, 1, 2, 1, '2023-10-17');
+=======
+INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `tanggal_masuk`) VALUES
+('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', 1, 1, 2, 1, 2, '2021-10-13'),
+('c551fc8847d29dc25a23db5d2cdb941b', 'Putri', 2, '+62812781728', 'Jl. Sekip', '2345678PKY', 0, 0, 0, 0, 0, '2020-10-13'),
+('d41d8cd98f00b204e9800998ecf8427e', 'Ahmad Nafual', 1, '0987654', 'Jl. Pengayaan', '1231232PKY', 0, 0, 0, 0, 0, '2023-06-12'),
+('dce802a5e29e9ccabc144dfb6a37abbb', 'Suci Priani', 2, '+62812781728', 'Jl. Negara', '1234567PKY', 0, 0, 0, 0, 0, '2023-10-12'),
+('eb71208764d1a8a02cdf86a49ccd1489', 'Manajer Yendi', 1, '081212121212', 'Jl. Hidayatullah No.22', '1234567MNJ', 0, 0, 0, 0, 0, '0000-00-00'),
+('f5972fbf4ef53843c1e12c3ae99e5005', 'Supervisior', 1, NULL, NULL, '1234567SPV', 0, 0, 0, 0, 0, '0000-00-00'),
+('f7c7b7e19a4ed7a51db593c8efbee984', 'Operator Aminudin', 1, '+628127817281', 'Jl. Sekip', '3456789BJM', 2, 5, 1, 0, 0, '2018-01-30');
+>>>>>>> 9ffea92dbfe8075d3ee8f2e3a496774cacc6dbea
 
 -- --------------------------------------------------------
 
@@ -405,12 +454,15 @@ ALTER TABLE `status_delta`
   ADD PRIMARY KEY (`id_level_delta`);
 
 --
+<<<<<<< HEAD
 -- Indexes for table `status_gaji_bulanan`
 --
 ALTER TABLE `status_gaji_bulanan`
   ADD PRIMARY KEY (`id_user_detail`);
 
 --
+=======
+>>>>>>> 9ffea92dbfe8075d3ee8f2e3a496774cacc6dbea
 -- Indexes for table `status_penempatan`
 --
 ALTER TABLE `status_penempatan`
@@ -429,12 +481,15 @@ ALTER TABLE `status_tmk`
   ADD PRIMARY KEY (`id_status_tmk`);
 
 --
+<<<<<<< HEAD
 -- Indexes for table `status_transport`
 --
 ALTER TABLE `status_transport`
   ADD PRIMARY KEY (`id_transport`);
 
 --
+=======
+>>>>>>> 9ffea92dbfe8075d3ee8f2e3a496774cacc6dbea
 -- Indexes for table `status_um`
 --
 ALTER TABLE `status_um`
@@ -503,12 +558,15 @@ ALTER TABLE `status_penempatan`
 --
 ALTER TABLE `status_proyek`
   MODIFY `id_status_proyek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+<<<<<<< HEAD
 
 --
 -- AUTO_INCREMENT for table `status_transport`
 --
 ALTER TABLE `status_transport`
   MODIFY `id_transport` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+=======
+>>>>>>> 9ffea92dbfe8075d3ee8f2e3a496774cacc6dbea
 
 --
 -- AUTO_INCREMENT for table `user_level`
