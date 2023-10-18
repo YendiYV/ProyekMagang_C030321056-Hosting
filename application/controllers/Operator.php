@@ -104,7 +104,7 @@ class operator extends CI_Controller {
 					$this->session->set_flashdata('input', 'input');
 				}
 			} else {
-				echo '<script>$("#password_err_notification").html("Konfirmasi Password tidak sesuai.").slideDown();</script>';
+				$this->session->set_flashdata('eror', 'eror');
 			}
 
 			redirect('operator/view_admin');
@@ -151,9 +151,9 @@ class operator extends CI_Controller {
 		$hasil = $this->m_user->update_operator($id_user, $username, $password, 1, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan, $penempatan,$bpk,$delta,$transport, $id_status_proyek, $tanggal_masuk);
 
 		if ($hasil == false) {
-			$this->session->set_flashdata('error', 'Error');
+			$this->session->set_flashdata('eror_edit');
 		} else {
-			$this->session->set_flashdata('success', 'Success');
+			$this->session->set_flashdata('edit');
 		}
 
 		redirect('operator/view_admin');

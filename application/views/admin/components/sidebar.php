@@ -42,7 +42,13 @@
                 <li class="nav-item">
                     <a href="<?= base_url();?>Gaji/view_admin" class="nav-link">
                         <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                        <p>Data THP</p>
+                        <p>Data Total Gaji</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Rgaji/view_admin" class="nav-link">
+                        <i class="nav-icon fas fa-money-bill"></i>
+                        <p>Data Rekap THP</p>
                     </a>
                 </li>
                 <li class="nav-item">

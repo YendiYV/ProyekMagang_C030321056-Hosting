@@ -74,15 +74,21 @@ class M_user extends CI_Model
     public function update_user_detail($id, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $nip, $operator_level, $proyek,$penempatan,$transport)
     {
         $this->db->trans_start();
-    
-        $this->db->query("UPDATE user_detail SET nama_lengkap='$nama_lengkap', id_jenis_kelamin='$id_jenis_kelamin', no_telp='$no_telp', alamat='$alamat', nip='$nip', jabatan='$operator_level', proyek='$proyek' ,penempatan ='$penempatan' ,transport='$transport' WHERE id_user_detail='$id'");
-    
-        $this->db->trans_complete();
-    
-        if ($this->db->trans_status() == true)
-            return true;
-        else
+        $query = $this->db->query("SELECT * FROM `user_detail` WHERE `nip` = '$nip'");
+        if ($query->num_rows() == 0) {   // Insert data ke tabel 'user'
+            $this->db->trans_start();
+        
+            $this->db->query("UPDATE user_detail SET nama_lengkap='$nama_lengkap', id_jenis_kelamin='$id_jenis_kelamin', no_telp='$no_telp', alamat='$alamat', nip='$nip', jabatan='$operator_level', proyek='$proyek' ,penempatan ='$penempatan' ,transport='$transport' WHERE id_user_detail='$id'");
+        
+            $this->db->trans_complete();
+        
+            if ($this->db->trans_status() == true)
+                return true;
+            else
+                return false;
+        } else {
             return false;
+        }
     }
     
     public function getDaftarProyek() {
@@ -93,38 +99,59 @@ class M_user extends CI_Model
     public function insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $proyek, $jabatan,$penempatan,$bpk,$delta ,$transport ,$tanggal_masuk)
     {
         $this->db->trans_start();
+        $query = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username'");
+        if ($query->num_rows() == 0) {   // Insert data ke tabel 'user'
+            $this->db->query("INSERT INTO user(id_user, username, password, id_user_level, id_user_detail) VALUES ('$id', '$username', '$password', '$id_user_level', '$id')");
 
-        // Insert data ke tabel 'user'
-        $this->db->query("INSERT INTO user(id_user, username, password, id_user_level, id_user_detail) VALUES ('$id', '$username', '$password', '$id_user_level', '$id')");
+            // Insert data ke tabel 'user_detail' termasuk jabatan dan tanggal_masuk
+            $this->db->query("INSERT INTO user_detail(id_user_detail, nama_lengkap, id_jenis_kelamin, no_telp, alamat,proyek, nip, jabatan,penempatan,bpk,delta,transport, tanggal_masuk ) VALUES ('$id', '$nama_lengkap', '$id_jenis_kelamin', '$no_telp', '$alamat', '$proyek', '$username', '$jabatan','$penempatan', '$bpk','$delta','$transport' ,'$tanggal_masuk')");
 
-        // Insert data ke tabel 'user_detail' termasuk jabatan dan tanggal_masuk
-        $this->db->query("INSERT INTO user_detail(id_user_detail, nama_lengkap, id_jenis_kelamin, no_telp, alamat,proyek, nip, jabatan,penempatan,bpk,delta,transport, tanggal_masuk ) VALUES ('$id', '$nama_lengkap', '$id_jenis_kelamin', '$no_telp', '$alamat', '$proyek', '$username', '$jabatan','$penempatan', '$bpk','$delta','$transport' ,'$tanggal_masuk')");
+            $this->db->trans_complete();
 
-        $this->db->trans_complete();
-
-        return $this->db->trans_status();
-    }
-
-
-
-    public function update_operator($id_user, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan,$penempatan,$bpk,$delta,$transport, $id_status_proyek, $tanggal_masuk)
-    {
-        $this->db->trans_start();
-
-        // Update user information in the 'user' table
-        $this->db->query("UPDATE user SET username='$username', password='$password', id_user_level='$id_user_level' WHERE id_user='$id_user'");
-
-        // Update user information including 'jabatan', 'proyek', and 'tanggal_masuk' in the 'user_detail' table
-        $this->db->query("UPDATE user_detail SET nama_lengkap='$nama_lengkap', nip='$username' ,id_jenis_kelamin='$id_jenis_kelamin', no_telp='$no_telp', alamat='$alamat', jabatan='$jabatan', penempatan = '$penempatan', bpk='$bpk',delta='$delta',transport='$transport' ,proyek='$id_status_proyek', tanggal_masuk='$tanggal_masuk' WHERE id_user_detail='$id_user'");
-
-        $this->db->trans_complete();
-
-        if ($this->db->trans_status() == true) {
-            return true;
+            return $this->db->trans_status();
         } else {
+            // Username sudah ada dalam database, maka kembalikan status 'false'
             return false;
         }
     }
+
+
+
+    public function update_operator($id_user, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan, $penempatan, $bpk, $delta, $transport, $id_status_proyek, $tanggal_masuk)
+{
+    $this->db->trans_start();
+
+    // Cek apakah username ada di tabel user
+    $user_query = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username'");
+
+    // Cek apakah NIP ada di tabel user_detail
+    $nip_query = $this->db->query("SELECT * FROM `user_detail` WHERE `nip` = '$username'");
+
+    if ($user_query->num_rows() == 0) {
+        // Username ada, lakukan update di tabel user
+        $this->db->query("UPDATE user SET password='$password', id_user_level='$id_user_level' WHERE id_user='$id_user'");
+    } else {
+        // Username tidak ada, lakukan insert baru di tabel user
+        $this->db->query("UPDATE user SET username='$username' ,password='$password', id_user_level='$id_user_level' WHERE id_user='$id_user'");
+    }
+
+    if ($nip_query->num_rows() == 0) {
+        // NIP ada, lakukan update di tabel user_detail
+        $this->db->query("UPDATE user_detail SET nama_lengkap='$nama_lengkap', id_jenis_kelamin='$id_jenis_kelamin', no_telp='$no_telp', nip='$username', alamat='$alamat', jabatan='$jabatan', penempatan='$penempatan', bpk='$bpk', delta='$delta', transport='$transport', proyek='$id_status_proyek', tanggal_masuk='$tanggal_masuk' WHERE nip='$username'");
+    } else {
+        // NIP tidak ada, lakukan update  di tabel user_detail
+       $this->db->query("UPDATE user_detail SET nama_lengkap='$nama_lengkap', id_jenis_kelamin='$id_jenis_kelamin', no_telp='$no_telp', alamat='$alamat', jabatan='$jabatan', penempatan='$penempatan', bpk='$bpk', delta='$delta', transport='$transport', proyek='$id_status_proyek', tanggal_masuk='$tanggal_masuk' WHERE nip='$username'");
+    }
+
+    $this->db->trans_complete();
+
+    if ($this->db->trans_status() == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
     public function delete_operator($id)
     {

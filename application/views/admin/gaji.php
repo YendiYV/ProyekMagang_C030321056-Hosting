@@ -3,7 +3,7 @@
 
 <head>
     <?php $this->load->view("admin/components/header.php") ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.13/xlsx.full.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -136,31 +136,29 @@
                                         </div>
                                     </div>
                                     <script>
-                                    document.getElementById("exportButton").addEventListener("click", function () {
+                                    document.getElementById("exportButton").addEventListener("click", function() {
                                         // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
                                         var table = document.getElementById("example1");
-
-                                        // Mengekstrak data uang dari tabel
-                                        var monetaryData = [];
-                                        var rows = table.getElementsByTagName('tr');
-                                        for (var i = 1; i < rows.length; i++) {  // Mulai dari 1 untuk menghindari header
-                                            var cells = rows[i].getElementsByTagName('td');  // Sesuaikan ini sesuai dengan struktur tabel Anda
-                                            var monetaryValue = cells[1].innerText;  // Menggunakan innerText
-                                            monetaryData.push(monetaryValue);
-                                        }
 
                                         // Membuat objek Workbook Excel
                                         var wb = XLSX.utils.table_to_book(table);
 
-                                        // Menyertakan data uang ke dalam objek buku Excel
-                                        wb.Sheets[wb.SheetNames[0]]['A2'] = { t: 's', v: 'Total Uang' };
-                                        wb.Sheets[wb.SheetNames[0]]['B2'] = { t: 's', v: monetaryData.join(', ') };
+                                        // Mendapatkan tanggal saat ini
+                                        var currentDate = new Date();
+                                        var year = currentDate.getFullYear();
+                                        var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Bulan (01-12)
+                                        var day = currentDate.getDate().toString().padStart(2, '0'); // Hari (01-31)
 
-                                        // Membuat file Excel dan mengunduhnya
-                                        XLSX.writeFile(wb, "Rekap Gaji.xlsx");
+                                        // Membuat format nama file dengan tanggal saat ini
+                                        var fileName = "Rekap Gaji - " + day + "-" + month + "-" + year + ".xlsx";
+
+                                        // Membuat file Excel dan mengunduhnya dengan nama yang sudah dibuat
+                                        XLSX.writeFile(wb, fileName);
                                     });
                                     </script>
-                                    <form action="<?= base_url('gaji/save_total_per_orang') ?>" method="post">
+
+                                    <br>
+                                    <form action="<?= base_url('gaji/save_total_semua') ?>" method="post">
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
@@ -174,7 +172,8 @@
                                                     <th>BPK</th>
                                                     <th>Delta</th> 
                                                     <th>Transport</th> 
-                                                    <th>Total / Orang</th>              
+                                                    <th>Total / Orang</th>  
+                                                    <th>Tanggal / Orang</th>           
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -211,28 +210,33 @@
                                                         $total_status_delta += $status_delta;
                                                         $total_transport+= $transport;
 
+                                                        $total_per_orang_tanpa_delta = $operator_level + $nama_proyek + $penempatan + $tahun_tmk + $status_bpk + $transport;
                                                         $total_per_orang = $operator_level + $nama_proyek + $penempatan + $tahun_tmk + $status_bpk + $status_delta + $transport;
 
                                                         ?>
-                                                        <tr>
-                                                            <td><?= $no ?></td>
-                                                            <td><?= $username ?></td>
-                                                            <td><?= $nama_lengkap ?></td>
-                                                            <td><?= "Rp. " . number_format($penempatan, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($operator_level, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($nama_proyek, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($tahun_tmk, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($status_bpk, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($status_delta, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($transport, 0, ',', '.') ?></td>
-                                                            <td>
-                                                                <span style="font-weight: bold;" id="total_per_orang_<?= $username ?>">
-                                                                    <?= "Rp. " . number_format($total_per_orang, 0, ',', '.') ?>
-                                                                </span>
-                                                                <input type="hidden" name="username[]" value="<?= $username?>">
-                                                                <input type="hidden" name="total_per_orang[]" value="<?= $total_per_orang ?>">
-                                                            </td>
-                                                        </tr>
+                                                            <tr>
+                                                                <td><?= $no ?></td>
+                                                                <td><?= $username ?></td>
+                                                                <td><?= $nama_lengkap ?></td>
+                                                                <td><?= "Rp. " . number_format($penempatan, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($operator_level, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($nama_proyek, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($tahun_tmk, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($status_bpk, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($status_delta, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($transport, 0, ',', '.') ?></td>
+                                                                <td>
+                                                                    <span style="font-weight: bold;" id="total_per_orang_<?= $username ?>">
+                                                                        <?= "Rp. " . number_format($total_per_orang, 0, ',', '.') ?>
+                                                                    </span>
+                                                                    <input type="hidden" name="username[]" value="<?= $username?>">
+                                                                    <input type="hidden" name="total_per_orang_tanpa_delta[]" value="<?= $total_per_orang_tanpa_delta ?>">
+                                                                    <input type="hidden" name="total_per_orang[]" value="<?= $total_per_orang ?>">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="date" name="gaji_bulan[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" />
+                                                                </td>
+                                                            </tr>
                                                         <?php endforeach; ?>
                                                     <tr style="font-weight: bold;">
                                                         <td colspan="3" style="text-align: center; font-weight: bold;">Total Menyeluruh</td>
@@ -248,8 +252,6 @@
                                                         $formatted_total = "Rp. " . number_format($total_semua, 0, '', '.');
                                                         ?>
                                                         <td><?= $formatted_total ?></td>
-                                                    </tr>
-                                                    <tr>
                                                         <td colspan="12">
                                                             <button type="submit" class="btn btn-primary">Simpan Semua</button>
                                                         </td>

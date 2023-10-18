@@ -20,31 +20,76 @@ class Gaji extends CI_Controller {
             redirect('Login/index');
         }
     }
-    public function save_total_per_orang() {
-        $usernames = $this->input->post('username'); // Array usernames
-        $total_per_orangs = $this->input->post('total_per_orang'); // Array total_per_orang
 
-        // Inisialisasi array untuk pesan kesalahan atau berhasil
+   public function save_total_semua() {
+        $usernames = $this->input->post('username');
+        $gaji_bulans = $this->input->post('gaji_bulan');
+        $total_per_orang_tanpa_deltas = $this->input->post('total_per_orang_tanpa_delta');
+        $total_per_orangs = $this->input->post('total_per_orang');
+
         $messages = [];
 
-        // Loop melalui data dan lakukan sesuatu, misalnya simpan ke database
         for ($i = 0; $i < count($usernames); $i++) {
             $username = $usernames[$i];
+            $total_per_orang_tanpa_delta = $total_per_orang_tanpa_deltas[$i];
             $total_per_orang = $total_per_orangs[$i];
+            $gaji_bulan = $gaji_bulans[$i];
 
-            // Lakukan sesuatu dengan $username dan $total_per_orang, misalnya simpan ke database
-            $hasil = $this->m_gaji->gaji_bulan($username, $total_per_orang);
+            // Ubah format tanggal untuk memeriksa apakah tanggal adalah 1
+            $selected_date = date('d', strtotime($gaji_bulan));
 
-            if ($hasil == false) {
-                $messages[] = "Gagal menyimpan data untuk username: $username";
-            } else {
-                $messages[] = "Berhasil menyimpan data untuk username: $username";
+            if ($selected_date === '01') {
+                // Periksa apakah data dengan username dan bulan yang sama sudah ada
+                $data_exist = $this->m_gaji->check_data_exist($username, $gaji_bulan);
+
+                if ($data_exist) {
+                    // Dapatkan total per orang tanpa delta sebelumnya untuk bulan sebelumnya
+                    $total_sebelumnya = $this->m_gaji->get_gaji_total_previous_month($username, $gaji_bulan);
+                    if ($total_per_orang_tanpa_delta > $total_sebelumnya) {
+                            // Perbarui data dengan nilai delta yang baru
+                            $hasil = $this->m_gaji->update_data_tanpa_delta($username, $gaji_bulan, $total_per_orang_tanpa_delta);
+                            if ($hasil) {
+                                $messages[] = "Berhasil memperbarui data untuk username: $username. Total per orang tanpa delta bulan ini lebih besar dari bulan sebelumnya. Delta diatur menjadi 0.";
+                            } else {
+                                $messages[] = "Gagal memperbarui data untuk username: $username.";
+                            }
+                    } else {
+                        // Lakukan perbaruan data biasa
+                        $hasil = $this->m_gaji->update_data($username, $gaji_bulan, $total_per_orang, $tambah_total_per_orang_tanpa_delta);
+                        if ($hasil) {
+                            $messages[] = "Berhasil memperbarui data untuk username: $username.";
+                        } else {
+                            $messages[] = "Gagal memperbarui data untuk username: $username.";
+                        }
+                    }   
+
+                }else {
+                    $total_sebelumnya = $this->m_gaji->get_gaji_total_previous_month($username, $gaji_bulan);
+                    if ($total_per_orang_tanpa_delta > $total_sebelumnya) {
+                        $hasil = $this->m_gaji->insert_data_tanpa_delta($username, $gaji_bulan, $total_per_orang_tanpa_delta);
+                        if ($hasil) {
+                            $messages[] = "Berhasil menambahkan data untuk username: $username";
+                        } else {
+                            $messages[] = "Gagal menambahkan data untuk username: $username";
+                        }
+                    }else{
+                        $hasil = $this->m_gaji->insert_data($username, $gaji_bulan, $total_per_orang, $total_per_orang_tanpa_delta);
+                        if ($hasil) {
+                            $messages[] = "Berhasil menambahkan data untuk username: $username";
+                        } else {
+                            $messages[] = "Gagal menambahkan data untuk username: $username";
+                        }
+                    }
+                }
+            }else {
+                $messages[] = "Gagal menginputkan data untuk username: $username. Hanya tanggal 1 yang dapat diinput.";
             }
+
         }
 
         // Redirect atau berikan respons sesuai dengan kebutuhan Anda
-        $this->session->set_flashdata('massages', $messages);
-        redirect('Gaji/view_admin'); // Redirect dengan pesan kesalahan/berhasil
+        $this->session->set_flashdata('messages', $messages);
+        redirect('Gaji/view_admin');
     }
 
 

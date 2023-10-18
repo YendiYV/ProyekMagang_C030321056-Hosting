@@ -190,9 +190,9 @@
                                                 <td><?= $no ?></td>
                                                 <td><?= $nama_lengkap ?></td>
                                                 <td><?= $alasan ?></td>
-                                                <td><?= $tgl_diajukan ?></td>
-                                                <td><?= $mulai ?></td>
-                                                <td><?= $berakhir ?></td>
+                                                <td><?= date('d-m-Y', strtotime($tgl_diajukan)) ?></td>
+                                                <td><?= date('d-m-Y', strtotime($mulai)) ?></td>
+                                                <td><?= date('d-m-Y', strtotime($berakhir)) ?></td>
                                                 <td><?=$perihal_cuti?></td>
                                                 <td><?php if($id_status_cuti1 == 1){ ?>
                                                     <div class="table-responsive">
