@@ -20,12 +20,24 @@ class Gaji extends CI_Controller {
             redirect('Login/index');
         }
     }
+    public function view_super_admin()
+    {
+        if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
+            $data['operator'] = $this->m_gaji->get_all_gaji()->result_array();
+            $this->load->view('super_admin/gaji', $data);
+        } else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
+    }
 
    public function save_total_semua() {
         $usernames = $this->input->post('username');
         $gaji_bulans = $this->input->post('gaji_bulan');
         $total_per_orang_tanpa_deltas = $this->input->post('total_per_orang_tanpa_delta');
         $total_per_orangs = $this->input->post('total_per_orang');
+        $status_deltas = $this->input->post('status_delta');
 
         $messages = [];
 
@@ -43,42 +55,61 @@ class Gaji extends CI_Controller {
                 $data_exist = $this->m_gaji->check_data_exist($username, $gaji_bulan);
 
                 if ($data_exist) {
-                    // Dapatkan total per orang tanpa delta sebelumnya untuk bulan sebelumnya
-                    $total_sebelumnya = $this->m_gaji->get_gaji_total_previous_month($username, $gaji_bulan);
-                    if ($total_per_orang_tanpa_delta > $total_sebelumnya) {
-                            // Perbarui data dengan nilai delta yang baru
-                            $hasil = $this->m_gaji->update_data_tanpa_delta($username, $gaji_bulan, $total_per_orang_tanpa_delta);
+                    $total_sebelumnya = $this->m_gaji->get_tanpa_delta_previous_month($username, $gaji_bulan);
+                    if($total_sebelumnya){
+                        if ($total_per_orang_tanpa_delta > $total_sebelumnya){ //Berhasil
+                            $hasil = $this->m_gaji->update_data_tanpa_delta_same_month($username, $gaji_bulan, $total_per_orang_tanpa_delta);
                             if ($hasil) {
-                                $messages[] = "Berhasil memperbarui data untuk username: $username. Total per orang tanpa delta bulan ini lebih besar dari bulan sebelumnya. Delta diatur menjadi 0.";
+                                $this->session->set_flashdata('edit');
                             } else {
-                                $messages[] = "Gagal memperbarui data untuk username: $username.";
+                                $this->session->set_flashdata('error_edit');
                             }
-                    } else {
-                        // Lakukan perbaruan data biasa
-                        $hasil = $this->m_gaji->update_data($username, $gaji_bulan, $total_per_orang, $tambah_total_per_orang_tanpa_delta);
+                        } else {//Berhasil
+                            $total_sebelumnya_dengan_delta = $this->m_gaji->get_dengan_delta_previous_month($username, $gaji_bulan);
+                            $total_per_orang = $total_sebelumnya_dengan_delta;
+                            $hasil = $this->m_gaji->update_data_same_month($username, $gaji_bulan, $total_per_orang, $total_per_orang_tanpa_delta);
+                            if ($hasil) {
+                                $this->session->set_flashdata('edit');
+                            } else {
+                                $this->session->set_flashdata('error_edit');
+                            }
+                        }   
+                    }else{//Berhasil
+                        $hasil = $this->m_gaji->update_data_same_month_tidak_ada_data($username, $gaji_bulan, $total_per_orang, $total_per_orang_tanpa_delta);
                         if ($hasil) {
-                            $messages[] = "Berhasil memperbarui data untuk username: $username.";
+                            $this->session->set_flashdata('edit');
                         } else {
-                            $messages[] = "Gagal memperbarui data untuk username: $username.";
+                            $this->session->set_flashdata('error_edit');
                         }
-                    }   
-
+                    }
                 }else {
-                    $total_sebelumnya = $this->m_gaji->get_gaji_total_previous_month($username, $gaji_bulan);
-                    if ($total_per_orang_tanpa_delta > $total_sebelumnya) {
-                        $hasil = $this->m_gaji->insert_data_tanpa_delta($username, $gaji_bulan, $total_per_orang_tanpa_delta);
-                        if ($hasil) {
-                            $messages[] = "Berhasil menambahkan data untuk username: $username";
-                        } else {
-                            $messages[] = "Gagal menambahkan data untuk username: $username";
+                    $cek_bulan_sebelumnya = $this->m_gaji->check_data_availability($username, $gaji_bulan);
+                    if($cek_bulan_sebelumnya){
+                        $total_sebelumnya_tanpa_delta = $this->m_gaji->get_tanpa_delta_previous_month($username, $gaji_bulan);
+                        if ($total_per_orang_tanpa_delta > $total_sebelumnya_tanpa_delta){ //Berhasil 
+                            $hasil = $this->m_gaji->insert_data_tanpa_delta($username, $gaji_bulan, $total_per_orang_tanpa_delta);
+                            if ($hasil) {
+                                $this->session->set_flashdata('input');
+                            } else {
+                                $this->session->set_flashdata('eror');
+                            }
+                        }else{//Berhasil 
+                            $total_sebelumnya_dengan_delta = $this->m_gaji->get_dengan_delta_previous_month($username, $gaji_bulan);
+                            $total_per_orang = $total_sebelumnya_dengan_delta;
+                            $hasil = $this->m_gaji->insert_data($username, $gaji_bulan, $total_per_orang, $total_per_orang_tanpa_delta);
+                            if ($hasil) {
+                                $this->session->set_flashdata('input');
+                            } else {
+                                $this->session->set_flashdata('eror');
+                            }
                         }
-                    }else{
+                    }else{ //Berhasil
                         $hasil = $this->m_gaji->insert_data($username, $gaji_bulan, $total_per_orang, $total_per_orang_tanpa_delta);
                         if ($hasil) {
-                            $messages[] = "Berhasil menambahkan data untuk username: $username";
-                        } else {
-                            $messages[] = "Gagal menambahkan data untuk username: $username";
-                        }
+                                $this->session->set_flashdata('input');
+                            } else {
+                                $this->session->set_flashdata('eror');
+                            }
                     }
                 }
             }else {
@@ -86,10 +117,12 @@ class Gaji extends CI_Controller {
             }
 
         }
-
         // Redirect atau berikan respons sesuai dengan kebutuhan Anda
-        $this->session->set_flashdata('messages', $messages);
+        if ($this->session->userdata('id_user_level') == 2) {
         redirect('Gaji/view_admin');
+        } elseif ($this->session->userdata('id_user_level') == 3) {
+            redirect('Gaji/view_super_admin');
+        }
     }
 
 

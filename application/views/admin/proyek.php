@@ -158,10 +158,6 @@
                                                             <a href="#" data-toggle="modal" data-target="#edit_data_proyek<?= $id_proyek ?>" class="btn btn-primary">
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="table-responsive">
-                                                        <div class="table table-striped table-hover">
                                                             <a href="#" data-toggle="modal" data-target="#hapus_proyek<?= $id_proyek ?>" class="btn btn-danger">
                                                                 <i class="fas fa-trash"></i> Hapus
                                                             </a>
@@ -265,7 +261,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Rp</span>
                                         </div>
-                                        <input type="number" class="form-control" aria-describedby="gaji" id="gaji" name="gaji"">
+                                        <input type="number" class="form-control" id="gaji" name="gaji">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php $this->load->view("admin/components/header.php") ?>
+    <?php $this->load->view("super_admin/components/header.php") ?>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -85,11 +85,11 @@
         </div>
 
         <!-- Navbar -->
-        <?php $this->load->view("admin/components/navbar.php") ?>
+        <?php $this->load->view("super_admin/components/navbar.php") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php $this->load->view("admin/components/sidebar.php") ?>
+        <?php $this->load->view("super_admin/components/sidebar.php") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -98,13 +98,16 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data Rekap Gaji</h1>
+                            <h1 class="m-0">Data Proyek</h1>
+                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
+                                Tambah Proyek
+                            </button>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Rekap Gaji</li>
+                                <li class="breadcrumb-item active">Proyek</li>
                             </ol>
                         </div><!-- /.col -->
                         <br>
@@ -121,7 +124,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Rekap Gaji</h3>
+                                    <h3 class="card-title">Data Proyek</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -129,90 +132,88 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>NIP</th>  
-                                                <th>Tanggal</th>
-                                                <th>Total Gaji</th>
-                                                <th>Aksi</th>      
+                                                <th>Nama Proyek</th>  
+                                                <th>Gaji Proyek</th>  
+                                                <th>Aksi</th>        
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $no = 0;
-                                            foreach($gaji_bulan as $gaji_bulan_item) :
+                                            foreach($proyek as $proyek_item) :
                                             $no++;
-                                            $id_user_detail = $gaji_bulan_item['id_user_detail'];
-                                            $gaji_bulan = $gaji_bulan_item['gaji_bulan'];
-                                            $total_gaji = $gaji_bulan_item['total_gaji'];
+                                            $id_proyek = $proyek_item['id_status_proyek'];
+                                            $nama_proyek = $proyek_item['nama_proyek'];
+                                            $gaji = $proyek_item['gaji_proyek'];
+                                            // Tambahkan kolom lain yang diperlukan sesuai dengan data proyek
+                                            
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $id_user_detail?></td>
-                                                <td><?= date('d-m-Y', strtotime($gaji_bulan)) ?></td>
-                                                <td><?= number_format($total_gaji, 0, ',', '.') ?></td>
+                                                <td><?= $nama_proyek ?></td>
+                                                <td><?= number_format($gaji, 0, ',', '.') ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">
-                                                            <a href="#" data-toggle="modal" data-target="#edit_gaji_bulan<?= $id_user_detail ?>" class="btn btn-primary">
+                                                            <a href="#" data-toggle="modal" data-target="#edit_data_proyek<?= $id_proyek ?>" class="btn btn-primary">
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </a>
-                                                            <a href="#" data-toggle="modal" data-target="#hapus_gaji_bulan<?= $id_user_detail ?>" class="btn btn-danger">
+                                                            <a href="#" data-toggle="modal" data-target="#hapus_proyek<?= $id_proyek ?>" class="btn btn-danger">
                                                                 <i class="fas fa-trash"></i> Hapus
                                                             </a>
                                                         </div>
                                                     </div>
-
                                                 </td>
-
-
                                             </tr>
-                                                <!-- Modal Hapus Data jabatan -->
-                                                    <div class="modal fade" id="hapus_gaji_bulan<?= $id_user_detail ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Gaji Rekap</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form action="<?= base_url() ?>rgaji/delete_gaji_bulan/<?=$id_user_detail ?>" method="post" enctype="multipart/form-data">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <input type="hidden" name="id_level" value="<?=$id_user_detail ?>" />
-                                                                                <p>Apakah Anda yakin ingin menghapus Data Gaji ini?</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tidak</button>
-                                                                            <button type="submit" class="btn btn-success ripple save-category">Ya</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <!-- Modal Edit Data Delta -->
-                                                <div class="modal fade" id="edit_gaji_bulan<?= $id_user_detail?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <!-- Modal Hapus Data Proyek -->
+                                                <div class="modal fade" id="hapus_proyek<?= $id_proyek ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data Rekap Gajii</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Proyek</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="<?= base_url() ?>proyek/delete_proyek/<?=$id_proyek ?>" method="post" enctype="multipart/form-data">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <input type="hidden" name="id_proyek" value="<?=$id_proyek ?>" />
+                                                                            <p>Apakah Anda yakin ingin menghapus proyek ini?</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tidak</button>
+                                                                        <button type="submit" class="btn btn-success ripple save-category">Ya</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Modal Edit Data Proyek -->
+                                                <div class="modal fade" id="edit_data_proyek<?= $id_proyek ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data Proyek</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <!-- Form for editing project data -->
-                                                                <form action="<?= base_url() ?>rgaji/edit_gaji_bulan/<?= $id_user_detail ?>" method="post">
-                                                                    <input type="hidden" name="id_user_detail" value="<?= $id_user_detail ?>">
+                                                                <form action="<?= base_url() ?>proyek/edit_proyek/<?= $id_proyek ?>" method="post">
+                                                                    <input type="hidden" name="id_proyek" value="<?= $id_proyek ?>">
                                                                     <div class="form-group">
-                                                                        <label for="gaji_bulan">Tanggal Gaji</label>
-                                                                        <input type="date" class="form-control" id="gaji_bulan" name="gaji_bulan" value="<?= htmlspecialchars($gaji_bulan) ?>" required>
+                                                                        <label for="nama_proyek">Nama Proyek</label>
+                                                                        <input type="text" class="form-control" id="nama_proyek" name="nama_proyek" value="<?= htmlspecialchars($nama_proyek) ?>" required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="total_gaji">Total Gaji</label>
-                                                                        <input type="text" class="form-control" id="total_gaji" name="total_gaji" value="<?= htmlspecialchars($total_gaji) ?>" required>
+                                                                        <label for="gaji">Gaji</label>
+                                                                        <input type="text" class="form-control" id="gaji" name="gaji" value="<?= htmlspecialchars($gaji) ?>" required>
                                                                     </div>
 
                                                                     <!-- Add more form fields for editing other data if needed -->
@@ -237,6 +238,38 @@
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
+            <!-- Modal Tambah operator -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Proyek</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="<?=base_url();?>proyek/tambah_proyek" method="POST">
+                                <div class="form-group">
+                                    <label for="nama_proyek">Nama Proyek</label>
+                                    <input type="text" class="form-control" id="nama_proyek"
+                                        aria-describedby="nama_proyek" name="nama_proyek" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gaji">Gaji</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Rp</span>
+                                        </div>
+                                        <input type="number" class="form-control" id="gaji" name="gaji">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /.content-wrapper -->
 
@@ -249,6 +282,6 @@
     </div>
     <!-- ./wrapper -->
 
-    <?php $this->load->view("admin/components/js.php") ?>
+    <?php $this->load->view("super_admin/components/js.php") ?>
 </body>
 </html>

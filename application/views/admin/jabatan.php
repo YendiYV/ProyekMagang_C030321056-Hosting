@@ -156,16 +156,13 @@
                                                             <a href="#" data-toggle="modal" data-target="#edit_data_jabatan<?= $id_level ?>" class="btn btn-primary">
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="table-responsive">
-                                                        <div class="table table-striped table-hover">
-                                                            <a href="#" data-toggle="modal" data-target="#hapus_jabatan<?= $id_level?>" class="btn btn-danger">
+                                                            <a href="#" data-toggle="modal" data-target="#hapus_jabatan<?= $id_level ?>" class="btn btn-danger">
                                                                 <i class="fas fa-trash"></i> Hapus
                                                             </a>
                                                         </div>
                                                     </div>
                                                 </td>
+
                                             </tr>
                                                 <!-- Modal Hapus Data jabatan -->
                                                 <div class="modal fade" id="hapus_jabatan<?= $id_level ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

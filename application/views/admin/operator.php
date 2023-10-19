@@ -361,7 +361,6 @@
                                                                 <div class="form-group">
                                                                     <label for="id_status_proyek">Proyek</label>
                                                                     <select class="form-control" id="id_status_proyek" name="id_status_proyek" required>
-                                                                        <option value="<?= $id ?>" <?php if ($id == $id_status_proyek) echo "selected"; ?>><?= $nama_proyek ?></option>
                                                                         <option value="0">Tidak ada</option>
 
                                                                         <?php foreach ($nama_proyek_list as $np) : 

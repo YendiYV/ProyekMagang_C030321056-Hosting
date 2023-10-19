@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php $this->load->view("admin/components/header.php") ?>
+    <?php $this->load->view("super_admin/components/header.php") ?>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -85,11 +85,11 @@
         </div>
 
         <!-- Navbar -->
-        <?php $this->load->view("admin/components/navbar.php") ?>
+        <?php $this->load->view("super_admin/components/navbar.php") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php $this->load->view("admin/components/sidebar.php") ?>
+        <?php $this->load->view("super_admin/components/sidebar.php") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -98,17 +98,16 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data Penempatan</h1>
-                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal"
-                                data-target="#exampleModal">
-                                Tambah Penempatan
+                            <h1 class="m-0">Data Transport</h1>
+                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
+                                Tambah Transport
                             </button>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Penempatan</li>
+                                <li class="breadcrumb-item active">Transport</li>
                             </ol>
                         </div><!-- /.col -->
                         <br>
@@ -125,7 +124,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Penempatan</h3>
+                                    <h3 class="card-title">Data Transport</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -133,58 +132,54 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama Penempatan</th>  
-                                                <th>Gaji Penempatan</th>
-                                                <th>Tipe UM</th>  
+                                                <th>Transport</th>  
+                                                <th>Tunjangan</th>  
                                                 <th>Aksi</th>        
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $no = 0;
-                                            foreach($penempatan as $penempatan_item) :
+                                            foreach($transport as $transport_item) :
                                             $no++;
-                                            $id_penempatan = $penempatan_item['id_penempatan'];
-                                            $nama_penempatan = $penempatan_item['nama_penempatan'];
-                                            $gaji = $penempatan_item['gaji_penempatan'];
-                                            $tipe_um_penempatan = $penempatan_item['tipe_um'];
-                                            // Tambahkan kolom lain yang diperlukan sesuai dengan data penempatan
-                                            
+                                            $id_level = $transport_item['id_transport'];
+                                            $transport_level = $transport_item['nama_transport'];
+                                            $tunjangan = $transport_item['tunjangan_transport'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $nama_penempatan ?></td>
-                                                <td><?= number_format($gaji, 0, ',', '.') ?></td>
-                                                <td><?= $tipe_um_penempatan?></td>
+                                                <td><?= $transport_level ?></td>
+                                                <td><?= number_format($tunjangan, 0, ',', '.') ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">
-                                                            <a href="#" data-toggle="modal" data-target="#edit_data_penempatan<?= $id_penempatan ?>" class="btn btn-primary">
+                                                            <a href="#" data-toggle="modal" data-target="#edit_data_transport<?= $id_level ?>" class="btn btn-primary">
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </a>
-                                                            <a href="#" data-toggle="modal" data-target="#hapus_penempatan<?= $id_penempatan ?>" class="btn btn-danger">
+                                                            <a href="#" data-toggle="modal" data-target="#hapus_transport<?= $id_level ?>" class="btn btn-danger">
                                                                 <i class="fas fa-trash"></i> Hapus
                                                             </a>
                                                         </div>
                                                     </div>
-                                                </td>     
+                                                </td>
+
                                             </tr>
-                                                <!-- Modal Hapus Data Penempatan -->
-                                                <div class="modal fade" id="hapus_penempatan<?= $id_penempatan ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <!-- Modal Hapus Data transport -->
+                                                <div class="modal fade" id="hapus_transport<?= $id_level ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Penempatan</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Transport</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="<?= base_url() ?>penempatan/delete_penempatan/<?=$id_penempatan ?>" method="post" enctype="multipart/form-data">
+                                                                <form action="<?= base_url() ?>transport/delete_transport/<?=$id_level?>" method="post" enctype="multipart/form-data">
                                                                     <div class="row">
                                                                         <div class="col-md-12">
-                                                                            <input type="hidden" name="id_penempatan" value="<?=$id_penempatan ?>" />
-                                                                            <p>Apakah Anda yakin ingin menghapus penempatan ini?</p>
+                                                                            <input type="hidden" name="id_transport" value="<?=$id_level ?>" />
+                                                                            <p>Apakah Anda yakin ingin menghapus Transport ini?</p>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -197,40 +192,27 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- Modal Edit Data Penempatan -->
-                                                <div class="modal fade" id="edit_data_penempatan<?= $id_penempatan ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <!-- Modal Edit Data transport -->
+                                                <div class="modal fade" id="edit_data_transport<?= $id_level?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data Penempatan</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data Transport</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <!-- Form for editing project data -->
-                                                                <form action="<?= base_url() ?>penempatan/edit_penempatan/<?= $id_penempatan ?>" method="post">
-                                                                    <input type="hidden" name="id_penempatan" value="<?= $id_penempatan ?>">
+                                                                <form action="<?= base_url() ?>transport/edit_transport/<?= $id_level ?>" method="post">
+                                                                    <input type="hidden" name="id_level" value="<?= $id_level ?>">
                                                                     <div class="form-group">
-                                                                        <label for="nama_penempatan">Nama Penempatan</label>
-                                                                        <input type="text" class="form-control" id="nama_penempatan" name="nama_penempatan" value="<?= htmlspecialchars($nama_penempatan) ?>" required>
+                                                                        <label for="nama_transport">Nama Transport</label>
+                                                                        <input type="text" class="form-control" id="nama_transport" name="nama_transport" value="<?= htmlspecialchars($transport_level) ?>" required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="tipe_um">Tipe UM</label>
-                                                                            <select class="form-control" id="tipe_um" name="tipe_um" required>
-                                                                                <option value="0">Tidak ada</option>
-
-                                                                                    <?php foreach ($tipe_um as $tu) : 
-                                                                                        $id_um = $tu["id_status_um"];
-                                                                                        $nama_um = $tu["tipe_um"];
-                                                                                    ?>
-                                                                                <option value="<?= $id_um ?>"><?= $nama_um ?></option>
-                                                                                <?php endforeach; ?>
-                                                                            </select>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="gaji">Gaji</label>
-                                                                        <input type="text" class="form-control" id="gaji" name="gaji" value="<?= htmlspecialchars($gaji) ?>" required>
+                                                                        <label for="tunjangan_transport">Tunjangan</label>
+                                                                        <input type="text" class="form-control" id="tunjangan_transport" name="tunjangan_transport" value="<?= htmlspecialchars($tunjangan) ?>" required>
                                                                     </div>
 
                                                                     <!-- Add more form fields for editing other data if needed -->
@@ -260,30 +242,18 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Penempatan</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Transport</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="<?=base_url();?>penempatan/tambah_penempatan" method="POST">
+                            <form action="<?=base_url();?>transport/tambah_transport" method="POST">
                                 <div class="form-group">
-                                    <label for="nama_penempatan">Nama Penempatan</label>
-                                    <input type="text" class="form-control" id="nama_penempatan"
-                                        aria-describedby="nama_penempatan" name="nama_penempatan" required>
+                                    <label for="nama_transport">Nama Transport</label>
+                                    <input type="text" class="form-control" id="nama_transport"
+                                        aria-describedby="nama_transport" name="nama_transport" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="tipe_um">Tipe UM</label>
-                                        <select class="form-control" id="tipe_um" name="tipe_um" required>
-                                            <option value="0">Tidak ada</option>
-                                                <?php foreach ($tipe_um as $tu) : 
-                                                $id_um = $tu["id_status_um"];
-                                                $nama_um = $tu["tipe_um"];
-                                                ?>
-                                            <option value="<?= $id_um ?>"><?= $nama_um ?></option>
-                                                <?php endforeach; ?>
-                                        </select>
-                                    </div>
                                 <div class="form-group">
                                     <label for="gaji">Gaji</label>
                                     <div class="input-group">
@@ -311,6 +281,6 @@
     </div>
     <!-- ./wrapper -->
 
-    <?php $this->load->view("admin/components/js.php") ?>
+    <?php $this->load->view("super_admin/components/js.php") ?>
 </body>
 </html>

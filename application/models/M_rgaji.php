@@ -8,6 +8,12 @@ class M_rgaji extends CI_Model
         return $query->result_array();
     }
 
+    public function count_all_rgaji()
+    {
+        $hasil = $this->db->query('SELECT COUNT(no_sgb) as total_rgaji FROM status_gaji_bulanan ');
+        return $hasil;
+    }
+
     public function edit_gaji_bulan($id_user_detail,$gaji_bulan,$total_gaji)
     {
         if ($gaji_bulan < 0) {

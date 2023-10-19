@@ -156,11 +156,7 @@
                                                             <a href="#" data-toggle="modal" data-target="#edit_data_bpk<?= $id_level ?>" class="btn btn-primary">
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="table-responsive">
-                                                        <div class="table table-striped table-hover">
-                                                            <a href="#" data-toggle="modal" data-target="#hapus_bpk<?= $id_level?>" class="btn btn-danger">
+                                                            <a href="#" data-toggle="modal" data-target="#hapus_bpk<?= $id_level ?>" class="btn btn-danger">
                                                                 <i class="fas fa-trash"></i> Hapus
                                                             </a>
                                                         </div>

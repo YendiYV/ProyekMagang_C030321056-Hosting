@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php $this->load->view("admin/components/header.php") ?>
+    <?php $this->load->view("super_admin/components/header.php") ?>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -85,11 +85,11 @@
         </div>
 
         <!-- Navbar -->
-        <?php $this->load->view("admin/components/navbar.php") ?>
+        <?php $this->load->view("super_admin/components/navbar.php") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php $this->load->view("admin/components/sidebar.php") ?>
+        <?php $this->load->view("super_admin/components/sidebar.php") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -249,6 +249,6 @@
     </div>
     <!-- ./wrapper -->
 
-    <?php $this->load->view("admin/components/js.php") ?>
+    <?php $this->load->view("super_admin/components/js.php") ?>
 </body>
 </html>

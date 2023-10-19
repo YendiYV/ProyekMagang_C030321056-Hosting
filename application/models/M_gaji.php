@@ -18,42 +18,71 @@ class M_gaji extends CI_Model
         return $query;
     }
 
-    public function update_data_tanpa_delta($username,$gaji_bulan,$total_per_orang_tanpa_delta){
+    public function update_data_tanpa_delta_same_month($username, $gaji_bulan, $total_per_orang_tanpa_delta) {
         $this->db->trans_start();
-        $this->db->query("UPDATE status_gaji_bulanan SET id_user_detail ='$username',gaji_bulan='$gaji_bulan' ,total_gaji='$total_per_orang_tanpa_delta' ,tanpa_delta= '$total_per_orang_tanpa_delta' WHERE id_user_detail='$username'");
+        $sql = "UPDATE status_gaji_bulanan SET total_gaji = '$total_per_orang_tanpa_delta', tanpa_delta = '$total_per_orang_tanpa_delta' WHERE id_user_detail = '$username' AND gaji_bulan = '$gaji_bulan'";
+        $this->db->query($sql);
         $this->db->trans_complete();
-        if ($this->db->trans_status() == true)
-            return true;
-        else
-            return false;
+
+        if ($this->db->trans_status() == true) {
+            $this->session->set_flashdata('edit','edit');
+            return $this->db->trans_status();
+        }else {
+            $this->session->set_flashdata('eror_edit','eror_edit');
+        }
     }
-    public function update_data($username,$gaji_bulan, $total_per_orang ,$total_per_orang_tanpa_delta){
+
+    public function update_data_same_month($username, $gaji_bulan, $total_per_orang, $total_per_orang_tanpa_delta) {
         $this->db->trans_start();
-        $this->db->query("UPDATE status_gaji_bulanan SET id_user_detail ='$username',gaji_bulan='$gaji_bulan' ,total_gaji='$total_per_orang' ,tanpa_delta= '$total_per_orang_tanpa_delta' WHERE id_user_detail='$username'");
+        $sql = "UPDATE status_gaji_bulanan SET total_gaji = '$total_per_orang', tanpa_delta = '$total_per_orang_tanpa_delta' WHERE id_user_detail = '$username' AND gaji_bulan = '$gaji_bulan'";
+        $this->db->query($sql);
         $this->db->trans_complete();
-        if ($this->db->trans_status() == true)
-            return true;
-        else
-            return false;
+
+        if ($this->db->trans_status() == true) {
+                $this->session->set_flashdata('edit','edit');
+                return $this->db->trans_status();
+        }else {
+            $this->session->set_flashdata('eror_edit','eror_edit');
+        }
     }
+
+    public function update_data_same_month_tidak_ada_data($username, $gaji_bulan, $total_per_orang, $total_per_orang_tanpa_delta) {
+        $this->db->trans_start();
+        $sql = "UPDATE status_gaji_bulanan SET total_gaji = '$total_per_orang', tanpa_delta='$total_per_orang_tanpa_delta' WHERE id_user_detail = '$username' AND gaji_bulan = '$gaji_bulan'";
+        $this->db->query($sql);
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() == true) {
+                $this->session->set_flashdata('edit','edit');
+                return $this->db->trans_status();
+        }else {
+            $this->session->set_flashdata('eror_edit','eror_edit');
+        }
+    }
+
+
 
     public function insert_data_tanpa_delta($username,$gaji_bulan,$total_per_orang_tanpa_delta){
         $this->db->trans_start();
         $this->db->query("INSERT INTO status_gaji_bulanan (id_user_detail, gaji_bulan, total_gaji , tanpa_delta) VALUES ('$username','$gaji_bulan', '$total_per_orang_tanpa_delta' ,'$total_per_orang_tanpa_delta')");
         $this->db->trans_complete();
-        if ($this->db->trans_status() == true)
-            return true;
-        else
-            return false;
+        if ($this->db->trans_status() == true) {
+            $this->session->set_flashdata('input','input');
+            return $this->db->trans_status();
+        }else {
+            $this->session->set_flashdata('eror','eror');
+        }
     }
     public function insert_data($username,$gaji_bulan, $total_per_orang,$total_per_orang_tanpa_delta){
         $this->db->trans_start();
         $this->db->query("INSERT INTO status_gaji_bulanan (id_user_detail, gaji_bulan, total_gaji , tanpa_delta) VALUES ('$username','$gaji_bulan','$total_per_orang','$total_per_orang_tanpa_delta')");
         $this->db->trans_complete();
-        if ($this->db->trans_status() == true)
-            return true;
-        else
-            return false;
+        if ($this->db->trans_status() == true) {
+            $this->session->set_flashdata('input','input');
+            return $this->db->trans_status();
+        }else {
+            $this->session->set_flashdata('eror','eror');
+        }
     }
 
     public function check_data_exist($username, $gaji_bulan) {
@@ -66,7 +95,21 @@ class M_gaji extends CI_Model
             return false;
         }
     }
-    public function get_gaji_total_previous_month($username, $gaji_bulan) {
+    public function get_tanpa_delta_previous_month($username, $gaji_bulan) {
+        // Ubah format tanggal ke bulan sebelumnya
+        $bulan_sebelumnya = date('Y-m-d', strtotime($gaji_bulan . ' -1 month'));
+
+        // Lakukan query ke database untuk mendapatkan gaji_total dari bulan sebelumnya
+        $query = $this->db->query("SELECT tanpa_delta FROM status_gaji_bulanan WHERE id_user_detail = '$username' AND gaji_bulan = '$bulan_sebelumnya'");
+
+        if ($query && $query->num_rows() > 0) {
+            $result = $query->row();
+            return $result->tanpa_delta;
+        } else {
+            return false; // Return false jika data tidak ditemukan
+        }
+    }
+    public function get_dengan_delta_previous_month($username, $gaji_bulan) {
         // Ubah format tanggal ke bulan sebelumnya
         $bulan_sebelumnya = date('Y-m-d', strtotime($gaji_bulan . ' -1 month'));
 
@@ -75,11 +118,25 @@ class M_gaji extends CI_Model
 
         if ($query && $query->num_rows() > 0) {
             $result = $query->row();
-            return $result->gaji_total;
+            return $result->total_gaji;
         } else {
             return false; // Return false jika data tidak ditemukan
         }
     }
+    public function check_data_availability($username, $gaji_bulan) {
+        // Ubah format tanggal ke bulan sebelumnya
+        $bulan_sebelumnya = date('Y-m-d', strtotime($gaji_bulan . ' -1 month'));
+
+        // Lakukan query ke database untuk memeriksa ketersediaan data
+        $query = $this->db->query("SELECT 1 FROM status_gaji_bulanan WHERE id_user_detail = '$username' AND gaji_bulan = '$bulan_sebelumnya' LIMIT 1");
+
+        if ($query && $query->num_rows() > 0) {
+            return true; // Data ditemukan
+        } else {
+            return false; // Data tidak ditemukan
+        }
+    }
+
 
 
 

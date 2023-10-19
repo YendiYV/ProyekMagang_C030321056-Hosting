@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 18, 2023 at 03:09 PM
+-- Generation Time: Oct 19, 2023 at 11:05 AM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -84,9 +84,10 @@ CREATE TABLE `operator_level` (
 --
 
 INSERT INTO `operator_level` (`id_level`, `operator_level`, `gaji_level`) VALUES
-(1, 'ABC', 1900000),
+(1, 'Koordinator', 1900000),
 (5, 'Operasional', 1500000),
-(13, 'Lapangan', 1200000);
+(13, 'Lapangan', 1200000),
+(14, 'SDM', 1500000);
 
 -- --------------------------------------------------------
 
@@ -167,7 +168,11 @@ CREATE TABLE `status_gaji_bulanan` (
 --
 
 INSERT INTO `status_gaji_bulanan` (`no_sgb`, `id_user_detail`, `gaji_bulan`, `total_gaji`, `tanpa_delta`) VALUES
-(14, '1231239PKY', '2023-09-01', 5030000, 5000000);
+(3, '1231234PKY', '2023-10-01', 5230000, 5130000),
+(8, '1231231PKY', '2023-10-01', 0, 0),
+(9, '1231239PKY', '2023-10-01', 5080000, 4930000),
+(10, '1231232PKY', '2023-10-01', 5105097, 4955097),
+(11, '1231233PKY', '2023-10-01', 4356410, 4206410);
 
 -- --------------------------------------------------------
 
@@ -190,7 +195,8 @@ INSERT INTO `status_penempatan` (`id_penempatan`, `nama_penempatan`, `um`, `gaji
 (1, 'Barito Timur', '2', 1400000),
 (2, 'Barito Selatan', '1', 2000000),
 (3, 'Barito Utara', '3', 1200000),
-(6, 'Pasar Panas', '1', 1500000);
+(6, 'Pasar Panas', '1', 1500000),
+(7, 'Tanjung', '2', 6000000);
 
 -- --------------------------------------------------------
 
@@ -473,7 +479,7 @@ ALTER TABLE `jenis_kelamin`
 -- AUTO_INCREMENT for table `operator_level`
 --
 ALTER TABLE `operator_level`
-  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`
@@ -497,19 +503,19 @@ ALTER TABLE `status_delta`
 -- AUTO_INCREMENT for table `status_gaji_bulanan`
 --
 ALTER TABLE `status_gaji_bulanan`
-  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `status_penempatan`
 --
 ALTER TABLE `status_penempatan`
-  MODIFY `id_penempatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_penempatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `status_proyek`
 --
 ALTER TABLE `status_proyek`
-  MODIFY `id_status_proyek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_status_proyek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `status_transport`

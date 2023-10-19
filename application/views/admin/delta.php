@@ -127,7 +127,7 @@
                                     <h3 class="card-title">Data Delta</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body">
+                                <div class="card-body container-fluid">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
@@ -156,11 +156,7 @@
                                                             <a href="#" data-toggle="modal" data-target="#edit_data_delta<?= $id_level ?>" class="btn btn-primary">
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="table-responsive">
-                                                        <div class="table table-striped table-hover">
-                                                            <a href="#" data-toggle="modal" data-target="#hapus_delta<?= $id_level?>" class="btn btn-danger">
+                                                            <a href="#" data-toggle="modal" data-target="#hapus_delta<?= $id_level ?>" class="btn btn-danger">
                                                                 <i class="fas fa-trash"></i> Hapus
                                                             </a>
                                                         </div>

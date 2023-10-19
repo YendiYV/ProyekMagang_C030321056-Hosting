@@ -20,22 +20,44 @@ class Transport extends CI_Controller {
             redirect('Login/index');
         }
     }
+    public function view_super_admin()
+    {
+        if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
+            $data['transport'] = $this->m_transport->get_all_transport();
+            $this->load->view('super_admin/transport', $data);
+        } else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
+    }
     public function edit_transport()
     {
-        if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 2) {
-            $id_transport= $this->input->post("id_level");
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+            $id_transport = $this->input->post("id_transport");
             $nama_transport = $this->input->post("nama_transport");
             $tunjangan_transport = $this->input->post("tunjangan_transport");
             if ($tunjangan_transport !== null) {
                 $this->session->set_flashdata('edit');
-                $hasil = $this->m_transport->edit_transport($id_transport,$nama_transport,$tunjangan_transport);
-                redirect('Transport/view_admin');
+                $hasil = $this->m_transport->edit_transport($id_transport, $nama_transport, $tunjangan_transport);
+                if ($this->session->userdata('id_user_level') == 2) {
+                    redirect('Transport/view_admin');
+                } elseif ($this->session->userdata('id_user_level') == 3) {
+                    redirect('Transport/view_super_admin');
+                } else {
+                    redirect('Transport/other_page'); // Ganti dengan halaman yang sesuai
+                }
             } else {
                 $this->session->set_flashdata('eror_edit');
-                redirect('Transport/view_admin');
+                if ($this->session->userdata('id_user_level') == 2) {
+                    redirect('Transport/view_admin');
+                } elseif ($this->session->userdata('id_user_level') == 3) {
+                    redirect('Transport/view_super_admin');
+                } else {
+                    redirect('Transport/other_page'); // Ganti dengan halaman yang sesuai
+                }
             }
-            
-        }else {
+        } else {
             $this->session->set_flashdata('loggin_err', 'loggin_err');
             redirect('Login/index');
         }
@@ -43,30 +65,50 @@ class Transport extends CI_Controller {
 
     public function delete_transport($id_transport)
     {
-        if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 2) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
             $this->m_transport->delete_transport($id_transport);
-            redirect('Transport/view_admin');
-        }else {
-                $this->session->set_flashdata('loggin_err', 'loggin_err');
-                redirect('Login/index');
+            if ($this->session->userdata('id_user_level') == 2) {
+                redirect('Transport/view_admin');
+            } elseif ($this->session->userdata('id_user_level') == 3) {
+                redirect('Transport/view_super_admin');
+            } else {
+                redirect('Transport/other_page'); // Ganti dengan halaman yang sesuai
+            }
+        } else {
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
         }
     }
 
-    public function tambah_transport(){
-        if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 2) {
+    public function tambah_transport()
+    {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
             $nama_transport = $this->input->post('nama_transport');
-            $gaji = $this->input->post('gaji');
-            if ($gaji !== null) {
+            $tunjangan_transport = $this->input->post('tunjangan_transport');
+            if ($tunjangan_transport !== null) {
                 $this->session->set_flashdata('input');
-                $hasil = $this->m_transport->insert_transport($nama_transport,$gaji);
-                redirect('Transport/view_admin');
+                $hasil = $this->m_transport->insert_transport($nama_transport, $tunjangan_transport);
+                if ($this->session->userdata('id_user_level') == 2) {
+                    redirect('Transport/view_admin');
+                } elseif ($this->session->userdata('id_user_level') == 3) {
+                    redirect('Transport/view_super_admin');
+                } else {
+                    redirect('Transport/other_page'); // Ganti dengan halaman yang sesuai
+                }
             } else {
-                $this->session->set_flashdata('eror', 'Terjadi kesalahan saat mengubah Transport.');
-                redirect('Transport/view_admin');
+                $this->session->set_flashdata('eror', 'Terjadi kesalahan saat menambahkan Transport.');
+                if ($this->session->userdata('id_user_level') == 2) {
+                    redirect('Transport/view_admin');
+                } elseif ($this->session->userdata('id_user_level') == 3) {
+                    redirect('Transport/view_super_admin');
+                } else {
+                    redirect('Transport/other_page'); // Ganti dengan halaman yang sesuai
+                }
             }
-        }else {
-                $this->session->set_flashdata('loggin_err', 'loggin_err');
-                redirect('Login/index');
+        } else {
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
         }
     }
+
 }
