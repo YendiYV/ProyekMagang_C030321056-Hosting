@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 19, 2023 at 11:05 AM
+-- Generation Time: Oct 20, 2023 at 02:53 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -160,19 +160,24 @@ CREATE TABLE `status_gaji_bulanan` (
   `id_user_detail` varchar(255) NOT NULL,
   `gaji_bulan` date NOT NULL,
   `total_gaji` int(11) NOT NULL,
-  `tanpa_delta` int(11) NOT NULL
+  `jumlah_delta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `status_gaji_bulanan`
 --
 
-INSERT INTO `status_gaji_bulanan` (`no_sgb`, `id_user_detail`, `gaji_bulan`, `total_gaji`, `tanpa_delta`) VALUES
-(3, '1231234PKY', '2023-10-01', 5230000, 5130000),
-(8, '1231231PKY', '2023-10-01', 0, 0),
-(9, '1231239PKY', '2023-10-01', 5080000, 4930000),
-(10, '1231232PKY', '2023-10-01', 5105097, 4955097),
-(11, '1231233PKY', '2023-10-01', 4356410, 4206410);
+INSERT INTO `status_gaji_bulanan` (`no_sgb`, `id_user_detail`, `gaji_bulan`, `total_gaji`, `jumlah_delta`) VALUES
+(3, '1231234PKY', '2023-09-01', 4000000, 5050000),
+(8, '1231231PKY', '2023-09-01', 0, 0),
+(9, '1231239PKY', '2023-09-01', 6000000, 4874000),
+(10, '1231232PKY', '2023-09-01', 2000000, 4898093),
+(11, '1231233PKY', '2023-09-01', 3000000, 4157354),
+(27, '1231231PKY', '2023-10-01', 0, 0),
+(28, '1231232PKY', '2023-10-01', 4903543, 0),
+(29, '1231233PKY', '2023-10-01', 4157354, 0),
+(30, '1231234PKY', '2023-10-01', 5050000, 0),
+(31, '1231239PKY', '2023-10-01', 6000000, 0);
 
 -- --------------------------------------------------------
 
@@ -341,13 +346,13 @@ CREATE TABLE `user_detail` (
 --
 
 INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `tanggal_masuk`) VALUES
-('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, '2021-10-13'),
-('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '081256769', 'Jl. Pengayaan', '1231231PKY', 0, 0, 0, 0, 0, 0, '2023-10-18'),
+('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '081256769', 'Jl. Pengayaan', '1231231PKY', 0, 0, 0, 0, 0, 0, '2023-10-20'),
 ('c551fc8847d29dc25a23db5d2cdb941b', 'Putri', 2, '+62812781728', 'Jl. Sekip', '1231233PKY', 2, 5, 3, 1, 1, 3, '2019-10-17'),
-('d41d8cd98f00b204e9800998ecf8427e', 'Ahmad', 1, '08121212112', '0987654', '1231232PKY', 1, 1, 1, 1, 1, 1, '2020-10-17'),
-('dce802a5e29e9ccabc144dfb6a37abbb', 'Suci Priani', 2, '+62812781728', 'Jl. Negara', '1231239PKY', 1, 1, 1, 1, 1, 1, '2023-10-18'),
-('eb71208764d1a8a02cdf86a49ccd1489', 'Manajer Yendi', 1, '081212121212', 'Jl. Hidayatullah No.22', '1234567MNJ', 0, 0, 0, 0, 0, 0, '0000-00-00'),
-('f5972fbf4ef53843c1e12c3ae99e5005', 'Supervisior', 1, NULL, NULL, '1234567SPV', 0, 0, 0, 0, 0, 0, '0000-00-00'),
+('d41d8cd98f00b204e9800998ecf8427e', 'Ahmad', 1, '08121212112', '0987654', '1231232PKY', 1, 1, 1, 1, 1, 1, '2016-10-17'),
+('dce802a5e29e9ccabc144dfb6a37abbb', 'Suci Priani', 2, '+62812781728', 'Jl. Negara', '1231239PKY', 1, 1, 1, 1, 1, 1, '2018-10-18'),
+('eb71208764d1a8a02cdf86a49ccd1489', 'Manajer Yendi', 1, '081212121212', 'Jl. Hidayatullah No.22', '1234567MNJ', 0, 0, 0, 0, 0, 0, NULL),
+('f5972fbf4ef53843c1e12c3ae99e5005', 'Supervisior', 1, NULL, NULL, '1234567SPV', 0, 0, 0, 0, 0, 0, NULL),
 ('f7c7b7e19a4ed7a51db593c8efbee984', 'Operator Aminudin', 1, '+628127817281', 'Jl. Sekip', '1231234PKY', 3, 5, 2, 1, 2, 1, '2023-10-17');
 
 -- --------------------------------------------------------
@@ -503,7 +508,7 @@ ALTER TABLE `status_delta`
 -- AUTO_INCREMENT for table `status_gaji_bulanan`
 --
 ALTER TABLE `status_gaji_bulanan`
-  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `status_penempatan`
