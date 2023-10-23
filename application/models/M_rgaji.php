@@ -5,6 +5,7 @@ class M_rgaji extends CI_Model
     public function get_all_gaji_bulan()
     {
         $query = $this->db->query('SELECT * FROM status_gaji_bulanan');
+
         return $query->result_array();
     }
 
@@ -12,6 +13,24 @@ class M_rgaji extends CI_Model
     {
         $hasil = $this->db->query('SELECT COUNT(no_sgb) as total_rgaji FROM status_gaji_bulanan ');
         return $hasil;
+    }
+
+    public function insert_gaji_bulan($username, $tanggal_gaji,$total_gaji,$total_delta)
+    {
+        if ($total_gaji < 0) {
+            $this->session->set_flashdata('eror');
+            return false;
+        }else{
+            $this->db->trans_start();
+            $this->db->query("INSERT INTO status_gaji_bulanan(id_user_detail,gaji_bulan,total_gaji,jumlah_delta) VALUES ('$username','$tanggal_gaji', '$total_gaji','$total_delta')");
+            $this->db->trans_complete();
+
+            if ($this->db->trans_status() == true) {
+                $this->session->set_flashdata('input','input');
+                return $this->db->trans_status();
+            } else {
+                $this->session->set_flashdata('eror','eror');}
+        }
     }
 
     public function edit_gaji_bulan($id_user_detail,$gaji_bulan,$total_gaji)

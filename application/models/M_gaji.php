@@ -14,22 +14,22 @@ class M_gaji extends CI_Model
                                     status_bpk.gaji_bpk,
                                     CASE
                                         WHEN (status_penempatan.gaji_penempatan + gaji_proyek + status_tmk.rupiah_tmk +
-                                        operator_level.gaji_level + status_bpk.gaji_bpk +
-                                        status_transport.tunjangan_transport - ((status_penempatan.gaji_penempatan + status_tmk.rupiah_tmk) * 0.04)) > status_gaji_bulanan.total_gaji THEN 0
+                                            operator_level.gaji_level + status_bpk.gaji_bpk +
+                                            status_transport.tunjangan_transport - ((status_penempatan.gaji_penempatan + status_tmk.rupiah_tmk) * 0.04)) > status_gaji_bulanan.total_gaji THEN 0
                                         ELSE status_gaji_bulanan.total_gaji - (status_penempatan.gaji_penempatan + gaji_proyek + status_tmk.rupiah_tmk +
-                                        operator_level.gaji_level + status_bpk.gaji_bpk +
-                                        status_transport.tunjangan_transport - ((status_penempatan.gaji_penempatan + status_tmk.rupiah_tmk) * 0.04))
+                                            operator_level.gaji_level + status_bpk.gaji_bpk +
+                                            status_transport.tunjangan_transport - ((status_penempatan.gaji_penempatan + status_tmk.rupiah_tmk) * 0.04))
                                     END AS gaji_delta,
                                     status_transport.tunjangan_transport,
                                     ((status_penempatan.gaji_penempatan + status_tmk.rupiah_tmk) * 0.04) AS potongan,
-                                    (status_penempatan.gaji_penempatan + gaji_proyek + status_tmk.rupiah_tmk +
-                                    operator_level.gaji_level + status_bpk.gaji_bpk + 
+                                    status_penempatan.gaji_penempatan + gaji_proyek + status_tmk.rupiah_tmk +
+                                    operator_level.gaji_level + status_bpk.gaji_bpk +
                                     CASE
                                         WHEN (status_penempatan.gaji_penempatan + gaji_proyek + status_tmk.rupiah_tmk +
-                                        operator_level.gaji_level + status_bpk.gaji_bpk +
-                                        status_transport.tunjangan_transport - ((status_penempatan.gaji_penempatan + status_tmk.rupiah_tmk) * 0.04)) > status_gaji_bulanan.total_gaji THEN 0
+                                            operator_level.gaji_level + status_bpk.gaji_bpk +
+                                            status_transport.tunjangan_transport - ((status_penempatan.gaji_penempatan + status_tmk.rupiah_tmk) * 0.04)) > status_gaji_bulanan.total_gaji THEN 0
                                         ELSE status_delta.gaji_delta
-                                    END + status_transport.tunjangan_transport - ((status_penempatan.gaji_penempatan + status_tmk.rupiah_tmk) * 0.04)) AS total_gaji
+                                    END AS total_gaji
                                 FROM user_detail
                                 LEFT JOIN user ON user.id_user_detail = user_detail.id_user_detail
                                 LEFT JOIN status_proyek ON user_detail.proyek = status_proyek.id_status_proyek
@@ -40,15 +40,16 @@ class M_gaji extends CI_Model
                                 LEFT JOIN status_delta ON user_detail.delta = status_delta.id_level_delta
                                 LEFT JOIN status_transport ON user_detail.transport = status_transport.id_transport
                                 LEFT JOIN status_gaji_bulanan ON user.username = status_gaji_bulanan.id_user_detail 
-                                WHERE user.id_user_level = 1    
-                                ORDER BY user.username ASC
+                                WHERE user.id_user_level = 1
+                                AND DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y-%m-01') = DATE_FORMAT(gaji_bulan, '%Y-%m-01')
+                                ORDER BY user.username ASC;
         ");
         return $query;
     }
 
-    public function update_data($username, $gaji_bulan, $total_per_orang,$status_delta) {
+   public function update_data($username, $gaji_bulan, $total_per_orang,$jumlah_delta) {
         $this->db->trans_start();
-        $sql = "UPDATE status_gaji_bulanan SET total_gaji = '$total_per_orang', jumlah_delta = '$status_delta' WHERE id_user_detail = '$username' AND gaji_bulan = '$gaji_bulan'";
+        $sql = "UPDATE status_gaji_bulanan SET total_gaji = '$total_per_orang', jumlah_delta = '$jumlah_delta' WHERE id_user_detail = '$username' AND gaji_bulan = '$gaji_bulan'";
         $this->db->query($sql);
         $this->db->trans_complete();
 
@@ -59,9 +60,10 @@ class M_gaji extends CI_Model
             $this->session->set_flashdata('eror_edit','eror_edit');
         }
     }
-    public function insert_data($username,$gaji_bulan, $total_per_orang,$status_delta){
+
+    public function insert_data($username,$gaji_bulan, $total_per_orang,$jumlah_delta){
         $this->db->trans_start();
-        $this->db->query("INSERT INTO status_gaji_bulanan (id_user_detail, gaji_bulan, total_gaji , jumlah_delta) VALUES ('$username','$gaji_bulan','$total_per_orang','$status_delta')");
+        $this->db->query("INSERT INTO status_gaji_bulanan (id_user_detail, gaji_bulan, total_gaji , jumlah_delta) VALUES ('$username','$gaji_bulan','$total_per_orang','$jumlah_delta')");
         $this->db->trans_complete();
         if ($this->db->trans_status() == true) {
             $this->session->set_flashdata('input','input');

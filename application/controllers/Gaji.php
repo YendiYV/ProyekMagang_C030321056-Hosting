@@ -37,7 +37,7 @@ class Gaji extends CI_Controller {
         $usernames = $this->input->post('username');
         $gaji_bulans = $this->input->post('gaji_bulan');
         $total_per_orangs = $this->input->post('total_per_orang');
-        $status_deltas = $this->input->post('status_delta');
+        $jumlah_deltas = $this->input->post('jumlah_delta');
 
         $messages = [];
 
@@ -45,7 +45,7 @@ class Gaji extends CI_Controller {
             $username = $usernames[$i];
             $total_per_orang = $total_per_orangs[$i];
             $gaji_bulan = $gaji_bulans[$i];
-            $status_delta = $status_deltas[$i];
+            $jumlah_delta = $jumlah_deltas[$i];
 
             // Ubah format tanggal untuk memeriksa apakah tanggal adalah 1
             $selected_date = date('d', strtotime($gaji_bulan));
@@ -55,14 +55,14 @@ class Gaji extends CI_Controller {
                 $data_exist = $this->m_gaji->check_data_exist($username, $gaji_bulan);
 
                 if ($data_exist) {
-                    $hasil = $this->m_gaji->update_data($username, $gaji_bulan, $total_per_orang,$status_delta);
+                    $hasil = $this->m_gaji->update_data($username, $gaji_bulan, $total_per_orang,$jumlah_delta);
                             if ($hasil) {
                                 $this->session->set_flashdata('input');
                             } else {
                                 $this->session->set_flashdata('eror');
                             }
                 }else {
-                    $hasil = $this->m_gaji->insert_data($username, $gaji_bulan, $total_per_orang,$status_delta);
+                    $hasil = $this->m_gaji->insert_data($username, $gaji_bulan, $total_per_orang,$jumlah_delta);
                         if ($hasil) {
                             $this->session->set_flashdata('input');
                         } else {

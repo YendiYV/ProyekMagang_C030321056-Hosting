@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 20, 2023 at 02:53 PM
+-- Generation Time: Oct 23, 2023 at 03:42 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -46,7 +46,7 @@ CREATE TABLE `cuti` (
 --
 
 INSERT INTO `cuti` (`id_cuti`, `id_user`, `alasan`, `tgl_diajukan`, `mulai`, `berakhir`, `id_status_cuti1`, `id_status_cuti2`, `id_status_cuti3`, `perihal_cuti`, `jumlah_hari`) VALUES
-('2781-SP-Cuti-2023', 'c551fc8847d29dc25a23db5d2cdb941b', 'TES', '2023-10-12', '2023-10-13', '2023-10-18', 2, 2, 2, 'TES', 4);
+('2781-SP-Cuti-2023', 'c551fc8847d29dc25a23db5d2cdb941b', 'TES', '2023-10-12', '2023-10-13', '2023-10-18', 2, 3, 1, 'TES', 4);
 
 -- --------------------------------------------------------
 
@@ -168,16 +168,16 @@ CREATE TABLE `status_gaji_bulanan` (
 --
 
 INSERT INTO `status_gaji_bulanan` (`no_sgb`, `id_user_detail`, `gaji_bulan`, `total_gaji`, `jumlah_delta`) VALUES
-(3, '1231234PKY', '2023-09-01', 4000000, 5050000),
-(8, '1231231PKY', '2023-09-01', 0, 0),
-(9, '1231239PKY', '2023-09-01', 6000000, 4874000),
-(10, '1231232PKY', '2023-09-01', 2000000, 4898093),
-(11, '1231233PKY', '2023-09-01', 3000000, 4157354),
-(27, '1231231PKY', '2023-10-01', 0, 0),
-(28, '1231232PKY', '2023-10-01', 4903543, 0),
-(29, '1231233PKY', '2023-10-01', 4157354, 0),
-(30, '1231234PKY', '2023-10-01', 5050000, 0),
-(31, '1231239PKY', '2023-10-01', 6000000, 0);
+(1, '1231231PKY', '2023-09-01', 130000, 0),
+(2, '1231232PKY', '2023-09-01', 6000000, 1096457),
+(3, '1231233PKY', '2023-09-01', 3500000, 0),
+(4, '1231234PKY', '2023-09-01', 5000000, 0),
+(5, '1231239PKY', '2023-09-01', 2000000, 0),
+(7, '1231239PKY', '2023-12-01', 1000000, 10000),
+(9, '1231232PKY', '2023-10-01', 6000000, 1096457),
+(10, '1231233PKY', '2023-10-01', 4157354, 0),
+(11, '1231234PKY', '2023-10-01', 5050000, 0),
+(12, '1231239PKY', '2023-10-01', 4900679, 0);
 
 -- --------------------------------------------------------
 
@@ -268,8 +268,9 @@ CREATE TABLE `status_transport` (
 --
 
 INSERT INTO `status_transport` (`id_transport`, `nama_transport`, `tunjangan_transport`) VALUES
-(1, 'Mobil', 100000),
-(3, 'Sepeda Motor', 50000);
+(1, 'Mobil', 200000),
+(3, 'Sepeda Motor', 50000),
+(4, 'Trak', 250000);
 
 -- --------------------------------------------------------
 
@@ -347,7 +348,7 @@ CREATE TABLE `user_detail` (
 
 INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `tanggal_masuk`) VALUES
 ('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '081256769', 'Jl. Pengayaan', '1231231PKY', 0, 0, 0, 0, 0, 0, '2023-10-20'),
+('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '081256769', 'Jl. Pengayaan', '1231231PKY', 11, 0, 0, 0, 0, 0, '2023-10-23'),
 ('c551fc8847d29dc25a23db5d2cdb941b', 'Putri', 2, '+62812781728', 'Jl. Sekip', '1231233PKY', 2, 5, 3, 1, 1, 3, '2019-10-17'),
 ('d41d8cd98f00b204e9800998ecf8427e', 'Ahmad', 1, '08121212112', '0987654', '1231232PKY', 1, 1, 1, 1, 1, 1, '2016-10-17'),
 ('dce802a5e29e9ccabc144dfb6a37abbb', 'Suci Priani', 2, '+62812781728', 'Jl. Negara', '1231239PKY', 1, 1, 1, 1, 1, 1, '2018-10-18'),
@@ -508,7 +509,7 @@ ALTER TABLE `status_delta`
 -- AUTO_INCREMENT for table `status_gaji_bulanan`
 --
 ALTER TABLE `status_gaji_bulanan`
-  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `status_penempatan`
@@ -526,7 +527,7 @@ ALTER TABLE `status_proyek`
 -- AUTO_INCREMENT for table `status_transport`
 --
 ALTER TABLE `status_transport`
-  MODIFY `id_transport` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_transport` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_level`

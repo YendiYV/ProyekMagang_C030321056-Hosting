@@ -173,8 +173,7 @@
                                                     <th>BPK</th>
                                                     <th>Delta</th> 
                                                     <th>Transport</th> 
-                                                    <th style="background-color: #33bbff;">Total Bersih / Orang</th>  
-                                                    <th>Tanggal / Orang</th>           
+                                                    <th style="background-color: #33bbff;">Total Bersih / Orang</th>             
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -235,13 +234,13 @@
                                                                     </span>
                                                                     <input type="hidden" name="username[]" value="<?= $username?>">
                                                                     <input type="hidden" name="total_per_orang[]" value="<?= $total_per_orang ?>">
-                                                                    <input type="hidden" name="$status_delta[]" value="<?= $status_delta?>">
+                                                                    <input type="hidden" name="jumlah_delta[]" value="<?= $status_delta?>">
                                                                 </td>
                                                                 <td>
-                                                                    <input type="date" name="gaji_bulan[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" />
+                                                                    <input type="date" name="gaji_bulan[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" style="display: none;" />
                                                                 </td>
                                                             </tr>
-                                                        <?php endforeach; ?>
+                                                    <?php endforeach; ?>
                                                     <tr style="font-weight: bold;">
                                                         <td colspan="3" style="text-align: center; font-weight: bold;">Total Menyeluruh</td>
                                                         <td><?= number_format($total_penempatan, 0, '', '.') ?></td>
@@ -256,12 +255,10 @@
                                                         $formatted_total = "Rp. " . number_format($total_semua, 0, '', '.');
                                                         ?>
                                                         <td style="background-color: #33bbff;"><?= $formatted_total ?></td>
-                                                        <td colspan="12">
-                                                            <button type="submit" class="btn btn-primary">Simpan Semua</button>
-                                                        </td>
                                                     </tr>
                                             </tbody>
                                         </table>
+                                        <button type="submit" class="btn btn-primary">Simpan Semua</button>
                                     </form>
                                 </div>
                                 <!-- /.card-body -->
