@@ -36,7 +36,61 @@
                 <li class="nav-item">
                     <a href="<?= base_url();?>Cuti/view_manager" class="nav-link">
                         <i class="nav-icon fas fa-envelope"></i>
-                        <p>Cuti</p>
+                        <p>Data Cuti</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Gaji/view_manager" class="nav-link">
+                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                        <p>Data Total Gaji</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Rgaji/view_manager" class="nav-link">
+                        <i class="nav-icon fas fa-money-bill"></i>
+                        <p>Data Rekap THP</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Proyek/view_manager" class="nav-link">
+                        <i class="nav-icon fas fa-list"></i>
+                        <p>Data Proyek</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Jabatan/view_manager" class="nav-link">
+                        <i class="nav-icon fas fa-people-arrows"></i>
+                        <p>Data Jabatan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Transport/view_manager" class="nav-link">
+                        <i class="nav-icon fas fa-motorcycle"></i>
+                        <p>Tunjangan Transport</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Penempatan/view_manager" class="nav-link">
+                        <i class="nav-icon fas fa-map"></i>
+                        <p>Data Penempatan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Tmk/view_manager" class="nav-link">
+                        <i class="nav-icon fas fa-chart-bar"></i>
+                        <p>Data TMK</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Bpk/view_manager" class="nav-link">
+                        <i class="nav-icon fas fa-coins"></i>
+                        <p>Data BPK</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Delta/view_manager" class="nav-link">
+                        <i class="nav-icon fas fa-cubes"></i>
+                        <p>Data Delta</p>
                     </a>
                 </li>
                 <li class="nav-item">

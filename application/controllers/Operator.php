@@ -15,40 +15,21 @@ class operator extends CI_Controller {
 		$this->load->model('m_delta');
 		$this->load->model('m_transport');
 	}
-	
-	public function view_manager()
-	{
-
-	if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) 
-	{
-		$data['operator'] = $this->m_user->get_all_operator()->result_array();
-		$data['jenis_kelamin_p'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
-		$this->load->view('manager/operator', $data);
 		
-	}else{
-
-		$this->session->set_flashdata('loggin_err','loggin_err');
-		redirect('Login/index');
-
-	}
-	}		
-	
     public function view_super_admin()
 	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
 
-	if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
+			$data['operator'] = $this->m_user->get_all_operator()->result_array();
+			$data['jenis_kelamin_p'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
+			$this->load->view('super_admin/operator', $data);
+			
+		}else{
 
-		$data['operator'] = $this->m_user->get_all_operator()->result_array();
-		$data['jenis_kelamin_p'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
-		$this->load->view('super_admin/operator', $data);
-		
-	}else{
+			$this->session->set_flashdata('loggin_err','loggin_err');
+			redirect('Login/index');
 
-		$this->session->set_flashdata('loggin_err','loggin_err');
-		redirect('Login/index');
-
-	}
-
+		}
     }
     
 	public function view_admin()
@@ -72,6 +53,26 @@ class operator extends CI_Controller {
 	
 		}
 	}
+	public function view_manager()
+	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
+			$data['operator'] = $this->m_user->get_all_operator()->result_array();
+			$data['jenis_kelamin_p'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
+			$data['nama_proyek_list'] = $this->m_proyek->get_all_proyek();
+			$data['nama_level_list'] = $this->m_jabatan->get_all_jabatan();
+			$data['nama_penempatan_list'] = $this->m_penempatan->get_all_penempatan();
+			$data['nama_bpk_list'] = $this->m_bpk->get_all_bpk();
+			$data['nama_delta_list'] = $this->m_delta->get_all_delta();
+			$data['nama_transport_list'] = $this->m_transport->get_all_transport();
+			$this->load->view('manager/operator', $data);
+			
+		}else{
+
+			$this->session->set_flashdata('loggin_err','loggin_err');
+			redirect('Login/index');
+
+		}
+    }
 	public function tambah_operator()
 	{
 		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 2) {
@@ -94,17 +95,16 @@ class operator extends CI_Controller {
 			$id = md5($username . $password);
 			if ($password == $re_password) {
 				$hashed_password = md5($password); // Ubah password menjadi hashed
-
-				// Panggil model untuk menyimpan data operator
-				$hasil = $this->m_user->insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat,$id_status_proyek, $jabatan,$penempatan,$bpk,$delta,$transport, $tanggal_masuk);
-
-				if ($hasil == false) {
-					$this->session->set_flashdata('eror', 'eror');
-				} else {
-					$this->session->set_flashdata('input', 'input');
+			
+				if ($username !== null){
+					$this->session->set_flashdata('input');
+					$hasil = $this->m_user->insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat,$id_status_proyek, $jabatan,$penempatan,$bpk,$delta,$transport, $tanggal_masuk);
 				}
-			} else {
-				$this->session->set_flashdata('eror', 'eror');
+				else {
+					$this->session->set_flashdata('eror');
+				}
+			}else {
+				$this->session->set_flashdata('eror');
 			}
 
 			redirect('operator/view_admin');
@@ -147,21 +147,15 @@ class operator extends CI_Controller {
 		}
 
 
-		// Melakukan pembaruan berdasarkan hasil validasi
+		if ($username !== null){
 		$hasil = $this->m_user->update_operator($id_user, $username, $password, 1, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan, $penempatan,$bpk,$delta,$transport, $id_status_proyek, $tanggal_masuk);
-
-		if ($hasil == false) {
-			$this->session->set_flashdata('eror_edit');
+		$this->session->set_flashdata('edit');
 		} else {
-			$this->session->set_flashdata('edit');
+			$this->session->set_flashdata('eror_edit');
 		}
 
 		redirect('operator/view_admin');
 	}
-
-
-
-
 
 	public function hapus_operator()
 	{

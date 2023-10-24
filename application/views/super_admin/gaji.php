@@ -99,7 +99,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data THP Operator SPV</h1>
+                            <h1 class="m-0">Data THP Operator - Supervisior</h1>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
@@ -156,7 +156,6 @@
                                         XLSX.writeFile(wb, fileName);
                                     });
                                     </script>
-
                                     <br>
                                     <form action="<?= base_url('gaji/save_total_semua') ?>" method="post">
                                         <table id="example1" class="table table-bordered table-striped">
@@ -166,14 +165,14 @@
                                                     <th>NIP</th>
                                                     <th>Nama Lengkap</th>
                                                     <th>Gaji UMK/UMP</th>
+                                                    <th>TMK</th>
+                                                    <th style="background-color: #80ff80;">UPOK</th>
                                                     <th>Gaji Jabatan</th>
                                                     <th>Gaji Proyek</th>
-                                                    <th>TMK</th>
                                                     <th>BPK</th>
                                                     <th>Delta</th> 
                                                     <th>Transport</th> 
-                                                    <th>Total / Orang</th>  
-                                                    <th>Tanggal / Orang</th>           
+                                                    <th style="background-color: #33bbff;">Total Bersih / Orang</th>             
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -187,6 +186,8 @@
                                                     $total_status_bpk = 0;
                                                     $total_status_delta = 0;
                                                     $total_transport = 0;
+                                                    $upok=0;
+                                                    $total_upok=0;
                                                     $total_semua = 0;
 
                                                     foreach ($operator as $i) :
@@ -198,9 +199,9 @@
                                                         $operator_level = $i['gaji_level'];
                                                         $tahun_tmk = $i['rupiah_tmk'];
                                                         $status_bpk = $i['gaji_bpk'];
-                                                        $status_delta = $i['gaji_delta'];
+                                                        $status_delta = $i['jumlah_delta'];
                                                         $transport = $i['tunjangan_transport'];
-
+                                                        $upok = ($penempatan + $tahun_tmk) * 0.04;
                                                         // Hitung total gaji per orang
                                                         $total_operator_level += $operator_level;
                                                         $total_nama_proyek += $nama_proyek;
@@ -209,56 +210,47 @@
                                                         $total_status_bpk += $status_bpk;
                                                         $total_status_delta += $status_delta;
                                                         $total_transport+= $transport;
+                                                        $total_upok += $upok;
 
-                                                        $total_per_orang_tanpa_delta = $operator_level + $nama_proyek + $penempatan + $tahun_tmk + $status_bpk + $transport;
-                                                        $total_per_orang = $operator_level + $nama_proyek + $penempatan + $tahun_tmk + $status_bpk + $status_delta + $transport;
-
+                                                        $total_per_orang = $operator_level + $nama_proyek +$penempatan+$tahun_tmk+ $status_bpk + $status_delta + $transport- $upok;
+                                                        $total_semua += $total_per_orang;
                                                         ?>
                                                             <tr>
                                                                 <td><?= $no ?></td>
                                                                 <td><?= $username ?></td>
                                                                 <td><?= $nama_lengkap ?></td>
                                                                 <td><?= "Rp. " . number_format($penempatan, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($tahun_tmk, 0, ',', '.') ?></td>
+                                                                <td style="background-color: #80ff80;"><?= "Rp. " . number_format($upok, 0, ',', '.') ?></td>
                                                                 <td><?= "Rp. " . number_format($operator_level, 0, ',', '.') ?></td>
                                                                 <td><?= "Rp. " . number_format($nama_proyek, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($tahun_tmk, 0, ',', '.') ?></td>
                                                                 <td><?= "Rp. " . number_format($status_bpk, 0, ',', '.') ?></td>
                                                                 <td><?= "Rp. " . number_format($status_delta, 0, ',', '.') ?></td>
                                                                 <td><?= "Rp. " . number_format($transport, 0, ',', '.') ?></td>
-                                                                <td>
+                                                                <td style="background-color: #33bbff;">
                                                                     <span style="font-weight: bold;" id="total_per_orang_<?= $username ?>">
                                                                         <?= "Rp. " . number_format($total_per_orang, 0, ',', '.') ?>
                                                                     </span>
-                                                                    <input type="hidden" name="username[]" value="<?= $username?>">
-                                                                    <input type="hidden" name="total_per_orang_tanpa_delta[]" value="<?= $total_per_orang_tanpa_delta ?>">
-                                                                    <input type="hidden" name="total_per_orang[]" value="<?= $total_per_orang ?>">
-                                                                </td>
-                                                                <td>
-                                                                    <input type="date" name="gaji_bulan[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" />
                                                                 </td>
                                                             </tr>
-                                                        <?php endforeach; ?>
+                                                    <?php endforeach; ?>
                                                     <tr style="font-weight: bold;">
                                                         <td colspan="3" style="text-align: center; font-weight: bold;">Total Menyeluruh</td>
                                                         <td><?= number_format($total_penempatan, 0, '', '.') ?></td>
+                                                        <td><?= number_format($total_tahun_tmk, 0, '', '.') ?></td>
+                                                        <td style="background-color: #80ff80;"><?= number_format($total_upok, 0, '', '.') ?></td>
                                                         <td><?= number_format($total_operator_level, 0, '', '.') ?></td>
                                                         <td><?= number_format($total_nama_proyek, 0, '', '.') ?></td>
-                                                        <td><?= number_format($total_tahun_tmk, 0, '', '.') ?></td>
                                                         <td><?= number_format($total_status_bpk, 0, '', '.') ?></td>
                                                         <td><?= number_format($total_status_delta, 0, '', '.') ?></td>
                                                         <td><?= number_format($total_transport, 0, '', '.') ?></td>
                                                         <?php
-                                                        $total_semua = $total_operator_level + $total_nama_proyek + $total_penempatan + $total_tahun_tmk + $total_status_bpk + $total_status_delta+$total_transport;
                                                         $formatted_total = "Rp. " . number_format($total_semua, 0, '', '.');
                                                         ?>
-                                                        <td><?= $formatted_total ?></td>
-                                                        <td colspan="12">
-                                                            <button type="submit" class="btn btn-primary">Simpan Semua</button>
-                                                        </td>
+                                                        <td style="background-color: #33bbff;"><?= $formatted_total ?></td>
                                                     </tr>
                                             </tbody>
-                                        </table>
-                                    </form>
+                                        </tabel>
                                 </div>
                                 <!-- /.card-body -->
                             </div>

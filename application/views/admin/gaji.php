@@ -156,7 +156,6 @@
                                         XLSX.writeFile(wb, fileName);
                                     });
                                     </script>
-
                                     <br>
                                     <form action="<?= base_url('gaji/save_total_semua') ?>" method="post">
                                         <table id="example1" class="table table-bordered table-striped">
@@ -200,7 +199,7 @@
                                                         $operator_level = $i['gaji_level'];
                                                         $tahun_tmk = $i['rupiah_tmk'];
                                                         $status_bpk = $i['gaji_bpk'];
-                                                        $status_delta = $i['gaji_delta'];
+                                                        $status_delta = $i['jumlah_delta'];
                                                         $transport = $i['tunjangan_transport'];
                                                         $upok = ($penempatan + $tahun_tmk) * 0.04;
                                                         // Hitung total gaji per orang
@@ -232,6 +231,10 @@
                                                                     <span style="font-weight: bold;" id="total_per_orang_<?= $username ?>">
                                                                         <?= "Rp. " . number_format($total_per_orang, 0, ',', '.') ?>
                                                                     </span>
+                                                                    <?php
+                                                                    $tanggal_hari_ini = date('Y-m-d');
+                                                                    ?>
+                                                                    <input type="date" name="tanggal_input[]" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
                                                                     <input type="hidden" name="username[]" value="<?= $username?>">
                                                                     <input type="hidden" name="total_per_orang[]" value="<?= $total_per_orang ?>">
                                                                     <input type="hidden" name="jumlah_delta[]" value="<?= $status_delta?>">
@@ -257,6 +260,7 @@
                                                         <td style="background-color: #33bbff;"><?= $formatted_total ?></td>
                                                     </tr>
                                             </tbody>
+
                                         </table>
                                         <button type="submit" class="btn btn-primary">Simpan Semua</button>
                                     </form>

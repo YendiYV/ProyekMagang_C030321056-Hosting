@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php $this->load->view("super_admin/components/header.php") ?>
+    <?php $this->load->view("manager/components/header.php") ?>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -81,15 +81,15 @@
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="<?= base_url();?>assets/admin_lte/dist/img/Loading.png"
-                alt="AdminLTELogo" height="60" width="60">
+                alt="adminLTELogo" height="60" width="60">
         </div>
 
         <!-- Navbar -->
-        <?php $this->load->view("super_admin/components/navbar.php") ?>
+        <?php $this->load->view("manager/components/navbar.php") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php $this->load->view("super_admin/components/sidebar.php") ?>
+        <?php $this->load->view("manager/components/sidebar.php") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -98,15 +98,20 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data Rekap Gaji - Supervisior</h1>
+                            <h1 class="m-0">Data TMK</h1>
+                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
+                                 Tambah TMK
+                            </button>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Rekap Gaji</li>
+                                <li class="breadcrumb-item active">TMK</li>
                             </ol>
                         </div><!-- /.col -->
+
+                        
                         <br>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -121,7 +126,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Rekap Gaji</h3>
+                                    <h3 class="card-title">Data TMK - MNG</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -129,90 +134,54 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>NIP</th>  
-                                                <th>Tanggal</th>
-                                                <th>Total Gaji</th>
-                                                <th>Aksi</th>      
+                                                <th>Tahun TMK</th>  
+                                                <th>Rupiah TMK</th>  
+                                                <th>Aksi</th>        
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $no = 0;
-                                            foreach($gaji_bulan as $gaji_bulan_item) :
+                                            foreach($tmk as $tmk_item) :
                                             $no++;
-                                            $id_user_detail = $gaji_bulan_item['id_user_detail'];
-                                            $gaji_bulan = $gaji_bulan_item['gaji_bulan'];
-                                            $total_gaji = $gaji_bulan_item['total_gaji'];
+                                            $id_status_tmk = $tmk_item['id_status_tmk'];
+                                            $tahun_tmk = $tmk_item['tahun_tmk'];
+                                            $rupiah_tmk = $tmk_item['rupiah_tmk'];
+                                            // Tambahkan kolom lain yang diperlukan sesuai dengan data penempatan
+                                            
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $id_user_detail?></td>
-                                                <td><?= date('d-m-Y', strtotime($gaji_bulan)) ?></td>
-                                                <td><?= number_format($total_gaji, 0, ',', '.') ?></td>
+                                                <td><?= $tahun_tmk ?></td>
+                                                <td><?= number_format($rupiah_tmk, 0, ',', '.') ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">
-                                                            <a href="#" data-toggle="modal" data-target="#edit_gaji_bulan<?= $id_user_detail ?>" class="btn btn-primary">
+                                                            <a href="#" data-toggle="modal" data-target="#edit_data_tmk<?= $id_status_tmk ?>" class="btn btn-primary">
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </a>
-                                                            <a href="#" data-toggle="modal" data-target="#hapus_gaji_bulan<?= $id_user_detail ?>" class="btn btn-danger">
-                                                                <i class="fas fa-trash"></i> Hapus
-                                                            </a>
                                                         </div>
                                                     </div>
-
                                                 </td>
-
-
                                             </tr>
-                                                <!-- Modal Hapus Data jabatan -->
-                                                    <div class="modal fade" id="hapus_gaji_bulan<?= $id_user_detail ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Gaji Rekap</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form action="<?= base_url() ?>rgaji/delete_gaji_bulan/<?=$id_user_detail ?>" method="post" enctype="multipart/form-data">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <input type="hidden" name="id_level" value="<?=$id_user_detail ?>" />
-                                                                                <p>Apakah Anda yakin ingin menghapus Data Gaji ini?</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tidak</button>
-                                                                            <button type="submit" class="btn btn-success ripple save-category">Ya</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <!-- Modal Edit Data Delta -->
-                                                <div class="modal fade" id="edit_gaji_bulan<?= $id_user_detail?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                                                <!-- Modal Edit Data TMK -->
+                                                <div class="modal fade" id="edit_data_tmk<?= $id_status_tmk ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data Rekap Gajii</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data TMK</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <!-- Form for editing project data -->
-                                                                <form action="<?= base_url() ?>rgaji/edit_gaji_bulan/<?= $id_user_detail ?>" method="post">
-                                                                    <input type="hidden" name="id_user_detail" value="<?= $id_user_detail ?>">
+                                                                <form action="<?= base_url() ?>tmk/edit_tmk/<?= $id_status_tmk ?>" method="post">
+                                                                    <input type="hidden" name="id_status_tmk" value="<?= $id_status_tmk ?>">
                                                                     <div class="form-group">
-                                                                        <label for="gaji_bulan">Tanggal Gaji</label>
-                                                                        <input type="date" class="form-control" id="gaji_bulan" name="gaji_bulan" value="<?= htmlspecialchars($gaji_bulan) ?>" required>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="total_gaji">Total Gaji</label>
-                                                                        <input type="text" class="form-control" id="total_gaji" name="total_gaji" value="<?= htmlspecialchars($total_gaji) ?>" required>
+                                                                        <label for="rupiah_tmk">Rupiah TMK</label>
+                                                                        <input type="text" class="form-control" id="rupiah_tmk" name="rupiah_tmk" value="<?= htmlspecialchars($rupiah_tmk) ?>" required>
                                                                     </div>
 
                                                                     <!-- Add more form fields for editing other data if needed -->
@@ -237,6 +206,33 @@
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
+            <!-- Modal Tambah operator -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah TMK</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="<?=base_url();?>tmk/tambah_tmk" method="POST">
+                                <div class="form-group">
+                                    <label for="rupiah_tmk">Rupiah TMK</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Rp</span>
+                                        </div>
+                                        <input type="number" class="form-control" aria-describedby="rupiah_tmk" id="rupiah_tmk" name="rupiah_tmk"">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /.content-wrapper -->
 
@@ -249,6 +245,6 @@
     </div>
     <!-- ./wrapper -->
 
-    <?php $this->load->view("super_admin/components/js.php") ?>
+    <?php $this->load->view("manager/components/js.php") ?>
 </body>
 </html>

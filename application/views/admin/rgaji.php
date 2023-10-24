@@ -165,9 +165,10 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>NIP</th>  
-                                                <th>Tanggal</th>
+                                                <th>Tanggal Gaji</th>
                                                 <th>Total Delta</th>
                                                 <th>Total Gaji</th>
+                                                <th>Tanggal Simpan</th>
                                                 <th>Aksi</th>      
                                             </tr>
                                         </thead>
@@ -180,6 +181,7 @@
                                             $gaji_bulan = $gaji_bulan_item['gaji_bulan'];
                                             $total_delta =$gaji_bulan_item['jumlah_delta'];
                                             $total_gaji = $gaji_bulan_item['total_gaji'];
+                                            $tanggal_simpan = $gaji_bulan_item['tgl_simpan'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
@@ -187,6 +189,7 @@
                                                 <td><?= date('d-m-Y', strtotime($gaji_bulan)) ?></td>
                                                 <td><?= number_format($total_delta, 0, ',', '.') ?></td>
                                                 <td><?= number_format($total_gaji, 0, ',', '.') ?></td>
+                                                <td><?= date('d-m-Y', strtotime($tanggal_simpan)) ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">
@@ -198,7 +201,6 @@
                                                             </a>
                                                         </div>
                                                     </div>
-
                                                 </td>
 
 
@@ -251,6 +253,14 @@
                                                                     <div class="form-group">
                                                                         <label for="total_gaji">Total Gaji</label>
                                                                         <input type="text" class="form-control" id="total_gaji" name="total_gaji" value="<?= htmlspecialchars($total_gaji) ?>" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="input-group">
+                                                                            <?php
+                                                                            $tanggal_hari_ini = date('Y-m-d');
+                                                                            ?>
+                                                                            <input type="date" name="tanggal_input" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
+                                                                        </div>
                                                                     </div>
 
                                                                     <!-- Add more form fields for editing other data if needed -->
@@ -334,6 +344,14 @@
                                             <span class="input-group-text">Rp</span>
                                         </div>
                                         <input type="number" class="form-control" aria-describedby="total_delta" id="total_delta" name="total_delta">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <?php
+                                        $tanggal_hari_ini = date('Y-m-d');
+                                        ?>
+                                        <input type="date" name="tanggal_input" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>

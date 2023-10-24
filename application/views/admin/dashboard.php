@@ -230,18 +230,28 @@
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
+                        <div class="col-lg-12 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3><?=$rgaji_bulan_ini['total_data_gaji']?>/<?=$operator['total_user']?></h3>
+                                    <p class="m-0"><b>Monitor Data</b></p>
+                                    <p class="m-0">Rekap THP / Pekerja</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-monitor"></i>
+                                </div>
+                            </div>
+                        </div>
                         <!-- ./col -->
-                       
-
                     </div>
                     <!-- /.row -->
-
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-
+        
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">

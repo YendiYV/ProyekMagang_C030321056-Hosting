@@ -14,8 +14,6 @@ class Login extends CI_Controller {
 		$this->load->view('login');
 	}
 
-		
-	
 	public function proses()
 	{
 		$username = $this->input->post("username");
@@ -84,10 +82,6 @@ class Login extends CI_Controller {
 			redirect('Login/index');
 		}
 	}
-
-
-
-
 
 	public function log_out(){
 		$this->session->unset_userdata('logged_in');

@@ -9,6 +9,18 @@ class Tmk extends CI_Controller {
 		$this->load->model('m_tmk');
 	}
 
+    public function view_manager()
+    {
+        if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
+            $data['tmk'] = $this->m_tmk->get_all_tmk();
+            $this->load->view('manager/tmk', $data);
+        } else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
+    }
+
     public function view_admin()
     {
         if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
@@ -20,7 +32,8 @@ class Tmk extends CI_Controller {
             redirect('Login/index');
         }
     }
-     public function view_super_admin()
+
+    public function view_super_admin()
     {
         if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
             $data['tmk'] = $this->m_tmk->get_all_tmk();
@@ -31,6 +44,7 @@ class Tmk extends CI_Controller {
             redirect('Login/index');
         }
     }
+
     public function edit_tmk()
     {
         if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {

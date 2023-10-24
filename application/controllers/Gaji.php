@@ -33,11 +33,13 @@ class Gaji extends CI_Controller {
         }
     }
 
-   public function save_total_semua() {
+    public function save_total_semua() {
         $usernames = $this->input->post('username');
         $gaji_bulans = $this->input->post('gaji_bulan');
         $total_per_orangs = $this->input->post('total_per_orang');
         $jumlah_deltas = $this->input->post('jumlah_delta');
+        $jam_inputs = $this->input->post('jam');
+        $tanggal_inputs = $this->input->post('tanggal_input');
 
         $messages = [];
 
@@ -46,6 +48,7 @@ class Gaji extends CI_Controller {
             $total_per_orang = $total_per_orangs[$i];
             $gaji_bulan = $gaji_bulans[$i];
             $jumlah_delta = $jumlah_deltas[$i];
+            $tanggal_input=$tanggal_inputs[$i];
 
             // Ubah format tanggal untuk memeriksa apakah tanggal adalah 1
             $selected_date = date('d', strtotime($gaji_bulan));
@@ -55,14 +58,15 @@ class Gaji extends CI_Controller {
                 $data_exist = $this->m_gaji->check_data_exist($username, $gaji_bulan);
 
                 if ($data_exist) {
-                    $hasil = $this->m_gaji->update_data($username, $gaji_bulan, $total_per_orang,$jumlah_delta);
+                    $hasil = $this->m_gaji->update_data($username, $gaji_bulan, $total_per_orang,$jumlah_delta,$tanggal_input);
+                    $this->session->set_flashdata('input');
                             if ($hasil) {
-                                $this->session->set_flashdata('input');
+                                
                             } else {
                                 $this->session->set_flashdata('eror');
                             }
                 }else {
-                    $hasil = $this->m_gaji->insert_data($username, $gaji_bulan, $total_per_orang,$jumlah_delta);
+                    $hasil = $this->m_gaji->insert_data($username, $gaji_bulan, $total_per_orang,$jumlah_delta,$tanggal_input);
                         if ($hasil) {
                             $this->session->set_flashdata('input');
                         } else {

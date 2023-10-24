@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 23, 2023 at 03:42 PM
+-- Generation Time: Oct 24, 2023 at 03:50 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -160,24 +160,22 @@ CREATE TABLE `status_gaji_bulanan` (
   `id_user_detail` varchar(255) NOT NULL,
   `gaji_bulan` date NOT NULL,
   `total_gaji` int(11) NOT NULL,
-  `jumlah_delta` int(11) NOT NULL
+  `jumlah_delta` int(11) NOT NULL,
+  `tgl_simpan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `status_gaji_bulanan`
 --
 
-INSERT INTO `status_gaji_bulanan` (`no_sgb`, `id_user_detail`, `gaji_bulan`, `total_gaji`, `jumlah_delta`) VALUES
-(1, '1231231PKY', '2023-09-01', 130000, 0),
-(2, '1231232PKY', '2023-09-01', 6000000, 1096457),
-(3, '1231233PKY', '2023-09-01', 3500000, 0),
-(4, '1231234PKY', '2023-09-01', 5000000, 0),
-(5, '1231239PKY', '2023-09-01', 2000000, 0),
-(7, '1231239PKY', '2023-12-01', 1000000, 10000),
-(9, '1231232PKY', '2023-10-01', 6000000, 1096457),
-(10, '1231233PKY', '2023-10-01', 4157354, 0),
-(11, '1231234PKY', '2023-10-01', 5050000, 0),
-(12, '1231239PKY', '2023-10-01', 4900679, 0);
+INSERT INTO `status_gaji_bulanan` (`no_sgb`, `id_user_detail`, `gaji_bulan`, `total_gaji`, `jumlah_delta`, `tgl_simpan`) VALUES
+(2, '1231232PKY', '2023-09-01', 9000000, 1096457, '0000-00-00'),
+(4, '1231234PKY', '2023-09-01', 6000000, 0, '0000-00-00'),
+(5, '1231239PKY', '2023-10-01', 5000000, 0, '0000-00-00'),
+(7, '1231239PKY', '2023-10-01', 5000000, 10000, '0000-00-00'),
+(9, '1231233PKY', '2023-09-01', 9000000, 996457, '0000-00-00'),
+(11, '1231231PKY', '2023-09-01', 6000000, 850000, '2023-10-24'),
+(12, '1231239PKY', '2023-09-01', 5000000, 999321, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -509,7 +507,7 @@ ALTER TABLE `status_delta`
 -- AUTO_INCREMENT for table `status_gaji_bulanan`
 --
 ALTER TABLE `status_gaji_bulanan`
-  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `status_penempatan`

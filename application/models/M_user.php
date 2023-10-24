@@ -15,7 +15,7 @@ class M_user extends CI_Model
                                     LEFT JOIN status_delta ON user_detail.delta = status_delta.id_level_delta
                                     LEFT JOIN status_transport ON user_detail.transport = status_transport.id_transport
                                     WHERE user.id_user_level = 1
-                                    ORDER BY user.username ASC
+                                    ORDER BY user_detail.nama_lengkap ASC
                                 ');
         return $hasil;
     }
@@ -82,13 +82,13 @@ class M_user extends CI_Model
         
             $this->db->trans_complete();
         
-            if ($this->db->trans_status() == true)
-                return true;
-            else
-                return false;
+            if ($this->db->trans_status() == true){
+                $this->session->set_flashdata('edit','edit');
+                return $this->db->trans_status();}
+            else{
+                $this->session->set_flashdata('eror_edit','eror_edit');}
         } else {
-            return false;
-        }
+            $this->session->set_flashdata('eror_edit','eror_edit');}
     }
     
     public function getDaftarProyek() {
@@ -110,8 +110,7 @@ class M_user extends CI_Model
 
             return $this->db->trans_status();
         } else {
-            // Username sudah ada dalam database, maka kembalikan status 'false'
-            return false;
+            $this->session->set_flashdata('eror_edit','eror_edit');
         }
     }
 
@@ -145,11 +144,11 @@ class M_user extends CI_Model
 
     $this->db->trans_complete();
 
-    if ($this->db->trans_status() == true) {
-        return true;
-    } else {
-        return false;
-    }
+     if ($this->db->trans_status() == true){
+        $this->session->set_flashdata('edit','edit');
+        return $this->db->trans_status();}
+    else{
+        $this->session->set_flashdata('eror_edit','eror_edit');}
 }
 
 

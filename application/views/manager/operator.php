@@ -3,7 +3,19 @@
 
 <head>
     <?php $this->load->view("manager/components/header.php") ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <style>
+        .responsive-table {
+            width: 100%;
+            max-width: 100%;
+            table-layout: auto;
+        }
+        @media screen and (max-width: 768px) {
+            /* Aturan CSS untuk layar yang lebih kecil */
+            .responsive-table {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -22,6 +34,16 @@
     swal({
         title: "Erorr!",
         text: "Data Gagal Ditambahkan!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+    
+    <?php if ($this->session->flashdata('erorpass')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Password Salah!",
         icon: "error"
     });
     </script>
@@ -72,7 +94,7 @@
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="<?= base_url();?>assets/admin_lte/dist/img/Loading.png"
-                alt="AdminLTELogo" height="60" width="60">
+                alt="adminLTELogo" height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -89,18 +111,20 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Operator</h1>
+                            <h1 class="m-0">Data Operator - MNG</h1>
+                            
+                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal"
+                            data-target="#exampleModal">
+                            Tambah Operator
+                        </button>
                         </div><!-- /.col -->
+
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Operator</li>
                             </ol>
                         </div><!-- /.col -->
-                        <!-- <button type="button" class="btn btn-primary mt-3" data-toggle="modal"
-                            data-target="#exampleModal">
-                            Tambah operator
-                        </button> -->
                         <br>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -109,8 +133,8 @@
 
             <!-- Main content -->
             <section class="content">
-                <div class="container-fluid">
 
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -119,29 +143,8 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <div class="row mb-2">
-                                        <div class="col-sm-6 text-sm-right">
-                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                                <div class="btn-group" role="group" aria-label="Cetak Options">
-                                                    <button type="button" class="btn btn-primary" id="exportButton">Cetak Data</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <script>
-                                        document.getElementById("exportButton").addEventListener("click", function() {
-                                            // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
-                                            var table = document.getElementById("example1");
-
-                                            // Membuat objek Workbook Excel
-                                            var wb = XLSX.utils.table_to_book(table);
-
-                                            // Membuat file Excel dan mengunduhnya
-                                            XLSX.writeFile(wb, "Rekap Data Operator.xlsx");
-                                        });
-                                    </script>
                                     <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
+                                    <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>NIP</th>
@@ -152,7 +155,16 @@
                                                 <th>Alamat</th>
                                                 <th>Proyek</th>
                                                 <th>Jabatan</th>
-                                                <!-- <th>Aksi</th> -->
+                                                <th>Penempatan</th>
+                                                <th>BPK</th>
+                                                <th>Delta</th>
+                                                <th>Tunjangan Transport</th>
+                                                <th>Tunjangan 2</th>
+                                                <th>Tunjangan 3</th>
+                                                <th>Tunjangan 4</th>
+                                                <th>Tunjangan 5</th>
+                                                <th>Aksi</th>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -170,9 +182,12 @@
                                             $id_jenis_kelamin = $i['id_jenis_kelamin'];
                                             $no_telp = $i['no_telp'];
                                             $alamat = $i['alamat'];
-                                            $proyek = $i['proyek'];
-                                            $jabatan = $i['jabatan'];
-
+                                            $penempatan = $i['nama_penempatan'];
+                                            $nama_proyek = $i['nama_proyek'];
+                                            $operator_level = $i['operator_level'];
+                                            $nama_bpk = $i['nama_bpk'];
+                                            $nama_delta = $i['nama_delta'];
+                                            $transport = $i['nama_transport'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
@@ -182,9 +197,13 @@
                                                 <td><?= $jenis_kelamin ?></td>
                                                 <td><?= $no_telp ?></td>
                                                 <td><?= $alamat ?></td>
-                                                <td><?= $proyek ?></td>
-                                                <td><?= $jabatan ?></td>
-                                                <!-- <td>
+                                                <td><?= $nama_proyek ?></td>
+                                                <td><?= $operator_level?></td>
+                                                <td><?= $penempatan ?></td>
+                                                <td><?= $nama_bpk ?></td>
+                                                <td><?= $nama_delta ?></td>
+                                                <td><?= $transport ?></td>
+                                                <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
                                                             <a href="" class="btn btn-primary" data-toggle="modal"
@@ -201,8 +220,10 @@
                                                             </a>
                                                         </div>
                                                     </div>
-                                                </td> -->
+                                                </td>
+
                                             </tr>
+
                                             <!-- Modal Hapus Data operator -->
                                             <div class="modal fade" id="hapus<?= $id_user ?>" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -218,8 +239,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form
-                                                                action="<?php echo base_url()?>operator/manager_hapus_operator"
+                                                            <form action="<?php echo base_url()?>operator/hapus_operator"
                                                                 method="post" enctype="multipart/form-data">
                                                                 <div class="row">
                                                                     <div class="col-md-12">
@@ -255,48 +275,75 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form
-                                                                action="<?=base_url();?>operator/manager_edit_operator"
+                                                            <form action="<?=base_url();?>operator/edit_operator"
                                                                 method="POST">
-                                                                <input type="text" value="<?= $id_user ?>"
-                                                                    name="id_user" hidden>
+                                                                <input type="text" value="<?= $id_user ?>" name="id_user" hidden>
                                                                 <div class="form-group">
-                                                                    <label for="username">Username</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="username" aria-describedby="username"
-                                                                        name="username" value="<?= $username ?>"
-                                                                        required>
+                                                                    <label for="username">NIP</label>
+                                                                    <input type="text" class="form-control" id="username" aria-describedby="username"
+                                                                        name="username" value="<?= $username ?>" required oninput="validateNIP(this)">
+                                                                    <small id="usernameError" class="text-danger"></small>
                                                                 </div>
+
+                                                                <script>
+                                                                function validateNIP(input) {
+                                                                    var numericValue = input.value.replace(/\D/g, ''); // Hapus semua karakter selain angka
+                                                                    if (numericValue.length > 10) {
+                                                                        document.getElementById("usernameError").textContent = "NIP tidak boleh lebih dari 10 angka.";
+                                                                        input.setCustomValidity("NIP tidak boleh lebih dari 10 angka.");
+                                                                    } else {
+                                                                        document.getElementById("usernameError").textContent = "";
+                                                                        input.setCustomValidity("");
+                                                                    }
+                                                                }
+                                                                </script>
                                                                 <div class="form-group">
                                                                     <label for="password">Password</label>
                                                                     <input type="password" class="form-control"
                                                                         id="password" aria-describedby="password"
-                                                                        name="password" value="<?= $password ?>"
-                                                                        required>
+                                                                        name="password" value="<?= $password ?>" required>
                                                                 </div>
+                                                                <script>
+                                                                    var passwordInput = document.getElementById("password");
+                                                                    var showPasswordButton = document.getElementById("showPassword");
+
+                                                                    showPasswordButton.addEventListener("click", function() {
+                                                                        if (passwordInput.type === "password") {
+                                                                            passwordInput.type = "text";
+                                                                            showPasswordButton.textContent = "Hide Password";
+                                                                        } else {
+                                                                            passwordInput.type = "password";
+                                                                            showPasswordButton.textContent = "Show Password";
+                                                                        }
+                                                                    });
+                                                                    </script>
                                                                 <div class="form-group">
                                                                     <label for="nama_lengkap">Nama Lengkap</label>
                                                                     <input type="text" class="form-control"
                                                                         id="nama_lengkap"
                                                                         aria-describedby="nama_lengkap"
-                                                                        name="nama_lengkap" value="<?= $nama_lengkap ?>"
-                                                                        required>
+                                                                        name="nama_lengkap" value="<?= $nama_lengkap ?>" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="tanggal_masuk">Tanggal Masuk</label>
+                                                                    <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value="<?= $tanggal_masuk ?>" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="id_jenis_kelamin">Jenis Kelamin</label>
                                                                     <select class="form-control" id="id_jenis_kelamin"
                                                                         name="id_jenis_kelamin" required>
                                                                         <?php foreach($jenis_kelamin_p as $u)
-                                                                :
-                                                                $id = $u["id_jenis_kelamin"];
-                                                                $jenis_kelamin = $u["jenis_kelamin"];
-                                                                ?>
-                                                                        <option value="<?= $id ?>" <?php if($id == $id_jenis_kelamin){
-                                                                            echo 'selected';
-                                                                        }else{
-                                                                            echo '';
-                                                                        }?>><?= $jenis_kelamin ?>
-                                                                        </option>
+                                                                        :
+                                                                        $id = $u["id_jenis_kelamin"];
+                                                                        $jenis_kelamin = $u["jenis_kelamin"];
+                                                                        ?>
+                                                                            <option value="<?= $id ?>" <?php if($id == $id_jenis_kelamin){
+                                                                                echo 'selected';
+                                                                            }else{
+                                                                                echo '';
+                                                                            }?>
+                                                                            ><?= $jenis_kelamin ?>
+                                                                            </option>
 
                                                                         <?php endforeach?>
                                                                     </select>
@@ -304,15 +351,91 @@
                                                                 <div class="form-group">
                                                                     <label for="no_telp">No Telp</label>
                                                                     <input type="text" class="form-control" id="no_telp"
-                                                                        aria-describedby="no_telp" name="no_telp"
-                                                                        value="<?= $no_telp ?>" required>
+                                                                        aria-describedby="no_telp" name="no_telp" value="<?= $no_telp ?>" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="alamat">Alamat</label>
-                                                                    <textarea class="form-control" id="alamat" rows="3" name="alamat" required><?=$alamat?></textarea>
+                                                                    <input type="text" class="form-control" id="alamat"
+                                                                        aria-describedby="alamat" name="alamat" value="<?= $alamat ?>" required>
                                                                 </div>
-                                                                <button type="submit"
-                                                                    class="btn btn-primary">Submit</button>
+                                                                <div class="form-group">
+                                                                    <label for="id_status_proyek">Proyek</label>
+                                                                    <select class="form-control" id="id_status_proyek" name="id_status_proyek" required>
+                                                                        <option value="0">Tidak ada</option>
+
+                                                                        <?php foreach ($nama_proyek_list as $np) : 
+                                                                            $id = $np["id_status_proyek"];
+                                                                            $nama_proyek = $np["nama_proyek"];
+                                                                        ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_proyek ?></option>
+                                                                            
+                                                                        <?php endforeach; ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="operator_level">Jabatan</label>
+                                                                    <select class="form-control" id="operator_level" name="operator_level" required>
+                                                                        <option value="0">Tidak ada</option>
+
+                                                                        <?php foreach ($nama_level_list as $nl) : 
+                                                                            $id = $nl["id_level"];
+                                                                            $nama_jabatan = $nl["operator_level"];
+                                                                        ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_jabatan ?></option>
+                                                                        <?php endforeach; ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="penempatan">Penempatan</label>
+                                                                        <select class="form-control" id="penempatan" name="penempatan" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                                <?php foreach ($nama_penempatan_list as $npl) : 
+                                                                                    $id = $npl["id_penempatan"];
+                                                                                    $nama_penempatan = $npl["nama_penempatan"];
+                                                                                ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_penempatan ?></option>
+                                                                                <?php endforeach; ?>
+                                                                        </select>
+                                                                </div>
+                                                                 <div class="form-group">
+                                                                    <label for="$nama_bpk_list">BPK</label>
+                                                                        <select class="form-control" id="bpk" name="bpk" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                                <?php foreach ($nama_bpk_list as $nbl) : 
+                                                                                    $id = $nbl["id_level_bpk"];
+                                                                                    $nama_bpk = $nbl["nama_bpk"];
+                                                                                ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_bpk?></option>
+                                                                                <?php endforeach; ?>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="delta">Delta</label>
+                                                                        <select class="form-control" id="delta" name="delta" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                                <?php foreach ($nama_delta_list as $ndl) : 
+                                                                                    $id = $ndl["id_level_delta"];
+                                                                                    $nama_delta = $ndl["nama_delta"];
+                                                                                    $nama_delta = $ndl["nama_delta"];
+                                                                                ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_delta ?></option>
+                                                                                <?php endforeach; ?>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="transport">Tunjangan Transport</label>
+                                                                        <select class="form-control" id="transport" name="transport" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                                <?php foreach ($nama_transport_list as $ntl) : 
+                                                                                    $id = $ntl["id_transport"];
+                                                                                    $nama_transport = $ntl["nama_transport"];
+                                                                                    $tunjangan_transport = $ntl["tunjangan_transport"];
+                                                                                ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_transport ?> = <?= $tunjangan_transport ?></option>
+                                                                                <?php endforeach; ?>
+                                                                        </select>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">Submit</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -345,21 +468,40 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="<?=base_url();?>operator/manager_tambah_operator" method="POST">
+                            <form action="<?=base_url();?>operator/tambah_operator" method="POST">
                                 <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username" aria-describedby="username"
-                                        name="username" required>
+                                    <label for="username">NIP</label>
+                                    <input type="text" class="form-control" id="username" aria-describedby="username" name="username" required pattern="[A-Za-z0-9]{10}">
+
+                                    <small class="text-muted" style="font-size: smaller;">Format :1234567PKY</small>
                                 </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="text" class="form-control" id="password" aria-describedby="password"
-                                        name="password" required>
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-3 col-form-label">Password</label>
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="password" aria-describedby="password" name="password" required>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label for="confirm_password" class="col-md-3 col-form-label">Konfirmasi Password</label>
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="confirm_password" aria-describedby="confirm_password" name="confirm_password" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="form-group">
                                     <label for="nama_lengkap">Nama Lengkap</label>
                                     <input type="text" class="form-control" id="nama_lengkap"
                                         aria-describedby="nama_lengkap" name="nama_lengkap" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggal_masuk">Tanggal Masuk</label>
+                                    <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk" required max="<?php echo date('Y-m-d'); ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="id_jenis_kelamin">Jenis Kelamin</label>
@@ -381,10 +523,88 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
-                                    <textarea class="form-control" id="alamat" rows="3" name="alamat"
-                                        required></textarea>
+                                    <input type="text" class="form-control" id="alamat" aria-describedby="alamat"
+                                        name="alamat" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                               <div class="form-group">
+                                    <label for="id_status_proyek">Proyek</label>
+                                        <select class="form-control" id="id_status_proyek" name="id_status_proyek" required>
+                                            <option value="0">Tidak ada</option>
+                                            <?php foreach ($nama_proyek_list as $np) : 
+                                                $id = $np["id_status_proyek"];
+                                                $nama_proyek = $np["nama_proyek"];
+                                            ?>
+                                                <option value="<?= $id ?>" <?php if ($id == $nama_proyek) {
+                                                    echo 'selected';
+                                                } ?>>
+                                                    <?= $nama_proyek ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="operator_level">Jabatan</label>
+                                        <select class="form-control" id="operator_level" name="operator_level" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_level_list as $nl) : 
+                                                    $id = $nl["id_level"];
+                                                    $nama_jabatan = $nl["operator_level"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_jabatan ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="penempatan">Penempatan</label>
+                                        <select class="form-control" id="penempatan" name="penempatan" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_penempatan_list as $npl) : 
+                                                    $id = $npl["id_penempatan"];
+                                                    $nama_penempatan = $npl["nama_penempatan"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_penempatan ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="$nama_bpk_list">BPK</label>
+                                        <select class="form-control" id="bpk" name="bpk" required>
+                                            <option value="0">Tidak ada</option>
+                                            <?php foreach ($nama_bpk_list as $nbl) : 
+                                                $id = $nbl["id_level_bpk"];
+                                                $nama_bpk = $nbl["nama_bpk"];
+                                            ?>
+                                            <option value="<?= $id ?>"><?= $nama_bpk?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="delta">Delta</label>
+                                        <select class="form-control" id="delta" name="delta" required>
+                                            <option value="0">Tidak ada</option>
+                                            <?php foreach ($nama_delta_list as $ndl) : 
+                                            $id = $ndl["id_level_delta"];
+                                            $nama_delta = $ndl["nama_delta"];
+                                            ?>
+                                        <option value="<?= $id ?>"><?= $nama_delta ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="transport">Tunjangan Transport</label>
+                                        <select class="form-control" id="transport" name="transport" required>
+                                            <option value="0">Tidak ada</option>
+                                            <?php foreach ($nama_transport_list as $ntl) : 
+                                                $id = $ntl["id_transport"];
+                                                $nama_transport = $ntl["nama_transport"];
+                                                $tunjangan_transport = $ntl["tunjangan_transport"];
+                                            ?>
+                                            <option value="<?= $id ?>"><?= $nama_transport ?> = <?= $tunjangan_transport ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -404,5 +624,4 @@
 
     <?php $this->load->view("manager/components/js.php") ?>
 </body>
-
 </html>

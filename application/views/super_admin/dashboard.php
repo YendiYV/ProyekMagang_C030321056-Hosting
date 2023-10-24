@@ -28,7 +28,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard Supervisior</a>
+                            <h1 class="m-0">Dashboard-Supervisior</a>
 							</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
@@ -58,7 +58,7 @@
                                 <div class="icon">
                                     <i class="ion ion-document-text"></i>
                                 </div>
-                                <a href="<?=base_url();?>Cuti/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Cuti/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                 <div class="icon">
                                     <i class="ion ion-checkmark-round"></i>
                                 </div>
-                                <a href="<?=base_url();?>Cuti/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Cuti/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                 <div class="icon">
                                     <i class="ion ion-close-round"></i>
                                 </div>
-                                <a href="<?=base_url();?>Cuti/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Cuti/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                 <div class="icon">
                                     <i class="ion ion-loop"></i>
                                 </div>
-                                <a href="<?=base_url();?>Cuti/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Cuti/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -121,7 +121,7 @@
                                 <div class="icon">
                                     <i class="ion ion-settings"></i>
                                 </div>
-                                <a href="<?=base_url();?>proyek/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>proyek/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                                 <div class="icon">
                                     <i class="ion ion-briefcase"></i>
                                 </div>
-                                <a href="<?=base_url();?>jabatan/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>jabatan/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -150,7 +150,7 @@
                                 <div class="icon">
                                     <i class="ion ion-location"></i>
                                 </div>
-                                <a href="<?=base_url();?>penempatan/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>penempatan/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                                 <div class="icon">
                                     <i class="ion ion-person-stalker"></i>
                                 </div>
-                                <a href="<?=base_url();?>operator/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>operator/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -180,7 +180,7 @@
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
                                 </div>
-                                <a href="<?=base_url();?>BPK/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>BPK/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -195,7 +195,7 @@
                                 <div class="icon">
                                     <i class="ion ion-card"></i>
                                 </div>
-                                <a href="<?=base_url();?>BPK/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>BPK/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -211,7 +211,7 @@
                                 <div class="icon">
                                     <i class="ion ion-cube"></i>
                                 </div>
-                                <a href="<?=base_url();?>Delta/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Delta/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -226,16 +226,26 @@
                                 <div class="icon">
                                     <i class="ion ion-cash"></i>
                                 </div>
-                                <a href="<?=base_url();?>rgaji/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>rgaji/view_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
+                        <div class="col-lg-12 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3><?=$rgaji_bulan_ini['total_data_gaji']?>/<?=$operator['total_user']?></h3>
+                                    <p class="m-0"><b>Monitor Data</b></p>
+                                    <p class="m-0">Rekap THP / Pekerja</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-monitor"></i>
+                                </div>
+                            </div>
+                        </div>
                         <!-- ./col -->
-                       
-
                     </div>
                     <!-- /.row -->
-
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->

@@ -15,14 +15,25 @@ class M_rgaji extends CI_Model
         return $hasil;
     }
 
-    public function insert_gaji_bulan($username, $tanggal_gaji,$total_gaji,$total_delta)
+    public function count_all_rgaji_bulan_ini()
+    {
+        $hasil = $this->db->query("SELECT COUNT(id_user_detail) as total_data_gaji FROM status_gaji_bulanan WHERE DATE_FORMAT(gaji_bulan, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m')");
+        return $hasil;
+    }
+
+    public function data_per_tanggal(){
+        $hasil = $this->db->query("SELECT gaji_bulan, COUNT(*) AS jumlah_record FROM status_gaji_bulanan GROUP BY gaji_bulan");
+        return $hasil;
+    }
+
+    public function insert_gaji_bulan($username, $tanggal_gaji,$total_gaji,$total_delta,$tanggal_simpan)
     {
         if ($total_gaji < 0) {
             $this->session->set_flashdata('eror');
             return false;
         }else{
             $this->db->trans_start();
-            $this->db->query("INSERT INTO status_gaji_bulanan(id_user_detail,gaji_bulan,total_gaji,jumlah_delta) VALUES ('$username','$tanggal_gaji', '$total_gaji','$total_delta')");
+            $this->db->query("INSERT INTO status_gaji_bulanan(id_user_detail,gaji_bulan,total_gaji,jumlah_delta,tgl_simpan) VALUES ('$username','$tanggal_gaji', '$total_gaji','$total_delta','$tanggal_simpan')");
             $this->db->trans_complete();
 
             if ($this->db->trans_status() == true) {
@@ -33,14 +44,14 @@ class M_rgaji extends CI_Model
         }
     }
 
-    public function edit_gaji_bulan($id_user_detail,$gaji_bulan,$total_gaji)
+    public function edit_gaji_bulan($id_user_detail,$gaji_bulan,$total_gaji,$tanggal_simpan)
     {
         if ($gaji_bulan < 0) {
             $this->session->set_flashdata('eror_edit','eror_edit');
             return false;
         }else{
             $this->db->trans_start();
-            $this->db->query("UPDATE status_gaji_bulanan SET total_gaji='$total_gaji',gaji_bulan='$gaji_bulan' WHERE id_user_detail = '$id_user_detail'");
+            $this->db->query("UPDATE status_gaji_bulanan SET total_gaji='$total_gaji',gaji_bulan='$gaji_bulan',tgl_simpan='$tanggal_simpan' WHERE id_user_detail = '$id_user_detail'");
             $this->db->trans_complete();
 
             if ($this->db->trans_status() == true) {

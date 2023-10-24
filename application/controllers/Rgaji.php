@@ -13,6 +13,7 @@ class Rgaji extends CI_Controller {
     {
         if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
             $data['gaji_bulan'] = $this->m_rgaji->get_all_gaji_bulan();
+            $data['data_per_tanggal'] = $this->m_rgaji->data_per_tanggal();
             $data['username'] = $this->m_user->get_all_operator()->result_array();
             $this->load->view('admin/rgaji', $data);
         } else {
@@ -39,9 +40,10 @@ class Rgaji extends CI_Controller {
             $tanggal_gaji = $this->input->post('tanggal_gaji');
             $total_gaji = $this->input->post('total_gaji');
             $total_delta = $this->input->post('total_delta');
+            $tanggal_simpan = $this->input->post('tanggal_input');
              if ($total_gaji !== null){
                 $this->session->set_flashdata('input');
-                $hasil = $this->m_rgaji->insert_gaji_bulan($username,$tanggal_gaji, $total_gaji,$total_delta);
+                $hasil = $this->m_rgaji->insert_gaji_bulan($username,$tanggal_gaji, $total_gaji,$total_delta,$tanggal_simpan);
                 redirect('Rgaji/view_admin');
              } else {
                     $this->session->set_flashdata('eror');
@@ -59,11 +61,12 @@ class Rgaji extends CI_Controller {
             $id_user_detail = $this->input->post("id_user_detail");
             $gaji_bulan = $this->input->post("gaji_bulan");
             $total_gaji = $this->input->post("total_gaji");
+            $tanggal_simpan = $this->input->post('tanggal_input');
 
             if ($this->session->userdata('id_user_level') == 2) {
                 if ($gaji_bulan !== null) {
                     $this->session->set_flashdata('edit');
-                    $hasil = $this->m_rgaji->edit_gaji_bulan($id_user_detail, $gaji_bulan, $total_gaji);
+                    $hasil = $this->m_rgaji->edit_gaji_bulan($id_user_detail, $gaji_bulan, $total_gaji,$tanggal_simpan);
                     redirect('Rgaji/view_admin');
                 } else {
                     $this->session->set_flashdata('eror_edit');
@@ -72,7 +75,7 @@ class Rgaji extends CI_Controller {
             }elseif ($this->session->userdata('id_user_level') == 3) {
                 if ($gaji_bulan !== null) {
                     $this->session->set_flashdata('edit');
-                    $hasil = $this->m_rgaji->edit_gaji_bulan($id_user_detail, $gaji_bulan, $total_gaji);
+                    $hasil = $this->m_rgaji->edit_gaji_bulan($id_user_detail, $gaji_bulan, $total_gaji,$tanggal_simpan);
                     redirect('Rgaji/view_super_admin');
                 } else {
                     $this->session->set_flashdata('eror_edit');

@@ -145,7 +145,7 @@
                                 <div class="card-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                     <thead>
-                                            <tr class="header-row">
+                                            <tr>
                                                 <th>No</th>
                                                 <th>NIP</th>
                                                 <th>Nama Lengkap</th>

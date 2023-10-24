@@ -33,6 +33,8 @@ class Dashboard extends CI_Controller {
 			$data['bpk'] = $this->m_bpk->count_all_bpk()->row_array();
 			$data['delta'] = $this->m_delta->count_all_delta()->row_array();
 			$data['rgaji'] = $this->m_rgaji->count_all_rgaji()->row_array();
+			$data['rgaji_bulan_ini'] = $this->m_rgaji->count_all_rgaji_bulan_ini()->row_array();
+			$data['data_per_tanggal'] = $this->m_rgaji->data_per_tanggal()->row_array();
 			$this->load->view('super_admin/dashboard', $data);
 	}else{
 
@@ -57,6 +59,8 @@ class Dashboard extends CI_Controller {
 			$data['bpk'] = $this->m_bpk->count_all_bpk()->row_array();
 			$data['delta'] = $this->m_delta->count_all_delta()->row_array();
 			$data['rgaji'] = $this->m_rgaji->count_all_rgaji()->row_array();
+			$data['rgaji_bulan_ini'] = $this->m_rgaji->count_all_rgaji_bulan_ini()->row_array();
+			$data['data_per_tanggal'] = $this->m_rgaji->data_per_tanggal()->row_array();
 			$this->load->view('admin/dashboard', $data);
 
 		}else{
@@ -89,19 +93,28 @@ class Dashboard extends CI_Controller {
 	
 	public function dashboard_manager()
 	{
-		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
-	
+		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 4) {
 			$data['cuti'] = $this->m_cuti->count_all_cuti()->row_array();
 			$data['cuti_acc'] = $this->m_cuti->count_all_cuti_acc()->row_array();
 			$data['cuti_confirm'] = $this->m_cuti->count_all_cuti_confirm()->row_array();
 			$data['cuti_reject'] = $this->m_cuti->count_all_cuti_reject()->row_array();
 			$data['operator'] = $this->m_user->count_all_operator()->row_array();
-			$data['admin'] = $this->m_user->count_all_admin()->row_array();
-			$this->load->view('manager/dashboard', $data);
+			$data['jabatan'] = $this->m_jabatan->count_all_jabatan()->row_array();
+			$data['proyek'] = $this->m_proyek->count_all_proyek()->row_array();
+			$data['penempatan'] = $this->m_penempatan->count_all_penempatan()->row_array();
+			$data['tmk'] = $this->m_tmk->count_all_tmk()->row_array();
+			$data['bpk'] = $this->m_bpk->count_all_bpk()->row_array();
+			$data['delta'] = $this->m_delta->count_all_delta()->row_array();
+			$data['rgaji'] = $this->m_rgaji->count_all_rgaji()->row_array();
+			$data['rgaji_bulan_ini'] = $this->m_rgaji->count_all_rgaji_bulan_ini()->row_array();
+			$data['data_per_tanggal'] = $this->m_rgaji->data_per_tanggal()->row_array();
+			$this->load->view('admin/dashboard', $data);
+
+		}else{
+
+			$this->session->set_flashdata('loggin_err','loggin_err');
+			redirect('Login/index');
 	
-	}else{
-		$this->session->set_flashdata('loggin_err','loggin_err');
-		redirect('Login/index');	
 		}
 	}
 	 

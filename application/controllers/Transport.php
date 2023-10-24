@@ -34,7 +34,7 @@ class Transport extends CI_Controller {
     public function edit_transport()
     {
         if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
-            $id_transport = $this->input->post("id_transport");
+            $id_transport = $this->input->post("id_level");
             $nama_transport = $this->input->post("nama_transport");
             $tunjangan_transport = $this->input->post("tunjangan_transport");
             if ($tunjangan_transport !== null) {
@@ -84,7 +84,7 @@ class Transport extends CI_Controller {
     {
         if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
             $nama_transport = $this->input->post('nama_transport');
-            $tunjangan_transport = $this->input->post('tunjangan_transport');
+            $tunjangan_transport = $this->input->post('gaji');
             if ($tunjangan_transport !== null) {
                 $this->session->set_flashdata('input');
                 $hasil = $this->m_transport->insert_transport($nama_transport, $tunjangan_transport);
