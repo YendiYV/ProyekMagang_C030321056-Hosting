@@ -81,7 +81,7 @@
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="<?= base_url();?>assets/admin_lte/dist/img/Loading.png"
-                alt="adminLTELogo" height="60" width="60">
+                alt="AdminLTELogo" height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -98,17 +98,15 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data TMK</h1>
+                            <h1 class="m-0">Data BPK - MNG</h1>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">TMK</li>
+                                <li class="breadcrumb-item active">BPK</li>
                             </ol>
                         </div><!-- /.col -->
-
-                        
                         <br>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -123,7 +121,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data TMK - MNG</h3>
+                                    <h3 class="card-title">Data BPK</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -131,25 +129,23 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Tahun TMK</th>  
-                                                <th>Rupiah TMK</th>          
+                                                <th>Nama BPK</th>  
+                                                <th>Gaji BPK</th>         
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $no = 0;
-                                            foreach($tmk as $tmk_item) :
+                                            foreach($bpk as $bpk_item) :
                                             $no++;
-                                            $id_status_tmk = $tmk_item['id_status_tmk'];
-                                            $tahun_tmk = $tmk_item['tahun_tmk'];
-                                            $rupiah_tmk = $tmk_item['rupiah_tmk'];
-                                            // Tambahkan kolom lain yang diperlukan sesuai dengan data penempatan
-                                            
+                                            $id_level = $bpk_item['id_level_bpk'];
+                                            $nama_bpk = $bpk_item['nama_bpk'];
+                                            $gaji_bpk = $bpk_item['gaji_bpk'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $tahun_tmk ?></td>
-                                                <td><?= number_format($rupiah_tmk, 0, ',', '.') ?></td>
+                                                <td><?= $nama_bpk ?></td>
+                                                <td><?= number_format($gaji_bpk, 0, ',', '.') ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>

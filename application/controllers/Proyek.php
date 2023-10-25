@@ -31,6 +31,17 @@ class Proyek extends CI_Controller {
             redirect('Login/index');
         }
     }
+    public function view_manager()
+    {
+        if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
+            $data['proyek'] = $this->m_proyek->get_all_proyek();
+            $this->load->view('manager/proyek', $data);
+        } else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
+    }
 
     public function edit_proyek()
     {

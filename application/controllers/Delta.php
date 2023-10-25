@@ -31,6 +31,17 @@ class Delta extends CI_Controller {
             redirect('Login/index');
         }
     }
+    public function view_manager()
+    {
+        if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
+            $data['delta'] = $this->m_delta->get_all_delta();
+            $this->load->view('manager/delta', $data);
+        } else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
+    }
     
     public function edit_delta()
     {

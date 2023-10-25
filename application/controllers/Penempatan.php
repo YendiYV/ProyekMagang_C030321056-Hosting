@@ -34,6 +34,18 @@ class Penempatan extends CI_Controller {
             redirect('Login/index');
         }
     }
+    public function view_manager()
+    {
+        if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
+            $data['penempatan'] = $this->m_penempatan->get_all_penempatan();
+            $data['tipe_um'] = $this->m_um->get_all_um();
+            $this->load->view('manager/penempatan', $data);
+        } else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
+    }
     public function edit_penempatan()
     {
         if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {

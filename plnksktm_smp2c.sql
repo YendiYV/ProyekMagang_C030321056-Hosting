@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 24, 2023 at 03:50 PM
+-- Generation Time: Oct 25, 2023 at 03:23 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -46,7 +46,9 @@ CREATE TABLE `cuti` (
 --
 
 INSERT INTO `cuti` (`id_cuti`, `id_user`, `alasan`, `tgl_diajukan`, `mulai`, `berakhir`, `id_status_cuti1`, `id_status_cuti2`, `id_status_cuti3`, `perihal_cuti`, `jumlah_hari`) VALUES
-('2781-SP-Cuti-2023', 'c551fc8847d29dc25a23db5d2cdb941b', 'TES', '2023-10-12', '2023-10-13', '2023-10-18', 2, 3, 1, 'TES', 4);
+('2027-SP-Cuti-2023', '23bdd1cd96888f836956a97a0fdc6bd5', 'Cape', '2022-10-25', '2023-10-27', '2023-10-27', 2, 2, 2, 'Ingin Sakit Saja', 5),
+('2781-SP-Cuti-2023', 'c551fc8847d29dc25a23db5d2cdb941b', 'TES', '2023-10-12', '2023-10-13', '2023-10-18', 2, 3, 1, 'TES', 4),
+('6682-SP-Cuti-2023', '23bdd1cd96888f836956a97a0fdc6bd5', 'TES', '2023-10-25', '2023-12-29', '2024-01-12', 1, 1, 1, 'TES', 11);
 
 -- --------------------------------------------------------
 
@@ -310,7 +312,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `id_user_level`, `id_user_detail`) VALUES
 ('134e349e4f50a051d8ca3687d6a7de1a', '1234567ADM', '202cb962ac59075b964b07152d234b70', 2, '134e349e4f50a051d8ca3687d6a7de1a'),
-('23bdd1cd96888f836956a97a0fdc6bd5', '1231231PKY', '123', 1, '23bdd1cd96888f836956a97a0fdc6bd5'),
+('23bdd1cd96888f836956a97a0fdc6bd5', '1231231PKY', '202cb962ac59075b964b07152d234b70', 1, '23bdd1cd96888f836956a97a0fdc6bd5'),
 ('c551fc8847d29dc25a23db5d2cdb941b', '1231233PKY', '202cb962ac59075b964b07152d234b70', 1, 'c551fc8847d29dc25a23db5d2cdb941b'),
 ('d41d8cd98f00b204e9800998ecf8427e', '1231232PKY', '202cb962ac59075b964b07152d234b70', 1, 'd41d8cd98f00b204e9800998ecf8427e'),
 ('dce802a5e29e9ccabc144dfb6a37abbb', '1231239PKY', '202cb962ac59075b964b07152d234b70', 1, 'dce802a5e29e9ccabc144dfb6a37abbb'),
@@ -346,7 +348,7 @@ CREATE TABLE `user_detail` (
 
 INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `tanggal_masuk`) VALUES
 ('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '081256769', 'Jl. Pengayaan', '1231231PKY', 11, 0, 0, 0, 0, 0, '2023-10-23'),
+('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '081256769', 'Jl. Pengayaan', '1231231PKY', 11, 0, 0, 0, 0, 0, '2021-10-27'),
 ('c551fc8847d29dc25a23db5d2cdb941b', 'Putri', 2, '+62812781728', 'Jl. Sekip', '1231233PKY', 2, 5, 3, 1, 1, 3, '2019-10-17'),
 ('d41d8cd98f00b204e9800998ecf8427e', 'Ahmad', 1, '08121212112', '0987654', '1231232PKY', 1, 1, 1, 1, 1, 1, '2016-10-17'),
 ('dce802a5e29e9ccabc144dfb6a37abbb', 'Suci Priani', 2, '+62812781728', 'Jl. Negara', '1231239PKY', 1, 1, 1, 1, 1, 1, '2018-10-18'),

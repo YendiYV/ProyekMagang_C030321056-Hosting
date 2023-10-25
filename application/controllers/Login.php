@@ -27,7 +27,6 @@ class Login extends CI_Controller {
 
 			// Membandingkan kata sandi yang dimasukkan oleh pengguna dengan kata sandi di database
 			if ($user['password'] == md5($password)) { // Menggunakan md5() untuk membandingkan kata sandi
-
 				// Berdasarkan tingkat pengguna (id_user_level), sesi pengguna akan diatur
 				if ($user['id_user_level'] == 1) {
 					// Jika tingkat pengguna adalah 1 (Operator), sesi diatur untuk Operator

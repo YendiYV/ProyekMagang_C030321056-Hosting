@@ -108,7 +108,7 @@ class Dashboard extends CI_Controller {
 			$data['rgaji'] = $this->m_rgaji->count_all_rgaji()->row_array();
 			$data['rgaji_bulan_ini'] = $this->m_rgaji->count_all_rgaji_bulan_ini()->row_array();
 			$data['data_per_tanggal'] = $this->m_rgaji->data_per_tanggal()->row_array();
-			$this->load->view('admin/dashboard', $data);
+			$this->load->view('manager/dashboard', $data);
 
 		}else{
 

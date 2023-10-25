@@ -81,7 +81,7 @@
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="<?= base_url();?>assets/admin_lte/dist/img/Loading.png"
-                alt="adminLTELogo" height="60" width="60">
+                alt="AdminLTELogo" height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -98,17 +98,15 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data TMK</h1>
+                            <h1 class="m-0">Data Penempatan - MNG</h1>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">TMK</li>
+                                <li class="breadcrumb-item active">Penempatan</li>
                             </ol>
                         </div><!-- /.col -->
-
-                        
                         <br>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -123,7 +121,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data TMK - MNG</h3>
+                                    <h3 class="card-title">Data Penempatan</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -131,25 +129,28 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Tahun TMK</th>  
-                                                <th>Rupiah TMK</th>          
+                                                <th>Nama Penempatan</th>  
+                                                <th>Gaji Penempatan</th>
+                                                <th>Tipe UM</th>        
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $no = 0;
-                                            foreach($tmk as $tmk_item) :
+                                            foreach($penempatan as $penempatan_item) :
                                             $no++;
-                                            $id_status_tmk = $tmk_item['id_status_tmk'];
-                                            $tahun_tmk = $tmk_item['tahun_tmk'];
-                                            $rupiah_tmk = $tmk_item['rupiah_tmk'];
+                                            $id_penempatan = $penempatan_item['id_penempatan'];
+                                            $nama_penempatan = $penempatan_item['nama_penempatan'];
+                                            $gaji = $penempatan_item['gaji_penempatan'];
+                                            $tipe_um_penempatan = $penempatan_item['tipe_um'];
                                             // Tambahkan kolom lain yang diperlukan sesuai dengan data penempatan
                                             
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $tahun_tmk ?></td>
-                                                <td><?= number_format($rupiah_tmk, 0, ',', '.') ?></td>
+                                                <td><?= $nama_penempatan ?></td>
+                                                <td><?= number_format($gaji, 0, ',', '.') ?></td>
+                                                <td><?= $tipe_um_penempatan?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>
@@ -165,6 +166,7 @@
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
+            <!-- Modal Tambah operator -->
         </div>
         <!-- /.content-wrapper -->
 

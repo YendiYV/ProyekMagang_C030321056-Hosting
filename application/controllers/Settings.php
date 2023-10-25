@@ -40,10 +40,10 @@ class Settings extends CI_Controller {
 
 		if ($password == $re_password) {
 			// Mengenkripsi password menggunakan bcrypt
-			$hashed_password = password_hash($password, PASSWORD_BCRYPT);
+			$encrypted_password = md5($password);
 			
 			// Memanggil model untuk mengupdate data pengguna dengan password yang terenkripsi
-			$hasil = $this->m_user->update_user($id, $hashed_password);
+			$hasil = $this->m_user->update_user($id, $encrypted_password);
 
 			if ($hasil == false) {
 				$this->session->set_flashdata('error_edit', 'error_edit');
@@ -66,10 +66,10 @@ class Settings extends CI_Controller {
 
 		if ($password == $re_password) {
 			// Mengenkripsi password menggunakan bcrypt
-			$hashed_password = password_hash($password, PASSWORD_BCRYPT);
+			$encrypted_password = md5($password);
 			
 			// Memanggil model untuk mengupdate data pengguna dengan password yang terenkripsi
-			$hasil = $this->m_user->update_user($id,$hashed_password);
+			$hasil = $this->m_user->update_user($id, $encrypted_password);
 
 			if ($hasil == false) {
 				$this->session->set_flashdata('error_edit', 'error_edit');

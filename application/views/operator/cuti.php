@@ -27,6 +27,16 @@
     </script>
     <?php } ?>
 
+    <?php if ($this->session->flashdata('gagal_tambah')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Cuti yang diambil Lebih dari 12 Hari !",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -227,14 +237,19 @@
                                                     <?php } ?>
                                                 </td>
                                                 <td>
-                                                    <div class="table-responsive">
-                                                        <div class="table table-striped table-hover ">
-                                                            <a href="" data-toggle="modal"
-                                                                data-target="#hapus<?= $id_cuti ?>"
-                                                                class="btn btn-danger"><i class="fas fa-trash"></i>
-                                                            </a>
+                                                    <?php if ($id_status_cuti1 == 2 || $id_status_cuti2 == 2 || $id_status_cuti3 == 2 ||$id_status_cuti1 == 3 || $id_status_cuti2 == 3 || $id_status_cuti3 == 3) { ?>
+                                                                <!-- Tampilkan pesan bahwa cuti tidak dapat dihapus karena status cuti 1-3 adalah 2 -->
+                                                                <p style="text-align: center;">Data cuti tidak dapat dihapus karena ada status cuti yang telah dikonfirmasi.</p>
+                                                    <?php } else { ?>
+                                                        <div class="table-responsive">
+                                                            <div class="table table-striped table-hover ">
+                                                                <a href="" data-toggle="modal"
+                                                                    data-target="#hapus<?= $id_cuti ?>"
+                                                                    class="btn btn-danger"><i class="fas fa-trash"></i>
+                                                                </a>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    <?php } ?>
                                                 </td>
 
                                             </tr>
@@ -252,7 +267,7 @@
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <?php if ($id_status_cuti1 == 2 && $id_status_cuti2 == 2 && $id_status_cuti3 == 2) { ?>
+                                                        <?php if ($id_status_cuti1 == 2 || $id_status_cuti2 == 2 || $id_status_cuti3 == 2 ||$id_status_cuti1 == 3 || $id_status_cuti2 == 3 || $id_status_cuti3 == 3) { ?>
                                                             <!-- Tampilkan pesan bahwa cuti tidak dapat dihapus karena status cuti 1-3 adalah 2 -->
                                                             <p style="text-align: center;">Data cuti tidak dapat dihapus karena status cuti 1 atau 2 atau 3 telah dikonfirmasi.</p>
                                                         <?php } else { ?>

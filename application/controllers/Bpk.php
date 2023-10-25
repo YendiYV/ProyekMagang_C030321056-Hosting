@@ -31,6 +31,18 @@ class Bpk extends CI_Controller {
             redirect('Login/index');
         }
     }
+
+    public function view_manager()
+    {
+        if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
+            $data['bpk'] = $this->m_bpk->get_all_bpk();
+            $this->load->view('manager/bpk', $data);
+        } else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
+    }
     
     public function edit_bpk()
     {

@@ -81,7 +81,7 @@
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="<?= base_url();?>assets/admin_lte/dist/img/Loading.png"
-                alt="adminLTELogo" height="60" width="60">
+                alt="AdminLTELogo" height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -98,17 +98,15 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data TMK</h1>
+                            <h1 class="m-0">Data Proyek- MNG</h1>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">TMK</li>
+                                <li class="breadcrumb-item active">Proyek</li>
                             </ol>
                         </div><!-- /.col -->
-
-                        
                         <br>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -123,7 +121,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data TMK - MNG</h3>
+                                    <h3 class="card-title">Data Proyek</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -131,25 +129,24 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Tahun TMK</th>  
-                                                <th>Rupiah TMK</th>          
+                                                <th>Nama Proyek</th>  
+                                                <th>Gaji Proyek</th>        
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $no = 0;
-                                            foreach($tmk as $tmk_item) :
+                                            foreach($proyek as $proyek_item) :
                                             $no++;
-                                            $id_status_tmk = $tmk_item['id_status_tmk'];
-                                            $tahun_tmk = $tmk_item['tahun_tmk'];
-                                            $rupiah_tmk = $tmk_item['rupiah_tmk'];
-                                            // Tambahkan kolom lain yang diperlukan sesuai dengan data penempatan
-                                            
+                                            $id_proyek = $proyek_item['id_status_proyek'];
+                                            $nama_proyek = $proyek_item['nama_proyek'];
+                                            $gaji = $proyek_item['gaji_proyek'];
+                                            // Tambahkan kolom lain yang diperlukan sesuai dengan data proyek
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $tahun_tmk ?></td>
-                                                <td><?= number_format($rupiah_tmk, 0, ',', '.') ?></td>
+                                                <td><?= $nama_proyek ?></td>
+                                                <td><?= number_format($gaji, 0, ',', '.') ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>
@@ -165,8 +162,6 @@
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
 
 
         <!-- Control Sidebar -->

@@ -84,8 +84,6 @@
                             <div class="small-box bg-warning">
                                 <div class="inner">
                                     <h3><?php
-                                        // echo var_dump($cuti_operator[0]['mulai']);
-                                        // echo var_dump($cuti_operator[0]['berakhir']);
                                         if ($cuti_operator == null) {
                                             echo 'Belum Ada';
                                         } else {
@@ -108,7 +106,7 @@
                                             if ($date_mulai >= 0 and $date_akhir >= 0) {
                                                 echo $date_akhir . ' Hari Lagi';
                                             } else {
-                                                echo "Belum Ada";
+                                                echo "Tidak Ada";
                                             }
                                         }
 
@@ -127,7 +125,7 @@
                             <!-- small box -->
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3><?= $total_hari_cuti ?></h3>
+                                    <h3><?= $total_hari_cuti ?> Hari</h3>
                                     <p>Total Hari Cuti Dalam Setahun</p>
                                 </div>
                                 <div class="icon">

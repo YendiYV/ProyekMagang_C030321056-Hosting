@@ -156,9 +156,6 @@ class M_cuti extends CI_Model
     }
 
     public function hitung_total_hari_cuti_dalam_setahun($id_user) {
-        // Tulis query untuk menghitung total cuti seorang pengguna dalam setahun berdasarkan tanggal masuk
-        // Query ini bergantung pada struktur tabel Anda
-
         // Ambil tanggal masuk dari tabel user_detail
         $queryTanggalMasuk = "SELECT tanggal_masuk FROM user_detail WHERE id_user_detail = ?";
         $resultTanggalMasuk = $this->db->query($queryTanggalMasuk, array($id_user));
@@ -171,10 +168,10 @@ class M_cuti extends CI_Model
         // Jika selisih kurang dari atau sama dengan 12 hari, maka cuti termasuk dalam periode 1 tahun
         if ($selisihHari <= 12) {
             // Modifikasi query untuk memeriksa apakah tanggal mulai cuti berada pada atau setelah tanggal_masuk yang tepat satu tahun kemudian
-            $query = "SELECT SUM(jumlah_hari) AS total_hari_cuti FROM cuti WHERE id_user = ? AND id_status_cuti1 = 2 AND id_status_cuti2 = 2 AND id_status_cuti3 = 2 AND YEAR(mulai) = YEAR(CURDATE())";
+            $query = "SELECT SUM(jumlah_hari) AS total_hari_cuti FROM cuti WHERE id_user = '$id_user' AND id_status_cuti1 = 2 AND id_status_cuti2 = 2 AND id_status_cuti3 = 2 AND YEAR(mulai) = YEAR(CURDATE())";
         } else {
             // Jika selisih lebih dari 12 hari, maka cuti dihitung dalam periode 1 tahun setelahnya
-            $query = "SELECT SUM(jumlah_hari) AS total_hari_cuti FROM cuti WHERE id_user = ? AND id_status_cuti1 = 2 AND id_status_cuti2 = 2 AND id_status_cuti3 = 2 AND YEAR(mulai) = YEAR(CURDATE()) + 1";
+            $query = "SELECT SUM(jumlah_hari) AS total_hari_cuti FROM cuti WHERE id_user = '$id_user' AND id_status_cuti1 = 2 AND id_status_cuti2 = 2 AND id_status_cuti3 = 2 AND YEAR(mulai) = YEAR(CURDATE()) + 1";
         }
 
         // Jalankan query dan kembalikan hasilnya
@@ -182,5 +179,4 @@ class M_cuti extends CI_Model
         $row = $result->row();
         return $row->total_hari_cuti;
     }
-
 }

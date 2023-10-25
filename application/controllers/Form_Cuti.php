@@ -49,7 +49,7 @@ class Form_Cuti extends CI_Controller {
 			$total_hari_cuti = $this->hitung_total_cuti($mulai, $berakhir);
 
 			if ($total_hari_cuti > 12) {
-				$this->session->set_flashdata('cuti_limit_exceeded', 'cuti_limit_exceeded');
+				$this->session->set_flashdata('gagal_tambah');
 				redirect('Dashboard/dashboard_operator');
 			}else {
 				$tahun = date("Y");
@@ -100,5 +100,29 @@ class Form_Cuti extends CI_Controller {
 
 		return $total_hari_cuti;
 	}
+	
+	function hitung_hari_libur($tanggal_masuk, $tahun) {
+		$tanggal_masuk = new DateTime($tanggal_masuk);
+		$tanggal_masuk->setTime(0, 0, 0); // Tetapkan waktu ke 00:00:00
+		$hari_libur = 0;
 
+		for ($i = $tahun; $i < $tahun + 1; $i++) { // Menghitung satu tahun dari tahun masuk pekerja
+			$tahun_target = $i;
+			for ($bulan = 1; $bulan <= 12; $bulan++) {
+				$tanggal_target = new DateTime("$tahun_target-$bulan-01");
+				$akhir_bulan = (int)$tanggal_target->format('t');
+				for ($hari = 1; $hari <= $akhir_bulan; $hari++) {
+					if ($tanggal_target->format('N') != 6 && $tanggal_target->format('N') != 7) {
+						$tanggal_libur = new DateTime("$tahun_target-$bulan-$hari");
+						if ($tanggal_libur > $tanggal_masuk) {
+							$hari_libur++;
+						}
+					}
+					$tanggal_target->modify('+1 day');
+				}
+			}
+		}
+
+		return $hari_libur;
+	}
 }

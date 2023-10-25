@@ -33,6 +33,18 @@ class Gaji extends CI_Controller {
         }
     }
 
+    public function view_manager()
+    {
+        if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
+            $data['operator'] = $this->m_gaji->get_all_gaji()->result_array();
+            $this->load->view('manager/gaji', $data);
+        } else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
+    }
+
     public function save_total_semua() {
         $usernames = $this->input->post('username');
         $gaji_bulans = $this->input->post('gaji_bulan');
