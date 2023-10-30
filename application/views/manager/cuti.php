@@ -142,7 +142,7 @@
                                                 <td><?php if($id_status_cuti1 == 1){ ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Menunggu Konfirmasi
                                                             </a>
@@ -151,7 +151,7 @@
                                                     <?php }elseif($id_status_cuti1 == 2) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Diterima
                                                             </a>
@@ -160,7 +160,7 @@
                                                     <?php }elseif($id_status_cuti1 == 3) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Ditolak
                                                             </a>
@@ -171,7 +171,7 @@
                                                 <td><?php if($id_status_cuti2 == 1){ ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Menunggu Konfirmasi
                                                             </a>
@@ -180,7 +180,7 @@
                                                     <?php }elseif($id_status_cuti2 == 2) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Diterima
                                                             </a>
@@ -189,7 +189,7 @@
                                                     <?php }elseif($id_status_cuti2 == 3) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Ditolak
                                                             </a>
@@ -200,7 +200,7 @@
                                                 <td><?php if($id_status_cuti3 == 1){ ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Menunggu Konfirmasi
                                                             </a>
@@ -209,7 +209,7 @@
                                                     <?php }elseif($id_status_cuti3 == 2) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Diterima
                                                             </a>
@@ -218,7 +218,7 @@
                                                     <?php }elseif($id_status_cuti3 == 3) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Ditolak
                                                             </a>
@@ -232,28 +232,36 @@
                                                             Cetak Surat Pengajuan
                                                         </a>
                                                     <?php } else { ?>
-                                                        <a href="" class="btn btn-danger">
+                                                        <a class="btn btn-danger">
                                                             Belum Dapat Mencetak
                                                         </a>
                                                     <?php } ?>
                                                 </td>
                                                 <td>
-                                                    <div class="table-responsive">
-                                                        <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-primary" data-toggle="modal"
-                                                                data-target="#setuju<?= $id_cuti ?>">
-                                                                <i class="fas fa-check"></i>
-                                                            </a>
+                                                    <?php if ($id_status_cuti1 == 2  && $id_status_cuti2 == 2) { ?>
+                                                        <?php if ($id_status_cuti3 != 2) { ?>
+                                                        <div class="table-responsive">
+                                                            <div class="table table-striped table-hover ">
+                                                                <a class="btn btn-primary" data-toggle="modal"
+                                                                    data-target="#setuju<?= $id_cuti ?>">
+                                                                    <i class="fas fa-check"></i>
+                                                                </a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="table-responsive">
-                                                        <div class="table table-striped table-hover ">
-                                                            <a href="" data-toggle="modal"
-                                                                data-target="#tidak_setuju<?= $id_cuti ?>"
-                                                                class="btn btn-danger"><i class="fas fa-times"></i>
-                                                            </a>
+                                                        <?php } ?>
+                                                        <?php if ($id_status_cuti3 != 3) { ?>
+                                                        <div class="table-responsive">
+                                                            <div class="table table-striped table-hover ">
+                                                                <a data-toggle="modal"
+                                                                    data-target="#tidak_setuju<?= $id_cuti ?>"
+                                                                    class="btn btn-danger"><i class="fas fa-times"></i>
+                                                                </a>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                        <?php } ?>
+                                                    <?php }else{?>
+                                                        <p style="text-align: center;">Aksi Belum Tersedia</p>
+                                                    <?php } ?>
                                                 </td>
                                             </tr>
 
@@ -273,24 +281,20 @@
                                                         </div>
 
                                                         <div class="modal-body">
-                                                            <form
-                                                                action="<?php echo base_url()?>Cuti/acc_cuti_manager/2"
-                                                                method="post" enctype="multipart/form-data">
+                                                            <form action="<?php echo base_url()?>Cuti/acc_cuti_manager" method="post" enctype="multipart/form-data">
                                                                 <div class="row">
                                                                     <div class="col-md-12">
-                                                                        <input type="hidden" name="id_cuti"
-                                                                            value="<?php echo $id_cuti?>" />
-                                                                        <input type="hidden" name="id_user"
-                                                                            value="<?php echo $id_user?>" />
+                                                                        <input type="hidden" name="id_cuti" value="<?php echo $id_cuti?>" />
+                                                                        <input type="hidden" name="id_user" value="<?php echo $id_user?>" />
+                                                                        <input type="hidden" name="mulai" value="<?php echo $mulai?>" />
+                                                                        <input type="hidden" name="berakhir" value="<?php echo $berakhir?>" />
                                                                         <p>Apakah kamu yakin ingin Menyetujui Izin Cuti
                                                                             ini?</i></b></p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-danger ripple"
-                                                                        data-dismiss="modal">Tidak</button>
-                                                                    <button type="submit"
-                                                                        class="btn btn-success ripple save-category">Ya</button>
+                                                                    <button type="button" class="btn btn-danger ripple" data-dismiss="modal" name="confirmation" value="Tidak">Tidak</button>
+                                                                    <button type="submit" class="btn btn-success ripple save-category">Ya</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -315,24 +319,21 @@
 
                                                         <div class="modal-body">
                                                             <form
-                                                                action="<?php echo base_url()?>Cuti/acc_cuti_manager/3"
+                                                                action="<?php echo base_url()?>Cuti/tolak_cuti_manager"
                                                                 method="post" enctype="multipart/form-data">
                                                                 <div class="row">
                                                                     <div class="col-md-12">
-                                                                        <input type="hidden" name="id_cuti"
-                                                                            value="<?php echo $id_cuti?>" />
-                                                                        <input type="hidden" name="id_user"
-                                                                            value="<?php echo $id_user?>" />
-
-                                                                        <p>Apakah kamu yakin ingin Menolak Izin Cuti
-                                                                            ini?</i></b></p>
+                                                                        <input type="hidden" name="id_cuti" value="<?php echo $id_cuti?>" />
+                                                                        <input type="hidden" name="id_user" value="<?php echo $id_user?>" />
+                                                                        <input type="hidden" name="mulai" value="<?php echo $mulai?>" />
+                                                                        <input type="hidden" name="berakhir" value="<?php echo $berakhir?>" />
+                                                                        <input type="hidden" name="id_status_cuti3" value="<?php echo $id_status_cuti3?>" />
+                                                                        <p>Apakah kamu yakin ingin Menolak Izin Cuti ini?</i></b></p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-danger ripple"
-                                                                        data-dismiss="modal">Tidak</button>
-                                                                    <button type="submit"
-                                                                        class="btn btn-success ripple save-category">Ya</button>
+                                                                    <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tidak</button>
+                                                                    <button type="submit" class="btn btn-success ripple save-category">Ya</button>
                                                                 </div>
                                                             </form>
                                                         </div>

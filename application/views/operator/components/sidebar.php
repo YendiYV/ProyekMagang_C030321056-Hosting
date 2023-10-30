@@ -37,8 +37,8 @@
                         <p>Data Cuti</p>
                     </a>
                 </li>
-                <li class="nav-item" style="<?php echo  $operator['nama_lengkap'] == '' ? 'display:none;' : ' ' ?>">
-                    <a href="<?= base_url();?>Form_Cuti/view_operator" class="nav-link">
+                <li class="nav-item">
+                    <a href="<?= base_url(); ?>Form_Cuti/view_operator" class="nav-link">
                         <i class="nav-icon fas fa-edit"></i>
                         <p>Permohonan Cuti</p>
                     </a>

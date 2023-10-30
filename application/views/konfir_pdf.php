@@ -61,7 +61,7 @@ $id_status_cuti3 = $i['id_status_cuti3'];
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:150%; font-size:12pt;"><span
             style="height:0pt; text-align:left; display:block; position:absolute; z-index:-1;"><img
                 src="<?=base_url();?>assets/login/images/logo.jpg"
-                width="105" height="105" alt="" class="fr-fir fr-dib fr-draggable"></span><strong><span
+                width="160" height="74" alt="" class="fr-fir fr-dib fr-draggable"></span><strong><span
                 style="font-family:'Times New Roman';">PLN TARAKAN CABANG KSKT CABANG UP2</span></strong></p>
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:150%; font-size:14pt;"><strong><span
                 style="font-family:'Times New Roman';">PEMBANGKIT LISTRIK NEGERI</span></strong></p>

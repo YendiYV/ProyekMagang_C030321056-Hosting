@@ -36,11 +36,51 @@ class M_cuti extends CI_Model
         $this->db->trans_start();
         $this->db->query("INSERT INTO cuti(id_cuti, id_user, alasan, tgl_diajukan, mulai, berakhir, id_status_cuti1, id_status_cuti2, id_status_cuti3, perihal_cuti, jumlah_hari) VALUES ('$id_cuti', '$id_user', '$alasan', NOW(), '$mulai', '$berakhir', '$id_status_cuti1', '$id_status_cuti2', '$id_status_cuti3', '$perihal_cuti', '$jumlah_hari')");
         $this->db->trans_complete();
-        if ($this->db->trans_status() == true)
-            return true;
-        else
-            return false;
+        if ($this->db->trans_status() == true) {
+            $this->session->set_flashdata('input','input');
+            return $this->db->trans_status();
+        }else {
+            $this->session->set_flashdata('eror','eror');
+        }
     }
+
+    public function check_data_cuti($id_cuti){
+        $hasil = $this->db->query("SELECT cuti.id_cuti FROM cuti WHERE id_cuti='$id_cuti'");
+    }
+
+    public function insert_user_detail($id_user, $total_hari_cuti)
+    {
+        $this->db->trans_start();
+
+        // Use parameter binding to prevent SQL injection
+        $sql = "UPDATE user_detail SET jumlah_cuti = jumlah_cuti + '$total_hari_cuti' WHERE id_user_detail = '$id_user'";
+        $this->db->query($sql, array($total_hari_cuti, $id_user));
+
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === TRUE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function insert_user_detail_hapus($id_user, $total_hari_cuti)
+    {
+        $this->db->trans_start();
+
+        // Use parameter binding to prevent SQL injection
+        $sql = "UPDATE user_detail SET jumlah_cuti = jumlah_cuti - '$total_hari_cuti' WHERE id_user_detail = '$id_user'";
+        $this->db->query($sql, array($total_hari_cuti, $id_user));
+
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === TRUE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     public function delete_cuti($id_cuti)
     {
@@ -53,10 +93,21 @@ class M_cuti extends CI_Model
             return false;
     }
 
-    public function update_cuti($alasan, $perihal_cuti, $tgl_diajukan, $mulai, $berakhir, $id_cuti)
+    public function update_cuti($alasan, $perihal_cuti, $tgl_diajukan, $mulai, $berakhir, $id_cuti,$total_hari_cuti)
     {
         $this->db->trans_start();
-        $this->db->query("UPDATE cuti SET alasan='$alasan', perihal_cuti='$perihal_cuti', tgl_diajukan='$tgl_diajukan', mulai='$mulai', berakhir='$berakhir' WHERE id_cuti='$id_cuti'");
+        $this->db->query("UPDATE cuti SET alasan='$alasan', perihal_cuti='$perihal_cuti', tgl_diajukan='$tgl_diajukan', mulai='$mulai', berakhir='$berakhir' ,jumlah_hari='$total_hari_cuti' WHERE id_cuti='$id_cuti'");
+        $this->db->trans_complete();
+        if($this->db->trans_status()==true)
+            return true;
+        else
+            return false;
+    }
+    
+    public function update_cuti_user_detail($id_user,$total_hari_cuti)
+    {
+        $this->db->trans_start();
+        $this->db->query("UPDATE user_detail SET jumlah_cuti='$total_hari_cuti' WHERE id_user_detail='$id_user'");
         $this->db->trans_complete();
         if($this->db->trans_status()==true)
             return true;
@@ -89,7 +140,17 @@ class M_cuti extends CI_Model
     public function confirm_cuti3($id_cuti, $id_status_cuti3)
     {
         $this->db->trans_start();
-        $this->db->query("UPDATE cuti SET id_status_cuti3='$id_status_cuti3' WHERE id_cuti='$id_cuti'");
+        $this->db->query("UPDATE cuti SET id_status_cuti3='2' WHERE id_cuti='$id_cuti'");
+        $this->db->trans_complete();
+        if($this->db->trans_status()==true)
+            return true;
+        else
+            return false;
+    }
+    public function tolak_cuti3($id_cuti)
+    {
+        $this->db->trans_start();
+        $this->db->query("UPDATE cuti SET id_status_cuti3='3' WHERE id_cuti='$id_cuti'");
         $this->db->trans_complete();
         if($this->db->trans_status()==true)
             return true;
@@ -97,7 +158,6 @@ class M_cuti extends CI_Model
             return false;
     }
 
-   
     public function count_all_cuti()
     {
         $hasil = $this->db->query('SELECT COUNT(id_cuti) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail');
@@ -145,6 +205,16 @@ class M_cuti extends CI_Model
         $hasil = $this->db->query("SELECT COUNT(id_cuti) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti2=3 AND cuti.id_user='$id_user'");
         return $hasil;
     }
+    public function total_hari_cuti_by_id_for_form($id_user)
+    {
+        $hasil = $this->db->query("SELECT user_detail.jumlah_cuti AS total_cuti  FROM user_detail WHERE id_user_detail='$id_user'");
+        return $hasil->row()->total_cuti;
+    }
+    public function total_hari_cuti_by_id_for_dashboard($id_user)
+    {
+        $hasil = $this->db->query("SELECT user_detail.jumlah_cuti AS total_cuti  FROM user_detail WHERE id_user_detail='$id_user'");
+        return $hasil;;
+    }
 
     public function get_permohonan_cuti_by_user($id_user) {
         // Gantilah 'nama_tabel' dengan nama tabel yang sesuai dalam database Anda
@@ -154,7 +224,6 @@ class M_cuti extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
-
     public function hitung_total_hari_cuti_dalam_setahun($id_user) {
         // Ambil tanggal masuk dari tabel user_detail
         $queryTanggalMasuk = "SELECT tanggal_masuk FROM user_detail WHERE id_user_detail = ?";

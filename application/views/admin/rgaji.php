@@ -187,8 +187,8 @@
                                                 <td><?= $no ?></td>
                                                 <td><?= $id_user_detail?></td>
                                                 <td><?= date('d-m-Y', strtotime($gaji_bulan)) ?></td>
-                                                <td><?= number_format($total_delta, 0, ',', '.') ?></td>
                                                 <td><?= number_format($total_gaji, 0, ',', '.') ?></td>
+                                                <td><?= number_format($total_delta, 0, ',', '.') ?></td>
                                                 <td><?= date('d-m-Y', strtotime($tanggal_simpan)) ?></td>
                                                 <td>
                                                     <div class="table-responsive">
@@ -253,6 +253,10 @@
                                                                     <div class="form-group">
                                                                         <label for="total_gaji">Total Gaji</label>
                                                                         <input type="text" class="form-control" id="total_gaji" name="total_gaji" value="<?= htmlspecialchars($total_gaji) ?>" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="total_delta">Total Delta</label>
+                                                                        <input type="text" class="form-control" id="total_delta" name="total_delta" value="<?= htmlspecialchars($total_delta) ?>" required>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <div class="input-group">

@@ -16,18 +16,19 @@ class Form_Cuti extends CI_Controller {
 		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 1) {
 			// Menggunakan ID pengguna dari sesi saat ini
 			$id_user = $this->session->userdata('id_user');
-			
-			// Hitung total cuti dalam setahun
-			$total_hari_cuti = $this->m_cuti->hitung_total_hari_cuti_dalam_setahun($id_user);
+
+			 // Hitung total cuti dalam setahun
+			$total_hari_cuti = $this->m_cuti->total_hari_cuti_by_id_for_form($id_user);
 
 			if ($total_hari_cuti >= 12) {
 				// Total cuti dalam setahun lebih dari atau sama dengan 12, Anda dapat mengarahkan pengguna ke tampilan lain
-				redirect('operator/dashboard');
+				$this->session->set_flashdata('not_found', 'not_found');
+				redirect('Dashboard/dashboard_operator');
 			} else {
 				// Total cuti dalam setahun kurang dari 12, muat tampilan pengajuan cuti
 				$data['operator_data'] = $this->m_user->get_operator_by_id($this->session->userdata('id_user'))->result_array();
 				$data['operator'] = $this->m_user->get_operator_by_id($this->session->userdata('id_user'))->row_array();
-				$data['jenis_kelamin'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
+				$data['jenis_kelamin'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();	
 				$this->load->view('operator/form_pengajuan_cuti', $data);
 			}
 		} else {
@@ -36,7 +37,7 @@ class Form_Cuti extends CI_Controller {
 		}
 	}
 
-	 public function proses_cuti() {
+	public function proses_cuti() {
 		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 1) {
 			// Menggunakan ID pengguna dari sesi saat ini
 			$id_user = $this->input->post("id_user");
@@ -45,32 +46,33 @@ class Form_Cuti extends CI_Controller {
 			$mulai = $this->input->post("mulai");
 			$berakhir = $this->input->post("berakhir");
 
-			// Hitung jumlah hari cuti
 			$total_hari_cuti = $this->hitung_total_cuti($mulai, $berakhir);
 
-			if ($total_hari_cuti > 12) {
-				$this->session->set_flashdata('gagal_tambah');
-				redirect('Dashboard/dashboard_operator');
-			}else {
-				$tahun = date("Y");
+			$tahun = date("Y");
+			$nomor_urut_cuti_exists = true;
+			$nomor_urut = '';
 
+			while ($nomor_urut_cuti_exists) {
 				$nomor_urut = mt_rand(1, 9999);
 				$nomor_urut_cuti = $nomor_urut . "-SP-Cuti-" . $tahun;
+				$nomor_urut_cuti_exists = $this->m_cuti->check_data_cuti($nomor_urut_cuti);
+			}
 
-				$id_status_cuti1 = 1;
-				$id_status_cuti2 = 1;
-				$id_status_cuti3 = 1;
+			// Setelah keluar dari loop, Anda memiliki nomor urut acak yang belum pernah digunakan sebelumnya
 
-				// Memasukkan data cuti ke dalam database
-				$hasil = $this->m_cuti->insert_data_cuti($nomor_urut_cuti, $id_user, $alasan, $mulai, $berakhir, $id_status_cuti1, $id_status_cuti2, $id_status_cuti3, $perihal_cuti, $total_hari_cuti);
+			$id_status_cuti1 = 1;
+			$id_status_cuti2 = 1;
+			$id_status_cuti3 = 1;
 
-				if ($hasil == false) {
-					$this->session->set_flashdata('eror_input', 'eror_input');
-				} else {
-					$this->session->set_flashdata('input', 'input');
-				}
-				redirect('Dashboard/dashboard_operator');
-				}
+			$hasil = $this->m_cuti->insert_data_cuti($nomor_urut_cuti, $id_user, $alasan, $mulai, $berakhir, $id_status_cuti1, $id_status_cuti2, $id_status_cuti3, $perihal_cuti, $total_hari_cuti);
+
+			if ($hasil == false) {
+				$this->session->set_flashdata('eror_input', 'eror_input');
+			} else {
+				$this->session->set_flashdata('input', 'input');
+			}
+			redirect('Dashboard/dashboard_operator');
+			
 		}else {
 			$this->session->set_flashdata('loggin_err', 'loggin_err');
 			redirect('Login/index');

@@ -143,7 +143,7 @@
                                                 <td><?php if($id_status_cuti1 == 1){ ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Menunggu Konfirmasi
                                                             </a>
@@ -152,7 +152,7 @@
                                                     <?php }elseif($id_status_cuti1 == 2) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Diterima
                                                             </a>
@@ -161,7 +161,7 @@
                                                     <?php }elseif($id_status_cuti1 == 3) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Ditolak
                                                             </a>
@@ -172,7 +172,7 @@
                                                 <td><?php if($id_status_cuti2 == 1){ ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Menunggu Konfirmasi
                                                             </a>
@@ -181,7 +181,7 @@
                                                     <?php }elseif($id_status_cuti2 == 2) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Diterima
                                                             </a>
@@ -190,7 +190,7 @@
                                                     <?php }elseif($id_status_cuti2 == 3) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Ditolak
                                                             </a>
@@ -201,7 +201,7 @@
                                                 <td><?php if($id_status_cuti3 == 1){ ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Menunggu Konfirmasi
                                                             </a>
@@ -210,7 +210,7 @@
                                                     <?php }elseif($id_status_cuti3 == 2) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Diterima
                                                             </a>
@@ -219,7 +219,7 @@
                                                     <?php }elseif($id_status_cuti3 == 3) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-info" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Ditolak
                                                             </a>
@@ -233,27 +233,28 @@
                                                             Cetak Surat Pengajuan
                                                         </a>
                                                     <?php } else { ?>
-                                                        <a href="" class="btn btn-danger">
+                                                        <a class="btn btn-danger">
                                                             Belum Dapat Mencetak
                                                         </a>
                                                     <?php } ?>
                                                 </td>
                                                 <td>
-                                                    <?php if ($id_status_cuti1 == 2 && $id_status_cuti2 == 2 && $id_status_cuti3 == 2) { ?>
+                                                    <?php if ($id_status_cuti1 == 2 ) { ?>
                                                         <a href="<?= base_url(); ?>CetakAcc/surat_cuti_acc_pdf/<?= $id_cuti ?>" target="_blank" class="btn btn-info">
                                                             Cetak Surat Konfirmasi
                                                         </a>
                                                     <?php } else { ?>
-                                                        <a href="" class="btn btn-danger">
+                                                        <a class="btn btn-danger">
                                                             Belum Dapat Mencetak
                                                         </a>
                                                     <?php } ?>
                                                 </td>
                                             
                                                 <td>
+                                                <?php if ($id_status_cuti1 == 2 ) { ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-primary" data-toggle="modal"
+                                                            <a class="btn btn-primary" data-toggle="modal"
                                                                 data-target="#edit<?= $id_cuti ?>">
                                                                 <i class="fas fa-edit"></i>
                                                             </a>
@@ -261,15 +262,16 @@
                                                     </div>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" data-toggle="modal"
+                                                            <a data-toggle="modal"
                                                                 data-target="#hapus<?= $id_cuti ?>"
                                                                 class="btn btn-danger"><i class="fas fa-trash"></i>
                                                             </a>
                                                         </div>
                                                     </div>
+                                                    
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" class="btn btn-primary" data-toggle="modal"
+                                                            <a class="btn btn-primary" data-toggle="modal"
                                                                 data-target="#setuju<?= $id_cuti ?>">
                                                                 <i class="fas fa-check"></i>
                                                             </a>
@@ -277,12 +279,15 @@
                                                     </div>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a href="" data-toggle="modal"
+                                                            <a data-toggle="modal"
                                                                 data-target="#tidak_setuju<?= $id_cuti ?>"
                                                                 class="btn btn-danger"><i class="fas fa-times"></i>
                                                             </a>
                                                         </div>
                                                     </div>
+                                                    <?php }else{ ?>
+                                                        <p style="text-align: center;">Aksi Belum Tersedia</p>
+                                                    <?php } ?>
                                                 </td>
                                             </tr>
                                             <!-- Modal Edit Cuti -->

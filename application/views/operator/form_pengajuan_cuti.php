@@ -26,6 +26,16 @@
     });
     </script>
     <?php } ?>
+    
+    <?php if ($this->session->flashdata('not_found')){ ?>
+    <script>
+    swal({
+        title: "Tidak Boleh Akses!",
+        text: "Anda Tidak boleh mengajukan cuti!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
 
     <div class="wrapper">
 

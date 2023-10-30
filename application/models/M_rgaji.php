@@ -44,14 +44,31 @@ class M_rgaji extends CI_Model
         }
     }
 
-    public function edit_gaji_bulan($id_user_detail,$gaji_bulan,$total_gaji,$tanggal_simpan)
+    public function edit_gaji_bulan($id_user_detail,$gaji_bulan,$total_gaji,$tanggal_simpan,$total_delta)
     {
         if ($gaji_bulan < 0) {
             $this->session->set_flashdata('eror_edit','eror_edit');
             return false;
         }else{
             $this->db->trans_start();
-            $this->db->query("UPDATE status_gaji_bulanan SET total_gaji='$total_gaji',gaji_bulan='$gaji_bulan',tgl_simpan='$tanggal_simpan' WHERE id_user_detail = '$id_user_detail'");
+            $this->db->query("UPDATE status_gaji_bulanan SET total_gaji='$total_gaji',gaji_bulan='$gaji_bulan', tgl_simpan='$tanggal_simpan', jumlah_delta = '$total_delta' WHERE id_user_detail = '$id_user_detail'");
+            $this->db->trans_complete();
+
+            if ($this->db->trans_status() == true) {
+                $this->session->set_flashdata('edit','edit');
+                return $this->db->trans_status();
+            } else {
+                $this->session->set_flashdata('eror_edit','eror_edit');}
+        }
+    }
+    public function edit_gaji_bulan_tambah($username, $tanggal_gaji, $total_gaji,$total_delta,$tanggal_simpan)
+    {
+        if ($gaji_bulan < 0) {
+            $this->session->set_flashdata('eror_edit','eror_edit');
+            return false;
+        }else{
+            $this->db->trans_start();
+            $this->db->query("UPDATE status_gaji_bulanan SET total_gaji='$total_gaji',gaji_bulan='$tanggal_gaji', tgl_simpan='$tanggal_simpan', jumlah_delta = '$total_delta' WHERE id_user_detail = '$username'");
             $this->db->trans_complete();
 
             if ($this->db->trans_status() == true) {
@@ -75,4 +92,9 @@ class M_rgaji extends CI_Model
         }
     }
 
+    public function check_data_gaji($username,$tanggal_simpan){
+        $query = $this->db->query("SELECT * FROM status_gaji_bulanan WHERE id_user_detail='$username' AND tgl_simpan='$tanggal_simpan'");
+
+        return $query->result_array();
+    }
 }

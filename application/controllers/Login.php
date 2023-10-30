@@ -7,6 +7,7 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
         $this->load->model('m_user');
+		$this->load->model('m_reset_cuti');
 	}
 
 	public function index()
@@ -29,7 +30,6 @@ class Login extends CI_Controller {
 			if ($user['password'] == md5($password)) { // Menggunakan md5() untuk membandingkan kata sandi
 				// Berdasarkan tingkat pengguna (id_user_level), sesi pengguna akan diatur
 				if ($user['id_user_level'] == 1) {
-					// Jika tingkat pengguna adalah 1 (Operator), sesi diatur untuk Operator
 					$this->session->set_userdata('logged_in', true);
 					$this->session->set_userdata('id_user', $user['id_user']);
 					$this->session->set_userdata('username', $user['username']);

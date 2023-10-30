@@ -121,11 +121,11 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-6">
+                       <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3><?= $total_hari_cuti ?> Hari</h3>
+                                    <h3><?= $total_cuti['total_cuti'] ?> Hari</h3>
                                     <p>Total Hari Cuti Dalam Setahun</p>
                                 </div>
                                 <div class="icon">
@@ -134,6 +134,7 @@
                                 <a href="<?= base_url(); ?>Cuti/view_operator/<?= $this->session->userdata('id_user'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
+
             </section>
             <!-- /.content -->
         </div>

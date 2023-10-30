@@ -108,18 +108,15 @@
 
                 <form class="login100-form validate-form" action="<?= base_url();?>Login/proses" method="POST">
                     <span class="login100-form-title">
-                        Aplikasi SMP2C
+                        SMP3C
                     </span>
-					
-
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                   <div class="wrap-input100 validate-input" data-validate="Masukkan NIP yang terdiri dari 7 Angka 3 Huruf">
                         <input class="input100" type="text" name="username" placeholder="username">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
                     </div>
-
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
                         <input class="input100" type="password" name="password" placeholder="password">
                         <span class="focus-input100"></span>
