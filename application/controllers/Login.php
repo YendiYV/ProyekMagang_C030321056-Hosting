@@ -7,7 +7,6 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
         $this->load->model('m_user');
-		$this->load->model('m_reset_cuti');
 	}
 
 	public function index()

@@ -107,6 +107,7 @@
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"></a>Supervisior</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Penempatan</li>
                             </ol>
@@ -155,7 +156,7 @@
                                                 <td><?= $no ?></td>
                                                 <td><?= $nama_penempatan ?></td>
                                                 <td><?= number_format($gaji, 0, ',', '.') ?></td>
-                                                <td><?= $tipe_um_penempatan?></td>
+                                                <td style="<?= $tipe_um_penempatan ? '' : 'color: red;' ?>"><?= $tipe_um_penempatan ?: "Data Kosong" ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">

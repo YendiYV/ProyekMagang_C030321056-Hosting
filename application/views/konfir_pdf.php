@@ -58,17 +58,17 @@ $id_status_cuti3 = $i['id_status_cuti3'];
     $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
     $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
     ?>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:150%; font-size:12pt;"><span
+    <p style=" color: #1ac6ff; margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:100%; font-size:12pt;"><span
             style="height:0pt; text-align:left; display:block; position:absolute; z-index:-1;"><img
                 src="<?=base_url();?>assets/login/images/logo.jpg"
                 width="160" height="74" alt="" class="fr-fir fr-dib fr-draggable"></span><strong><span
                 style="font-family:'Times New Roman';">PLN TARAKAN CABANG KSKT CABANG UP2</span></strong></p>
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:150%; font-size:14pt;"><strong><span
                 style="font-family:'Times New Roman';">PEMBANGKIT LISTRIK NEGERI</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:150%; font-size:14pt;"><strong><span
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:150%; font-size:12pt;"><strong><span
                 style="font-family:'Times New Roman';">WILAYAH KALIMANTAN SELATAN & TENGAH</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:150%;"><span
-            style="font-family:Arial;">Jl. Pangeran Hidayatullah No.22 Banjarbaru</span></p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:150%;font-size:10pt"><span
+            style="font-family:Arial;">Jl. Pangeran Hidayatullah No.22 Loktabat Utara,<br>Kec.Banjarbaru Utara. Kota Banjarbaru, Kalimantan Selatan, Kode Pos : 70714</span></p>
     <hr>
     <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
             style="font-family:'Times New Roman';">&nbsp;</span></p>

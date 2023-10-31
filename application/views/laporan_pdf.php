@@ -58,7 +58,7 @@ $id_status_cuti3 = $i['id_status_cuti3'];
     $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
     $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
     ?>
-    <p style=" color: #1ac6ff; margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:100%; font-size:12pt;"><span
+     <p style=" color: #1ac6ff; margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:100%; font-size:12pt;"><span
             style="height:0pt; text-align:left; display:block; position:absolute; z-index:-1;"><img
                 src="<?=base_url();?>assets/login/images/logo.jpg"
                 width="160" height="74" alt="" class="fr-fir fr-dib fr-draggable"></span><strong><span
@@ -67,8 +67,8 @@ $id_status_cuti3 = $i['id_status_cuti3'];
                 style="font-family:'Times New Roman';">PEMBANGKIT LISTRIK NEGERI</span></strong></p>
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:150%; font-size:12pt;"><strong><span
                 style="font-family:'Times New Roman';">WILAYAH KALIMANTAN SELATAN & TENGAH</span></strong></p>
-    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:150%;"><span
-            style="font-family:Arial;">Jl. Pangeran Hidayatullah No.22 Banjarbaru</span></p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:150%;font-size:10pt"><span
+            style="font-family:Arial;">Jl. Pangeran Hidayatullah No.22 Loktabat Utara,<br>Kec.Banjarbaru Utara. Kota Banjarbaru, Kalimantan Selatan, Kode Pos : 70714</span></p>
     <hr>
     <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
             style="font-family:'Times New Roman';">&nbsp;</span></p>
@@ -134,14 +134,13 @@ $id_status_cuti3 = $i['id_status_cuti3'];
             Saya yang bertanda tangan di bawah ini,<br></span><span style="width:22.14pt; display:inline-block;">&nbsp;</span><span
             style="width:36pt; display:inline-block;">&nbsp;</span><span
             style="width:36pt; display:inline-block;">&nbsp;</span><span
-            style="width:36pt; display:inline-block;">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<br></span></p>
+            style="width:36pt; display:inline-block;">&nbsp;&nbsp;&nbsp;<br></span></p>
     <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
             style="width:36pt; display:inline-block;">&nbsp;</span><span
             style="width:36pt; display:inline-block;">&nbsp;</span><span
             style="width:36pt; display:inline-block;">&nbsp;</span><span
             style="font-family:'Times New Roman';">&nbsp;Nama</span><span
             style="width:6.99pt; display:inline-block;">&nbsp;</span><span
-            style="width:36pt; display:inline-block;">&nbsp;</span><span
             style="width:36pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">:
             <?=$nama_lengkap?></span></p>
     <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
@@ -149,8 +148,7 @@ $id_status_cuti3 = $i['id_status_cuti3'];
             style="width:36pt; display:inline-block;">&nbsp;</span><span
             style="width:36pt; display:inline-block;">&nbsp;</span><span
             style="font-family:'Times New Roman';">&nbsp;NIP</span><span
-            style="width:16.75pt; display:inline-block;">&nbsp;</span><span
-            style="width:36pt; display:inline-block;">&nbsp;</span><span
+            style="width:16.3pt; display:inline-block;">&nbsp;</span><span
             style="width:36pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">:
             <?=$nip?></span></p>
     <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
@@ -158,17 +156,15 @@ $id_status_cuti3 = $i['id_status_cuti3'];
             style="width:36pt; display:inline-block;">&nbsp;</span><span
             style="width:36pt; display:inline-block;">&nbsp;</span><span
             style="font-family:'Times New Roman';">&nbsp;Proyek</span><span
-            style="width:16.75pt; display:inline-block;">&nbsp;</span><span
-            style="width:20pt; display:inline-block;">&nbsp;</span><span
-            style="width:36pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">:
+            style="width:17.7pt; display:inline-block;">&nbsp;</span><span
+            style="width:20pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">:
             <?=$proyek?></span></p>
     <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
             style="width:36pt; display:inline-block;">&nbsp;</span><span
             style="width:36pt; display:inline-block;">&nbsp;</span><span
-            style="width:36pt; display:inline-block;">&nbsp;</span><span
+            style="width:35.7pt; display:inline-block;">&nbsp;</span><span
             style="font-family:'Times New Roman';">&nbsp;Jabatan</span><span
-            style="width:0.27pt; display:inline-block;">&nbsp;</span><span
-            style="width:36pt; display:inline-block;">&nbsp;</span><span
+            style="width:0pt; display:inline-block;">&nbsp;</span><span
             style="width:36pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">: <?=$jabatan?></span></p>
     <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
             style="font-family:'Times New Roman';">&nbsp;</span></p>
@@ -191,7 +187,7 @@ $id_status_cuti3 = $i['id_status_cuti3'];
                         echo "Tidak valid"; // Ganti dengan pesan kesalahan atau tindakan yang sesuai
                         }
                         ?>
-                        yang akan di pergunakan untuk <?=$alasan?>.
+                        yang akan di pergunakan untuk <b><?= $alasan ?></b>.
                 </span>
         </p>
 
@@ -230,7 +226,7 @@ $id_status_cuti3 = $i['id_status_cuti3'];
                         </span>
                 </p><br><br><br>
                 <p style="margin-top: 10px;">__________________________</p>
-                <p style="font-family: 'Times New Roman'; margin: 0;"><?=$nama_lengkap?></p>
+                <p style="font-family: 'Times New Roman'; margin-bottom: 0px;"><?=$nama_lengkap?></p>
         </div>
     <?php endforeach; ?>
 </body>

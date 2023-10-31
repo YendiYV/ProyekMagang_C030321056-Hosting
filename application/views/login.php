@@ -108,7 +108,8 @@
 
                 <form class="login100-form validate-form" action="<?= base_url();?>Login/proses" method="POST">
                     <span class="login100-form-title">
-                        SMP3C
+                        SMP3C<br>
+                        PLN Tarakan UP2
                     </span>
                    <div class="wrap-input100 validate-input" data-validate="Masukkan NIP yang terdiri dari 7 Angka 3 Huruf">
                         <input class="input100" type="text" name="username" placeholder="username">

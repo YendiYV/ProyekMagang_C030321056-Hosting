@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 25, 2023 at 03:23 PM
+-- Generation Time: Oct 31, 2023 at 04:03 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -46,9 +46,8 @@ CREATE TABLE `cuti` (
 --
 
 INSERT INTO `cuti` (`id_cuti`, `id_user`, `alasan`, `tgl_diajukan`, `mulai`, `berakhir`, `id_status_cuti1`, `id_status_cuti2`, `id_status_cuti3`, `perihal_cuti`, `jumlah_hari`) VALUES
-('2027-SP-Cuti-2023', '23bdd1cd96888f836956a97a0fdc6bd5', 'Cape', '2022-10-25', '2023-10-27', '2023-10-27', 2, 2, 2, 'Ingin Sakit Saja', 5),
-('2781-SP-Cuti-2023', 'c551fc8847d29dc25a23db5d2cdb941b', 'TES', '2023-10-12', '2023-10-13', '2023-10-18', 2, 3, 1, 'TES', 4),
-('6682-SP-Cuti-2023', '23bdd1cd96888f836956a97a0fdc6bd5', 'TES', '2023-10-25', '2023-12-29', '2024-01-12', 1, 1, 1, 'TES', 11);
+('0001-SP-Cuti-2023', '23bdd1cd96888f836956a97a0fdc6bd5', 'TES', '2023-10-30', '2023-11-01', '2023-11-06', 2, 3, 2, 'TES', 4),
+('9534-SP-Cuti-2023', '23bdd1cd96888f836956a97a0fdc6bd5', 'TES', '2023-10-31', '2023-11-01', '2023-11-02', 1, 1, 1, 'TES', 2);
 
 -- --------------------------------------------------------
 
@@ -171,13 +170,16 @@ CREATE TABLE `status_gaji_bulanan` (
 --
 
 INSERT INTO `status_gaji_bulanan` (`no_sgb`, `id_user_detail`, `gaji_bulan`, `total_gaji`, `jumlah_delta`, `tgl_simpan`) VALUES
-(2, '1231232PKY', '2023-09-01', 9000000, 1096457, '0000-00-00'),
-(4, '1231234PKY', '2023-09-01', 6000000, 0, '0000-00-00'),
-(5, '1231239PKY', '2023-10-01', 5000000, 0, '0000-00-00'),
-(7, '1231239PKY', '2023-10-01', 5000000, 10000, '0000-00-00'),
-(9, '1231233PKY', '2023-09-01', 9000000, 996457, '0000-00-00'),
-(11, '1231231PKY', '2023-09-01', 6000000, 850000, '2023-10-24'),
-(12, '1231239PKY', '2023-09-01', 5000000, 999321, '0000-00-00');
+(1, '1231231PKY', '2023-09-01', 200000, 2000, '2023-10-30'),
+(2, '1231232PKY', '2023-09-01', 5000000, 200000, '2023-10-30'),
+(3, '1231233PKY', '2023-09-01', 3000000, 10000, '2023-10-30'),
+(4, '1231234PKY', '2023-09-01', 6000000, 15000, '2023-10-30'),
+(5, '1231239PKY', '2023-09-01', 7000000, 90000, '2023-10-30'),
+(35, '1231231PKY', '2023-10-01', 3022896, 0, '2023-10-30'),
+(36, '1231232PKY', '2023-10-01', 5003543, 0, '2023-10-30'),
+(37, '1231233PKY', '2023-10-01', 4157354, 0, '2023-10-30'),
+(38, '1231234PKY', '2023-10-01', 6000000, 850000, '2023-10-30'),
+(39, '1231239PKY', '2023-10-01', 7000000, 1999321, '2023-10-30');
 
 -- --------------------------------------------------------
 
@@ -199,7 +201,7 @@ CREATE TABLE `status_penempatan` (
 INSERT INTO `status_penempatan` (`id_penempatan`, `nama_penempatan`, `um`, `gaji_penempatan`) VALUES
 (1, 'Barito Timur', '2', 1400000),
 (2, 'Barito Selatan', '1', 2000000),
-(3, 'Barito Utara', '3', 1200000),
+(3, 'Barito Utara', '0', 1200000),
 (6, 'Pasar Panas', '1', 1500000),
 (7, 'Tanjung', '2', 6000000);
 
@@ -339,22 +341,23 @@ CREATE TABLE `user_detail` (
   `bpk` int(11) DEFAULT NULL,
   `delta` int(11) DEFAULT NULL,
   `transport` int(11) DEFAULT NULL,
-  `tanggal_masuk` date DEFAULT NULL
+  `tanggal_masuk` date DEFAULT NULL,
+  `jumlah_cuti` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user_detail`
 --
 
-INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `tanggal_masuk`) VALUES
-('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '081256769', 'Jl. Pengayaan', '1231231PKY', 11, 0, 0, 0, 0, 0, '2021-10-27'),
-('c551fc8847d29dc25a23db5d2cdb941b', 'Putri', 2, '+62812781728', 'Jl. Sekip', '1231233PKY', 2, 5, 3, 1, 1, 3, '2019-10-17'),
-('d41d8cd98f00b204e9800998ecf8427e', 'Ahmad', 1, '08121212112', '0987654', '1231232PKY', 1, 1, 1, 1, 1, 1, '2016-10-17'),
-('dce802a5e29e9ccabc144dfb6a37abbb', 'Suci Priani', 2, '+62812781728', 'Jl. Negara', '1231239PKY', 1, 1, 1, 1, 1, 1, '2018-10-18'),
-('eb71208764d1a8a02cdf86a49ccd1489', 'Manajer Yendi', 1, '081212121212', 'Jl. Hidayatullah No.22', '1234567MNJ', 0, 0, 0, 0, 0, 0, NULL),
-('f5972fbf4ef53843c1e12c3ae99e5005', 'Supervisior', 1, NULL, NULL, '1234567SPV', 0, 0, 0, 0, 0, 0, NULL),
-('f7c7b7e19a4ed7a51db593c8efbee984', 'Operator Aminudin', 1, '+628127817281', 'Jl. Sekip', '1231234PKY', 3, 5, 2, 1, 2, 1, '2023-10-17');
+INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `tanggal_masuk`, `jumlah_cuti`) VALUES
+('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '081256769', 'Jl. Pengayaan', '1231231PKY', 1, 1, 1, 1, 1, 4, '2023-10-31', 10),
+('c551fc8847d29dc25a23db5d2cdb941b', 'Putri', 2, '+62812781728', 'Jl. Sekip', '1231233PKY', 2, 5, 3, 1, 1, 3, '2019-10-17', 0),
+('d41d8cd98f00b204e9800998ecf8427e', 'Ahmad', 1, '08121212112', '0987654', '1231232PKY', 2, 13, 1, 1, 1, 3, '2023-10-31', 0),
+('dce802a5e29e9ccabc144dfb6a37abbb', 'Suci Priani', 2, '+62812781728', 'Jl. Negara', '1231239PKY', 1, 1, 1, 1, 1, 1, '2018-10-18', 0),
+('eb71208764d1a8a02cdf86a49ccd1489', 'Manajer Yendi', 1, '081212121212', 'Jl. Hidayatullah No.22', '1234567MNJ', 0, 0, 0, 0, 0, 0, NULL, 0),
+('f5972fbf4ef53843c1e12c3ae99e5005', 'Supervisior', 1, NULL, NULL, '1234567SPV', 0, 0, 0, 0, 0, 0, NULL, 0),
+('f7c7b7e19a4ed7a51db593c8efbee984', 'Operator Aminudin', 1, '+628127817281', 'Jl. Sekip', '1231234PKY', 3, 5, 2, 1, 2, 1, '2023-10-17', 0);
 
 -- --------------------------------------------------------
 
@@ -509,7 +512,7 @@ ALTER TABLE `status_delta`
 -- AUTO_INCREMENT for table `status_gaji_bulanan`
 --
 ALTER TABLE `status_gaji_bulanan`
-  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `status_penempatan`

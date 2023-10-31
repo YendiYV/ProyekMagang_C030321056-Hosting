@@ -107,6 +107,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"></a>Admin</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Cuti</li>
                             </ol>
@@ -297,7 +298,6 @@
                                                         </a>
                                                     <?php } ?>
                                                 </td>
-                                            
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
@@ -315,6 +315,7 @@
                                                             </a>
                                                         </div>
                                                     </div>
+                                                    <?php if ($id_status_cuti1 == 1  || $id_status_cuti1 == 3) { ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
                                                             <a class="btn btn-primary" data-toggle="modal"
@@ -323,6 +324,7 @@
                                                             </a>
                                                         </div>
                                                     </div>
+                                                    <?php }if ($id_status_cuti1 == 1  || $id_status_cuti1 == 2) { ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
                                                             <a data-toggle="modal"
@@ -331,6 +333,7 @@
                                                             </a>
                                                         </div>
                                                     </div>
+                                                    <?php } ?>
                                                 </td>
                                             </tr>
                                             <!-- Modal Edit Cuti -->

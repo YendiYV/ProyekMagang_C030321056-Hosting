@@ -121,6 +121,7 @@
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"></a>Admin</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Operator</li>
                             </ol>
@@ -191,18 +192,18 @@
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $username ?></td>
-                                                <td><?= $nama_lengkap ?></td>
-                                                <td><?= $tanggal_masuk ?></td>
-                                                <td><?= $jenis_kelamin ?></td>
-                                                <td><?= $no_telp ?></td>
-                                                <td><?= $alamat ?></td>
-                                                <td><?= $nama_proyek ?></td>
-                                                <td><?= $operator_level?></td>
-                                                <td><?= $penempatan ?></td>
-                                                <td><?= $nama_bpk ?></td>
-                                                <td><?= $nama_delta ?></td>
-                                                <td><?= $transport ?></td>
+                                                <td style="<?= $username ? '' : 'color: red;' ?>"><?= $username ?: "Data Kosong" ?></td>
+                                                <td style="<?= $nama_lengkap ? '' : 'color: red;' ?>"><?= $nama_lengkap ?: "Data Kosong" ?></td>
+                                                <td style="<?= $tanggal_masuk ? '' : 'color: red;' ?>"><?= $tanggal_masuk ?: "Data Kosong" ?></td>
+                                                <td style="<?= $jenis_kelamin ? '' : 'color: red;' ?>"><?= $jenis_kelamin ?: "Data Kosong" ?></td>
+                                                <td style="<?= $no_telp ? '' : 'color: red;' ?>"><?= $no_telp ?: "Data Kosong" ?></td>
+                                                <td style="<?= $alamat ? '' : 'color: red;' ?>"><?= $alamat ?: "Data Kosong" ?></td>
+                                                <td style="<?= $nama_proyek ? '' : 'color: red;' ?>"><?= $nama_proyek ?: "Data Kosong" ?></td>
+                                                <td style="<?= $operator_level ? '' : 'color: red;' ?>"><?= $operator_level ?: "Data Kosong" ?></td>
+                                                <td style="<?= $penempatan ? '' : 'color: red;' ?>"><?= $penempatan ?: "Data Kosong" ?></td>
+                                                <td style="<?= $nama_bpk ? '' : 'color: red;' ?>"><?= $nama_bpk ?: "Data Kosong" ?></td>
+                                                <td style="<?= $nama_delta ? '' : 'color: red;' ?>"><?= $nama_delta ?: "Data Kosong" ?></td>
+                                                <td style="<?= $transport ? '' : 'color: red;' ?>"><?= $transport ?: "Data Kosong" ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">

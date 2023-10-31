@@ -117,39 +117,39 @@ class M_user extends CI_Model
 
 
     public function update_operator($id_user, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan, $penempatan, $bpk, $delta, $transport, $id_status_proyek, $tanggal_masuk)
-{
-    $this->db->trans_start();
+    {
+        $this->db->trans_start();
 
-    // Cek apakah username ada di tabel user
-    $user_query = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username'");
+        // Cek apakah username ada di tabel user
+        $user_query = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username'");
 
-    // Cek apakah NIP ada di tabel user_detail
-    $nip_query = $this->db->query("SELECT * FROM `user_detail` WHERE `nip` = '$username'");
+        // Cek apakah NIP ada di tabel user_detail
+        $nip_query = $this->db->query("SELECT * FROM `user_detail` WHERE `nip` = '$username'");
 
-    if ($user_query->num_rows() == 0) {
-        // Username ada, lakukan update di tabel user
-        $this->db->query("UPDATE user SET password='$password', id_user_level='$id_user_level' WHERE id_user='$id_user'");
-    } else {
-        // Username tidak ada, lakukan insert baru di tabel user
-        $this->db->query("UPDATE user SET username='$username' ,password='$password', id_user_level='$id_user_level' WHERE id_user='$id_user'");
+        if ($user_query->num_rows() == 0) {
+            // Username ada, lakukan update di tabel user
+            $this->db->query("UPDATE user SET password='$password', id_user_level='$id_user_level' WHERE id_user='$id_user'");
+        } else {
+            // Username tidak ada, lakukan insert baru di tabel user
+            $this->db->query("UPDATE user SET username='$username' ,password='$password', id_user_level='$id_user_level' WHERE id_user='$id_user'");
+        }
+
+        if ($nip_query->num_rows() == 0) {
+            // NIP ada, lakukan update di tabel user_detail
+            $this->db->query("UPDATE user_detail SET nama_lengkap='$nama_lengkap', id_jenis_kelamin='$id_jenis_kelamin', no_telp='$no_telp', nip='$username', alamat='$alamat', jabatan='$jabatan', penempatan='$penempatan', bpk='$bpk', delta='$delta', transport='$transport', proyek='$id_status_proyek', tanggal_masuk='$tanggal_masuk' WHERE nip='$username'");
+        } else {
+            // NIP tidak ada, lakukan update  di tabel user_detail
+        $this->db->query("UPDATE user_detail SET nama_lengkap='$nama_lengkap', id_jenis_kelamin='$id_jenis_kelamin', no_telp='$no_telp', alamat='$alamat', jabatan='$jabatan', penempatan='$penempatan', bpk='$bpk', delta='$delta', transport='$transport', proyek='$id_status_proyek', tanggal_masuk='$tanggal_masuk' WHERE nip='$username'");
+        }
+
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() == true){
+            $this->session->set_flashdata('edit','edit');
+            return $this->db->trans_status();}
+        else{
+            $this->session->set_flashdata('eror_edit','eror_edit');}
     }
-
-    if ($nip_query->num_rows() == 0) {
-        // NIP ada, lakukan update di tabel user_detail
-        $this->db->query("UPDATE user_detail SET nama_lengkap='$nama_lengkap', id_jenis_kelamin='$id_jenis_kelamin', no_telp='$no_telp', nip='$username', alamat='$alamat', jabatan='$jabatan', penempatan='$penempatan', bpk='$bpk', delta='$delta', transport='$transport', proyek='$id_status_proyek', tanggal_masuk='$tanggal_masuk' WHERE nip='$username'");
-    } else {
-        // NIP tidak ada, lakukan update  di tabel user_detail
-       $this->db->query("UPDATE user_detail SET nama_lengkap='$nama_lengkap', id_jenis_kelamin='$id_jenis_kelamin', no_telp='$no_telp', alamat='$alamat', jabatan='$jabatan', penempatan='$penempatan', bpk='$bpk', delta='$delta', transport='$transport', proyek='$id_status_proyek', tanggal_masuk='$tanggal_masuk' WHERE nip='$username'");
-    }
-
-    $this->db->trans_complete();
-
-     if ($this->db->trans_status() == true){
-        $this->session->set_flashdata('edit','edit');
-        return $this->db->trans_status();}
-    else{
-        $this->session->set_flashdata('eror_edit','eror_edit');}
-}
 
 
     public function delete_operator($id)

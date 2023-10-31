@@ -52,6 +52,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"></a>Supervisior</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Cuti</li>
                             </ol>
@@ -268,7 +269,7 @@
                                                             </a>
                                                         </div>
                                                     </div>
-                                                    
+                                                    <?php if ($id_status_cuti2 == 1  || $id_status_cuti2== 3) { ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
                                                             <a class="btn btn-primary" data-toggle="modal"
@@ -277,6 +278,7 @@
                                                             </a>
                                                         </div>
                                                     </div>
+                                                    <?php }if ($id_status_cuti2 == 1  || $id_status_cuti2 == 2) { ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
                                                             <a data-toggle="modal"
@@ -285,6 +287,7 @@
                                                             </a>
                                                         </div>
                                                     </div>
+                                                    <?php } ?>
                                                     <?php }else{ ?>
                                                         <p style="text-align: center;">Aksi Belum Tersedia</p>
                                                     <?php } ?>

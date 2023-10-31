@@ -53,7 +53,7 @@ class Form_Cuti extends CI_Controller {
 			$nomor_urut = '';
 
 			while ($nomor_urut_cuti_exists) {
-				$nomor_urut = mt_rand(1, 9999);
+				$nomor_urut = str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
 				$nomor_urut_cuti = $nomor_urut . "-SP-Cuti-" . $tahun;
 				$nomor_urut_cuti_exists = $this->m_cuti->check_data_cuti($nomor_urut_cuti);
 			}
