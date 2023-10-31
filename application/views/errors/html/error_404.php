@@ -63,7 +63,7 @@
                     <!-- end Rabbit -->
                     <p>Halaman yang Anda cari telah dipindahkan, dihapus,<br />
                         berganti nama atau mungkin tidak pernah ada.</p>
-                    <a href="http://pln-kskt.my.id/SMP2C/" class="btn">Go Home</a>
+                    <a href="http://pln-kskt.my.id/SMP3C/" class="btn">Go Home</a>
                     <!--<a href="#" class="btn btn-brown">Contact Us</a>-->
                 </div>
                 <!-- end Info -->
