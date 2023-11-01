@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 31, 2023 at 07:00 PM
+-- Generation Time: Nov 01, 2023 at 03:38 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `plnksktm_smp3c`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `absensi_level`
+--
+
+CREATE TABLE `absensi_level` (
+  `id_absen_level` int(11) NOT NULL,
+  `nama_status` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `absensi_level`
+--
+
+INSERT INTO `absensi_level` (`id_absen_level`, `nama_status`) VALUES
+(1, 'H'),
+(2, 'C'),
+(3, 'S'),
+(4, 'I'),
+(5, 'A');
 
 -- --------------------------------------------------------
 
@@ -89,6 +111,28 @@ INSERT INTO `operator_level` (`id_level`, `operator_level`, `gaji_level`) VALUES
 (5, 'Operasional', 1500000),
 (13, 'Lapangan', 1200000),
 (14, 'SDM', 1500000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status_absensi`
+--
+
+CREATE TABLE `status_absensi` (
+  `id_absen` int(11) NOT NULL,
+  `id_user_detail` varchar(256) DEFAULT NULL,
+  `tanggal_absen` date DEFAULT NULL,
+  `status_absen` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `status_absensi`
+--
+
+INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `status_absen`) VALUES
+(1, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-01', '1'),
+(3, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-01', '2'),
+(4, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-03', '5');
 
 -- --------------------------------------------------------
 
@@ -175,11 +219,11 @@ INSERT INTO `status_gaji_bulanan` (`no_sgb`, `id_user_detail`, `gaji_bulan`, `to
 (3, '1231233PKY', '2023-09-01', 3000000, 10000, '2023-10-30'),
 (4, '1231234PKY', '2023-09-01', 6000000, 15000, '2023-10-30'),
 (5, '1231239PKY', '2023-09-01', 7000000, 90000, '2023-10-30'),
-(35, '1231231PKY', '2023-10-01', 3022896, 0, '2023-10-30'),
-(36, '1231232PKY', '2023-10-01', 5003543, 0, '2023-10-30'),
-(37, '1231233PKY', '2023-10-01', 4157354, 0, '2023-10-30'),
-(38, '1231234PKY', '2023-10-01', 6000000, 850000, '2023-10-30'),
-(39, '1231239PKY', '2023-10-01', 7000000, 1999321, '2023-10-30');
+(35, '1231231PKY', '2023-10-01', 5024000, 0, '2023-10-31'),
+(36, '1231232PKY', '2023-10-01', 5200000, 0, '2023-10-31'),
+(37, '1231233PKY', '2023-10-01', 6000000, 0, '2023-10-31'),
+(38, '1231234PKY', '2023-10-01', 6000000, 850000, '2023-10-31'),
+(39, '1231239PKY', '2023-10-01', 6000000, 1999321, '2023-10-31');
 
 -- --------------------------------------------------------
 
@@ -352,8 +396,8 @@ CREATE TABLE `user_detail` (
 INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `tanggal_masuk`, `jumlah_cuti`) VALUES
 ('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 ('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '081256769', 'Jl. Pengayaan', '1231231PKY', 1, 1, 1, 1, 1, 4, '2023-10-31', 10),
-('c551fc8847d29dc25a23db5d2cdb941b', 'Putri', 2, '+62812781728', 'Jl. Sekip', '1231233PKY', 2, 5, 3, 1, 1, 3, '2019-10-17', 0),
-('d41d8cd98f00b204e9800998ecf8427e', 'Ahmad', 1, '08121212112', '0987654', '1231232PKY', 2, 13, 1, 1, 1, 3, '2023-10-31', 0),
+('c551fc8847d29dc25a23db5d2cdb941b', 'Putri', 2, '+62812781728', 'Jl. Sekip', '1231233PKY', 2, 5, 3, 1, 0, 3, '2019-10-17', 0),
+('d41d8cd98f00b204e9800998ecf8427e', 'Ahmad', 1, '08121212112', '0987654', '1231232PKY', 1, 5, 1, 1, 0, 4, '2023-11-01', 2),
 ('dce802a5e29e9ccabc144dfb6a37abbb', 'Suci Priani', 2, '+62812781728', 'Jl. Negara', '1231239PKY', 1, 1, 1, 1, 1, 1, '2018-10-18', 0),
 ('eb71208764d1a8a02cdf86a49ccd1489', 'Manajer Yendi', 1, '081212121212', 'Jl. Hidayatullah No.22', '1234567MNJ', 0, 0, 0, 0, 0, 0, NULL, 0),
 ('f5972fbf4ef53843c1e12c3ae99e5005', 'Supervisior', 1, NULL, NULL, '1234567SPV', 0, 0, 0, 0, 0, 0, NULL, 0),
@@ -385,6 +429,12 @@ INSERT INTO `user_level` (`id_user_level`, `user_level`) VALUES
 --
 
 --
+-- Indexes for table `absensi_level`
+--
+ALTER TABLE `absensi_level`
+  ADD PRIMARY KEY (`id_absen_level`);
+
+--
 -- Indexes for table `cuti`
 --
 ALTER TABLE `cuti`
@@ -401,6 +451,12 @@ ALTER TABLE `jenis_kelamin`
 --
 ALTER TABLE `operator_level`
   ADD PRIMARY KEY (`id_level`);
+
+--
+-- Indexes for table `status_absensi`
+--
+ALTER TABLE `status_absensi`
+  ADD PRIMARY KEY (`id_absen`);
 
 --
 -- Indexes for table `status_bpk`
@@ -479,6 +535,12 @@ ALTER TABLE `user_level`
 --
 
 --
+-- AUTO_INCREMENT for table `absensi_level`
+--
+ALTER TABLE `absensi_level`
+  MODIFY `id_absen_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `jenis_kelamin`
 --
 ALTER TABLE `jenis_kelamin`
@@ -489,6 +551,12 @@ ALTER TABLE `jenis_kelamin`
 --
 ALTER TABLE `operator_level`
   MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `status_absensi`
+--
+ALTER TABLE `status_absensi`
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`
