@@ -125,62 +125,86 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-
                                     <table id="example1" class="table table-bordered table-striped">
-                                        <?php
-                                        $bulan_ini = date('m'); // Ambil bulan saat ini
-                                        $tahun_ini = date('Y'); // Ambil tahun saat ini
-                                        $jumlah_hari = cal_days_in_month(CAL_GREGORIAN, $bulan_ini, $tahun_ini); // Hitung jumlah hari dalam bulan ini
-                                        ?>
                                         <thead>
-                                            <tr>
-                                                <th colspan="2" style="text-align: center;"><span id="bulanTahun"></span></th>
-                                                 <script>
-                                                    const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-                                                    const date = new Date();
-                                                    const bulan = months[date.getMonth()];
-                                                    const tahun = date.getFullYear();
-                                                    const bulanTahun = `${bulan} ${tahun}`;
-
-                                                    document.getElementById("bulanTahun").textContent = `Data Absensi Bulan ${bulanTahun}`;
-                                                </script>
-                                                <th colspan="<?= $jumlah_hari; ?>" style="text-align: center;">Tanggal</th>
-                                            </tr>
-                                            <tr>
-                                                <th>Nama Pegawai</th>  
-                                                <th>NIP Pegawai</th>  
+                                            <tr style="font-size: 20px;">
+                                                <th>Nama Pegawai</th>
+                                                <th>NIP Pegawai</th>
                                                 <?php
                                                 $bulan_ini = date('m');
                                                 $tahun_ini = date('Y');
-                                                $jumlah_hari = cal_days_in_month(CAL_GREGORIAN, $bulan_ini, $tahun_ini); 
+                                                $jumlah_hari = cal_days_in_month(CAL_GREGORIAN, $bulan_ini, $tahun_ini);
 
                                                 for ($day = 1; $day <= $jumlah_hari; $day++) {
-                                                    echo "<th>$day</th>"; 
+                                                    // Periksa apakah hari ini adalah Sabtu (6) atau Minggu (0)
+                                                    $dayOfWeek = date('w', strtotime("$tahun_ini-$bulan_ini-$day"));
+
+                                                    // Beri warna merah jika Sabtu atau Minggu, jika tidak, beri warna hitam
+                                                    $cellColor = ($dayOfWeek == 0 || $dayOfWeek == 6) ? 'red' : 'black';
+
+                                                    echo "<th style='color: $cellColor;'>$day</th>";
                                                 }
-                                                ?> 
+                                                ?>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                              <tr>
-                                                <td><?= $absensi[0]['nama_lengkap'] ?></td>
-                                                <td><?= $absensi[0]['nip'] ?></td>
-                                                <?php
-                                                // Mendapatkan tanggal-tanggal unik dari data absensi
-                                                $uniqueDates = array();
-                                                foreach ($absensi as $absen_item) {
-                                                    $tanggal_absen = date('Y-m-d', strtotime($absen_item['tanggal_absen']));
-                                                    if (!in_array($tanggal_absen, $uniqueDates)) {
-                                                        $uniqueDates[] = $tanggal_absen;
-                                                    }
+                                            <?php
+                                            $uniqueNIPs = array(); // Array untuk melacak NIP yang telah ditampilkan
+
+                                            // Fungsi untuk menentukan warna berdasarkan status
+                                            function getStatusColor($status) {
+                                                switch ($status) {
+                                                    case 'H':
+                                                        return 'black';
+                                                    case 'C':
+                                                        return 'blue';
+                                                    case 'S':
+                                                        return 'brown';
+                                                    case 'I':
+                                                        return 'purple';
+                                                    default:
+                                                        return 'red';
+
                                                 }
+                                            }
 
-                                                // Urutkan tanggal-tanggal unik
-                                                sort($uniqueDates);
+                                            foreach ($absensi as $pegawai):
+                                                $nip = $pegawai['nip'];
+                                                if (!in_array($nip, $uniqueNIPs)):
+                                                    $uniqueNIPs[] = $nip; // Tambahkan NIP ke daftar yang telah ditampilkan
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo $pegawai['nama_lengkap']; ?></td>
+                                                        <td><?php echo $nip; ?></td>
+                                                        <?php
+                                                        for ($day = 1; $day <= $jumlah_hari; $day++) {
+                                                            $tanggal = "$tahun_ini-$bulan_ini-" . str_pad($day, 2, '0', STR_PAD_LEFT); // Format tanggal
 
-                                                $data['uniqueDates'] = $uniqueDates;
+                                                            // Periksa apakah ada data absensi untuk tanggal ini
+                                                            if (array_key_exists($tanggal, $data_absensi) && array_key_exists($nip, $data_absensi[$tanggal])) {
+                                                                $status = $data_absensi[$tanggal][$nip];
+                                                                $style = "color: " . getStatusColor($status) . "; font-size: 18px;";
+                                                                
+                                                                // Cek jika hari ini adalah Sabtu (6) atau Minggu (0)
+                                                                if ($dayOfWeek == 0 || $dayOfWeek == 6) {
+                                                                    // Hari Minggu atau Sabtu, berikan warna khusus
+                                                                    $style .= " background-color: yellow;"; // Contoh warna latar belakang kuning
+                                                                }
+                                                                
+                                                                echo "<td style='" . $style . "'>" . strtoupper($status) . "</td>";
+                                                            } else {
+                                                                // Jika tidak ada data, tampilkan tanda '-'
+                                                                echo "<td>-</td>";
+                                                            }
+                                                        }
 
-                                                ?>
-                                            </tr>
+
+                                                        ?>
+                                                    </tr>
+                                            <?php
+                                            endif;
+                                            endforeach;
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>

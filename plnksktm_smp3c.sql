@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 01, 2023 at 03:38 PM
+-- Generation Time: Nov 02, 2023 at 04:16 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -130,9 +130,11 @@ CREATE TABLE `status_absensi` (
 --
 
 INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `status_absen`) VALUES
-(1, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-01', '1'),
-(3, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-01', '2'),
-(4, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-03', '5');
+(1, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-01', '1'),
+(3, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-02', '2'),
+(4, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-15', '5'),
+(5, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-01', '4'),
+(6, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-15', '3');
 
 -- --------------------------------------------------------
 
@@ -556,7 +558,7 @@ ALTER TABLE `operator_level`
 -- AUTO_INCREMENT for table `status_absensi`
 --
 ALTER TABLE `status_absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`

@@ -32,6 +32,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= base_url(); ?>Absensi/view_operator" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-day"></i>
+                        <p>Absensi Operator</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= base_url();?>Cuti/view_operator/<?=$this->session->userdata('id_user');?>" class="nav-link">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>Data Cuti</p>

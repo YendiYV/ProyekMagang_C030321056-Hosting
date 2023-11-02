@@ -135,7 +135,6 @@
                                 <a href="<?= base_url(); ?>Cuti/view_operator/<?= $this->session->userdata('id_user'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
-
             </section>
             <!-- /.content -->
         </div>
