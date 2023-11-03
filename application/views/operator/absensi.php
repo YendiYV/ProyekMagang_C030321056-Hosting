@@ -156,8 +156,14 @@
                                         </tbody>
                                     </table>
                                     <hr>
-                                    <table id="example1" class="table table-bordered table-striped">
-                                    untuk tombol absensi
+                                    <table id="example1" class="table table-bordered table-striped">  
+                                    <select id="absenOption">
+                                        <option value="hadir">Hadir</option>
+                                        <option value="sakit">Sakit</option>
+                                        <option value="ijin">Ijin</option>
+                                        <option value="cuti">Cuti</option>
+                                    </select>
+                                    <button id="absenButton" onclick="absen()">Submit</button>
                                     </table>
                                 </div>
                                 <!-- /.card-body -->

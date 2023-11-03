@@ -2,15 +2,45 @@
 <html lang="en">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->load->view("operator/components/header.php") ?>
+    <style>
+    .small-box {
+        border: 2px solid #333; /* Warna dan ketebalan garis tepi */
+    }
+    /* Tampilan di perangkat seluler */
+    @media (max-width: 768px) {
+        .col-12 {
+            padding: 0; /* Menghilangkan padding pada kolom agar tampilan lebih baik di hp */
+        }
+    }
+
+    /* Tampilan di komputer (pc) */
+    @media (min-width: 769px) {
+        .col-12 {
+            padding: 0;  /* Menghilangkan kolom di perangkat seluler */
+        }
+    }
+
+</style>
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <?php if ($this->session->flashdata('input')) { ?>
         <script>
             swal({
-                title: "Success!",
-                text: "Data Berhasil Ditambahkan!",
+                title: "Berhasil!",
+                text: "Anda Telah Melakukan Absen Pulang!",
+                icon: "success"
+            });
+        </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('input_pulang')) { ?>
+        <script>
+            swal({
+                title: "Berhasil!",
+                text: "Anda Telah Melakukan Absen Pulang!",
                 icon: "success"
             });
         </script>
@@ -19,8 +49,17 @@
     <?php if ($this->session->flashdata('eror')) { ?>
         <script>
             swal({
-                title: "Erorr!",
-                text: "Data Gagal Ditambahkan!",
+                title: "Peringatan!",
+                text: "Anda Hanya Bisa Absen Jam 08.00-08.15 & 15.45-16.00 WITA!",
+                icon: "error"
+            });
+        </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('error')) { ?>
+        <script>
+            swal({
+                title: "Peringatan!",
+                text: "Absensi Tidak masuk!",
                 icon: "error"
             });
         </script>
@@ -86,7 +125,7 @@
                                 <div class="inner">
                                     <h3><?php
                                         if ($cuti_operator == null) {
-                                            echo 'Belum Ada';
+                                            echo '-';
                                         } else {
                                             $now = time(); // or your date as well
                                             $your_date = strtotime($cuti_operator[0]['berakhir']);
@@ -136,6 +175,72 @@
                             </div>
                         </div>
             </section>
+            <!-- /.content -->
+            <br><br><br>
+            <section class="content">
+                <div class="col-lg-4 col-12 mx-auto"> <!-- Menerapkan mx-auto untuk rata tengah di komputer -->
+                    <!-- small box -->
+                    <div class="small-box bg-white with-border">
+                        <div class="inner">
+                            <h3>Status Absensi</h3>
+                            <h5>Informasi Absen:
+                                <?php if (!empty($status_absensi)): ?>
+                                    <?php foreach ($status_absensi as $status): ?>
+                                        <span class="<?= $status['color_class'] ?>"><?= $status['nama_status'] ?></span>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <span class="text-muted">-</span>
+                                <?php endif; ?>
+                            </h5>
+
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-calendar"></i>
+                        </div>
+                        <hr>
+                            <?php
+                            $timezone = new DateTimeZone('Asia/Makassar');
+                            $datetime = new DateTime('now', $timezone);
+
+                            // Tambahkan 5 menit dan 13 detik
+                            $datetime->modify('+5 minutes +13 seconds');
+
+                            $waktu_sekarang = $datetime->format('H:i:s'); // Menggunakan 'H' untuk format 24 jam
+                             
+                            if ($waktu_sekarang >= '08:00' && $waktu_sekarang <= '08:15') {
+                                // Tampilkan tombol-tombol tindakan jika waktu berada dalam rentang
+                                echo '<div class="small-box-buttons text-center mt-3">
+                                    <form action="' . base_url() . 'absensi/tambah_absensi_masuk" method="POST">
+                                        <input type="text" value="' . $this->session->userdata('id_user') . '" name="id_user" hidden>
+                                        <button class="btn btn-primary mx-2" type="submit" name="action" value="hadir">Hadir</button>
+                                        <button class="btn btn-danger mx-2" type="submit" name="action" value="sakit">Sakit</button>
+                                        <button class="btn btn-warning mx-2" type="submit" name="action" value="ijin">Ijin</button>
+                                        <button class="btn btn-info mx-2" type="submit" name="action" value="cuti">Cuti</button>
+                                    </form>
+                                </div>';
+                            } elseif ($waktu_sekarang >= '15:45' && $waktu_sekarang <= '18:00') {
+                                // Tampilkan tombol-tombol tindakan jika waktu berada dalam rentang
+                                if ($status_absen == 1) {
+                                    echo '<div class="small-box-buttons text-center mt-3">
+                                        <form action="' . base_url() . 'absensi/tambah_absensi_pulang" method="POST">
+                                            <input type="text" value="' . $this->session->userdata('id_user') . '" name="id_user" hidden>
+                                            <button class="btn btn-primary mx-2" type="submit" name="action" value="pulang">Pulang</button>
+                                        </form>
+                                    </div>';
+                                }else{
+                                    echo '<h5 style="text-align: center">Tindakan Tidak Tersedia</h5>';
+                                    }
+                            } else {
+                                echo '<h5 style="text-align: center">Tindakan Tidak Tersedia</h5>';
+                            }
+                            ?>
+                        <br>
+                    </div>
+                </div>
+            </section>
+
+
+
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->

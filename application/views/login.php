@@ -63,7 +63,7 @@
     <script>
     swal({
         title: "Error!",
-        text: "Anda Belum Terdaftar!",
+        text: "Anda Tidak Terdaftar!",
         icon: "error"
     });
     </script>

@@ -17,6 +17,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('m_delta');
 		$this->load->model('m_rgaji');
 		$this->load->model('m_reset_cuti');
+		$this->load->model('m_absensi');
 	}
 
 	public function dashboard_manager()
@@ -111,7 +112,7 @@ class Dashboard extends CI_Controller {
 			$data['jenis_kelamin'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
 			$data['operator_data'] = $this->m_user->get_operator_by_id($id_user)->result_array();
 			$data['total_cuti'] = $this->m_cuti->total_hari_cuti_by_id_for_dashboard($id_user)->row_array();
-
+			$data['status_absensi'] = $this->m_absensi->cek_status_absensi($id_user)->result_array();
 			$this->load->view('operator/dashboard', $data);
 		} else {
 			$this->session->set_flashdata('loggin_err', 'loggin_err');

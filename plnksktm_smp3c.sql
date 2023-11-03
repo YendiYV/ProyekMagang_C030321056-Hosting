@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 02, 2023 at 04:16 PM
+-- Generation Time: Nov 03, 2023 at 04:22 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -37,11 +37,12 @@ CREATE TABLE `absensi_level` (
 --
 
 INSERT INTO `absensi_level` (`id_absen_level`, `nama_status`) VALUES
-(1, 'H'),
-(2, 'C'),
-(3, 'S'),
-(4, 'I'),
-(5, 'A');
+(1, 'Hadir Masuk'),
+(2, 'Cuti'),
+(3, 'Sakit'),
+(4, 'Izin'),
+(5, 'Alfa'),
+(6, 'Hadir Masuk-Pulang');
 
 -- --------------------------------------------------------
 
@@ -130,11 +131,7 @@ CREATE TABLE `status_absensi` (
 --
 
 INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `status_absen`) VALUES
-(1, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-01', '1'),
-(3, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-02', '2'),
-(4, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-15', '5'),
-(5, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-01', '4'),
-(6, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-15', '3');
+(15, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-03', '5');
 
 -- --------------------------------------------------------
 
@@ -540,7 +537,7 @@ ALTER TABLE `user_level`
 -- AUTO_INCREMENT for table `absensi_level`
 --
 ALTER TABLE `absensi_level`
-  MODIFY `id_absen_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_absen_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `jenis_kelamin`
@@ -558,7 +555,7 @@ ALTER TABLE `operator_level`
 -- AUTO_INCREMENT for table `status_absensi`
 --
 ALTER TABLE `status_absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`
