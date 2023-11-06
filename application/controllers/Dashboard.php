@@ -37,7 +37,6 @@ class Dashboard extends CI_Controller {
 			$data['rgaji'] = $this->m_rgaji->count_all_rgaji()->row_array();
 			$data['rgaji_bulan_ini'] = $this->m_rgaji->count_all_rgaji_bulan_ini()->row_array();
 			$data['data_per_tanggal'] = $this->m_rgaji->data_per_tanggal()->row_array();
-			
 			$this->load->view('manager/dashboard', $data);
 
 		}else{
@@ -113,6 +112,8 @@ class Dashboard extends CI_Controller {
 			$data['operator_data'] = $this->m_user->get_operator_by_id($id_user)->result_array();
 			$data['total_cuti'] = $this->m_cuti->total_hari_cuti_by_id_for_dashboard($id_user)->row_array();
 			$data['status_absensi'] = $this->m_absensi->cek_status_absensi($id_user)->result_array();
+			$data['cek_status_absensi_untuk_absen_pulang'] = $this->m_absensi->cek_status_untuk_absen_pulang($id_user)->result_array();
+			$data['ketersediaan_data'] = $this->m_absensi->cek_kehadiran_absensi($id_user)->row_array();
 			$this->load->view('operator/dashboard', $data);
 		} else {
 			$this->session->set_flashdata('loggin_err', 'loggin_err');

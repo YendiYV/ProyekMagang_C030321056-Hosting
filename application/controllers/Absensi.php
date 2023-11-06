@@ -36,53 +36,81 @@ class Absensi extends CI_Controller {
 	
 		}
 	}
+	
 	public function tambah_absensi_masuk() {
+		date_default_timezone_set('Asia/Makassar'); // Set zona waktu ke Makassar
+
 		$currentTime = date('H:i'); // Dapatkan waktu saat ini dalam format HH:ii
-		$startTime = '08:00'; // Waktu mulai
-		$endTime = '08:15'; // Waktu berakhir
+		$startTime= '08:00';
+		$endTime = '16:15'; // Waktu berakhir
 		$id_user = $this->input->post("id_user"); // Dapatkan id_user dari input
+		$ketersediaan_data = $this->m_absensi->cek_kehadiran_absensi($id_user);	
+		// Pemeriksaan hari
+		$dayOfWeek = date('N'); // Dapatkan hari dalam format 1 hingga 7 (Senin hingga Minggu)
 
-		if (strtotime($currentTime) >= strtotime($startTime) && strtotime($currentTime) <= strtotime($endTime)) {
-			// Jika waktu saat ini berada dalam jangka waktu yang diizinkan, lanjutkan
-			$action = $this->input->post('action'); // Dapatkan tindakan yang diambil dari input
-
-			// Pemrosesan sesuai dengan tindakan yang diambil
-			if ($action === 'hadir') {
-				$this->session->set_flashdata('input', 'Anda telah melakukan absensi hadir.');
-				$this->m_delta->insert_hadir($id_user); // Panggil fungsi model yang sesuai
-			} elseif ($action === 'sakit') {
-				$this->session->set_flashdata('input', 'Anda telah melakukan absensi sakit.');
-				$this->m_delta->insert_sakit($id_user); // Panggil fungsi model yang sesuai
-			} elseif ($action === 'ijin') {
-				$this->session->set_flashdata('input', 'Anda telah melakukan absensi ijin.');
-				$this->m_delta->insert_ijin($id_user); // Panggil fungsi model yang sesuai
-			} elseif ($action === 'cuti') {
-				$this->session->set_flashdata('input', 'Anda telah melakukan absensi cuti.');
-				$this->m_delta->insert_cuti($id_user); // Panggil fungsi model yang sesuai
-			} else {
-				$this->session->set_flashdata('error', 'Tindakan tidak valid.');
+		if ($dayOfWeek >= 1 && $dayOfWeek <= 5) { // Hanya lanjutkan jika hari Senin hingga Jumat
+			if (strtotime($currentTime) >= strtotime($startTime) && strtotime($currentTime) <= strtotime($endTime)) {	
+				if($ketersediaan_data === null){
+					$action = $this->input->post('action'); // Dapatkan tindakan yang diambil dari input
+					if ($action === 'hadir') {
+						$this->session->set_flashdata('input', 'Anda telah melakukan absensi hadir.');
+						$this->m_absensi->insert_hadir($id_user); // Panggil fungsi model yang sesuai
+					} elseif ($action === 'sakit') {
+						$this->session->set_flashdata('input', 'Anda telah melakukan absensi sakit.');
+						$this->m_absensi->insert_sakit($id_user); // Panggil fungsi model yang sesuai
+					} elseif ($action === 'ijin') {
+						$this->session->set_flashdata('input', 'Anda telah melakukan absensi ijin.');
+						$this->m_absensi->insert_ijin($id_user); // Panggil fungsi model yang sesuai
+					} elseif ($action === 'cuti') {
+						$this->session->set_flashdata('input', 'Anda telah melakukan absensi cuti.');
+						$this->m_absensi->insert_cuti($id_user); // Panggil fungsi model yang sesuai
+					} else {
+						$this->session->set_flashdata('error', 'Tindakan tidak valid.');
+					}
+				}
+				else{
+					$this->session->set_flashdata('error', 'error');
+				}
+			}else {
+				$this->session->set_flashdata('eror_pagi', 'Anda hanya dapat melakukan absensi antara jam 08:00 dan 08:15.');
 			}
 		} else {
-			// Jika waktu saat ini berada di luar jangka waktu yang diizinkan, set pesan kesalahan
-			$this->session->set_flashdata('eror', 'Anda hanya dapat melakukan absensi antara jam 08:00 dan 08:15.');
+			$this->session->set_flashdata('error', 'Absensi tidak dapat dilakukan pada hari Sabtu dan Minggu.');
 		}
+
 		redirect('Dashboard/dashboard_operator');
 	}
+
 	public function tambah_absensi_pulang() {
+		date_default_timezone_set('Asia/Makassar'); // Set zona waktu ke Makassar
 		$currentTime = date('H:i'); // Dapatkan waktu saat ini dalam format HH:ii
 		$startTime = '15:45'; // Waktu mulai
-		$endTime = ':16.00'; // Waktu berakhir
+		$endTime = '16:00'; // Waktu berakhir
 		$id_user = $this->input->post("id_user"); // Dapatkan id_user dari input
 
-		if (strtotime($currentTime) >= strtotime($startTime) && strtotime($currentTime) <= strtotime($endTime)) {
-			// Jika waktu saat ini berada dalam jangka waktu yang diizinkan, lanjutkan
-			$action = $this->input->post('action'); // Dapatkan tindakan yang diambil dari input
-			$this->session->set_flashdata('input_pulang', 'Anda telah melakukan absensi Pulang.');
-			$this->m_delta->insert_pulang($id_user); 
-		} else {
-			// Jika waktu saat ini berada di luar jangka waktu yang diizinkan, set pesan kesalahan
-			$this->session->set_flashdata('eror','eror');
+		// Pemeriksaan hari
+		$dayOfWeek = date('N'); // Dapatkan hari dalam format 1 hingga 7 (Senin hingga Minggu)
+
+		if ($dayOfWeek >= 1 && $dayOfWeek <= 5) { // Hanya lanjutkan jika hari Senin hingga Jumat
+			if (strtotime($currentTime) >= strtotime($startTime) && strtotime($currentTime) <= strtotime($endTime)) {
+				$cek_absen_pulang = $this->m_absensi->cek_status_untuk_absen_pulang($id_user);
+
+            	if ($cek_absen_pulang === null) {
+				$action = $this->input->post('action'); // Dapatkan tindakan yang diambil dari input
+				$this->session->set_flashdata('input_pulang', 'Anda telah melakukan absensi Pulang.');
+				$this->m_absensi->insert_pulang($id_user); 
+				}else{
+					$this->session->set_flashdata('mencoba_akses', 'mencoba_akses');
+				}
+
+			}else {
+				$this->session->set_flashdata('eror_pulang', 'Anda hanya dapat melakukan absensi pulang antara jam 15:45 dan 16:00.');
+			}
+		}else {
+			$this->session->set_flashdata('error', 'Absensi pulang tidak dapat dilakukan pada hari Sabtu dan Minggu.');
 		}
+
 		redirect('Dashboard/dashboard_operator');
 	}
+
 }

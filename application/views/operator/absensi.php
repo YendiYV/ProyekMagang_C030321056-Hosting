@@ -130,7 +130,7 @@
                                                 switch ($status) {
                                                     case 'H':
                                                         return 'black';
-                                                    case 'C':
+                                                    case 'Cuti':
                                                         return 'blue';
                                                     case 'S':
                                                         return 'brown';
@@ -143,27 +143,23 @@
                                             }
                                             ?>
                                             <tr>
-                                                <?php
+                                               <?php
                                                 // Loop through each date
                                                 for ($day = 1; $day <= $jumlah_hari; $day++) {
                                                     $tanggal = "$tahun_ini-$bulan_ini-" . str_pad($day, 2, '0', STR_PAD_LEFT); // Format tanggal
                                                     $status = isset($absensi[$tanggal]) ? $absensi[$tanggal] : '-';
+                                                    
+                                                    // Ensure $status is a string
+                                                    if (is_array($status)) {
+                                                        $status = implode(", ", $status); // Convert array elements to a comma-separated string
+                                                    }
+                                                    
                                                     $cellColor = ($status == '-') ? 'black' : getStatusColor($status);
                                                     echo "<td style='color: $cellColor; font-size: 18px;'><img src='" . getStatusColor($status) . "' alt='$status' /></td>";
                                                 }
                                                 ?>
                                             </tr>
                                         </tbody>
-                                    </table>
-                                    <hr>
-                                    <table id="example1" class="table table-bordered table-striped">  
-                                    <select id="absenOption">
-                                        <option value="hadir">Hadir</option>
-                                        <option value="sakit">Sakit</option>
-                                        <option value="ijin">Ijin</option>
-                                        <option value="cuti">Cuti</option>
-                                    </select>
-                                    <button id="absenButton" onclick="absen()">Submit</button>
                                     </table>
                                 </div>
                                 <!-- /.card-body -->
