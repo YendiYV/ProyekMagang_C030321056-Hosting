@@ -91,7 +91,7 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table id="example1" class="table  table-bordered  table-striped">
                                         <?php
                                                 $bulan_ini = date('m');
                                                 $tahun_ini = date('Y');
@@ -116,13 +116,14 @@
                                                     // Beri warna merah jika Sabtu atau Minggu, jika tidak, beri warna hitam
                                                     $cellColor = ($dayOfWeek == 0 || $dayOfWeek == 6) ? 'red' : 'black';
 
-                                                    // Tambahkan atribut aria-controls untuk menghilangkan opsi filtering
-                                                    echo "<th style='color: $cellColor;' class='no-sort'>$day</th>";
+                                                    // Add the data-sortable="false" attribute to disable sorting for this column
+                                                    $sortableAttribute = ($day == 1) ? 'data-sortable="false"' : '';
+
+                                                    echo "<th style='color: $cellColor;' $sortableAttribute>$day</th>";
                                                 }
                                                 ?>
                                             </tr>
-                                        </thead>
-                                        
+                                        </thead>                                
                                         <tbody>
                                             <?php
                                             // Fungsi untuk menentukan warna berdasarkan status
@@ -161,6 +162,15 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <script>
+    $(document).ready(function () {
+        $('.datatable').DataTable({
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [0] } // Disable sorting for the first column (index 0)
+            ]
+        });
+    });
+</script>
                                 </div>
                                 <!-- /.card-body -->
                             </div>

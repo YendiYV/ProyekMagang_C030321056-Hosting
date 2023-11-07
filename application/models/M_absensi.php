@@ -62,20 +62,31 @@ class M_absensi extends CI_Model
         return $data_absensi;
     }
 
-    public function cek_kehadiran_absensi($id_user) {
+   public function cek_kehadiran_absensi($id_user) {
         $today = date('Y-m-d');
 
-        $hasil = $this->db->query("SELECT 
-                                    status_absen, 
-                                    nama_status
-                                    FROM status_absensi
-                                    LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
-                                    WHERE id_user_detail = '$id_user' 
-                                    AND tanggal_absen = '$today'
-                                    AND status_absen >= 1 AND status_absen <= 4
+        $ketersediaan_data = $this->db->query("SELECT COUNT(*) as jumlah_kehadiran
+                                            FROM status_absensi
+                                            WHERE id_user_detail = '$id_user'
+                                            AND tanggal_absen = '$today'
+                                            AND status_absen BETWEEN 1 AND 4
                                 ");
-        return $hasil;
+        
+        $row = $ketersediaan_data->row();
+        return $row->jumlah_kehadiran;
     }
+
+    public function cek_kehadiran_absensi2($id_user) {
+        $today = date('Y-m-d');
+
+        $ketersediaan_data2 = $this->db->query("SELECT * FROM status_absensi WHERE id_user_detail = '$id_user' AND tanggal_absen = '$today' ");
+        
+        // Mengambil hasil dari kueri dan mengembalikannya sebagai array
+        return $ketersediaan_data2;
+    }
+
+
+
 
 
     public function cek_status_absensi($id_user) {
@@ -101,16 +112,13 @@ class M_absensi extends CI_Model
     public function cek_status_untuk_absen_pulang($id_user) {
         $today = date('Y-m-d');  
 
-        $hasil = $this->db->query("SELECT 
-                                    status_absen
-                                FROM status_absensi 
-                                WHERE id_user_detail = '$id_user' AND tanggal_absen = '$today' AND status_absen ='1'
+        $hasil = $this->db->query("SELECT  status_absen FROM status_absensi  WHERE id_user_detail = '$id_user' AND tanggal_absen = '$today' AND status_absen ='1'
                                 ");
         return $hasil;
     }
     public function insert_hadir($id_user){
         $this->db->trans_start();
-        $currentDateTime = date('Y-m-d H:i:s');
+        $currentDateTime = date('Y-m-d');
         $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$id_user', '$currentDateTime', '1')");
 
         $this->db->trans_complete();
@@ -125,7 +133,7 @@ class M_absensi extends CI_Model
     }
     public function insert_sakit($id_user){
         $this->db->trans_start();
-        $currentDateTime = date('Y-m-d H:i:s');
+        $currentDateTime = date('Y-m-d');
         $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$id_user', '$currentDateTime', '3')");
 
         $this->db->trans_complete();
@@ -140,7 +148,7 @@ class M_absensi extends CI_Model
     }
     public function insert_ijin($id_user){
         $this->db->trans_start();
-        $currentDateTime = date('Y-m-d H:i:s');
+        $currentDateTime = date('Y-m-d');
         $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$id_user', '$currentDateTime', '4')");
 
         $this->db->trans_complete();
@@ -156,7 +164,7 @@ class M_absensi extends CI_Model
 
     public function insert_cuti($id_user){
         $this->db->trans_start();
-        $currentDateTime = date('Y-m-d H:i:s');
+        $currentDateTime = date('Y-m-d');
         $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$id_user', '$currentDateTime', '2')");
 
         $this->db->trans_complete();
@@ -171,8 +179,8 @@ class M_absensi extends CI_Model
     }
     public function insert_pulang($id_user){
         $this->db->trans_start();
-        $currentDateTime = date('Y-m-d H:i:s');
-        $this->db->query("UPDATE status_absensi SET status_absen='6' WHERE id_user_detail = '$id_user'");
+        $currentDateTime = date('Y-m-d');
+        $this->db->query("UPDATE status_absensi SET status_absen='6' WHERE id_user_detail = '$id_user' AND tanggal_absen= '$currentDateTime'");
 
         $this->db->trans_complete();
 
@@ -182,6 +190,42 @@ class M_absensi extends CI_Model
         } else {
             $this->session->set_flashdata('error', 'error');
             
+        }
+    }
+    public function insert_alfa($id_user){
+        $this->db->trans_start();
+        $currentDateTime = date('Y-m-d');
+        $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$id_user', '$currentDateTime', '5')");
+
+        $this->db->trans_complete();
+    }
+
+    public function cek_absensi_hari_ini($id_user){
+        $currentDateTime = date('Y-m-d');
+        $hasil = $this->db->query("SELECT COUNT(*) as jumlah_absensi FROM status_absensi WHERE id_user_detail = '$id_user' AND tanggal_absen= '$currentDateTime'");
+        $row = $hasil->row();
+        return $row->jumlah_absensi;
+    }
+    
+   public function edit_absensi_admin($nip, $tanggal, $status_absen) {
+        $this->db->trans_start();
+
+        // Perbaikan pernyataan SQL
+        $sql = "UPDATE status_absensi AS sa
+                LEFT JOIN user_detail AS ud ON sa.id_user_detail = ud.id_user_detail
+                SET sa.status_absen = ?
+                WHERE sa.tanggal_absen = ? AND ud.nip = ?";
+
+        $this->db->query($sql, array($status_absen, $tanggal, $nip));
+
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === TRUE) {
+            $this->session->set_flashdata('edit', 'edit');
+            return TRUE;
+        } else {
+            $this->session->set_flashdata('eror_edit', 'eror_edit');
+            return FALSE;
         }
     }
 

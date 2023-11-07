@@ -3,6 +3,7 @@
 
 <head>
     <?php $this->load->view("admin/components/header.php") ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -125,6 +126,41 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col-sm-6 text-sm-right">
+                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="btn-group" role="group" aria-label="Cetak Options">
+                                                    <button type="button" class="btn btn-primary" id="exportButton">Cetak Rekap</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <script>
+                                    document.getElementById("exportButton").addEventListener("click", function() {
+                                        // Mendapatkan tanggal saat tombol ditekan
+                                        var currentDate = new Date();
+
+                                        // Mengambil bulan dalam format dua digit (01, 02, ..., 12)
+                                        var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+
+                                        // Mengambil tahun empat digit (contoh: 2023)
+                                        var year = currentDate.getFullYear();
+
+                                        // Menggabungkan bulan dan tahun ke dalam nama file
+                                        var fileName = "Rekap Absensi " + month + "-" + year + ".xlsx";
+
+                                        // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
+                                        var table = document.getElementById("example1");
+
+                                        // Membuat objek Workbook Excel
+                                        var wb = XLSX.utils.table_to_book(table);
+
+                                        // Membuat file Excel dan mengunduhnya dengan nama file yang telah dibuat
+                                        XLSX.writeFile(wb, fileName);
+                                    });
+
+                                    </script>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr style="font-size: 20px;">
@@ -162,6 +198,8 @@
                                                         return 'brown';
                                                     case 'I':
                                                         return 'purple';
+                                                    case 'HS':
+                                                        return 'black';
                                                     default:
                                                         return 'red';
 
@@ -191,7 +229,9 @@
                                                                     $style .= " background-color: yellow;"; // Contoh warna latar belakang kuning
                                                                 }
                                                                 
-                                                                echo "<td style='" . $style . "'>" . strtoupper($status) . "</td>";
+                                                                // Tambahkan tombol "Edit" untuk mengedit data
+                                                                echo "<td style='text-align: center; $style'>" . strtoupper($status) . " <button class='edit-button' data-nip='$nip' data-tanggal='$tanggal'><i class='fas fa-edit'></i></button></td>";
+
                                                             } else {
                                                                 // Jika tidak ada data, tampilkan tanda '-'
                                                                 echo "<td>-</td>";
@@ -201,6 +241,9 @@
 
                                                         ?>
                                                     </tr>
+                                                    <div id="edit-container">
+                                                        <!-- Editing form or modal content goes here -->
+                                                    </div>
                                             <?php
                                             endif;
                                             endforeach;
@@ -218,38 +261,55 @@
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
-            <!-- Modal Tambah operator -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <!-- Modal Edit Absensi -->
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Proyek</h5>
+                            <h5 class="modal-title" id="editModalLabel">Edit Absensi</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="<?=base_url();?>proyek/tambah_proyek" method="POST">
+                           <form id="editForm" method="post" action="<?=base_url();?>absensi/edit_absensi_admin">
                                 <div class="form-group">
-                                    <label for="nama_proyek">Nama Proyek</label>
-                                    <input type="text" class="form-control" id="nama_proyek"
-                                        aria-describedby="nama_proyek" name="nama_proyek" required>
+                                    <label for="status">Status Absensi</label>
+                                    <select class="form-control" id="status" name="status">
+                                        <option value="1">Hadir</option>
+                                        <option value="2">Cuti</option>
+                                        <option value="3">Sakit</option>
+                                        <option value="4">Izin</option>
+                                        <option value="5">Alfa</option>
+                                        <option value="6">Hadir Masuk-Pulang</option>
+                                        <!-- Tambahkan pilihan status lainnya sesuai kebutuhan -->
+                                    </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="gaji">Gaji</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Rp</span>
-                                        </div>
-                                        <input type="number" class="form-control" id="gaji" name="gaji">
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
+                                <input type="hidden" id="editNip" name="nip">
+                                <input type="hidden" id="editTanggal" name="tanggal">
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    // Tangani klik tombol "Edit" untuk menampilkan modal
+                    document.querySelectorAll('.edit-button').forEach(function (button) {
+                        button.addEventListener('click', function () {
+                            var nip = button.getAttribute('data-nip');
+                            var tanggal = button.getAttribute('data-tanggal');
+
+                            document.getElementById('editNip').value = nip;
+                            document.getElementById('editTanggal').value = tanggal;
+
+                            // Tampilkan modal
+                            $('#editModal').modal('show');
+                        });
+                    });
+                });
+            </script>
         </div>
         <!-- /.content-wrapper -->
 

@@ -105,16 +105,34 @@ class Dashboard extends CI_Controller {
 			// Menggunakan ID pengguna dari sesi saat ini
 			$id_user = $this->session->userdata('id_user');			
 			$this->m_reset_cuti->reset_jumlah_hari($id_user);
-			$data['cuti_operator'] = $this->m_cuti->get_all_cuti_first_by_id_user($id_user)->result_array();
-			$data['cuti'] = $this->m_cuti->count_all_cuti_by_id($id_user)->row_array();
-			$data['operator'] = $this->m_user->get_operator_by_id($id_user)->row_array();
-			$data['jenis_kelamin'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
-			$data['operator_data'] = $this->m_user->get_operator_by_id($id_user)->result_array();
-			$data['total_cuti'] = $this->m_cuti->total_hari_cuti_by_id_for_dashboard($id_user)->row_array();
-			$data['status_absensi'] = $this->m_absensi->cek_status_absensi($id_user)->result_array();
-			$data['cek_status_absensi_untuk_absen_pulang'] = $this->m_absensi->cek_status_untuk_absen_pulang($id_user)->result_array();
-			$data['ketersediaan_data'] = $this->m_absensi->cek_kehadiran_absensi($id_user)->row_array();
-			$this->load->view('operator/dashboard', $data);
+			$cek_absensi_hari_ini = $this->m_absensi->cek_absensi_hari_ini($id_user);
+			if($cek_absensi_hari_ini >0){
+				$data['cuti_operator'] = $this->m_cuti->get_all_cuti_first_by_id_user($id_user)->result_array();
+				$data['cuti'] = $this->m_cuti->count_all_cuti_by_id($id_user)->row_array();
+				$data['operator'] = $this->m_user->get_operator_by_id($id_user)->row_array();
+				$data['jenis_kelamin'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
+				$data['operator_data'] = $this->m_user->get_operator_by_id($id_user)->result_array();
+				$data['total_cuti'] = $this->m_cuti->total_hari_cuti_by_id_for_dashboard($id_user)->row_array();
+				$data['status_absensi'] = $this->m_absensi->cek_status_absensi($id_user)->result_array();
+				$data['cek_status_absensi_untuk_absen_pulang'] = $this->m_absensi->cek_status_untuk_absen_pulang($id_user)->result_array();
+				$data['ketersediaan_data'] = $this->m_absensi->cek_kehadiran_absensi($id_user);
+				$data['ketersediaan_data2'] = $this->m_absensi->cek_kehadiran_absensi2($id_user)->row_array();
+				$this->load->view('operator/dashboard', $data);
+				
+			}elseif(isset($cek_absensi_hari_ini )  &&  empty($cek_absensi_hari_ini)){
+				$this->m_absensi->insert_alfa($id_user);
+				$data['cuti_operator'] = $this->m_cuti->get_all_cuti_first_by_id_user($id_user)->result_array();
+				$data['cuti'] = $this->m_cuti->count_all_cuti_by_id($id_user)->row_array();
+				$data['operator'] = $this->m_user->get_operator_by_id($id_user)->row_array();
+				$data['jenis_kelamin'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
+				$data['operator_data'] = $this->m_user->get_operator_by_id($id_user)->result_array();
+				$data['total_cuti'] = $this->m_cuti->total_hari_cuti_by_id_for_dashboard($id_user)->row_array();
+				$data['status_absensi'] = $this->m_absensi->cek_status_absensi($id_user)->result_array();
+				$data['cek_status_absensi_untuk_absen_pulang'] = $this->m_absensi->cek_status_untuk_absen_pulang($id_user)->result_array();
+				$data['ketersediaan_data'] = $this->m_absensi->cek_kehadiran_absensi($id_user)->row_array();
+				$data['ketersediaan_data2'] = $this->m_absensi->cek_kehadiran_absensi2($id_user)->row_array();
+				$this->load->view('operator/dashboard', $data);
+			}
 		} else {
 			$this->session->set_flashdata('loggin_err', 'loggin_err');
 			redirect('Login/index');

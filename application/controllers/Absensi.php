@@ -42,16 +42,16 @@ class Absensi extends CI_Controller {
 
 		$currentTime = date('H:i'); // Dapatkan waktu saat ini dalam format HH:ii
 		$startTime= '08:00';
-		$endTime = '16:15'; // Waktu berakhir
+		$endTime = '08:15'; // Waktu berakhir
 		$id_user = $this->input->post("id_user"); // Dapatkan id_user dari input
-		$ketersediaan_data = $this->m_absensi->cek_kehadiran_absensi($id_user);	
+		$action = $this->input->post('action'); // Dapatkan tindakan yang diambil dari input
 		// Pemeriksaan hari
 		$dayOfWeek = date('N'); // Dapatkan hari dalam format 1 hingga 7 (Senin hingga Minggu)
 
 		if ($dayOfWeek >= 1 && $dayOfWeek <= 5) { // Hanya lanjutkan jika hari Senin hingga Jumat
 			if (strtotime($currentTime) >= strtotime($startTime) && strtotime($currentTime) <= strtotime($endTime)) {	
-				if($ketersediaan_data === null){
-					$action = $this->input->post('action'); // Dapatkan tindakan yang diambil dari input
+				$ketersediaan_data = $this->m_absensi->cek_kehadiran_absensi($id_user);	
+				if($ketersediaan_data !== null){
 					if ($action === 'hadir') {
 						$this->session->set_flashdata('input', 'Anda telah melakukan absensi hadir.');
 						$this->m_absensi->insert_hadir($id_user); // Panggil fungsi model yang sesuai
@@ -67,14 +67,13 @@ class Absensi extends CI_Controller {
 					} else {
 						$this->session->set_flashdata('error', 'Tindakan tidak valid.');
 					}
-				}
-				else{
+				}else{	
 					$this->session->set_flashdata('error', 'error');
 				}
 			}else {
 				$this->session->set_flashdata('eror_pagi', 'Anda hanya dapat melakukan absensi antara jam 08:00 dan 08:15.');
 			}
-		} else {
+		}else {
 			$this->session->set_flashdata('error', 'Absensi tidak dapat dilakukan pada hari Sabtu dan Minggu.');
 		}
 
@@ -113,4 +112,18 @@ class Absensi extends CI_Controller {
 		redirect('Dashboard/dashboard_operator');
 	}
 
+	public function edit_absensi_admin(){
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
+            $nip = $this->input->post("nip");
+            $tanggal = $this->input->post("tanggal");
+            $status_absen = $this->input->post("status");
+			$this->session->set_flashdata('edit');
+			$hasil = $this->m_absensi->edit_absensi_admin($nip, $tanggal,$status_absen);
+			redirect('Absensi/view_admin');
+        } else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
+	}
 }

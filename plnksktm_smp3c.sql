@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 03, 2023 at 04:22 PM
+-- Generation Time: Nov 07, 2023 at 03:41 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -29,20 +29,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `absensi_level` (
   `id_absen_level` int(11) NOT NULL,
-  `nama_status` varchar(50) NOT NULL
+  `nama_status` varchar(50) NOT NULL,
+  `singkatan_status` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `absensi_level`
 --
 
-INSERT INTO `absensi_level` (`id_absen_level`, `nama_status`) VALUES
-(1, 'Hadir Masuk'),
-(2, 'Cuti'),
-(3, 'Sakit'),
-(4, 'Izin'),
-(5, 'Alfa'),
-(6, 'Hadir Masuk-Pulang');
+INSERT INTO `absensi_level` (`id_absen_level`, `nama_status`, `singkatan_status`) VALUES
+(1, 'Hadir', 'H'),
+(2, 'Cuti', 'C'),
+(3, 'Sakit', 'S'),
+(4, 'Izin', 'I'),
+(5, 'Alfa', 'A'),
+(6, 'Hadir Masuk-Pulang', 'HS');
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,12 @@ CREATE TABLE `status_absensi` (
 --
 
 INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `status_absen`) VALUES
-(15, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-03', '5');
+(29, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-07', '2'),
+(30, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-07', '5'),
+(31, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-09', '6'),
+(32, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-08', '3'),
+(33, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-06', '1'),
+(34, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-03', '4');
 
 -- --------------------------------------------------------
 
@@ -555,7 +561,7 @@ ALTER TABLE `operator_level`
 -- AUTO_INCREMENT for table `status_absensi`
 --
 ALTER TABLE `status_absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`
