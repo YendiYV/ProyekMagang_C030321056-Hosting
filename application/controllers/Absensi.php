@@ -11,10 +11,16 @@ class Absensi extends CI_Controller {
     public function view_admin()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
-            $data['absensi'] = $this->m_absensi->get_all_absensi();
-			$data['data_absensi'] = $this->m_absensi->get_data_absensi();
-			$this->load->view('admin/absensi', $data);
-
+            $tanggal = $this->input->post('tanggal');
+			if($tanggal === null){
+				$data['absensi'] = $this->m_absensi->get_all_absensi();
+				$data['data_absensi'] = $this->m_absensi->get_data_absensi();
+				$this->load->view('admin/absensi', $data);
+			}else{
+				$data['absensi'] = $this->m_absensi->get_all_absensi_menurut_tanggal();
+				$data['data_absensi'] = $this->m_absensi->get_data_absensi_tanggal();
+				$this->load->view('admin/absensi', $data);
+			}
 		}else{
 
 			$this->session->set_flashdata('loggin_err','loggin_err');
@@ -117,8 +123,18 @@ class Absensi extends CI_Controller {
             $nip = $this->input->post("nip");
             $tanggal = $this->input->post("tanggal");
             $status_absen = $this->input->post("status");
-			$this->session->set_flashdata('edit');
-			$hasil = $this->m_absensi->edit_absensi_admin($nip, $tanggal,$status_absen);
+			
+			$edit_admin_kosong = $this->m_absensi->cek_edit_absensi_admin_data_kosong($nip, $tanggal);
+			if($edit_admin_kosong >0){
+				$hasil = $this->m_absensi->edit_absensi_admin($nip, $tanggal,$status_absen);
+				$this->session->set_flashdata('edit','edit');
+			}else{
+				$result = $this->m_absensi->cari_absensi_admin_data_kosong($nip);
+				$id_user_detail = $result->id_user_detail;
+				$hasil = $this->m_absensi->edit_absensi_admin_data_kosong($id_user_detail, $tanggal,$status_absen);
+				$this->session->set_flashdata('edit2','edit2');
+			}
+			
 			redirect('Absensi/view_admin');
         } else {
             // Handle kasus ketika pengguna tidak memiliki hak akses

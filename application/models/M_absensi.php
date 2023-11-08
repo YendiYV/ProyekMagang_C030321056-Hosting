@@ -38,6 +38,42 @@ class M_absensi extends CI_Model
         return $data_absensi;
     }
 
+    public function get_all_absensi_menurut_tanggal($tanggal)
+    {
+        $query = $this->db->query('SELECT user_detail.nip, user_detail.nama_lengkap, tanggal_absen, absensi_level.nama_status
+                                    FROM status_absensi
+                                    LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
+                                    LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
+                                    ');
+
+        return $query->result_array();
+    }
+
+    public function get_data_absensi_menurut_tanggal($tanggal) {
+        $query = $this->db->query('SELECT user_detail.nip, tanggal_absen, absensi_level.nama_status,absensi_level.id_absen_level,absensi_level.singkatan_status
+            FROM status_absensi
+            LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
+            LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
+            WHERE MONTH(tanggal_absen) = MONTH(NOW()) AND YEAR(tanggal_absen) = YEAR(NOW())');
+
+        $data_absensi = array();
+
+        foreach ($query->result() as $row) {
+            $tanggal = $row->tanggal_absen;
+            $nip = $row->nip;
+            $status = $row->singkatan_status;
+
+            // Mengelompokkan data berdasarkan tanggal dan NIP
+            if (!isset($data_absensi[$tanggal])) {
+                $data_absensi[$tanggal] = array();
+            }
+
+            $data_absensi[$tanggal][$nip] = $status;
+        }
+
+        return $data_absensi;
+    }
+
     public function get_data_absensi_operator($id_user_detail) {
         $query = $this->db->query("SELECT tanggal_absen, absensi_level.nama_status,status_absen,absensi_level.singkatan_status
             FROM status_absensi
@@ -62,18 +98,18 @@ class M_absensi extends CI_Model
         return $data_absensi;
     }
 
-   public function cek_kehadiran_absensi($id_user) {
+    public function cek_kehadiran_absensi($id_user) {
         $today = date('Y-m-d');
 
         $ketersediaan_data = $this->db->query("SELECT COUNT(*) as jumlah_kehadiran
-                                            FROM status_absensi
-                                            WHERE id_user_detail = '$id_user'
-                                            AND tanggal_absen = '$today'
-                                            AND status_absen BETWEEN 1 AND 4
-                                ");
-        
+            FROM status_absensi
+            WHERE id_user_detail = '$id_user'
+            AND tanggal_absen = '$today'
+            AND status_absen BETWEEN 1 AND 4
+        ");
+
         $row = $ketersediaan_data->row();
-        return $row->jumlah_kehadiran;
+        return $row;
     }
 
     public function cek_kehadiran_absensi2($id_user) {
@@ -84,10 +120,6 @@ class M_absensi extends CI_Model
         // Mengambil hasil dari kueri dan mengembalikannya sebagai array
         return $ketersediaan_data2;
     }
-
-
-
-
 
     public function cek_status_absensi($id_user) {
         $today = date('Y-m-d');  
@@ -227,6 +259,39 @@ class M_absensi extends CI_Model
             $this->session->set_flashdata('eror_edit', 'eror_edit');
             return FALSE;
         }
+    }
+
+    public function cek_edit_absensi_admin_data_kosong($nip, $tanggal) {
+        $query = $this->db->query("SELECT COUNT(*) as edit_admin_kosong
+            FROM status_absensi
+            LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
+            WHERE user_detail.nip = '$nip'  
+            AND tanggal_absen = '$tanggal'  
+        ");
+
+        $row = $query->row();
+        return $row->edit_admin_kosong;
+    }
+
+    public function edit_absensi_admin_data_kosong($id_user_detail,$tanggal,$status_absen){
+        $this->db->trans_start();
+
+        // Perbaikan pernyataan SQL
+        $this->db->query("INSERT INTO status_absensi (id_user_detail, tanggal_absen, status_absen) VALUES ('$id_user_detail','$tanggal','$status_absen')");  
+        
+        $this->db->trans_complete();
+            
+        if ($this->db->trans_status() == true) {
+            $this->session->set_flashdata('edit2','edit2');
+            return $this->db->trans_status();
+        } else {
+            $this->session->set_flashdata('eror','eror');
+        }
+    }
+    public function cari_absensi_admin_data_kosong($nip){
+        $query = $this->db->query("SELECT id_user_detail FROM user_detail WHERE nip='$nip'");
+        $result = $query->row(); // Mengambil satu baris data dari hasil query
+        return $result; // Mengembalikan hasil query sebagai nilai kembali
     }
 
 }

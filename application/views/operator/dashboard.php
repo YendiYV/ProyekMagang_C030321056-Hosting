@@ -230,7 +230,11 @@
 
                             if ($dayOfWeek >= 1 && $dayOfWeek <= 5) { // Hanya lanjutkan jika hari Senin hingga Jumat
                                 if($waktu_sekarang >= '07:45' && $waktu_sekarang <= '09:00'){
-                                    $status_absen = $ketersediaan_data2['status_absen'];
+                                    if (isset($ketersediaan_data2) && isset($ketersediaan_data2['status_absen'])) {
+                                        $status_absen = $ketersediaan_data2['status_absen'];
+                                    } else {
+                                        $status_absen = 0;
+                                    }
                                     if ($status_absen < 1) {
                                         if ($waktu_sekarang > '08:00' && $waktu_sekarang <= '08:15') {
                                             // Tampilkan tombol-tombol tindakan jika waktu berada dalam rentang
@@ -254,7 +258,7 @@
                                 }elseif($waktu_sekarang >= '09:00' && $waktu_sekarang <= '15:30'){
                                     $status_absen = $ketersediaan_data2['status_absen'];
                                     if ($status_absen === '1') {
-                                        echo '<h5 style="text-align: center">Tindakan Tidak Tersedia, Absen akan terbuka pada jam 15:45-16:00</h5>';
+                                        echo '<h5 style="text-align: center">Tindakan Belum Tersedia, Absen akan terbuka pada jam 15:45-16:00</h5>';
                                     } elseif ($status_absen === '2') {
                                         echo '<h5 style="text-align: center">Anda tidak perlu absen pulang karena cuti</h5>';
                                     } elseif ($status_absen === '3') {

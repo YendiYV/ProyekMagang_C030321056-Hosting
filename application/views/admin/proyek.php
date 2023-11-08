@@ -99,9 +99,6 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Data Proyek</h1>
-                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
-                                Tambah Proyek
-                            </button>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
@@ -129,6 +126,18 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col-sm-2 text-sm-right">
+                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="btn-group" role="group">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                        Tambah Proyek
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>

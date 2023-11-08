@@ -47,6 +47,16 @@
     </script>
     <?php } ?>
 
+    <?php if ($this->session->flashdata('edit2')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Data Berhasil Ditambahkan!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+
     <?php if ($this->session->flashdata('eror_edit')){ ?>
     <script>
     swal({
@@ -127,7 +137,7 @@
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <div class="row mb-2">
-                                        <div class="col-sm-6 text-sm-right">
+                                        <div class="col-sm-4 text-sm-right">
                                             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                                 <div class="btn-group" role="group" aria-label="Cetak Options">
                                                     <button type="button" class="btn btn-primary" id="exportButton">Cetak Rekap</button>
@@ -160,7 +170,7 @@
                                         XLSX.writeFile(wb, fileName);
                                     });
 
-                                    </script>
+                                    </script>   
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr style="font-size: 20px;">
@@ -205,7 +215,6 @@
 
                                                 }
                                             }
-
                                             foreach ($absensi as $pegawai):
                                                 $nip = $pegawai['nip'];
                                                 if (!in_array($nip, $uniqueNIPs)):
@@ -231,14 +240,12 @@
                                                                 
                                                                 // Tambahkan tombol "Edit" untuk mengedit data
                                                                 echo "<td style='text-align: center; $style'>" . strtoupper($status) . " <button class='edit-button' data-nip='$nip' data-tanggal='$tanggal'><i class='fas fa-edit'></i></button></td>";
-
                                                             } else {
                                                                 // Jika tidak ada data, tampilkan tanda '-'
-                                                                echo "<td>-</td>";
+                                                                echo "<td>- <button class='edit-button' data-nip='$nip' data-tanggal='$tanggal'><i class='fas fa-edit'></i></button>";
+
                                                             }
                                                         }
-
-
                                                         ?>
                                                     </tr>
                                                     <div id="edit-container">

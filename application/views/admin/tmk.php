@@ -99,9 +99,6 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Data TMK</h1>
-                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
-                                 Tambah TMK
-                            </button>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
@@ -121,7 +118,6 @@
 
             <!-- Main content -->
             <section class="content">
-
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
@@ -131,6 +127,16 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col-sm-auto text-sm-right">
+                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="btn-group" role="group" >
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah TMK</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
