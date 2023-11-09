@@ -13,6 +13,7 @@ class Gaji extends CI_Controller {
     {
         if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
             $data['operator'] = $this->m_gaji->get_all_gaji()->result_array();
+            $data['operator2'] = $this->m_gaji->get_all_gaji_baru()->result_array();
             $this->load->view('admin/gaji', $data);
         } else {
             // Handle kasus ketika pengguna tidak memiliki hak akses
@@ -71,22 +72,21 @@ class Gaji extends CI_Controller {
 
                 if ($data_exist) {
                     $hasil = $this->m_gaji->update_data($username, $gaji_bulan, $total_per_orang,$jumlah_delta,$tanggal_input);
-                    $this->session->set_flashdata('input');
                             if ($hasil) {
-                                
+                                $this->session->set_flashdata('input','input');
                             } else {
-                                $this->session->set_flashdata('eror');
+                                $this->session->set_flashdata('eror','eror');
                             }
                 }else {
                     $hasil = $this->m_gaji->insert_data($username, $gaji_bulan, $total_per_orang,$jumlah_delta,$tanggal_input);
                         if ($hasil) {
-                            $this->session->set_flashdata('input');
+                            $this->session->set_flashdata('input','input');
                         } else {
-                            $this->session->set_flashdata('eror');
+                            $this->session->set_flashdata('eror','eror');
                         }
                 }
             }else {
-                $messages[] = "Gagal menginputkan data untuk username: $username. Hanya tanggal 1 yang dapat diinput.";
+                $this->session->set_flashdata('eror','eror');
             }
 
         }

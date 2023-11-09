@@ -144,10 +144,12 @@ class M_absensi extends CI_Model
     public function cek_status_untuk_absen_pulang($id_user) {
         $today = date('Y-m-d');  
 
-        $hasil = $this->db->query("SELECT  status_absen FROM status_absensi  WHERE id_user_detail = '$id_user' AND tanggal_absen = '$today' AND status_absen ='1'
-                                ");
+        $hasil = $this->db->query("SELECT COUNT(*) as count FROM status_absensi WHERE id_user_detail = '$id_user' AND tanggal_absen = '$today' AND status_absen ='1'");
+        
         return $hasil;
     }
+
+
     public function insert_hadir($id_user){
         $this->db->trans_start();
         $currentDateTime = date('Y-m-d');

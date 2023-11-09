@@ -50,7 +50,7 @@
         <script>
             swal({
                 title: "Peringatan!",
-                text: "Anda Hanya Bisa Absen Jam  15.45-16.00 WITA!",
+                text: "Anda Hanya Bisa Absen Jam  15.4--16.00 WITA!",
                 icon: "error"
             });
         </script>
@@ -59,7 +59,7 @@
         <script>
             swal({
                 title: "Peringatan!",
-                text: "Anda Hanya Bisa Absen Jam 08.00-08.15 !",
+                text: "Anda Hanya Bisa Absen Jam 08.00-08.20 !",
                 icon: "error"
             });
         </script>
@@ -81,6 +81,15 @@
                 icon: "success"
             });
         </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('not_found')){ ?>
+    <script>
+    swal({
+        title: "Tidak Boleh Akses!",
+        text: "Anda Tidak boleh mengajukan cuti!",
+        icon: "error"
+    });
+    </script>
     <?php } ?>
     <div class="wrapper">
 
@@ -221,7 +230,7 @@
                             $datetime = new DateTime('now', $timezone);
 
                             // Tambahkan 5 menit dan 13 detik
-                            $datetime->modify('+5 minutes +13 seconds');
+                            $datetime->modify('+5 minutes +23 seconds');
 
                             $waktu_sekarang = $datetime->format('H:i:s');
                             $id_user = $this->session->userdata('id_user');
@@ -229,14 +238,14 @@
                             $dayOfWeek = date('N'); // Dapatkan hari dalam format 1 hingga 7 (Senin hingga Minggu)
 
                             if ($dayOfWeek >= 1 && $dayOfWeek <= 5) { // Hanya lanjutkan jika hari Senin hingga Jumat
-                                if($waktu_sekarang >= '07:45' && $waktu_sekarang <= '09:00'){
+                                if($waktu_sekarang >= '07:40' && $waktu_sekarang <= '08:00'){
                                     if (isset($ketersediaan_data2) && isset($ketersediaan_data2['status_absen'])) {
                                         $status_absen = $ketersediaan_data2['status_absen'];
                                     } else {
                                         $status_absen = 0;
                                     }
                                     if ($status_absen < 1) {
-                                        if ($waktu_sekarang > '08:00' && $waktu_sekarang <= '08:15') {
+                                        if ($waktu_sekarang >= '08:01' && $waktu_sekarang <= '08:20') {
                                             // Tampilkan tombol-tombol tindakan jika waktu berada dalam rentang
                                             echo '<div class="small-box-buttons text-center mt-3">
                                                 <form action="' . base_url() . 'absensi/tambah_absensi_masuk" method="POST">
@@ -247,15 +256,15 @@
                                                     <button class="btn btn-info mx-2" type="submit" name="action" value="cuti">Cuti</button>
                                                 </form>
                                             </div>';
-                                        }elseif ($waktu_sekarang >= '07:45' && $waktu_sekarang < '08:00') {
-                                            echo '<h5 style="text-align: center">Tindakan Tidak Tersedia, Karna belum jam 08:00-08:15</h5>';
+                                        }elseif ($waktu_sekarang >= '07:40' && $waktu_sekarang < '08:00') {
+                                            echo '<h5 style="text-align: center">Tindakan Tidak Tersedia, Karna belum jam 08:00-08:20</h5>';
                                         }else{
-                                            echo '<h5 style="text-align: center">Tindakan Tidak Tersedia, Karna melewati jam 08:00-08:15</h5>';
+                                            echo '<h5 style="text-align: center">Tindakan Tidak Tersedia, Karna melewati jam 08:00-08:20</h5>';
                                         }
                                     }else{
-                                        echo '<h5 style="text-align: center">Anda telah melaksanakan absensi jam 08:00-08:15</h5>';
+                                        echo '<h5 style="text-align: center">Anda telah melaksanakan absensi jam 08:00-08:20</h5>';
                                     }
-                                }elseif($waktu_sekarang >= '09:00' && $waktu_sekarang <= '15:30'){
+                                }elseif($waktu_sekarang >= '08:01' && $waktu_sekarang <= '08:20'){
                                     $status_absen = $ketersediaan_data2['status_absen'];
                                     if ($status_absen === '1') {
                                         echo '<h5 style="text-align: center">Tindakan Belum Tersedia, Absen akan terbuka pada jam 15:45-16:00</h5>';
@@ -273,10 +282,10 @@
                                     }
 
                                 }
-                                elseif($waktu_sekarang >= '15:30' && $waktu_sekarang <= '16:30'){
-                                    if ($waktu_sekarang >= '15:45' && $waktu_sekarang <= '16:00') {
+                                elseif($waktu_sekarang >= '15:40' && $waktu_sekarang <= '16:00'){
+                                    if ($waktu_sekarang >= '15:40' && $waktu_sekarang <= '16:00') {
                                         // Tampilkan tombol-tombol tindakan jika waktu berada dalam rentang
-                                        if ($cek_status_absensi_untuk_absen_pulang) {
+                                        if ($ketersediaan_data_pulang < 1) {
                                             echo '<div class="small-box-buttons text-center mt-3">
                                                 <form action="' . base_url() . 'absensi/tambah_absensi_pulang" method="POST">
                                                     <input type="text" value="' . $this->session->userdata('id_user') . '" name="id_user" hidden>
@@ -287,9 +296,9 @@
                                             echo '<h5 style="text-align: center">Tindakan Tidak Tersedia, Karna Anda Telah Absensi Pulang</h5>';
                                         }
                                     }elseif ($waktu_sekarang > '16:00' && $waktu_sekarang <= '16:30'){
-                                        echo '<h5 style="text-align: center">Tindakan Tidak Tersedia , Karna Telah Melewati jam 15:45-16.00</h5>';
+                                        echo '<h5 style="text-align: center">Tindakan Tidak Tersedia , Karna Telah Melewati jam 15:40-16.00</h5>';
                                     }else {
-                                        echo '<h5 style="text-align: center">Tindakan Tidak Tersedia, Karna belum jam 15:45-16.00</h5>';
+                                        echo '<h5 style="text-align: center">Tindakan Tidak Tersedia, Karna belum jam 15:40-16.00</h5>';
                                     }
                                 }
                                 else{

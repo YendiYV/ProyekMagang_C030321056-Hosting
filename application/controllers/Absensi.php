@@ -44,18 +44,19 @@ class Absensi extends CI_Controller {
 	}
 	
 	public function tambah_absensi_masuk() {
-		date_default_timezone_set('Asia/Makassar'); // Set zona waktu ke Makassar
+		$timezone = new DateTimeZone('Asia/Makassar');
+		$datetime = new DateTime('now', $timezone);
 
-		$currentTime = date('H:i'); // Dapatkan waktu saat ini dalam format HH:ii
-		$startTime= '08:00';
-		$endTime = '08:15'; // Waktu berakhir
+		// Tambahkan 5 menit dan 13 detik
+		$datetime->modify('+5 minutes +23 seconds');
+		$waktu_sekarang = $datetime->format('H:i:s');
 		$id_user = $this->input->post("id_user"); // Dapatkan id_user dari input
 		$action = $this->input->post('action'); // Dapatkan tindakan yang diambil dari input
 		// Pemeriksaan hari
 		$dayOfWeek = date('N'); // Dapatkan hari dalam format 1 hingga 7 (Senin hingga Minggu)
 
 		if ($dayOfWeek >= 1 && $dayOfWeek <= 5) { // Hanya lanjutkan jika hari Senin hingga Jumat
-			if (strtotime($currentTime) >= strtotime($startTime) && strtotime($currentTime) <= strtotime($endTime)) {	
+			if ($waktu_sekarang >= '08:00' && $waktu_sekarang <= '08:20')  {	
 				$ketersediaan_data = $this->m_absensi->cek_kehadiran_absensi($id_user);	
 				if($ketersediaan_data !== null){
 					if ($action === 'hadir') {
@@ -77,7 +78,7 @@ class Absensi extends CI_Controller {
 					$this->session->set_flashdata('error', 'error');
 				}
 			}else {
-				$this->session->set_flashdata('eror_pagi', 'Anda hanya dapat melakukan absensi antara jam 08:00 dan 08:15.');
+				$this->session->set_flashdata('eror_pagi', 'Anda hanya dapat melakukan absensi antara jam 08:00 dan 08:20.');
 			}
 		}else {
 			$this->session->set_flashdata('error', 'Absensi tidak dapat dilakukan pada hari Sabtu dan Minggu.');
@@ -87,36 +88,39 @@ class Absensi extends CI_Controller {
 	}
 
 	public function tambah_absensi_pulang() {
-		date_default_timezone_set('Asia/Makassar'); // Set zona waktu ke Makassar
-		$currentTime = date('H:i'); // Dapatkan waktu saat ini dalam format HH:ii
-		$startTime = '15:45'; // Waktu mulai
-		$endTime = '16:00'; // Waktu berakhir
-		$id_user = $this->input->post("id_user"); // Dapatkan id_user dari input
+		$timezone = new DateTimeZone('Asia/Makassar');
+		$datetime = new DateTime('now', $timezone);
 
+		// Tambahkan 5 menit dan 13 detik
+		$datetime->modify('+5 minutes +23 seconds');
+		$waktu_sekarang = $datetime->format('H:i:s');
+		$id_user = $this->input->post("id_user"); // Dapatkan id_user dari input
+		
 		// Pemeriksaan hari
 		$dayOfWeek = date('N'); // Dapatkan hari dalam format 1 hingga 7 (Senin hingga Minggu)
 
 		if ($dayOfWeek >= 1 && $dayOfWeek <= 5) { // Hanya lanjutkan jika hari Senin hingga Jumat
-			if (strtotime($currentTime) >= strtotime($startTime) && strtotime($currentTime) <= strtotime($endTime)) {
+			if ($waktu_sekarang >= '15:40' && $waktu_sekarang <= '16:00') {
 				$cek_absen_pulang = $this->m_absensi->cek_status_untuk_absen_pulang($id_user);
 
-            	if ($cek_absen_pulang === null) {
-				$action = $this->input->post('action'); // Dapatkan tindakan yang diambil dari input
-				$this->session->set_flashdata('input_pulang', 'Anda telah melakukan absensi Pulang.');
-				$this->m_absensi->insert_pulang($id_user); 
-				}else{
+				if ($cek_absen_pulang > 0) {
+					$action = $this->input->post('action'); // Dapatkan tindakan yang diambil dari input
+					$this->session->set_flashdata('input_pulang', 'Anda telah melakukan absensi Pulang.');
+					$this->m_absensi->insert_pulang($id_user);
+				} else {
 					$this->session->set_flashdata('mencoba_akses', 'mencoba_akses');
 				}
 
-			}else {
-				$this->session->set_flashdata('eror_pulang', 'Anda hanya dapat melakukan absensi pulang antara jam 15:45 dan 16:00.');
+			} else {
+				$this->session->set_flashdata('eror_pulang', 'Anda hanya dapat melakukan absensi pulang antara jam 15:40 dan 16:00.');
 			}
-		}else {
+		} else {
 			$this->session->set_flashdata('error', 'Absensi pulang tidak dapat dilakukan pada hari Sabtu dan Minggu.');
 		}
 
 		redirect('Dashboard/dashboard_operator');
 	}
+
 
 	public function edit_absensi_admin(){
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {

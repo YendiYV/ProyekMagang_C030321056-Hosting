@@ -163,14 +163,14 @@
                                         </tbody>
                                     </table>
                                     <script>
-    $(document).ready(function () {
-        $('.datatable').DataTable({
-            "aoColumnDefs": [
-                { 'bSortable': false, 'aTargets': [0] } // Disable sorting for the first column (index 0)
-            ]
-        });
-    });
-</script>
+                                    $(document).ready(function () {
+                                        $('.datatable').DataTable({
+                                            "aoColumnDefs": [
+                                                { 'bSortable': false, 'aTargets': [0] } // Disable sorting for the first column (index 0)
+                                            ]
+                                        });
+                                    });
+                                </script>
                                 </div>
                                 <!-- /.card-body -->
                             </div>

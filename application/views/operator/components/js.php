@@ -35,7 +35,7 @@ $.widget.bridge('uibutton', $.ui.button)
 <script src="<?= base_url();?>assets/admin_lte/dist/js/pages/dashboard.js"></script>
 <!-- Datatables -->
 <script src="<?= base_url();?>assets/admin_lte/dist/js/pages/dashboard.js"></script>
-<script src="<?= base_url();?>assets/admin_lte/plugins/datatables/jquery.dataTables.min.js"></script>
+
 <script src="<?= base_url();?>assets/admin_lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url();?>assets/admin_lte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="<?= base_url();?>assets/admin_lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>

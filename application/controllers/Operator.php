@@ -103,14 +103,14 @@ class operator extends CI_Controller {
 				$hashed_password = md5($password); // Ubah password menjadi hashed
 			
 				if ($username !== null){
-					$this->session->set_flashdata('input');
+					$this->session->set_flashdata('input','input');
 					$hasil = $this->m_user->insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat,$id_status_proyek, $jabatan,$penempatan,$bpk,$delta,$transport, $tanggal_masuk);
 				}
 				else {
-					$this->session->set_flashdata('eror');
+					$this->session->set_flashdata('eror','eror');
 				}
 			}else {
-				$this->session->set_flashdata('eror');
+				$this->session->set_flashdata('eror','eror');
 			}
 
 			redirect('operator/view_admin');
@@ -157,9 +157,9 @@ class operator extends CI_Controller {
 
 			if ($username !== null){
 			$hasil = $this->m_user->update_operator($id_user, $username, $password, 1, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan, $penempatan,$bpk,$delta,$transport, $id_status_proyek, $tanggal_masuk);
-			$this->session->set_flashdata('edit');
+			$this->session->set_flashdata('edit','edit');
 			} else {
-				$this->session->set_flashdata('eror_edit');
+				$this->session->set_flashdata('eror_edit','eror_edit');
 			}
 
 			if ($id_user_level == 2) {

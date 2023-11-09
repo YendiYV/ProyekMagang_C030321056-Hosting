@@ -300,24 +300,29 @@
                                                                 </script>
                                                                 <div class="form-group">
                                                                     <label for="password">Password</label>
-                                                                    <input type="password" class="form-control"
-                                                                        id="password" aria-describedby="password"
-                                                                        name="password" value="<?= $password ?>" required>
+                                                                    <input type="password" class="form-control" id="password" aria-describedby="password" name="password" value="<?= $password ?>" required>
+                                                                    <div class="input-group-append">
+                                                                        <button id="showPassword" type="button" class="btn btn-outline-secondary">Show Password</button>
+                                                                    </div>
                                                                 </div>
                                                                 <script>
                                                                     var passwordInput = document.getElementById("password");
                                                                     var showPasswordButton = document.getElementById("showPassword");
 
-                                                                    showPasswordButton.addEventListener("click", function() {
-                                                                        if (passwordInput.type === "password") {
-                                                                            passwordInput.type = "text";
-                                                                            showPasswordButton.textContent = "Hide Password";
-                                                                        } else {
-                                                                            passwordInput.type = "password";
-                                                                            showPasswordButton.textContent = "Show Password";
-                                                                        }
-                                                                    });
-                                                                    </script>
+                                                                    if (showPasswordButton) {
+                                                                        showPasswordButton.addEventListener("click", function() {
+                                                                            if (passwordInput.type === "password") {
+                                                                                passwordInput.type = "text";
+                                                                                showPasswordButton.textContent = "Hide Password";
+                                                                            } else {
+                                                                                passwordInput.type = "password";
+                                                                                showPasswordButton.textContent = "Show Password";
+                                                                            }
+                                                                        });
+                                                                    } else {
+                                                                        console.error("Element with ID 'showPassword' not found");
+                                                                    }
+                                                                </script>
                                                                 <div class="form-group">
                                                                     <label for="nama_lengkap">Nama Lengkap</label>
                                                                     <input type="text" class="form-control"
@@ -480,7 +485,7 @@
                                     <label for="password" class="col-md-3 col-form-label">Password</label>
                                     <div class="col-md-9">
                                         <div class="input-group">
-                                            <input type="password" class="form-control" id="password" aria-describedby="password" name="password" required>
+                                            <input type="password" class="form-control" id="password" name="password" required>
                                         </div>
                                     </div>
                                 </div>
@@ -489,12 +494,10 @@
                                     <label for="confirm_password" class="col-md-3 col-form-label">Konfirmasi Password</label>
                                     <div class="col-md-9">
                                         <div class="input-group">
-                                            <input type="password" class="form-control" id="confirm_password" aria-describedby="confirm_password" name="confirm_password" required>
+                                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div class="form-group">
                                     <label for="nama_lengkap">Nama Lengkap</label>
                                     <input type="text" class="form-control" id="nama_lengkap"

@@ -109,9 +109,9 @@ class Dashboard extends CI_Controller {
 			if ($cek_absensi_hari_ini < 1) {
 				$timezone = new DateTimeZone('Asia/Makassar');
 				$datetime = new DateTime('now', $timezone);
-				$datetime->modify('+5 minutes +13 seconds');
+				$datetime->modify('+5 minutes +23 seconds');
 				$waktu_sekarang = $datetime->format('H:i');
-				if ($waktu_sekarang >= '08:01' && $waktu_sekarang <= '23:59') {
+				if ($waktu_sekarang >= '08:31' && $waktu_sekarang <= '23:59') {
 					$this->m_absensi->insert_alfa($id_user);
 				}
 			}
@@ -127,6 +127,7 @@ class Dashboard extends CI_Controller {
 			$data['cek_status_absensi_untuk_absen_pulang'] = $this->m_absensi->cek_status_untuk_absen_pulang($id_user)->result_array();
 			$data['ketersediaan_data'] = $this->m_absensi->cek_kehadiran_absensi($id_user);
 			$data['ketersediaan_data2'] = $this->m_absensi->cek_kehadiran_absensi2($id_user)->row_array();
+			$data['ketersediaan_data_pulang'] = $this->m_absensi->cek_status_untuk_absen_pulang($id_user) ->row_array();
 			$this->load->view('operator/dashboard', $data);
 		} else {
 			$this->session->set_flashdata('loggin_err', 'loggin_err');

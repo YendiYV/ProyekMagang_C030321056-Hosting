@@ -4,6 +4,7 @@
 <head>
     <?php $this->load->view("admin/components/header.php") ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -145,6 +146,15 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row mb-2">
+                                        <div class="col-sm-4 text-sm-right">
+                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="btn-group" role="group" aria-label="Cetak Options">
+                                                    <input type="month" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <br>
                                     <script>
                                     document.getElementById("exportButton").addEventListener("click", function() {
@@ -248,6 +258,25 @@
                                                         }
                                                         ?>
                                                     </tr>
+                                                    <script>
+                                                        document.addEventListener('click', function (event) {
+                                                            if (event.target.classList.contains('edit-trigger')) {
+                                                                var nip = event.target.getAttribute('data-nip');
+                                                                var tanggal = event.target.getAttribute('data-tanggal');
+
+                                                                // Tampilkan formulir pengeditan di dalam elemen dengan ID edit-container
+                                                                document.getElementById('edit-container').innerHTML = 
+                                                                    '<form action="proses_edit_absensi.php" method="POST">' +
+                                                                    '<input type="hidden" name="nip" value="' + nip + '">' +
+                                                                    '<input type="hidden" name="tanggal" value="' + tanggal + '">' +
+                                                                    'New Status: <input type="text" name="new_status" value=""><br>' +
+                                                                    '<input type="submit" value="Edit">' +
+                                                                    '</form>';
+                                                            }
+                                                        });
+                                                    </script>
+
+
                                                     <div id="edit-container">
                                                         <!-- Editing form or modal content goes here -->
                                                     </div>
