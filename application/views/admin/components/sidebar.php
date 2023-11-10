@@ -36,7 +36,7 @@
                 <li class="nav-item">
                     <a href="<?= base_url();?>Absensi/view_admin" class="nav-link">
                         <i class="nav-icon fas fa-calendar-day"></i>
-                        <p>Status Absensi Operasi</p>
+                        <p>Status Absensi Operator</p>
                     </a>
                 </li>
                 <li class="nav-item">

@@ -38,6 +38,44 @@ class M_absensi extends CI_Model
         return $data_absensi;
     }
 
+    public function get_all_absensi_menurut_bulan($cari_bulan)
+    {
+        $query = $this->db->query("SELECT user_detail.nip, user_detail.nama_lengkap, tanggal_absen, absensi_level.nama_status
+                                    FROM status_absensi
+                                    LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
+                                    LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
+                                    WHERE MONTH(tanggal_absen) = MONTH('$cari_bulan') AND YEAR(tanggal_absen) = YEAR('$cari_bulan')");
+
+        return $query->result_array();
+    }
+
+    public function get_data_absensi_bulan($cari_bulan)
+    {
+        $query = $this->db->query("SELECT user_detail.nip, tanggal_absen, absensi_level.nama_status, absensi_level.id_absen_level, absensi_level.singkatan_status
+            FROM status_absensi
+            LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
+            LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
+            WHERE MONTH(tanggal_absen) = MONTH('$cari_bulan') AND YEAR(tanggal_absen) = YEAR('$cari_bulan')");
+
+        $data_absensi = array();
+
+        foreach ($query->result() as $row) {
+            $tanggal = $row->tanggal_absen;
+            $nip = $row->nip;
+            $status = $row->singkatan_status;
+
+            // Mengelompokkan data berdasarkan tanggal dan NIP
+            if (!isset($data_absensi[$tanggal])) {
+                $data_absensi[$tanggal] = array();
+            }
+
+            $data_absensi[$tanggal][$nip] = $status;
+        }
+
+        return $data_absensi;
+    }
+
+
     public function get_all_absensi_menurut_tanggal($tanggal)
     {
         $query = $this->db->query('SELECT user_detail.nip, user_detail.nama_lengkap, tanggal_absen, absensi_level.nama_status
@@ -148,6 +186,8 @@ class M_absensi extends CI_Model
         
         return $hasil;
     }
+
+
 
 
     public function insert_hadir($id_user){

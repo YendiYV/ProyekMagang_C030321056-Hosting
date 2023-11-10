@@ -127,7 +127,7 @@ class Dashboard extends CI_Controller {
 			$data['cek_status_absensi_untuk_absen_pulang'] = $this->m_absensi->cek_status_untuk_absen_pulang($id_user)->result_array();
 			$data['ketersediaan_data'] = $this->m_absensi->cek_kehadiran_absensi($id_user);
 			$data['ketersediaan_data2'] = $this->m_absensi->cek_kehadiran_absensi2($id_user)->row_array();
-			$data['ketersediaan_data_pulang'] = $this->m_absensi->cek_status_untuk_absen_pulang($id_user) ->row_array();
+			$data['ketersediaan_data_pulang'] = $this->m_absensi->cek_status_untuk_absen_pulang($id_user)->row_array();
 			$this->load->view('operator/dashboard', $data);
 		} else {
 			$this->session->set_flashdata('loggin_err', 'loggin_err');

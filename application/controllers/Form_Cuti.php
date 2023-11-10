@@ -66,12 +66,12 @@ class Form_Cuti extends CI_Controller {
 
 			$hasil = $this->m_cuti->insert_data_cuti($nomor_urut_cuti, $id_user, $alasan, $mulai, $berakhir, $id_status_cuti1, $id_status_cuti2, $id_status_cuti3, $perihal_cuti, $total_hari_cuti);
 
-			if ($hasil == false) {
-				$this->session->set_flashdata('eror_input', 'eror_input');
+			if ($hasil) {
+				$this->session->set_flashdata('input','input');
 			} else {
-				$this->session->set_flashdata('input', 'input');
+				$this->session->set_flashdata('eror','eror');
 			}
-			redirect('Dashboard/dashboard_operator');
+			redirect('Form_Cuti/view_operator');
 			
 		}else {
 			$this->session->set_flashdata('loggin_err', 'loggin_err');

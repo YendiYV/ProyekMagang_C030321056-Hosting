@@ -137,24 +137,35 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <div class="row mb-2">
-                                        <div class="col-sm-4 text-sm-right">
-                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                                <div class="btn-group" role="group" aria-label="Cetak Options">
-                                                    <button type="button" class="btn btn-primary" id="exportButton">Cetak Rekap</button>
+                                    
+                                        <div class="row mb-2">
+                                            <!-- "Cetak Rekap" button -->
+                                            <div class="col-sm-1 text-sm-right">
+                                                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                    <div class="btn-group" role="group" aria-label="Cetak Options">
+                                                        <button type="button" class="btn btn-primary" id="exportButton">Cetak Rekap</button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-sm-4 text-sm-right">
-                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                                <div class="btn-group" role="group" aria-label="Cetak Options">
-                                                    <input type="month" />
-                                                </div>
+                                            <!-- "Bulan" input -->
+                                            <div class="col-lg-2 text-lg-right">
+                                                <form action="<?= base_url() ?>absensi/view_admin" method="POST">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <label class="input-group-text" for="cari_bulan">Bulan</label>
+                                                        </div>
+                                                        <input type="month" id="cari_bulan" name="cari_bulan" class="form-control">
+                                                        <div class="input-group-append">
+                                                            <button type="submit" class="btn btn-primary">Cari</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                    </div>
+
+
+
+                                    <hr>
                                     <br>
                                     <script>
                                     document.getElementById("exportButton").addEventListener("click", function() {

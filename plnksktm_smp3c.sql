@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 09, 2023 at 04:47 PM
+-- Generation Time: Nov 10, 2023 at 04:35 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -71,7 +71,7 @@ CREATE TABLE `cuti` (
 
 INSERT INTO `cuti` (`id_cuti`, `id_user`, `alasan`, `tgl_diajukan`, `mulai`, `berakhir`, `id_status_cuti1`, `id_status_cuti2`, `id_status_cuti3`, `perihal_cuti`, `jumlah_hari`) VALUES
 ('0001-SP-Cuti-2023', '23bdd1cd96888f836956a97a0fdc6bd5', 'TES', '2023-10-30', '2023-11-01', '2023-11-06', 2, 3, 2, 'TES', 4),
-('9534-SP-Cuti-2023', '23bdd1cd96888f836956a97a0fdc6bd5', 'TES', '2023-10-31', '2023-11-01', '2023-11-02', 1, 1, 1, 'TES', 2);
+('7456-SP-Cuti-2023', '23bdd1cd96888f836956a97a0fdc6bd5', 'Pemeriksaan Kesehatan', '2023-11-10', '2023-11-13', '2023-11-17', 2, 2, 1, 'Sakit', 6);
 
 -- --------------------------------------------------------
 
@@ -146,9 +146,11 @@ INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `st
 (20, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-09', '1'),
 (21, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-09', '3'),
 (22, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-09', '4'),
-(23, 'f7c7b7e19a4ed7a51db593c8efbee984', '2023-11-09', '2'),
+(23, 'f7c7b7e19a4ed7a51db593c8efbee984', '2023-11-09', '4'),
 (24, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-03', '1'),
-(25, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-06', '1');
+(25, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-06', '1'),
+(26, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-10', '6'),
+(27, 'd41d8cd98f00b204e9800998ecf8427e', '2023-10-10', '5');
 
 -- --------------------------------------------------------
 
@@ -167,7 +169,8 @@ CREATE TABLE `status_bpk` (
 --
 
 INSERT INTO `status_bpk` (`id_level_bpk`, `nama_bpk`, `gaji_bpk`) VALUES
-(1, 'BPK1', 30000);
+(1, 'BPK1', 50000),
+(3, 'BPK2', 100000);
 
 -- --------------------------------------------------------
 
@@ -221,7 +224,6 @@ CREATE TABLE `status_gaji_bulanan` (
   `id_user_detail` varchar(255) NOT NULL,
   `gaji_bulan` date NOT NULL,
   `total_gaji` int(11) NOT NULL,
-  `jumlah_delta` int(11) NOT NULL,
   `tgl_simpan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -229,16 +231,17 @@ CREATE TABLE `status_gaji_bulanan` (
 -- Dumping data for table `status_gaji_bulanan`
 --
 
-INSERT INTO `status_gaji_bulanan` (`no_sgb`, `id_user_detail`, `gaji_bulan`, `total_gaji`, `jumlah_delta`, `tgl_simpan`) VALUES
-(1, '1231231PKY', '2023-10-01', 200000, 2000, '2023-10-30'),
-(2, '1231232PKY', '2023-10-01', 4000000, 200000, '2023-10-30'),
-(3, '1231233PKY', '2023-10-01', 3000000, 10000, '2023-10-30'),
-(4, '1231234PKY', '2023-10-01', 6000000, 15000, '2023-10-30'),
-(5, '1231239PKY', '2023-10-01', 7000000, 90000, '2023-10-30'),
-(40, '1231231PKY', '2023-11-01', 5046896, 0, '2023-11-09'),
-(41, '1231232PKY', '2023-11-01', 5900000, 2025907, '2023-11-09'),
-(42, '1231233PKY', '2023-11-01', 6000000, 1626000, '2023-11-09'),
-(43, '1231234PKY', '2023-11-01', 9200000, 4050000, '2023-11-09');
+INSERT INTO `status_gaji_bulanan` (`no_sgb`, `id_user_detail`, `gaji_bulan`, `total_gaji`, `tgl_simpan`) VALUES
+(1, '1231231PKY', '2023-10-01', 2000000, '2023-10-30'),
+(2, '1231232PKY', '2023-10-01', 6000000, '2023-10-30'),
+(3, '1231233PKY', '2023-10-01', 3000000, '2023-10-30'),
+(4, '1231234PKY', '2023-10-01', 6000000, '2023-10-30'),
+(5, '1231239PKY', '2023-10-01', 7000000, '2023-10-30'),
+(40, '1231231PKY', '2023-11-01', 5046896, '0000-00-00'),
+(41, '1231232PKY', '2023-11-01', 5900000, '0000-00-00'),
+(42, '1231233PKY', '2023-11-01', 6000000, '0000-00-00'),
+(43, '1231234PKY', '2023-11-01', 9200000, '0000-00-00'),
+(45, '1231235PKY', '2023-11-01', 4670000, '2023-11-10');
 
 -- --------------------------------------------------------
 
@@ -375,6 +378,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id_user`, `username`, `password`, `id_user_level`, `id_user_detail`) VALUES
 ('134e349e4f50a051d8ca3687d6a7de1a', '1234567ADM', '202cb962ac59075b964b07152d234b70', 2, '134e349e4f50a051d8ca3687d6a7de1a'),
 ('23bdd1cd96888f836956a97a0fdc6bd5', '1231231PKY', '202cb962ac59075b964b07152d234b70', 1, '23bdd1cd96888f836956a97a0fdc6bd5'),
+('9593c4a570870ad08d5ed2b21f19df2c', '1231235PKY', '123', 1, '9593c4a570870ad08d5ed2b21f19df2c'),
 ('c551fc8847d29dc25a23db5d2cdb941b', '1231233PKY', '202cb962ac59075b964b07152d234b70', 1, 'c551fc8847d29dc25a23db5d2cdb941b'),
 ('d41d8cd98f00b204e9800998ecf8427e', '1231232PKY', '202cb962ac59075b964b07152d234b70', 1, 'd41d8cd98f00b204e9800998ecf8427e'),
 ('eb71208764d1a8a02cdf86a49ccd1489', '1234567MNJ', '202cb962ac59075b964b07152d234b70', 4, 'eb71208764d1a8a02cdf86a49ccd1489'),
@@ -410,9 +414,10 @@ CREATE TABLE `user_detail` (
 
 INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `tanggal_masuk`, `jumlah_cuti`) VALUES
 ('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '081256769', 'Jl. Pengayaan', '1231231PKY', 1, 1, 1, 1, 1, 4, '2021-10-31', 12),
+('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '081256769', 'Jl. Pengayaan', '1231231PKY', 0, 0, 1, 1, 0, 0, '2023-11-10', 6),
+('9593c4a570870ad08d5ed2b21f19df2c', 'Rahmat', 1, '08123123213', 'Jl. Karamunting', '1231235PKY', 1, 14, 6, 1, 1, 3, '2023-11-10', 0),
 ('c551fc8847d29dc25a23db5d2cdb941b', 'Putri', 2, '+62812781728', 'Jl. Sekip', '1231233PKY', 1, 5, 1, 1, 1, 0, '2023-11-09', 0),
-('d41d8cd98f00b204e9800998ecf8427e', 'Ahmad', 1, '08121212112', '0987654', '1231232PKY', 0, 1, 2, 1, 2, 0, '2020-11-09', 2),
+('d41d8cd98f00b204e9800998ecf8427e', 'Ahmad', 1, '08121212112', '0987654', '1231232PKY', 0, 0, 2, 1, 0, 0, '2023-11-10', 2),
 ('eb71208764d1a8a02cdf86a49ccd1489', 'Manajer Yendi', 1, '081212121212', 'Jl. Hidayatullah No.22', '1234567MNJ', 0, 0, 0, 0, 0, 0, NULL, 0),
 ('f5972fbf4ef53843c1e12c3ae99e5005', 'Supervisior', 1, NULL, NULL, '1234567SPV', 0, 0, 0, 0, 0, 0, NULL, 0),
 ('f7c7b7e19a4ed7a51db593c8efbee984', 'Operator Aminudin', 1, '+628127817281', 'Jl. Sekip', '1231234PKY', 3, 5, 2, 1, 2, 1, '2023-10-17', 0);
@@ -570,13 +575,13 @@ ALTER TABLE `operator_level`
 -- AUTO_INCREMENT for table `status_absensi`
 --
 ALTER TABLE `status_absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`
 --
 ALTER TABLE `status_bpk`
-  MODIFY `id_level_bpk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_level_bpk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `status_cuti`
@@ -594,7 +599,7 @@ ALTER TABLE `status_delta`
 -- AUTO_INCREMENT for table `status_gaji_bulanan`
 --
 ALTER TABLE `status_gaji_bulanan`
-  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `status_penempatan`

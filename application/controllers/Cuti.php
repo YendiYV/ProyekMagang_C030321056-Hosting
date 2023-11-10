@@ -127,8 +127,11 @@ class Cuti extends CI_Controller {
 		}else{
 			$this->session->set_flashdata('edit','edit');
 		}
-
-		redirect('Cuti/view_admin');
+		if ($this->session->userdata('id_user_level') == 2) {
+			redirect('Cuti/view_admin');
+		} elseif ($this->session->userdata('id_user_level') == 3) {
+			redirect('Cuti/view_super_admin');
+		}
 	}
 
 	private function hitung_hari_cuti($mulai, $berakhir) 

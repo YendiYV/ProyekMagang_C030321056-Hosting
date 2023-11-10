@@ -219,9 +219,8 @@
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="gaji_bpk">Gaji</label>
-                                                                        <input type="text" class="form-control" id="gaji_bpk" name="gaji_bpk" value="<?= htmlspecialchars($gaji_bpk) ?>" required>
+                                                                        <input type="text" class="form-control" id="gaji_bpk" name="gaji_bpk" oninput="formatCurrency(this)" value="<?= htmlspecialchars($gaji_bpk) ?>" required>
                                                                     </div>
-
                                                                     <!-- Add more form fields for editing other data if needed -->
                                                                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                                                 </form>

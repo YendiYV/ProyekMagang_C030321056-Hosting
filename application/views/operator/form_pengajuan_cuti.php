@@ -11,7 +11,7 @@
     <script>
     swal({
         title: "Success!",
-        text: "Data Berhasil Ditambahkan!",
+        text: "Data Cuti Berhasil Ditambahkan!",
         icon: "success"
     });
     </script>
@@ -21,7 +21,7 @@
     <script>
     swal({
         title: "Erorr!",
-        text: "Data Gagal Ditambahkan!",
+        text: "Data Cuti Gagal Ditambahkan!",
         icon: "error"
     });
     </script>

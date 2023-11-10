@@ -238,13 +238,13 @@
                             $dayOfWeek = date('N'); // Dapatkan hari dalam format 1 hingga 7 (Senin hingga Minggu)
 
                             if ($dayOfWeek >= 1 && $dayOfWeek <= 5) { // Hanya lanjutkan jika hari Senin hingga Jumat
-                                if($waktu_sekarang >= '07:40' && $waktu_sekarang <= '08:00'){
+                                if($waktu_sekarang >= '07:40' && $waktu_sekarang <= '08:20'){ // Keadaan Jam 7:40 - 8:20 
                                     if (isset($ketersediaan_data2) && isset($ketersediaan_data2['status_absen'])) {
                                         $status_absen = $ketersediaan_data2['status_absen'];
                                     } else {
                                         $status_absen = 0;
                                     }
-                                    if ($status_absen < 1) {
+                                    if ($ketersediaan_data2['status_absen'] < 1) {
                                         if ($waktu_sekarang >= '08:01' && $waktu_sekarang <= '08:20') {
                                             // Tampilkan tombol-tombol tindakan jika waktu berada dalam rentang
                                             echo '<div class="small-box-buttons text-center mt-3">
@@ -264,8 +264,13 @@
                                     }else{
                                         echo '<h5 style="text-align: center">Anda telah melaksanakan absensi jam 08:00-08:20</h5>';
                                     }
-                                }elseif($waktu_sekarang >= '08:01' && $waktu_sekarang <= '08:20'){
-                                    $status_absen = $ketersediaan_data2['status_absen'];
+                                }elseif($waktu_sekarang >= '08:21' && $waktu_sekarang <= '15:39'){ // Keadaan Jam 8:21 - 15:39 
+                                    if (isset($ketersediaan_data2) && isset($ketersediaan_data2['status_absen'])) {
+                                        $status_absen = $ketersediaan_data2['status_absen'];
+                                    } else {
+                                        $status_absen = 0;
+                                    }
+                                    
                                     if ($status_absen === '1') {
                                         echo '<h5 style="text-align: center">Tindakan Belum Tersedia, Absen akan terbuka pada jam 15:45-16:00</h5>';
                                     } elseif ($status_absen === '2') {
@@ -282,10 +287,9 @@
                                     }
 
                                 }
-                                elseif($waktu_sekarang >= '15:40' && $waktu_sekarang <= '16:00'){
+                                elseif($waktu_sekarang >= '15:40' && $waktu_sekarang <= '16:00'){// Keadaan Jam 15:40 - 16:00 
                                     if ($waktu_sekarang >= '15:40' && $waktu_sekarang <= '16:00') {
-                                        // Tampilkan tombol-tombol tindakan jika waktu berada dalam rentang
-                                        if ($ketersediaan_data_pulang < 1) {
+                                        if ($ketersediaan_data_pulang['count']  >= 1) {
                                             echo '<div class="small-box-buttons text-center mt-3">
                                                 <form action="' . base_url() . 'absensi/tambah_absensi_pulang" method="POST">
                                                     <input type="text" value="' . $this->session->userdata('id_user') . '" name="id_user" hidden>

@@ -11,23 +11,22 @@ class Absensi extends CI_Controller {
     public function view_admin()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
-            $tanggal = $this->input->post('tanggal');
-			if($tanggal === null){
+			$cari_bulan = $this->input->post('cari_bulan'); // Corrected variable name
+			if ($cari_bulan === null) {
 				$data['absensi'] = $this->m_absensi->get_all_absensi();
 				$data['data_absensi'] = $this->m_absensi->get_data_absensi();
 				$this->load->view('admin/absensi', $data);
-			}else{
-				$data['absensi'] = $this->m_absensi->get_all_absensi_menurut_tanggal();
-				$data['data_absensi'] = $this->m_absensi->get_data_absensi_tanggal();
+			} else {
+				$data['absensi'] = $this->m_absensi->get_all_absensi_menurut_bulan($cari_bulan);
+				$data['data_absensi'] = $this->m_absensi->get_data_absensi_bulan($cari_bulan);
 				$this->load->view('admin/absensi', $data);
 			}
-		}else{
-
-			$this->session->set_flashdata('loggin_err','loggin_err');
+		} else {
+			$this->session->set_flashdata('loggin_err', 'loggin_err');
 			redirect('Login/index');
-	
 		}
 	}
+
 	public function view_operator()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 1) {
@@ -100,7 +99,7 @@ class Absensi extends CI_Controller {
 		$dayOfWeek = date('N'); // Dapatkan hari dalam format 1 hingga 7 (Senin hingga Minggu)
 
 		if ($dayOfWeek >= 1 && $dayOfWeek <= 5) { // Hanya lanjutkan jika hari Senin hingga Jumat
-			if ($waktu_sekarang >= '15:40' && $waktu_sekarang <= '16:00') {
+			if ($waktu_sekarang >= '15:40' && $waktu_sekarang <= '17:00') {
 				$cek_absen_pulang = $this->m_absensi->cek_status_untuk_absen_pulang($id_user);
 
 				if ($cek_absen_pulang > 0) {

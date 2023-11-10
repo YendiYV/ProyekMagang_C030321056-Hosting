@@ -53,15 +53,15 @@ class M_gaji extends CI_Model
                                         LEFT JOIN status_delta ON user_detail.delta = status_delta.id_level_delta
                                         LEFT JOIN status_transport ON user_detail.transport = status_transport.id_transport 
                                         LEFT JOIN status_gaji_bulanan ON user.username = status_gaji_bulanan.id_user_detail 
-                                        WHERE user.id_user_level = 1 AND DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y-%m-01') <> DATE_FORMAT(status_gaji_bulanan.gaji_bulan, '%Y-%m-01')
+                                        WHERE user.id_user_level = 1  AND DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y-%m-01') = DATE_FORMAT(status_gaji_bulanan.gaji_bulan, '%Y-%m-01') IS NULL
                                         ORDER BY user.username ASC;
         ");
         return $query;
     }
 
-   public function update_data($username, $gaji_bulan, $total_per_orang,$jumlah_delta,$tanggal_input) {
+   public function update_data($username, $gaji_bulan, $total_per_orang,$tanggal_input) {
         $this->db->trans_start();
-        $sql = "UPDATE status_gaji_bulanan SET total_gaji = '$total_per_orang', jumlah_delta = '$jumlah_delta' , tgl_simpan='$tanggal_input' WHERE id_user_detail = '$username' AND gaji_bulan = '$gaji_bulan'";
+        $sql = "UPDATE status_gaji_bulanan SET total_gaji = '$total_per_orang', tgl_simpan='$tanggal_input' WHERE id_user_detail = '$username' AND gaji_bulan = '$gaji_bulan'";
         $this->db->query($sql);
         $this->db->trans_complete();
 
@@ -73,9 +73,9 @@ class M_gaji extends CI_Model
         }
     }
 
-    public function insert_data($username,$gaji_bulan, $total_per_orang,$jumlah_delta,$tanggal_input){
+    public function insert_data($username,$gaji_bulan, $total_per_orang,$tanggal_input){
         $this->db->trans_start();
-        $this->db->query("INSERT INTO status_gaji_bulanan (id_user_detail, gaji_bulan, total_gaji , jumlah_delta, tgl_simpan) VALUES ('$username','$gaji_bulan','$total_per_orang','$jumlah_delta', '$tanggal_input')");
+        $this->db->query("INSERT INTO status_gaji_bulanan (id_user_detail, gaji_bulan, total_gaji ,tgl_simpan) VALUES ('$username','$gaji_bulan','$total_per_orang','$tanggal_input')");
         $this->db->trans_complete();
         if ($this->db->trans_status() == true) {
             $this->session->set_flashdata('input','input');

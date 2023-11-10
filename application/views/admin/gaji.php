@@ -27,6 +27,26 @@
     </script>
     <?php } ?>
     
+    <?php if ($this->session->flashdata('input_baru')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Data Baru Berhasil Ditambahkan!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('eror_baru')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Data Baru Gagal Ditambahkan!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+
     <?php if ($this->session->flashdata('erorpass')){ ?>
     <script>
     swal({
@@ -246,7 +266,6 @@
                                                                     <input type="date" name="tanggal_input[]" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
                                                                     <input type="hidden" name="username[]" value="<?= $username?>">
                                                                     <input type="hidden" name="total_per_orang[]" value="<?= $total_per_orang ?>">
-                                                                    <input type="hidden" name="jumlah_delta[]" value="<?= $status_delta?>">
                                                                 </td>
                                                                 <td style="display: none;">
                                                                     <input type="date" name="gaji_bulan[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" style="display: none;" />
@@ -288,7 +307,7 @@
                                     <script>
                                     document.getElementById("exportButton").addEventListener("click", function() {
                                         // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
-                                        var table = document.getElementById("example1");
+                                        var table = document.getElementById("example2");
 
                                         // Membuat objek Workbook Excel
                                         var wb = XLSX.utils.table_to_book(table);
@@ -387,13 +406,12 @@
                                                                     <?php
                                                                     $tanggal_hari_ini = date('Y-m-d');
                                                                     ?>
-                                                                    <input type="date" name="tanggal_input[]" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
-                                                                    <input type="hidden" name="username[]" value="<?= $username?>">
-                                                                    <input type="hidden" name="total_per_orang[]" value="<?= $total_per_orang ?>">
-                                                                    <input type="hidden" name="jumlah_delta[]" value="<?= $status_delta?>">
+                                                                    <input type="date" name="tanggal_input2[]" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
+                                                                    <input type="hidden" name="username2[]" value="<?= $username?>">
+                                                                    <input type="hidden" name="total_per_orang2[]" value="<?= $total_per_orang ?>">
                                                                 </td>
                                                                 <td style="display: none;">
-                                                                    <input type="date" name="gaji_bulan[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" style="display: none;" />
+                                                                    <input type="date" name="gaji_bulan2[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" style="display: none;" />
                                                                 </td>
                                                             </tr>
                                                     <?php endforeach; ?>
