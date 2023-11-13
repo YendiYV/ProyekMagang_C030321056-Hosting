@@ -109,12 +109,19 @@ class Dashboard extends CI_Controller {
 			if ($cek_absensi_hari_ini < 1) {
 				$timezone = new DateTimeZone('Asia/Makassar');
 				$datetime = new DateTime('now', $timezone);
-				$datetime->modify('+5 minutes +23 seconds');
-				$waktu_sekarang = $datetime->format('H:i');
-				if ($waktu_sekarang >= '08:31' && $waktu_sekarang <= '23:59') {
-					$this->m_absensi->insert_alfa($id_user);
+
+				// Check if the current day is Monday (1) to Friday (5)
+				$dayOfWeek = $datetime->format('N');
+				if ($dayOfWeek >= 1 && $dayOfWeek <= 5) {
+					$datetime->modify('+5 minutes +23 seconds');
+					$waktu_sekarang = $datetime->format('H:i');
+
+					if ($waktu_sekarang >= '08:01' && $waktu_sekarang <= '23:59') {
+						$this->m_absensi->insert_alfa($id_user);
+					}
 				}
 			}
+
 
 
 			$data['cuti_operator'] = $this->m_cuti->get_all_cuti_first_by_id_user($id_user)->result_array();

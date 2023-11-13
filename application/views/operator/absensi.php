@@ -131,6 +131,8 @@
                                                 switch ($status) {
                                                     case 'H':
                                                         return 'black';
+                                                    case 'HS':
+                                                        return 'black';
                                                     case 'Cuti':
                                                         return 'blue';
                                                     case 'S':

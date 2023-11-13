@@ -44,8 +44,7 @@ class M_absensi extends CI_Model
                                     FROM status_absensi
                                     LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
                                     LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
-                                    WHERE MONTH(tanggal_absen) = MONTH('$cari_bulan') AND YEAR(tanggal_absen) = YEAR('$cari_bulan')");
-
+                                    WHERE DATE_FORMAT(tanggal_absen, '%Y-%m') = '$cari_bulan'");
         return $query->result_array();
     }
 
@@ -55,7 +54,7 @@ class M_absensi extends CI_Model
             FROM status_absensi
             LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
             LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
-            WHERE MONTH(tanggal_absen) = MONTH('$cari_bulan') AND YEAR(tanggal_absen) = YEAR('$cari_bulan')");
+            WHERE DATE_FORMAT(tanggal_absen, '%Y-%m') = '$cari_bulan'");
 
         $data_absensi = array();
 
@@ -167,10 +166,11 @@ class M_absensi extends CI_Model
                                     nama_status,
                                     CASE
                                         WHEN status_absen = 1 THEN 'text-success'
-                                        WHEN status_absen = 2 THEN 'text-success'
+                                        WHEN status_absen = 2 THEN 'text-primary'
                                         WHEN status_absen = 3 THEN 'text-warning'
                                         WHEN status_absen = 4 THEN 'text-primary'
-                                        WHEN status_absen = 5 THEN 'text-danger'                      
+                                        WHEN status_absen = 5 THEN 'text-danger'   
+                                        WHEN status_absen = 6 THEN 'text-success'                   
                                         END AS color_class
                                 FROM status_absensi
                                 LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 10, 2023 at 04:35 PM
+-- Generation Time: Nov 13, 2023 at 03:42 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -132,25 +132,25 @@ CREATE TABLE `status_absensi` (
 --
 
 INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `status_absen`) VALUES
-(4, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-08', '1'),
+(4, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-10-08', '1'),
 (5, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-08', '1'),
-(6, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-08', '3'),
-(7, 'f7c7b7e19a4ed7a51db593c8efbee984', '2023-11-08', '4'),
-(8, 'dce802a5e29e9ccabc144dfb6a37abbb', '2023-11-08', '5'),
-(11, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-01', '2'),
+(6, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-08', '1'),
+(7, 'f7c7b7e19a4ed7a51db593c8efbee984', '2023-11-08', '1'),
+(11, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-01', '5'),
 (12, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-02', '1'),
-(13, 'dce802a5e29e9ccabc144dfb6a37abbb', '2023-11-01', '4'),
 (14, 'f7c7b7e19a4ed7a51db593c8efbee984', '2023-11-01', '1'),
-(15, 'f7c7b7e19a4ed7a51db593c8efbee984', '2023-11-02', '2'),
-(16, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-01', '5'),
+(15, 'f7c7b7e19a4ed7a51db593c8efbee984', '2023-11-02', '1'),
+(16, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-10-01', '1'),
 (20, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-09', '1'),
-(21, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-09', '3'),
-(22, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-09', '4'),
-(23, 'f7c7b7e19a4ed7a51db593c8efbee984', '2023-11-09', '4'),
+(21, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-09', '1'),
+(22, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-09', '1'),
+(23, 'f7c7b7e19a4ed7a51db593c8efbee984', '2023-11-09', '1'),
 (24, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-03', '1'),
 (25, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-06', '1'),
-(26, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-10', '6'),
-(27, 'd41d8cd98f00b204e9800998ecf8427e', '2023-10-10', '5');
+(26, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-10', '1'),
+(34, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-10-13', '2'),
+(38, 'f7c7b7e19a4ed7a51db593c8efbee984', '2023-11-13', '5'),
+(39, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-13', '6');
 
 -- --------------------------------------------------------
 
@@ -575,7 +575,7 @@ ALTER TABLE `operator_level`
 -- AUTO_INCREMENT for table `status_absensi`
 --
 ALTER TABLE `status_absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`

@@ -11,7 +11,7 @@ class Absensi extends CI_Controller {
     public function view_admin()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
-			$cari_bulan = $this->input->post('cari_bulan'); // Corrected variable name
+			$cari_bulan = $this->input->get('cari_bulan'); // Corrected variable name
 			if ($cari_bulan === null) {
 				$data['absensi'] = $this->m_absensi->get_all_absensi();
 				$data['data_absensi'] = $this->m_absensi->get_data_absensi();
@@ -20,6 +20,9 @@ class Absensi extends CI_Controller {
 				$data['absensi'] = $this->m_absensi->get_all_absensi_menurut_bulan($cari_bulan);
 				$data['data_absensi'] = $this->m_absensi->get_data_absensi_bulan($cari_bulan);
 				$this->load->view('admin/absensi', $data);
+				// Tambahkan var_dump atau print_r untuk memeriksa hasil
+				var_dump($data['absensi']);
+				var_dump($data['data_absensi']);
 			}
 		} else {
 			$this->session->set_flashdata('loggin_err', 'loggin_err');

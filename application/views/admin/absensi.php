@@ -149,7 +149,7 @@
                                             </div>
                                             <!-- "Bulan" input -->
                                             <div class="col-lg-2 text-lg-right">
-                                                <form action="<?= base_url() ?>absensi/view_admin" method="POST">
+                                                <form action="<?= base_url() ?>Absensi/view_admin" method="GET">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <label class="input-group-text" for="cari_bulan">Bulan</label>
@@ -179,7 +179,7 @@
                                         var year = currentDate.getFullYear();
 
                                         // Menggabungkan bulan dan tahun ke dalam nama file
-                                        var fileName = "Rekap Absensi " + month + "-" + year + ".xlsx";
+                                        var fileName = "Rekap Absensi Bulan-" + month + "-" + year + ".xlsx";
 
                                         // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
                                         var table = document.getElementById("example1");
@@ -198,8 +198,12 @@
                                                 <th>Nama Pegawai</th>
                                                 <th>NIP Pegawai</th>
                                                 <?php
-                                                $bulan_ini = date('m');
-                                                $tahun_ini = date('Y');
+                                                $cari_bulan = $this->input->get('cari_bulan');
+
+                                                // Set nilai default jika tidak ada input dari formulir
+                                                $bulan_ini = ($cari_bulan) ? date('m', strtotime($cari_bulan)) : date('m');
+                                                $tahun_ini = ($cari_bulan) ? date('Y', strtotime($cari_bulan)) : date('Y');
+
                                                 $jumlah_hari = cal_days_in_month(CAL_GREGORIAN, $bulan_ini, $tahun_ini);
 
                                                 for ($day = 1; $day <= $jumlah_hari; $day++) {
@@ -210,6 +214,7 @@
                                                     $cellColor = ($dayOfWeek == 0 || $dayOfWeek == 6) ? 'red' : 'black';
 
                                                     echo "<th style='color: $cellColor;'>$day</th>";
+
                                                 }
                                                 ?>
                                             </tr>
