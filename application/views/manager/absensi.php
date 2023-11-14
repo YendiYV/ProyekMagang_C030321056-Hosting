@@ -2,92 +2,12 @@
 <html lang="en">
 
 <head>
-    <?php $this->load->view("admin/components/header.php") ?>
+    <?php $this->load->view("manager/components/header.php") ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <?php if ($this->session->flashdata('input')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Data Berhasil Ditambahkan!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('eror')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Data Gagal Ditambahkan!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-    
-    <?php if ($this->session->flashdata('erorpass')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Password Salah!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('edit')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Data Berhasil Diedit!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('edit2')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Data Berhasil Ditambahkan!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('eror_edit')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Data Gagal Diedit!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('hapus')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Data Berhasil Dihapus!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('eror_hapus')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Data Gagal Dihapus !",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -97,11 +17,11 @@
         </div>
 
         <!-- Navbar -->
-        <?php $this->load->view("admin/components/navbar.php") ?>
+        <?php $this->load->view("manager/components/navbar.php") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php $this->load->view("admin/components/sidebar.php") ?>
+        <?php $this->load->view("manager/components/sidebar.php") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -114,7 +34,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"></a>Admin</li>
+                                <li class="breadcrumb-item"></a>Manager</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Absensi</li>
                             </ol>
@@ -149,7 +69,7 @@
                                             </div>
                                             <!-- "Bulan" input -->
                                             <div class="col-lg-2 text-lg-right">
-                                                <form action="<?= base_url() ?>Absensi/view_admin" method="GET">
+                                                <form action="<?= base_url() ?>Absensi/view_manager" method="GET">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <label class="input-group-text" for="cari_bulan">Bulan</label>
@@ -254,11 +174,12 @@
                                                             if (array_key_exists($tanggal, $data_absensi) && array_key_exists($nip, $data_absensi[$tanggal])) {
                                                                 $status = $data_absensi[$tanggal][$nip];
                                                                 $style = "color: " . getStatusColor($status) . "; font-size: 18px;";
-                                                                // Tambahkan tombol "Edit" untuk mengedit data
-                                                                 echo "<td style='text-align: center; $style'>" . strtoupper($status) . " <button class='edit-button' data-nip='$nip' data-tanggal='$tanggal'><i class='fas fa-edit'></i></button></td>";
+                                                                
+                                                               
+                                                                echo "<td style='text-align: center; $style'>" . strtoupper($status) ."</td>";
                                                             } else {
                                                                 // Jika tidak ada data, tampilkan tanda '-'
-                                                                echo "<td>- <button class='edit-button' data-nip='$nip' data-tanggal='$tanggal'><i class='fas fa-edit'></i></button>";
+                                                                echo "<td>- ";
 
                                                             }
                                                         }
@@ -284,56 +205,6 @@
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
-            <!-- Modal Edit Absensi -->
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editModalLabel">Edit Absensi</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                           <form id="editForm" method="post" action="<?=base_url();?>absensi/edit_absensi_admin">
-                                <div class="form-group">
-                                    <label for="status">Status Absensi</label>
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="0">Kosong</option>
-                                        <option value="1">Hadir</option>
-                                        <option value="2">Cuti</option>
-                                        <option value="3">Sakit</option>
-                                        <option value="4">Izin</option>
-                                        <option value="5">Alfa</option>
-                                        <option value="6">Hadir Masuk-Pulang</option>
-                                        <!-- Tambahkan pilihan status lainnya sesuai kebutuhan -->
-                                    </select>
-                                </div>
-                                <input type="hidden" id="editNip" name="nip">
-                                <input type="hidden" id="editTanggal" name="tanggal">
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    // Tangani klik tombol "Edit" untuk menampilkan modal
-                    document.querySelectorAll('.edit-button').forEach(function (button) {
-                        button.addEventListener('click', function () {
-                            var nip = button.getAttribute('data-nip');
-                            var tanggal = button.getAttribute('data-tanggal');
-
-                            document.getElementById('editNip').value = nip;
-                            document.getElementById('editTanggal').value = tanggal;
-
-                            // Tampilkan modal
-                            $('#editModal').modal('show');
-                        });
-                    });
-                });
-            </script>
         </div>
         <!-- /.content-wrapper -->
 
@@ -346,6 +217,6 @@
     </div>
     <!-- ./wrapper -->
 
-    <?php $this->load->view("admin/components/js.php") ?>
+    <?php $this->load->view("manager/components/js.php") ?>
 </body>
 </html>

@@ -89,6 +89,10 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Operator</h1>
+                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal"
+                                data-target="#exampleModal">
+                                Tambah Operator
+                            </button>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -119,7 +123,6 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-
                                     <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                             <tr>
@@ -193,7 +196,9 @@
                                                         </div>
                                                     </div>
                                                 </td>
+
                                             </tr>
+
                                             <!-- Modal Hapus Data operator -->
                                             <div class="modal fade" id="hapus<?= $id_user ?>" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -269,24 +274,29 @@
                                                                 </script>
                                                                 <div class="form-group">
                                                                     <label for="password">Password</label>
-                                                                    <input type="password" class="form-control"
-                                                                        id="password" aria-describedby="password"
-                                                                        name="password" value="<?= $password ?>" required>
+                                                                    <input type="password" class="form-control" id="password" aria-describedby="password" name="password" value="<?= $password ?>" required>
+                                                                    <div class="input-group-append">
+                                                                        <button id="showPassword" type="button" class="btn btn-outline-secondary">Show Password</button>
+                                                                    </div>
                                                                 </div>
                                                                 <script>
                                                                     var passwordInput = document.getElementById("password");
                                                                     var showPasswordButton = document.getElementById("showPassword");
 
-                                                                    showPasswordButton.addEventListener("click", function() {
-                                                                        if (passwordInput.type === "password") {
-                                                                            passwordInput.type = "text";
-                                                                            showPasswordButton.textContent = "Hide Password";
-                                                                        } else {
-                                                                            passwordInput.type = "password";
-                                                                            showPasswordButton.textContent = "Show Password";
-                                                                        }
-                                                                    });
-                                                                    </script>
+                                                                    if (showPasswordButton) {
+                                                                        showPasswordButton.addEventListener("click", function() {
+                                                                            if (passwordInput.type === "password") {
+                                                                                passwordInput.type = "text";
+                                                                                showPasswordButton.textContent = "Hide Password";
+                                                                            } else {
+                                                                                passwordInput.type = "password";
+                                                                                showPasswordButton.textContent = "Show Password";
+                                                                            }
+                                                                        });
+                                                                    } else {
+                                                                        console.error("Element with ID 'showPassword' not found");
+                                                                    }
+                                                                </script>
                                                                 <div class="form-group">
                                                                     <label for="nama_lengkap">Nama Lengkap</label>
                                                                     <input type="text" class="form-control"
@@ -413,7 +423,6 @@
                                             </div>
                                             <?php endforeach; ?>
                                         </tbody>
-
                                     </table>
                                 </div>
                                 <!-- /.card-body -->
@@ -432,32 +441,44 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah operator</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Operator</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="<?=base_url();?>operator/super_admin_tambah_operator" method="POST">
+                            <form action="<?=base_url();?>operator/tambah_operator" method="POST">
                                 <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username" aria-describedby="username"
-                                        name="username" required>
+                                    <label for="username">NIP</label>
+                                    <input type="text" class="form-control" id="username" aria-describedby="username" name="username" required pattern="[A-Za-z0-9]{10}">
+
+                                    <small class="text-muted" style="font-size: smaller;">Format :1234567PKY</small>
                                 </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="text" class="form-control" id="password" aria-describedby="password"
-                                        name="password" required>
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-3 col-form-label">Password</label>
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="password" name="password" required>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="email">email</label>
-                                    <input type="text" class="form-control" id="email" aria-describedby="email"
-                                        name="email" required>
+
+                                <div class="form-group row">
+                                    <label for="confirm_password" class="col-md-3 col-form-label">Konfirmasi Password</label>
+                                    <div class="col-md-9">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama_lengkap">Nama Lengkap</label>
                                     <input type="text" class="form-control" id="nama_lengkap"
                                         aria-describedby="nama_lengkap" name="nama_lengkap" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggal_masuk">Tanggal Masuk</label>
+                                    <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk" required max="<?php echo date('Y-m-d'); ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="id_jenis_kelamin">Jenis Kelamin</label>
@@ -479,10 +500,88 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
-                                    <textarea class="form-control" id="alamat" rows="3" name="alamat"
-                                        required></textarea>
+                                    <input type="text" class="form-control" id="alamat" aria-describedby="alamat"
+                                        name="alamat" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                               <div class="form-group">
+                                    <label for="id_status_proyek">Proyek</label>
+                                        <select class="form-control" id="id_status_proyek" name="id_status_proyek" required>
+                                            <option value="0">Tidak ada</option>
+                                            <?php foreach ($nama_proyek_list as $np) : 
+                                                $id = $np["id_status_proyek"];
+                                                $nama_proyek = $np["nama_proyek"];
+                                            ?>
+                                                <option value="<?= $id ?>" <?php if ($id == $nama_proyek) {
+                                                    echo 'selected';
+                                                } ?>>
+                                                    <?= $nama_proyek ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="operator_level">Jabatan</label>
+                                        <select class="form-control" id="operator_level" name="operator_level" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_level_list as $nl) : 
+                                                    $id = $nl["id_level"];
+                                                    $nama_jabatan = $nl["operator_level"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_jabatan ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="penempatan">Penempatan</label>
+                                        <select class="form-control" id="penempatan" name="penempatan" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_penempatan_list as $npl) : 
+                                                    $id = $npl["id_penempatan"];
+                                                    $nama_penempatan = $npl["nama_penempatan"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_penempatan ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="$nama_bpk_list">BPK</label>
+                                        <select class="form-control" id="bpk" name="bpk" required>
+                                            <option value="0">Tidak ada</option>
+                                            <?php foreach ($nama_bpk_list as $nbl) : 
+                                                $id = $nbl["id_level_bpk"];
+                                                $nama_bpk = $nbl["nama_bpk"];
+                                            ?>
+                                            <option value="<?= $id ?>"><?= $nama_bpk?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="delta">Delta</label>
+                                        <select class="form-control" id="delta" name="delta" required>
+                                            <option value="0">Tidak ada</option>
+                                            <?php foreach ($nama_delta_list as $ndl) : 
+                                            $id = $ndl["id_level_delta"];
+                                            $nama_delta = $ndl["nama_delta"];
+                                            ?>
+                                        <option value="<?= $id ?>"><?= $nama_delta ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="transport">Tunjangan Transport</label>
+                                        <select class="form-control" id="transport" name="transport" required>
+                                            <option value="0">Tidak ada</option>
+                                            <?php foreach ($nama_transport_list as $ntl) : 
+                                                $id = $ntl["id_transport"];
+                                                $nama_transport = $ntl["nama_transport"];
+                                                $tunjangan_transport = $ntl["tunjangan_transport"];
+                                            ?>
+                                            <option value="<?= $id ?>"><?= $nama_transport ?> = <?= $tunjangan_transport ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
                             </form>
                         </div>
                     </div>

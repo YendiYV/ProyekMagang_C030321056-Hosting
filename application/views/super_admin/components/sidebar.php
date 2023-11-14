@@ -34,6 +34,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= base_url();?>Absensi/view_super_admin" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-day"></i>
+                        <p>Status Absensi Operator</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= base_url();?>Cuti/view_super_admin" class="nav-link">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>Data Cuti</p>

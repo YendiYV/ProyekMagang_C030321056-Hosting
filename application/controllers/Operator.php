@@ -120,6 +120,43 @@ class operator extends CI_Controller {
 		}
 	}
 
+	public function super_admin_tambah_operator()
+	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
+			$username = $this->input->post("username");
+			$password = md5($this->input->post("password"));
+			$re_password = $this->input->post("confirm_password");
+			$nama_lengkap = $this->input->post("nama_lengkap");
+			$id_jenis_kelamin = $this->input->post("id_jenis_kelamin");
+			$no_telp = $this->input->post("no_telp");
+			$alamat = $this->input->post("alamat");
+			$id_user_level = 1;
+			$jabatan = $this->input->post("jabatan"); // Menambahkan jabatan ke dalam parameter
+
+			$id = md5($username.$password);
+			if ($password == $re_password) {
+				$hasil = $this->m_user->insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan); // Memasukkan jabatan sebagai argumen
+
+				if ($hasil == false) {
+					$this->session->set_flashdata('eror', 'eror');
+					redirect('operator/view_super_admin');
+				} else {
+					$this->session->set_flashdata('input', 'input');
+					redirect('operator/view_super_admin');
+				}
+			}else {
+				$this->session->set_flashdata('password_err', 'password_err');
+				redirect('operator/view_super_admin');
+			}
+
+		} else {
+
+			$this->session->set_flashdata('loggin_err', 'loggin_err');
+			redirect('Login/index');
+
+		}
+	}
+	
 	public function edit_operator()
 	{
 		if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
@@ -177,121 +214,39 @@ class operator extends CI_Controller {
 
 	public function hapus_operator()
 	{
-		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
-		
-        	$id = $this->input->post("id_user");
+		// Check if the user is logged in and has the required user level
+		if ($this->session->userdata('logged_in') && $this->session->userdata('id_user_level') == 2) {
+			// Get the user ID from the POST data
+			$id = $this->input->post("id_user");
 
-        
-            $hasil = $this->m_user->delete_operator($id);
+			// Delete the operator
+			$hasil = $this->m_user->delete_operator($id);
 
-            if($hasil==false){
-                $this->session->set_flashdata('eror_hapus','eror_hapus');
-                redirect('operator/view_admin');
-			}else{
-				$this->session->set_flashdata('hapus','hapus');
-				redirect('operator/view_admin');
-			}
-			
-		}else{
-			$this->session->set_flashdata('loggin_err','loggin_err');
-			redirect('Login/index');
-		}
-	}
-
-	public function super_admin_tambah_operator()
-	{
-		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
-			$username = $this->input->post("username");
-			$password = md5($this->input->post("password"));
-			$re_password = $this->input->post("confirm_password");
-			$nama_lengkap = $this->input->post("nama_lengkap");
-			$id_jenis_kelamin = $this->input->post("id_jenis_kelamin");
-			$no_telp = $this->input->post("no_telp");
-			$alamat = $this->input->post("alamat");
-			$id_user_level = 1;
-			$jabatan = $this->input->post("jabatan"); // Menambahkan jabatan ke dalam parameter
-
-			$id = md5($username.$password);
-			if ($password == $re_password) {
-				$hasil = $this->m_user->insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan); // Memasukkan jabatan sebagai argumen
-
-				if ($hasil == false) {
-					$this->session->set_flashdata('eror', 'eror');
-					redirect('operator/view_super_admin');
-				} else {
-					$this->session->set_flashdata('input', 'input');
-					redirect('operator/view_super_admin');
-				}
-			}else {
-				$this->session->set_flashdata('password_err', 'password_err');
-				redirect('operator/view_super_admin');
+			// Set flash messages based on the result
+			if ($hasil == false) {
+				$this->session->set_flashdata('eror_hapus', 'eror_hapus');
+			} else {
+				$this->session->set_flashdata('hapus', 'hapus');
 			}
 
+			// Redirect based on the user level
+			$redirect_url = '';
+			$id_user_level = $this->session->userdata('id_user_level');
+
+			if ($id_user_level == 2) {
+				$redirect_url = 'operator/view_admin';
+			} elseif ($id_user_level == 3) {
+				$redirect_url = 'operator/view_super_admin';
+			}
+
+			redirect($redirect_url);
 		} else {
-
+			// Redirect to login page if not logged in or incorrect user level
 			$this->session->set_flashdata('loggin_err', 'loggin_err');
 			redirect('Login/index');
-
 		}
 	}
 
-	public function super_admin_edit_operator()
-	{
-		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
 
-		$username = $this->input->post("username");
-        $password = $this->input->post("password");
-		$nama_lengkap = $this->input->post("nama_lengkap");
-		$id_jenis_kelamin = $this->input->post("id_jenis_kelamin");
-		$no_telp = $this->input->post("no_telp");
-		$alamat = $this->input->post("alamat");
-		$id_user_level = 1;
-        $id = $this->input->post("id_user");
-
-        
-            $hasil = $this->m_user->update_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat);
-
-            if($hasil==false){
-                $this->session->set_flashdata('eror_edit','eror_edit');
-                redirect('operator/view_super_admin');
-			}else{
-				$this->session->set_flashdata('edit','edit');
-				redirect('operator/view_super_admin');
-            }
-
-		}else{
-
-			$this->session->set_flashdata('loggin_err','loggin_err');
-			redirect('Login/index');
 	
-		}
-	}
-
-	public function super_admin_hapus_operator()
-	{
-		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
-		
-        	$id = $this->input->post("id_user");
-
-        
-            $hasil = $this->m_user->delete_operator($id);
-
-            if($hasil==false){
-                $this->session->set_flashdata('eror_hapus','eror_hapus');
-                redirect('operator/view_super_admin');
-			}else{
-				$this->session->set_flashdata('hapus','hapus');
-				redirect('operator/view_super_admin');
-			}
-			
-			
-		}else{
-
-			$this->session->set_flashdata('loggin_err','loggin_err');
-			redirect('Login/index');
-	
-		}
-	}
-	
-    
 }

@@ -26,14 +26,14 @@ class M_rgaji extends CI_Model
         return $hasil;
     }
 
-    public function insert_gaji_bulan($username, $tanggal_gaji,$total_gaji,$total_delta,$tanggal_simpan)
+    public function insert_gaji_bulan($username, $tanggal_gaji,$total_gaji,$tanggal_simpan)
     {
         if ($total_gaji < 0) {
             $this->session->set_flashdata('eror');
             return false;
         }else{
             $this->db->trans_start();
-            $this->db->query("INSERT INTO status_gaji_bulanan(id_user_detail,gaji_bulan,total_gaji,jumlah_delta,tgl_simpan) VALUES ('$username','$tanggal_gaji', '$total_gaji','$total_delta','$tanggal_simpan')");
+            $this->db->query("INSERT INTO status_gaji_bulanan(id_user_detail,gaji_bulan,total_gaji,tgl_simpan) VALUES ('$username','$tanggal_gaji', '$total_gaji','$tanggal_simpan')");
             $this->db->trans_complete();
 
             if ($this->db->trans_status() == true) {
@@ -44,14 +44,14 @@ class M_rgaji extends CI_Model
         }
     }
 
-    public function edit_gaji_bulan($id_user_detail,$gaji_bulan,$total_gaji,$tanggal_simpan,$total_delta)
+    public function edit_gaji_bulan($id_user_detail,$gaji_bulan,$total_gaji,$tanggal_simpan)
     {
         if ($gaji_bulan < 0) {
             $this->session->set_flashdata('eror_edit','eror_edit');
             return false;
         }else{
             $this->db->trans_start();
-            $this->db->query("UPDATE status_gaji_bulanan SET total_gaji='$total_gaji',gaji_bulan='$gaji_bulan', tgl_simpan='$tanggal_simpan', jumlah_delta = '$total_delta' WHERE id_user_detail = '$id_user_detail'");
+            $this->db->query("UPDATE status_gaji_bulanan SET total_gaji='$total_gaji',gaji_bulan='$gaji_bulan', tgl_simpan='$tanggal_simpan' WHERE id_user_detail = '$id_user_detail'");
             $this->db->trans_complete();
 
             if ($this->db->trans_status() == true) {
@@ -61,14 +61,14 @@ class M_rgaji extends CI_Model
                 $this->session->set_flashdata('eror_edit','eror_edit');}
         }
     }
-    public function edit_gaji_bulan_tambah($username, $tanggal_gaji, $total_gaji,$total_delta,$tanggal_simpan)
+    public function edit_gaji_bulan_tambah($username, $tanggal_gaji, $total_gaji,$tanggal_simpan)
     {
         if ($gaji_bulan < 0) {
             $this->session->set_flashdata('eror_edit','eror_edit');
             return false;
         }else{
             $this->db->trans_start();
-            $this->db->query("UPDATE status_gaji_bulanan SET total_gaji='$total_gaji',gaji_bulan='$tanggal_gaji', tgl_simpan='$tanggal_simpan', jumlah_delta = '$total_delta' WHERE id_user_detail = '$username'");
+            $this->db->query("UPDATE status_gaji_bulanan SET total_gaji='$total_gaji',gaji_bulan='$tanggal_gaji', tgl_simpan='$tanggal_simpan' WHERE id_user_detail = '$username'");
             $this->db->trans_complete();
 
             if ($this->db->trans_status() == true) {

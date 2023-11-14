@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php $this->load->view("admin/components/header.php") ?>
+    <?php $this->load->view("super_admin/components/header.php") ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -97,11 +97,11 @@
         </div>
 
         <!-- Navbar -->
-        <?php $this->load->view("admin/components/navbar.php") ?>
+        <?php $this->load->view("super_admin/components/navbar.php") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php $this->load->view("admin/components/sidebar.php") ?>
+        <?php $this->load->view("super_admin/components/sidebar.php") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -114,7 +114,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"></a>Admin</li>
+                                <li class="breadcrumb-item"></a>Supervisior</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Absensi</li>
                             </ol>
@@ -149,7 +149,7 @@
                                             </div>
                                             <!-- "Bulan" input -->
                                             <div class="col-lg-2 text-lg-right">
-                                                <form action="<?= base_url() ?>Absensi/view_admin" method="GET">
+                                                <form action="<?= base_url() ?>Absensi/view_super_admin" method="GET">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <label class="input-group-text" for="cari_bulan">Bulan</label>
@@ -254,8 +254,9 @@
                                                             if (array_key_exists($tanggal, $data_absensi) && array_key_exists($nip, $data_absensi[$tanggal])) {
                                                                 $status = $data_absensi[$tanggal][$nip];
                                                                 $style = "color: " . getStatusColor($status) . "; font-size: 18px;";
+                                                                
                                                                 // Tambahkan tombol "Edit" untuk mengedit data
-                                                                 echo "<td style='text-align: center; $style'>" . strtoupper($status) . " <button class='edit-button' data-nip='$nip' data-tanggal='$tanggal'><i class='fas fa-edit'></i></button></td>";
+                                                                echo "<td style='text-align: center; $style'>" . strtoupper($status) . " <button class='edit-button' data-nip='$nip' data-tanggal='$tanggal'><i class='fas fa-edit'></i></button></td>";
                                                             } else {
                                                                 // Jika tidak ada data, tampilkan tanda '-'
                                                                 echo "<td>- <button class='edit-button' data-nip='$nip' data-tanggal='$tanggal'><i class='fas fa-edit'></i></button>";
@@ -295,7 +296,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                           <form id="editForm" method="post" action="<?=base_url();?>absensi/edit_absensi_admin">
+                           <form id="editForm" method="post" action="<?=base_url();?>absensi/edit_absensi_super_admin">
                                 <div class="form-group">
                                     <label for="status">Status Absensi</label>
                                     <select class="form-control" id="status" name="status">
@@ -346,6 +347,6 @@
     </div>
     <!-- ./wrapper -->
 
-    <?php $this->load->view("admin/components/js.php") ?>
+    <?php $this->load->view("super_admin/components/js.php") ?>
 </body>
 </html>

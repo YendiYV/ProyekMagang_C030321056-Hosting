@@ -8,6 +8,44 @@ class Absensi extends CI_Controller {
 		$this->load->model('m_absensi');
 	}
 
+	public function view_manager()
+	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
+			$cari_bulan = $this->input->get('cari_bulan'); // Corrected variable name
+			if ($cari_bulan === null) {
+				$data['absensi'] = $this->m_absensi->get_all_absensi();
+				$data['data_absensi'] = $this->m_absensi->get_data_absensi();
+				$this->load->view('manager/absensi', $data);
+			} else {
+				$data['absensi'] = $this->m_absensi->get_all_absensi_menurut_bulan($cari_bulan);
+				$data['data_absensi'] = $this->m_absensi->get_data_absensi_bulan($cari_bulan);
+				$this->load->view('manager/absensi', $data);
+			}
+		} else {
+			$this->session->set_flashdata('loggin_err', 'loggin_err');
+			redirect('Login/index');
+		}
+	}
+
+	public function view_super_admin()
+	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
+			$cari_bulan = $this->input->get('cari_bulan'); // Corrected variable name
+			if ($cari_bulan === null) {
+				$data['absensi'] = $this->m_absensi->get_all_absensi();
+				$data['data_absensi'] = $this->m_absensi->get_data_absensi();
+				$this->load->view('super_admin/absensi', $data);
+			} else {
+				$data['absensi'] = $this->m_absensi->get_all_absensi_menurut_bulan($cari_bulan);
+				$data['data_absensi'] = $this->m_absensi->get_data_absensi_bulan($cari_bulan);
+				$this->load->view('super_admin/absensi', $data);
+			}
+		} else {
+			$this->session->set_flashdata('loggin_err', 'loggin_err');
+			redirect('Login/index');
+		}
+	}
+
     public function view_admin()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
@@ -20,9 +58,6 @@ class Absensi extends CI_Controller {
 				$data['absensi'] = $this->m_absensi->get_all_absensi_menurut_bulan($cari_bulan);
 				$data['data_absensi'] = $this->m_absensi->get_data_absensi_bulan($cari_bulan);
 				$this->load->view('admin/absensi', $data);
-				// Tambahkan var_dump atau print_r untuk memeriksa hasil
-				var_dump($data['absensi']);
-				var_dump($data['data_absensi']);
 			}
 		} else {
 			$this->session->set_flashdata('loggin_err', 'loggin_err');
@@ -131,17 +166,54 @@ class Absensi extends CI_Controller {
             $status_absen = $this->input->post("status");
 			
 			$edit_admin_kosong = $this->m_absensi->cek_edit_absensi_admin_data_kosong($nip, $tanggal);
-			if($edit_admin_kosong >0){
-				$hasil = $this->m_absensi->edit_absensi_admin($nip, $tanggal,$status_absen);
-				$this->session->set_flashdata('edit','edit');
+			if($status_absen == 0){
+				$hasil = $this->m_absensi->hapus_absensi_admin($nip,$tanggal);
+				$this->session->set_flashdata('hapus', 'hapus');
 			}else{
-				$result = $this->m_absensi->cari_absensi_admin_data_kosong($nip);
-				$id_user_detail = $result->id_user_detail;
-				$hasil = $this->m_absensi->edit_absensi_admin_data_kosong($id_user_detail, $tanggal,$status_absen);
-				$this->session->set_flashdata('edit2','edit2');
+				if($edit_admin_kosong >0){
+					$hasil = $this->m_absensi->edit_absensi_admin($nip, $tanggal,$status_absen);
+					$this->session->set_flashdata('edit','edit');
+				}else{
+					$result = $this->m_absensi->cari_absensi_admin_data_kosong($nip);
+					$id_user_detail = $result->id_user_detail;
+					$hasil = $this->m_absensi->edit_absensi_admin_data_kosong($id_user_detail, $tanggal,$status_absen);
+					$this->session->set_flashdata('edit2','edit2');
+				}
 			}
 			
-			redirect('Absensi/view_admin');
+			//redirect('Absensi/view_admin');
+			redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
+	}
+
+	public function edit_absensi_super_admin(){
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
+            $nip = $this->input->post("nip");
+            $tanggal = $this->input->post("tanggal");
+            $status_absen = $this->input->post("status");
+			
+			$edit_admin_kosong = $this->m_absensi->cek_edit_absensi_admin_data_kosong($nip, $tanggal);
+			if($status_absen == 0){
+				$hasil = $this->m_absensi->hapus_absensi_admin($nip,$tanggal);
+				$this->session->set_flashdata('hapus', 'hapus');
+			}else{
+				if($edit_admin_kosong >0){
+					$hasil = $this->m_absensi->edit_absensi_admin($nip, $tanggal,$status_absen);
+					$this->session->set_flashdata('edit','edit');
+				}else{
+					$result = $this->m_absensi->cari_absensi_admin_data_kosong($nip);
+					$id_user_detail = $result->id_user_detail;
+					$hasil = $this->m_absensi->edit_absensi_admin_data_kosong($id_user_detail, $tanggal,$status_absen);
+					$this->session->set_flashdata('edit2','edit2');
+				}
+			}
+			
+			//redirect('Absensi/view_admin');
+			redirect($_SERVER['HTTP_REFERER']);
         } else {
             // Handle kasus ketika pengguna tidak memiliki hak akses
             $this->session->set_flashdata('loggin_err', 'loggin_err');

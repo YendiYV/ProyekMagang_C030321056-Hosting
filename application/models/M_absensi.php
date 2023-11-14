@@ -281,7 +281,28 @@ class M_absensi extends CI_Model
         return $row->jumlah_absensi;
     }
     
-   public function edit_absensi_admin($nip, $tanggal, $status_absen) {
+    public function hapus_absensi_admin($nip,$tanggal) {
+        $this->db->trans_start();
+
+        // Perbaikan pernyataan SQL
+        $sql = "DELETE status_absensi FROM status_absensi 
+                LEFT JOIN user_detail  ON status_absensi.id_user_detail = user_detail.id_user_detail
+                WHERE status_absensi.tanggal_absen = ? AND user_detail.nip = ?";
+
+        $this->db->query($sql, array($tanggal, $nip));
+
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === TRUE) {
+            $this->session->set_flashdata('hapus', 'hapus');
+            return TRUE;
+        } else {
+            $this->session->set_flashdata('eror_hapus', 'eror_hapus');
+            return FALSE;
+        }
+    }
+
+    public function edit_absensi_admin($nip, $tanggal, $status_absen) {
         $this->db->trans_start();
 
         // Perbaikan pernyataan SQL

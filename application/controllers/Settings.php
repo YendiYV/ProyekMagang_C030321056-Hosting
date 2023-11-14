@@ -7,7 +7,6 @@ class Settings extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('m_user');
-		$this->load->model('m_jenis_kelamin');
 	}
 
 	public function view_manager()
@@ -26,10 +25,9 @@ class Settings extends CI_Controller {
 	
 	public function view_operator()
 	{
-		$data['operator_data'] = $this->m_user->get_operator_by_id($this->session->userdata('id_user'))->result_array();
-		$data['operator'] = $this->m_user->get_operator_by_id($this->session->userdata('id_user'))->row_array();
-		$data['jenis_kelamin'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
-		$this->load->view('operator/settings', $data);
+		$id = $this->session->userdata('id_user');
+		$data['operator'] = $this->m_user->get_all_operator_setting($id)->result_array();
+		$this->load->view('operator/settings',$data);
 	}
 
 	public function settings_account_manager()
