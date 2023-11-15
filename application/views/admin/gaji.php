@@ -147,37 +147,6 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <div class="row mb-2">
-                                        <div class="col-sm-6 text-sm-right">
-                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                                <div class="btn-group" role="group" aria-label="Cetak Options">
-                                                    <button type="button" class="btn btn-primary" id="exportButton">Cetak Rekap</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <script>
-                                    document.getElementById("exportButton").addEventListener("click", function() {
-                                        // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
-                                        var table = document.getElementById("example1");
-
-                                        // Membuat objek Workbook Excel
-                                        var wb = XLSX.utils.table_to_book(table);
-
-                                        // Mendapatkan tanggal saat ini
-                                        var currentDate = new Date();
-                                        var year = currentDate.getFullYear();
-                                        var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Bulan (01-12)
-                                        var day = currentDate.getDate().toString().padStart(2, '0'); // Hari (01-31)
-
-                                        // Membuat format nama file dengan tanggal saat ini
-                                        var fileName = "Rekap Gaji - " + day + "-" + month + "-" + year + ".xlsx";
-
-                                        // Membuat file Excel dan mengunduhnya dengan nama yang sudah dibuat
-                                        XLSX.writeFile(wb, fileName);
-                                    });
-                                    </script>
-                                    <br>
                                     <form action="<?= base_url('gaji/save_total_semua') ?>" method="post">
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
@@ -294,37 +263,6 @@
                                     </form>
                                     <br>
                                     <hr>
-                                    <br>
-                                    <div class="row mb-2">
-                                        <div class="col-sm-6 text-sm-right">
-                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                                <div class="btn-group" role="group" aria-label="Cetak Options">
-                                                    <button type="button" class="btn btn-primary" id="exportButton">Cetak Rekap</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <script>
-                                    document.getElementById("exportButton").addEventListener("click", function() {
-                                        // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
-                                        var table = document.getElementById("example2");
-
-                                        // Membuat objek Workbook Excel
-                                        var wb = XLSX.utils.table_to_book(table);
-
-                                        // Mendapatkan tanggal saat ini
-                                        var currentDate = new Date();
-                                        var year = currentDate.getFullYear();
-                                        var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Bulan (01-12)
-                                        var day = currentDate.getDate().toString().padStart(2, '0'); // Hari (01-31)
-
-                                        // Membuat format nama file dengan tanggal saat ini
-                                        var fileName = "Rekap Gaji - " + day + "-" + month + "-" + year + ".xlsx";
-
-                                        // Membuat file Excel dan mengunduhnya dengan nama yang sudah dibuat
-                                        XLSX.writeFile(wb, fileName);
-                                    });
-                                    </script>
                                     <br>
                                     <form action="<?= base_url('gaji/save_total_semua_baru') ?>" method="post">
                                         <table id="example2" class="table table-bordered table-striped">

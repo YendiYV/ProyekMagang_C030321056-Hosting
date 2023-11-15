@@ -59,7 +59,7 @@
                                 <div class="icon">
                                     <i class="ion ion-document-text"></i>
                                 </div>
-                                <a href="<?=base_url();?>Cuti/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Cuti/view_super_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                                 <div class="icon">
                                     <i class="ion ion-checkmark-round"></i>
                                 </div>
-                                <a href="<?=base_url();?>Cuti/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Cuti/view_super_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                 <div class="icon">
                                     <i class="ion ion-close-round"></i>
                                 </div>
-                                <a href="<?=base_url();?>Cuti/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Cuti/view_super_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                                 <div class="icon">
                                     <i class="ion ion-loop"></i>
                                 </div>
-                                <a href="<?=base_url();?>Cuti/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Cuti/view_super_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                                 <div class="icon">
                                     <i class="ion ion-settings"></i>
                                 </div>
-                                <a href="<?=base_url();?>proyek/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Proyek/view_super_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                                 <div class="icon">
                                     <i class="ion ion-briefcase"></i>
                                 </div>
-                                <a href="<?=base_url();?>jabatan/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>jabatan/view_super_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -151,7 +151,7 @@
                                 <div class="icon">
                                     <i class="ion ion-location"></i>
                                 </div>
-                                <a href="<?=base_url();?>penempatan/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>penempatan/view_super_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                                 <div class="icon">
                                     <i class="ion ion-person-stalker"></i>
                                 </div>
-                                <a href="<?=base_url();?>operator/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>operator/view_super_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -181,7 +181,7 @@
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
                                 </div>
-                                <a href="<?=base_url();?>BPK/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Tmk/view_super_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                                 <div class="icon">
                                     <i class="ion ion-card"></i>
                                 </div>
-                                <a href="<?=base_url();?>BPK/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Bpk/view_super_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -212,7 +212,7 @@
                                 <div class="icon">
                                     <i class="ion ion-cube"></i>
                                 </div>
-                                <a href="<?=base_url();?>Delta/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Delta/view_super_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -227,7 +227,7 @@
                                 <div class="icon">
                                     <i class="ion ion-cash"></i>
                                 </div>
-                                <a href="<?=base_url();?>rgaji/view_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>rgaji/view_super_admin" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>

@@ -169,14 +169,17 @@
                                         // Mendapatkan tanggal saat tombol ditekan
                                         var currentDate = new Date();
 
+                                        // Mengambil hari dalam format dua digit (01, 02, ..., 31)
+                                        var day = String(currentDate.getDate()).padStart(2, '0');
+
                                         // Mengambil bulan dalam format dua digit (01, 02, ..., 12)
                                         var month = String(currentDate.getMonth() + 1).padStart(2, '0');
 
                                         // Mengambil tahun empat digit (contoh: 2023)
                                         var year = currentDate.getFullYear();
 
-                                        // Menggabungkan bulan dan tahun ke dalam nama file
-                                        var fileName = "Rekap Absensi Bulan-" + month + "-" + year + ".xlsx";
+                                        // Menggabungkan hari, bulan, dan tahun ke dalam nama file
+                                        var fileName = "Rekap Absensi " + day + "-" + month + "-" + year + ".xlsx";
 
                                         // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
                                         var table = document.getElementById("example1");
@@ -187,8 +190,8 @@
                                         // Membuat file Excel dan mengunduhnya dengan nama file yang telah dibuat
                                         XLSX.writeFile(wb, fileName);
                                     });
+                                    </script>
 
-                                    </script>   
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr style="font-size: 20px;">

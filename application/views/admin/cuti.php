@@ -216,7 +216,7 @@
                                                     <?php }elseif($id_status_cuti1 == 3) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a class="btn bt-danger" data-toggle="modal"
+                                                            <a class="btn btn-danger" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Ditolak
                                                             </a>

@@ -123,7 +123,7 @@ class M_user extends CI_Model
 
             return $this->db->trans_status();
         } else {
-            $this->session->set_flashdata('eror_edit','eror_edit');
+            $this->session->set_flashdata('eror_ada','eror_ada');
         }
     }
 

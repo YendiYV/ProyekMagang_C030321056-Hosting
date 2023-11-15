@@ -181,7 +181,7 @@
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
                                 </div>
-                                <a href="<?=base_url();?>BPK/view_manager" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Tmk/view_manager" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                                 <div class="icon">
                                     <i class="ion ion-card"></i>
                                 </div>
-                                <a href="<?=base_url();?>BPK/view_manager" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Bpk/view_manager" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>

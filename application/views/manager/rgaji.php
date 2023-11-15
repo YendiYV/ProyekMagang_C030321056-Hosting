@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php $this->load->view("manager/components/header.php") ?>
+    <?php $this->load->view("managerw/components/header.php") ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 
@@ -104,7 +104,7 @@
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"></a>Manajer</li>
+                                <li class="breadcrumb-item"></a>Manager</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Rekap Gaji</li>
                             </ol>
@@ -128,7 +128,7 @@
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <div class="row mb-2">
-                                        <div class="col-sm-6 text-sm-right">
+                                        <div class="col-sm-auto text-sm-right">
                                             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                                 <div class="btn-group" role="group" aria-label="Cetak Options">
                                                     <button type="button" class="btn btn-primary" id="exportButton">Cetak Rekap</button>
@@ -157,16 +157,17 @@
                                         XLSX.writeFile(wb, fileName);
                                     });
                                     </script>
+                                    <hr>
                                     <br>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Nama</th>
                                                 <th>NIP</th>  
                                                 <th>Tanggal Gaji</th>
-                                                <th>Total Delta</th>
                                                 <th>Total Gaji</th>
-                                                <th>Tanggal Simpan</th>    
+                                                <th>Tanggal Simpan</th>   
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -174,21 +175,20 @@
                                             $no = 0;
                                             foreach($gaji_bulan as $gaji_bulan_item) :
                                             $no++;
+                                            $nama_lengkap = $gaji_bulan_item['nama_lengkap'];
                                             $id_user_detail = $gaji_bulan_item['id_user_detail'];
                                             $gaji_bulan = $gaji_bulan_item['gaji_bulan'];
-                                            $total_delta =$gaji_bulan_item['jumlah_delta'];
                                             $total_gaji = $gaji_bulan_item['total_gaji'];
                                             $tanggal_simpan = $gaji_bulan_item['tgl_simpan'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
+                                                <td><?= $nama_lengkap ?></td>
                                                 <td><?= $id_user_detail?></td>
                                                 <td><?= date('d-m-Y', strtotime($gaji_bulan)) ?></td>
-                                                <td><?= number_format($total_delta, 0, ',', '.') ?></td>
                                                 <td><?= number_format($total_gaji, 0, ',', '.') ?></td>
                                                 <td><?= date('d-m-Y', strtotime($tanggal_simpan)) ?></td>
                                             </tr>
-
                                         <?php endforeach; ?>
                                         </tbody>
                                     </table>
@@ -203,6 +203,69 @@
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
+            <!-- Modal Tambah Delta -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data THP</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="username">NIP Pegawai</label>
+                                <select class="form-control" id="username"
+                                    name="username" required>
+                                    <?php foreach($username as $u)
+                                    :
+                                    $id = $u["username"];
+                                    $username = $u["username"];
+                                    ?>
+                                        <option value="<?= $id ?>" <?php if($id == $username){
+                                            echo 'selected';
+                                        }else{
+                                            echo '';
+                                        }?>
+                                        ><?= $username ?>
+                                        </option>
+
+                                    <?php endforeach?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tanggal_gaji">Tanggal Gaji</label>
+                                <div class="input-group">
+                                    <?php
+                                    $currentDate = date('Y-m-01');
+                                    $minDate = date('2000-m-01');
+                                    $maxDate = date('Y-m-1');
+                                    ?>
+                                    <input type="date" name="tanggal_gaji" value="<?= $currentDate ?>" min="<?= $minDate ?>" max="<?= $maxDate ?>" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="total_gaji">Total Gaji Bersih</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Rp</span>
+                                    </div>
+                                    <input type="number" class="form-control" aria-describedby="total_gaji" id="total_gaji" name="total_gaji">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <?php
+                                    $tanggal_hari_ini = date('Y-m-d');
+                                    ?>
+                                    <input type="date" name="tanggal_input" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /.content-wrapper -->
         </div>

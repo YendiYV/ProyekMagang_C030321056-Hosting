@@ -9,6 +9,13 @@ class M_rgaji extends CI_Model
         return $query->result_array();
     }
 
+    public function get_all_gaji_bulan_manager()
+    {
+        $query = $this->db->query('SELECT user_detail.nama_lengkap , status_gaji_bulanan.* FROM status_gaji_bulanan LEFT JOIN user_detail ON user_detail.nip = status_gaji_bulanan.id_user_detail');
+
+        return $query->result_array();
+    }
+
     public function count_all_rgaji()
     {
         $hasil = $this->db->query('SELECT COUNT(no_sgb) as total_rgaji FROM status_gaji_bulanan ');

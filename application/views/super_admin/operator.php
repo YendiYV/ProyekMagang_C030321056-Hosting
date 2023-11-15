@@ -66,6 +66,26 @@
     </script>
     <?php } ?>
 
+    <?php if ($this->session->flashdata('eror_ada')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Data Sudah Ada !",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('eror_password')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Password dan Konfirmasi Tidak Sama !",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -255,8 +275,8 @@
                                                                 <input type="text" value="<?= $id_user ?>" name="id_user" hidden>
                                                                 <div class="form-group">
                                                                     <label for="username">NIP</label>
-                                                                    <input type="text" class="form-control" id="username" aria-describedby="username"
-                                                                        name="username" value="<?= $username ?>" required oninput="validateNIP(this)">
+                                                                    <input type="text" class="form-control" id="username" aria-describedby="username" name="username" value="<?= $username ?>" required oninput="validateNIP(this)" pattern="^\d{7}[A-Z]{3}$">
+
                                                                     <small id="usernameError" class="text-danger"></small>
                                                                 </div>
 
@@ -450,8 +470,7 @@
                             <form action="<?=base_url();?>operator/tambah_operator" method="POST">
                                 <div class="form-group">
                                     <label for="username">NIP</label>
-                                    <input type="text" class="form-control" id="username" aria-describedby="username" name="username" required pattern="[A-Za-z0-9]{10}">
-
+                                    <input type="text" class="form-control" id="username" aria-describedby="username" name="username" required pattern="[0-9]{7}[A-Z]{3}">
                                     <small class="text-muted" style="font-size: smaller;">Format :1234567PKY</small>
                                 </div>
                                 <div class="form-group row">

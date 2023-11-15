@@ -26,6 +26,7 @@ class Gaji extends CI_Controller {
     {
         if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
             $data['operator'] = $this->m_gaji->get_all_gaji()->result_array();
+            $data['operator2'] = $this->m_gaji->get_all_gaji_baru()->result_array();
             $this->load->view('super_admin/gaji', $data);
         } else {
             // Handle kasus ketika pengguna tidak memiliki hak akses
@@ -38,6 +39,7 @@ class Gaji extends CI_Controller {
     {
         if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
             $data['operator'] = $this->m_gaji->get_all_gaji()->result_array();
+            $data['operator2'] = $this->m_gaji->get_all_gaji_baru()->result_array();
             $this->load->view('manager/gaji', $data);
         } else {
             // Handle kasus ketika pengguna tidak memiliki hak akses

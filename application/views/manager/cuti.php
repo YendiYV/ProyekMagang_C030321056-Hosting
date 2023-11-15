@@ -95,6 +95,7 @@
                                             XLSX.writeFile(wb, "Rekap Cuti.xlsx");
                                         });
                                     </script>
+                                    <br>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
@@ -143,7 +144,7 @@
                                                 <td><?php if($id_status_cuti1 == 1){ ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-warning" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Menunggu Konfirmasi
                                                             </a>
@@ -161,7 +162,7 @@
                                                     <?php }elseif($id_status_cuti1 == 3) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-danger" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Ditolak
                                                             </a>
@@ -172,7 +173,7 @@
                                                 <td><?php if($id_status_cuti2 == 1){ ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-warning" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Menunggu Konfirmasi
                                                             </a>
@@ -190,7 +191,7 @@
                                                     <?php }elseif($id_status_cuti2 == 3) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-danger" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Ditolak
                                                             </a>
@@ -201,7 +202,7 @@
                                                 <td><?php if($id_status_cuti3 == 1){ ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-warning" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Menunggu Konfirmasi
                                                             </a>
@@ -219,7 +220,7 @@
                                                     <?php }elseif($id_status_cuti3 == 3) {?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
-                                                            <a class="btn btn-info" data-toggle="modal"
+                                                            <a class="btn btn-danger" data-toggle="modal"
                                                                 data-target="#edit_data_operator">
                                                                 Izin Cuti Ditolak
                                                             </a>
@@ -261,7 +262,7 @@
                                                         </div>
                                                         <?php } ?>
                                                     <?php }else{?>
-                                                        <p style="text-align: center;">Aksi Belum Tersedia</p>
+                                                        <p style="text-align: center;">Aksi Tidak Tersedia</p>
                                                     <?php } ?>
                                                 </td>
                                             </tr>

@@ -244,7 +244,7 @@
                                     } else {
                                         $status_absen = 0;
                                     }
-                                    if ($ketersediaan_data2['status_absen'] < 1) {
+                                    if ($status_absen < 1) {
                                         if ($waktu_sekarang >= '08:01' && $waktu_sekarang <= '08:20') {
                                             // Tampilkan tombol-tombol tindakan jika waktu berada dalam rentang
                                             echo '<div class="small-box-buttons text-center mt-3">

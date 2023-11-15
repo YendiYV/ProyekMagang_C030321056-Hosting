@@ -21,7 +21,7 @@ class M_delta extends CI_Model
             return false; // Jabatan tidak akan disimpan jika gaji = 0
         }else{
             $this->db->trans_start();
-            $this->db->query("UPDATE status_delta SET nama_delta='$nama_delta',gaji_delta='$gaji_delta' WHERE id_level = $id_level_delta");
+            $this->db->query("UPDATE status_delta SET nama_delta='$nama_delta',gaji_delta='$gaji_delta' WHERE id_level_delta = $id_level");
             $this->db->trans_complete();
 
             if ($this->db->trans_status() == true) {

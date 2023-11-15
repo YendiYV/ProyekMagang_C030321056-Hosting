@@ -116,7 +116,7 @@ class Dashboard extends CI_Controller {
 					$datetime->modify('+5 minutes +23 seconds');
 					$waktu_sekarang = $datetime->format('H:i');
 
-					if ($waktu_sekarang >= '08:01' && $waktu_sekarang <= '23:59') {
+					if ($waktu_sekarang >= '08:21' && $waktu_sekarang <= '23:59') {
 						$this->m_absensi->insert_alfa($id_user);
 					}
 				}

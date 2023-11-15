@@ -3,79 +3,10 @@
 
 <head>
     <?php $this->load->view("manager/components/header.php") ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <?php if ($this->session->flashdata('input')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Data Berhasil Ditambahkan!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('eror')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Data Gagal Ditambahkan!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-    
-    <?php if ($this->session->flashdata('erorpass')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Password Salah!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('edit')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Data Berhasil Diedit!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('eror_edit')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Data Gagal Diedit!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('hapus')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Data Berhasil Dihapus!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('eror_hapus')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Data Gagal Dihapus !",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -126,6 +57,38 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body container-fluid">
+                                    <div class="row mb-2">
+                                        <div class="col-sm-auto text-sm-right">
+                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="btn-group" role="group" aria-label="Cetak Options">
+                                                    <button type="button" class="btn btn-primary" id="exportButton">Cetak Rekap</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                    document.getElementById("exportButton").addEventListener("click", function() {
+                                        // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
+                                        var table = document.getElementById("example1");
+
+                                        // Membuat objek Workbook Excel
+                                        var wb = XLSX.utils.table_to_book(table);
+
+                                        // Mendapatkan tanggal saat ini
+                                        var currentDate = new Date();
+                                        var year = currentDate.getFullYear();
+                                        var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Bulan (01-12)
+                                        var day = currentDate.getDate().toString().padStart(2, '0'); // Hari (01-31)
+
+                                        // Membuat format nama file dengan tanggal saat ini
+                                        var fileName = "Rekap Delta - " + day + "-" + month + "-" + year + ".xlsx";
+
+                                        // Membuat file Excel dan mengunduhnya dengan nama yang sudah dibuat
+                                        XLSX.writeFile(wb, fileName);
+                                    });
+                                    </script>
+                                    <hr>
+                                    <br>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
