@@ -112,7 +112,7 @@ class Proyek extends CI_Controller {
                     redirect('Login/index');
                 }
             } else {
-                $this->session->set_flashdata('eror', 'Terjadi kesalahan saat mengubah proyek.');
+                $this->session->set_flashdata('eror', 'eror');
                 if ($this->session->userdata('id_user_level') == 2) {
                     redirect('Proyek/view_admin');
                 } elseif ($this->session->userdata('id_user_level') == 3) {

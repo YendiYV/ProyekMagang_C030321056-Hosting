@@ -56,8 +56,6 @@ class Jabatan extends CI_Controller {
                     redirect('Jabatan/view_admin');
                 } elseif ($this->session->userdata('id_user_level') == 3) {
                     redirect('Jabatan/view_super_admin');
-                } else {
-                    redirect('Jabatan/other_page'); // Ganti dengan halaman yang sesuai
                 }
             } else {
                 $this->session->set_flashdata('eror_edit');
@@ -65,8 +63,6 @@ class Jabatan extends CI_Controller {
                     redirect('Jabatan/view_admin');
                 } elseif ($this->session->userdata('id_user_level') == 3) {
                     redirect('Jabatan/view_super_admin');
-                } else {
-                    redirect('Jabatan/other_page'); // Ganti dengan halaman yang sesuai
                 }
             }
         } else {
@@ -83,8 +79,6 @@ class Jabatan extends CI_Controller {
                 redirect('Jabatan/view_admin');
             } elseif ($this->session->userdata('id_user_level') == 3) {
                 redirect('Jabatan/view_super_admin');
-            } else {
-                redirect('Jabatan/other_page'); // Ganti dengan halaman yang sesuai
             }
         } else {
             $this->session->set_flashdata('loggin_err', 'loggin_err');
@@ -108,13 +102,11 @@ class Jabatan extends CI_Controller {
                     redirect('Jabatan/other_page'); // Ganti dengan halaman yang sesuai
                 }
             } else {
-                $this->session->set_flashdata('eror', 'Terjadi kesalahan saat mengubah Jabatan.');
+                $this->session->set_flashdata('eror','eror');
                 if ($this->session->userdata('id_user_level') == 2) {
                     redirect('Jabatan/view_admin');
                 } elseif ($this->session->userdata('id_user_level') == 3) {
                     redirect('Jabatan/view_super_admin');
-                } else {
-                    redirect('Jabatan/other_page'); // Ganti dengan halaman yang sesuai
                 }
             }
         } else {

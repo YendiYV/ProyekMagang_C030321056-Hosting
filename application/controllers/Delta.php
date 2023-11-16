@@ -108,7 +108,7 @@ class Delta extends CI_Controller {
                     redirect('Delta/other_page'); // Ganti dengan halaman yang sesuai
                 }
             } else {
-                $this->session->set_flashdata('eror', 'Terjadi kesalahan saat menambahkan Delta.');
+                $this->session->set_flashdata('eror', 'eror');
                 if ($this->session->userdata('id_user_level') == 2) {
                     redirect('Delta/view_admin');
                 } elseif ($this->session->userdata('id_user_level') == 3) {

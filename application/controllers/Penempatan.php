@@ -60,8 +60,6 @@ class Penempatan extends CI_Controller {
                     redirect('Penempatan/view_admin');
                 } elseif ($this->session->userdata('id_user_level') == 3) {
                     redirect('Penempatan/view_super_admin');
-                } else {
-                    redirect('Penempatan/other_page'); // Ganti dengan halaman yang sesuai
                 }
             } else {
                 $this->session->set_flashdata('eror_edit');
@@ -69,8 +67,6 @@ class Penempatan extends CI_Controller {
                     redirect('Penempatan/view_admin');
                 } elseif ($this->session->userdata('id_user_level') == 3) {
                     redirect('Penempatan/view_super_admin');
-                } else {
-                    redirect('Penempatan/other_page'); // Ganti dengan halaman yang sesuai
                 }
             }
         } else {
@@ -87,8 +83,6 @@ class Penempatan extends CI_Controller {
                 redirect('Penempatan/view_admin');
             } elseif ($this->session->userdata('id_user_level') == 3) {
                 redirect('Penempatan/view_super_admin');
-            } else {
-                redirect('Penempatan/other_page'); // Ganti dengan halaman yang sesuai
             }
         } else {
             $this->session->set_flashdata('loggin_err', 'loggin_err');
@@ -109,17 +103,13 @@ class Penempatan extends CI_Controller {
                     redirect('Penempatan/view_admin');
                 } elseif ($this->session->userdata('id_user_level') == 3) {
                     redirect('Penempatan/view_super_admin');
-                } else {
-                    redirect('Penempatan/other_page'); // Ganti dengan halaman yang sesuai
                 }
             } else {
-                $this->session->set_flashdata('eror', 'Terjadi kesalahan saat menambahkan penempatan.');
+                $this->session->set_flashdata('eror', 'eror');
                 if ($this->session->userdata('id_user_level') == 2) {
                     redirect('Penempatan/view_admin');
                 } elseif ($this->session->userdata('id_user_level') == 3) {
                     redirect('Penempatan/view_super_admin');
-                } else {
-                    redirect('Penempatan/other_page'); // Ganti dengan halaman yang sesuai
                 }
             }
         } else {

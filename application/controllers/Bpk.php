@@ -84,8 +84,6 @@ class Bpk extends CI_Controller {
                 redirect('Bpk/view_admin');
             } elseif ($this->session->userdata('id_user_level') == 3) {
                 redirect('Bpk/view_super_admin');
-            } else {
-                redirect('Bpk/other_page'); // Ganti dengan halaman yang sesuai
             }
         } else {
             $this->session->set_flashdata('loggin_err', 'loggin_err');
@@ -109,7 +107,7 @@ class Bpk extends CI_Controller {
                     redirect('Bpk/other_page'); // Ganti dengan halaman yang sesuai
                 }
             } else {
-                $this->session->set_flashdata('eror', 'Terjadi kesalahan saat menambahkan BPK.');
+                $this->session->set_flashdata('eror','eror');
                 if ($this->session->userdata('id_user_level') == 2) {
                     redirect('Bpk/view_admin');
                 } elseif ($this->session->userdata('id_user_level') == 3) {

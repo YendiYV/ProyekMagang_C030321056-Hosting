@@ -42,6 +42,39 @@
     });
     </script>
     <?php } ?>
+    <?php if ($this->session->flashdata('input_hadir')) { ?>
+        <script>
+            swal({
+                title: "Success!",
+                text: "Berhasil Melakukan Absen Hadir!",
+                icon: "success"
+            });
+        </script>
+    <?php } elseif ($this->session->flashdata('input_izin')) { ?>
+        <script>
+            swal({
+                title: "Success!",
+                text: "Berhasil Mengajukan Izin!",
+                icon: "success"
+            });
+        </script>
+    <?php } elseif ($this->session->flashdata('input_sakit')) { ?>
+        <script>
+            swal({
+                title: "Success!",
+                text: "Berhasil Melaporkan Sakit!",
+                icon: "success"
+            });
+        </script>
+    <?php } elseif ($this->session->flashdata('input_cuti')) { ?>
+        <script>
+            swal({
+                title: "Success!",
+                text: "Berhasil Mengajukan Cuti!",
+                icon: "success"
+            });
+        </script>
+    <?php } ?>
     <div class="wrapper">
 
         <!-- Preloader -->

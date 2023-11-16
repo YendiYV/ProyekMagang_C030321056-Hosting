@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 15, 2023 at 02:07 PM
+-- Generation Time: Nov 16, 2023 at 04:04 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -145,7 +145,12 @@ INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `st
 (56, '9593c4a570870ad08d5ed2b21f19df2c', '2023-11-15', '5'),
 (57, 'f7c7b7e19a4ed7a51db593c8efbee984', '2023-11-14', '4'),
 (58, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-01', '1'),
-(59, 'f7c7b7e19a4ed7a51db593c8efbee984', '2020-10-01', '1');
+(59, 'f7c7b7e19a4ed7a51db593c8efbee984', '2020-10-01', '1'),
+(60, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-16', '6'),
+(61, 'f7c7b7e19a4ed7a51db593c8efbee984', '2023-11-16', '3'),
+(62, 'd41d8cd98f00b204e9800998ecf8427e', '2023-11-16', '2'),
+(63, 'c551fc8847d29dc25a23db5d2cdb941b', '2023-11-16', '2'),
+(64, '9593c4a570870ad08d5ed2b21f19df2c', '2023-11-16', '1');
 
 -- --------------------------------------------------------
 
@@ -228,10 +233,46 @@ CREATE TABLE `status_gaji_bulanan` (
 
 INSERT INTO `status_gaji_bulanan` (`no_sgb`, `id_user_detail`, `gaji_bulan`, `total_gaji`, `tgl_simpan`) VALUES
 (50, '1231231PKY', '2023-10-01', 4500000, '0000-00-00'),
-(51, '1231235PKY', '2023-10-01', 4690000, '2023-11-15'),
+(51, '1231235PKY', '2023-10-01', 4700000, '2023-11-16'),
 (52, '1231232PKY', '2023-10-01', 8000000, '2023-11-15'),
 (53, '1231234PKY', '2023-10-01', 8200000, '0000-00-00'),
 (54, '1231233PKY', '2023-10-01', 6144000, '2023-11-15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status_insentif`
+--
+
+CREATE TABLE `status_insentif` (
+  `id_insentif` int(11) NOT NULL,
+  `nama_insentif` varchar(255) NOT NULL,
+  `tunjangan_insentif` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status_komunikasi`
+--
+
+CREATE TABLE `status_komunikasi` (
+  `id_komunikasi` int(11) NOT NULL,
+  `nama_komunikasi` varchar(255) NOT NULL,
+  `tunjangan_komunikasi` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status_kontribusi`
+--
+
+CREATE TABLE `status_kontribusi` (
+  `id_kontribusi` int(11) NOT NULL,
+  `nama_kontribusi` varchar(255) NOT NULL,
+  `tunjangan_kontribusi` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -335,6 +376,18 @@ INSERT INTO `status_transport` (`id_transport`, `nama_transport`, `tunjangan_tra
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `status_uang_hadir`
+--
+
+CREATE TABLE `status_uang_hadir` (
+  `id_uang_hadir` int(11) NOT NULL,
+  `nama_uang_hadir` varchar(255) NOT NULL,
+  `tunjangan_uang_hadir` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `status_um`
 --
 
@@ -410,7 +463,7 @@ CREATE TABLE `user_detail` (
 INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `tanggal_masuk`, `jumlah_cuti`) VALUES
 ('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 ('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '081256769', 'Jl. Pengayaan', '1231231PKY', 0, 0, 1, 1, 0, 0, '2023-11-10', 6),
-('9593c4a570870ad08d5ed2b21f19df2c', 'Rahmat', 1, '08123123213', 'Jl. Karamunting', '1231235PKY', 1, 14, 6, 1, 1, 3, '2023-11-16', 12),
+('9593c4a570870ad08d5ed2b21f19df2c', 'Rahmat', 1, '08123123213', 'Jl. Karamunting', '1231235PKY', 1, 14, 6, 1, 1, 3, '2023-11-16', 0),
 ('c551fc8847d29dc25a23db5d2cdb941b', 'Putri', 2, '+62812781728', 'Jl. Sekip', '1231233PKY', 1, 1, 1, 1, 1, 4, '2023-11-15', 0),
 ('d41d8cd98f00b204e9800998ecf8427e', 'Ahmad Naufal Halim', 1, '08121212112', '0987654', '1231232PKY', 1, 13, 1, 3, 1, 4, '2023-11-14', 2),
 ('eb71208764d1a8a02cdf86a49ccd1489', 'Manajer Yendi', 1, '081212121212', 'Jl. Hidayatullah No.22', '1234567MNJ', 0, 0, 0, 0, 0, 0, NULL, 0),
@@ -497,6 +550,24 @@ ALTER TABLE `status_gaji_bulanan`
   ADD PRIMARY KEY (`no_sgb`);
 
 --
+-- Indexes for table `status_insentif`
+--
+ALTER TABLE `status_insentif`
+  ADD PRIMARY KEY (`id_insentif`);
+
+--
+-- Indexes for table `status_komunikasi`
+--
+ALTER TABLE `status_komunikasi`
+  ADD PRIMARY KEY (`id_komunikasi`);
+
+--
+-- Indexes for table `status_kontribusi`
+--
+ALTER TABLE `status_kontribusi`
+  ADD PRIMARY KEY (`id_kontribusi`);
+
+--
 -- Indexes for table `status_penempatan`
 --
 ALTER TABLE `status_penempatan`
@@ -519,6 +590,12 @@ ALTER TABLE `status_tmk`
 --
 ALTER TABLE `status_transport`
   ADD PRIMARY KEY (`id_transport`);
+
+--
+-- Indexes for table `status_uang_hadir`
+--
+ALTER TABLE `status_uang_hadir`
+  ADD PRIMARY KEY (`id_uang_hadir`);
 
 --
 -- Indexes for table `status_um`
@@ -570,7 +647,7 @@ ALTER TABLE `operator_level`
 -- AUTO_INCREMENT for table `status_absensi`
 --
 ALTER TABLE `status_absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`
@@ -597,6 +674,24 @@ ALTER TABLE `status_gaji_bulanan`
   MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
+-- AUTO_INCREMENT for table `status_insentif`
+--
+ALTER TABLE `status_insentif`
+  MODIFY `id_insentif` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `status_komunikasi`
+--
+ALTER TABLE `status_komunikasi`
+  MODIFY `id_komunikasi` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `status_kontribusi`
+--
+ALTER TABLE `status_kontribusi`
+  MODIFY `id_kontribusi` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `status_penempatan`
 --
 ALTER TABLE `status_penempatan`
@@ -613,6 +708,12 @@ ALTER TABLE `status_proyek`
 --
 ALTER TABLE `status_transport`
   MODIFY `id_transport` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `status_uang_hadir`
+--
+ALTER TABLE `status_uang_hadir`
+  MODIFY `id_uang_hadir` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_level`

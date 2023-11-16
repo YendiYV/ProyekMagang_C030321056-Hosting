@@ -97,16 +97,16 @@ class Absensi extends CI_Controller {
 				$ketersediaan_data = $this->m_absensi->cek_kehadiran_absensi($id_user);	
 				if($ketersediaan_data !== null){
 					if ($action === 'hadir') {
-						$this->session->set_flashdata('input', 'Anda telah melakukan absensi hadir.');
+						$this->session->set_flashdata('input_hadir', 'input_hadir');
 						$this->m_absensi->insert_hadir($id_user); // Panggil fungsi model yang sesuai
 					} elseif ($action === 'sakit') {
-						$this->session->set_flashdata('input', 'Anda telah melakukan absensi sakit.');
+						$this->session->set_flashdata('input_sakit', 'input_sakit');
 						$this->m_absensi->insert_sakit($id_user); // Panggil fungsi model yang sesuai
 					} elseif ($action === 'ijin') {
-						$this->session->set_flashdata('input', 'Anda telah melakukan absensi ijin.');
+						$this->session->set_flashdata('input_sakit', 'input_izin');
 						$this->m_absensi->insert_ijin($id_user); // Panggil fungsi model yang sesuai
 					} elseif ($action === 'cuti') {
-						$this->session->set_flashdata('input', 'Anda telah melakukan absensi cuti.');
+						$this->session->set_flashdata('input_cuti', 'input_cuti');
 						$this->m_absensi->insert_cuti($id_user); // Panggil fungsi model yang sesuai
 					} else {
 						$this->session->set_flashdata('error', 'Tindakan tidak valid.');
@@ -115,10 +115,10 @@ class Absensi extends CI_Controller {
 					$this->session->set_flashdata('error', 'error');
 				}
 			}else {
-				$this->session->set_flashdata('eror_pagi', 'Anda hanya dapat melakukan absensi antara jam 08:00 dan 08:20.');
+				$this->session->set_flashdata('eror_pagi', 'eror_pagi');
 			}
 		}else {
-			$this->session->set_flashdata('error', 'Absensi tidak dapat dilakukan pada hari Sabtu dan Minggu.');
+			$this->session->set_flashdata('error', 'error');
 		}
 
 		redirect('Dashboard/dashboard_operator');
@@ -142,17 +142,17 @@ class Absensi extends CI_Controller {
 
 				if ($cek_absen_pulang > 0) {
 					$action = $this->input->post('action'); // Dapatkan tindakan yang diambil dari input
-					$this->session->set_flashdata('input_pulang', 'Anda telah melakukan absensi Pulang.');
+					$this->session->set_flashdata('input_pulang', 'input_pulang');
 					$this->m_absensi->insert_pulang($id_user);
 				} else {
 					$this->session->set_flashdata('mencoba_akses', 'mencoba_akses');
 				}
 
 			} else {
-				$this->session->set_flashdata('eror_pulang', 'Anda hanya dapat melakukan absensi pulang antara jam 15:40 dan 16:00.');
+				$this->session->set_flashdata('eror_pulang', 'eror_pulang');
 			}
 		} else {
-			$this->session->set_flashdata('error', 'Absensi pulang tidak dapat dilakukan pada hari Sabtu dan Minggu.');
+			$this->session->set_flashdata('error', 'error');
 		}
 
 		redirect('Dashboard/dashboard_operator');

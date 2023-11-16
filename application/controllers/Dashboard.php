@@ -121,9 +121,7 @@ class Dashboard extends CI_Controller {
 					}
 				}
 			}
-
-
-
+			
 			$data['cuti_operator'] = $this->m_cuti->get_all_cuti_first_by_id_user($id_user)->result_array();
 			$data['cuti'] = $this->m_cuti->count_all_cuti_by_id($id_user)->row_array();
 			$data['operator'] = $this->m_user->get_operator_by_id($id_user)->row_array();
