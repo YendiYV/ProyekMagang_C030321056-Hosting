@@ -151,7 +151,7 @@
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="12">Total Gaji</th>
+                                                    <th colspan="16">Total Gaji</th>
                                                 </tr>
                                                 <tr class="header-row"> 
                                                     <th>No</th>
@@ -164,7 +164,11 @@
                                                     <th>Gaji Proyek</th>
                                                     <th>BPK</th>
                                                     <th>Delta</th> 
-                                                    <th>Transport</th>  
+                                                    <th>Transport</th>
+                                                    <th>Komunikasi</th>  
+                                                    <th>Uang Hadir</th>  
+                                                    <th>Kontribusi</th>
+                                                    <th>Insentif</th>    
                                                     <th style="background-color: #33bbff;">Total Bersih / Orang</th>             
                                                 </tr>
                                             </thead>
@@ -179,6 +183,10 @@
                                                     $total_status_bpk = 0;
                                                     $total_status_delta = 0;
                                                     $total_transport = 0;
+                                                    $total_komunikasi = 0;
+                                                    $total_uang_hadir = 0;
+                                                    $total_kontribusi = 0;
+                                                    $total_insentif = 0;
                                                     $upok=0;
                                                     $total_upok=0;
                                                     $total_semua = 0;
@@ -194,6 +202,10 @@
                                                         $status_bpk = $i['gaji_bpk'];
                                                         $transport = $i['tunjangan_transport'];
                                                         $total_gaji = $i['total_gaji'];
+                                                        $komunikasi= $i['tunjangan_komunikasi'];
+                                                        $uang_hadir= $i['tunjangan_uang_hadir'];
+                                                        $kontribusi = $i['tunjangan_kontribusi'];
+                                                        $insentif = $i['tunjangan_insentif'];
                                                         $upok = ($penempatan + $tahun_tmk) * 0.04;
                                                         $status_delta = $total_gaji-($penempatan + $status_bpk + $tahun_tmk - $upok);
                                                         if($status_delta <0){
@@ -207,10 +219,14 @@
                                                         $total_status_bpk += $status_bpk;
                                                         $total_status_delta += $status_delta;
                                                         $total_transport+= $transport;
+                                                        $total_komunikasi+= $komunikasi;
+                                                        $total_uang_hadir+= $uang_hadir;
+                                                        $total_kontribusi+= $kontribusi;
+                                                        $total_insentif+= $insentif;
                                                         $total_upok += $upok;
                                                         $total_gaji_sekarang = $penempatan + $status_bpk + $tahun_tmk - $upok;
 
-                                                        $total_per_orang = $operator_level + $nama_proyek +$penempatan + $tahun_tmk+ $status_bpk + $status_delta + $transport- $upok;
+                                                        $total_per_orang = $operator_level + $nama_proyek +$penempatan + $tahun_tmk+ $status_bpk + $status_delta + $transport+$komunikasi+$uang_hadir+$kontribusi+$insentif- $upok;
                                                         $total_semua += $total_per_orang;
                                                         ?>
                                                             <tr>
@@ -225,6 +241,10 @@
                                                                 <td><?= "Rp. " . number_format($status_bpk, 0, ',', '.') ?></td>
                                                                 <td><?= "Rp. " . number_format($status_delta, 0, ',', '.') ?></td>
                                                                 <td><?= "Rp. " . number_format($transport, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($komunikasi, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($uang_hadir, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($kontribusi, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($insentif, 0, ',', '.') ?></td>
                                                                 <td style="background-color: #33bbff;">
                                                                     <span style="font-weight: bold;" id="total_per_orang_<?= $username ?>">
                                                                         <?= "Rp. " . number_format($total_per_orang, 0, ',', '.') ?>
@@ -251,6 +271,10 @@
                                                         <td><?= "Rp. " .number_format($total_status_bpk, 0, '', '.') ?></td>
                                                         <td><?= "Rp. " .number_format($total_status_delta, 0, '', '.') ?></td>
                                                         <td><?= "Rp. " .number_format($total_transport, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_komunikasi, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_uang_hadir, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_kontribusi, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_insentif, 0, '', '.') ?></td>
                                                         <?php
                                                         $formatted_total = "Rp. " . number_format($total_semua, 0, '', '.');
                                                         ?>
@@ -268,7 +292,7 @@
                                         <table id="example2" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="12">Total Gaji Baru</th>
+                                                    <th colspan="16">Total Gaji Baru</th>
                                                 </tr>
                                                 <tr class="header-row"> 
                                                     <th>No</th>
@@ -281,7 +305,11 @@
                                                     <th>Gaji Proyek</th>
                                                     <th>BPK</th>
                                                     <th>Delta</th> 
-                                                    <th>Transport</th>  
+                                                    <th>Transport</th>
+                                                    <th>Komunikasi</th>  
+                                                    <th>Uang Hadir</th>  
+                                                    <th>Kontribusi</th>
+                                                    <th>Insentif</th> 
                                                     <th style="background-color: #33bbff;">Total Bersih / Orang</th>             
                                                 </tr>
                                             </thead>
@@ -296,10 +324,14 @@
                                                     $total_status_bpk = 0;
                                                     $total_status_delta = 0;
                                                     $total_transport = 0;
+                                                    $total_komunikasi = 0;
+                                                    $total_uang_hadir = 0;
+                                                    $total_kontribusi = 0;
+                                                    $total_insentif = 0;
+                                                    
                                                     $upok=0;
                                                     $total_upok=0;
                                                     $total_semua = 0;
-
                                                     foreach ($operator2 as $a) :
                                                         $no++;
                                                         $username = $a['username'];
@@ -310,6 +342,10 @@
                                                         $tahun_tmk = $a['rupiah_tmk'];
                                                         $status_bpk = $a['gaji_bpk'];
                                                         $transport = $a['tunjangan_transport'];
+                                                        $komunikasi= $i['tunjangan_komunikasi'];
+                                                        $uang_hadir= $i['tunjangan_uang_hadir'];
+                                                        $kontribusi = $i['tunjangan_kontribusi'];
+                                                        $insentif = $i['tunjangan_insentif'];
                                                         $upok = ($penempatan + $tahun_tmk) * 0.04;
                                                         $status_delta = $a['gaji_delta'];
                                                         // Hitung total gaji per orang
@@ -320,9 +356,13 @@
                                                         $total_status_bpk += $status_bpk;
                                                         $total_status_delta += $status_delta;
                                                         $total_transport+= $transport;
+                                                        $total_komunikasi+= $komunikasi;
+                                                        $total_uang_hadir+= $uang_hadir;
+                                                        $total_kontribusi+= $kontribusi;
+                                                        $total_insentif+= $insentif;
                                                         $total_upok += $upok;
 
-                                                        $total_per_orang = $operator_level + $nama_proyek +$penempatan + $tahun_tmk+ $status_bpk + $status_delta + $transport- $upok;
+                                                        $total_per_orang = $operator_level + $nama_proyek +$penempatan + $tahun_tmk+ $status_bpk + $status_delta + $transport+$komunikasi+$uang_hadir+$kontribusi+$insentif- $upok;
                                                         $total_semua += $total_per_orang;
                                                         ?>
                                                             <tr>
@@ -337,6 +377,10 @@
                                                                 <td><?= "Rp. " . number_format($status_bpk, 0, ',', '.') ?></td>
                                                                 <td><?= "Rp. " . number_format($status_delta, 0, ',', '.') ?></td>
                                                                 <td><?= "Rp. " . number_format($transport, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($komunikasi, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($uang_hadir, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($kontribusi, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($insentif, 0, ',', '.') ?></td>
                                                                 <td style="background-color: #33bbff;">
                                                                     <span style="font-weight: bold;" id="total_per_orang_<?= $username ?>">
                                                                         <?= "Rp. " . number_format($total_per_orang, 0, ',', '.') ?>
@@ -363,6 +407,10 @@
                                                         <td><?= "Rp. " .number_format($total_status_bpk, 0, '', '.') ?></td>
                                                         <td><?= "Rp. " .number_format($total_status_delta, 0, '', '.') ?></td>
                                                         <td><?= "Rp. " .number_format($total_transport, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_komunikasi, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_uang_hadir, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_kontribusi, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_insentif, 0, '', '.') ?></td>
                                                         <?php
                                                         $formatted_total = "Rp. " . number_format($total_semua, 0, '', '.');
                                                         ?>

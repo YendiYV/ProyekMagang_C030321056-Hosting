@@ -14,8 +14,38 @@ class operator extends CI_Controller {
 		$this->load->model('m_bpk');
 		$this->load->model('m_delta');
 		$this->load->model('m_transport');
+		$this->load->model('m_komunikasi');
+		$this->load->model('m_uang_hadir');
+		$this->load->model('m_kontribusi');
+		$this->load->model('m_insentif');
 	}
-		
+	
+	public function view_admin()
+	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
+			
+			$data['operator'] = $this->m_user->get_all_operator()->result_array();
+			$data['jenis_kelamin_p'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
+			$data['nama_proyek_list'] = $this->m_proyek->get_all_proyek();
+			$data['nama_level_list'] = $this->m_jabatan->get_all_jabatan();
+			$data['nama_penempatan_list'] = $this->m_penempatan->get_all_penempatan();
+			$data['nama_bpk_list'] = $this->m_bpk->get_all_bpk();
+			$data['nama_delta_list'] = $this->m_delta->get_all_delta();
+			$data['nama_transport_list'] = $this->m_transport->get_all_transport();
+			$data['nama_komunikasi_list'] = $this->m_komunikasi->get_all_komunikasi();
+			$data['nama_uang_hadir_list'] = $this->m_uang_hadir->get_all_uang_hadir();
+			$data['nama_kontribusi_list'] = $this->m_kontribusi->get_all_kontribusi();
+			$data['nama_insentif_list'] = $this->m_insentif->get_all_insentif();
+			$this->load->view('admin/operator', $data);
+
+		}else{
+
+			$this->session->set_flashdata('loggin_err','loggin_err');
+			redirect('Login/index');
+	
+		}
+	}
+
     public function view_super_admin()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
@@ -38,27 +68,6 @@ class operator extends CI_Controller {
 		}
 	}
     
-	public function view_admin()
-	{
-		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
-			
-			$data['operator'] = $this->m_user->get_all_operator()->result_array();
-			$data['jenis_kelamin_p'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
-			$data['nama_proyek_list'] = $this->m_proyek->get_all_proyek();
-			$data['nama_level_list'] = $this->m_jabatan->get_all_jabatan();
-			$data['nama_penempatan_list'] = $this->m_penempatan->get_all_penempatan();
-			$data['nama_bpk_list'] = $this->m_bpk->get_all_bpk();
-			$data['nama_delta_list'] = $this->m_delta->get_all_delta();
-			$data['nama_transport_list'] = $this->m_transport->get_all_transport();
-			$this->load->view('admin/operator', $data);
-
-		}else{
-
-			$this->session->set_flashdata('loggin_err','loggin_err');
-			redirect('Login/index');
-	
-		}
-	}
 	public function view_manager()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
@@ -97,14 +106,18 @@ class operator extends CI_Controller {
 			$delta = $this->input->post("delta");
 			$bpk = $this->input->post("bpk");
 			$transport = $this->input->post("transport");
+			$komunikasi = $this->input->post("komunikasi");
+			$uang_hadir = $this->input->post("uang_hadir");
+			$kontribusi = $this->input->post("kontribusi");
+			$insentif = $this->input->post("insentif");
 
 			$id = md5($username . $password);
 			if ($password == $re_password) {
 				$hashed_password = md5($password); // Ubah password menjadi hashed
 			
-				if ($username === null){
+				if ($username !== null){
 					$this->session->set_flashdata('input','input');
-					$hasil = $this->m_user->insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat,$id_status_proyek, $jabatan,$penempatan,$bpk,$delta,$transport, $tanggal_masuk);
+					$hasil = $this->m_user->insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat,$id_status_proyek, $jabatan,$penempatan,$bpk,$delta,$transport ,$komunikasi,$uang_hadir,$kontribusi,$insentif ,$tanggal_masuk);
 				}
 				else {
 					$this->session->set_flashdata('eror_ada','eror_ada');
@@ -137,6 +150,10 @@ class operator extends CI_Controller {
 			$delta = $this->input->post("delta");
 			$bpk = $this->input->post("bpk");
 			$transport = $this->input->post("transport");
+			$komunikasi = $this->input->post("komunikasi");
+			$uang_hadir = $this->input->post("uang_hadir");
+			$kontribusi = $this->input->post("kontribusi");
+			$insentif = $this->input->post("insentif");
 			$id_status_proyek = $this->input->post("id_status_proyek");
 			$tanggal_masuk = date("Y-m-d");
 
@@ -156,7 +173,7 @@ class operator extends CI_Controller {
 
 
 			if ($username !== null){
-			$hasil = $this->m_user->update_operator($id_user, $username, $password, 1, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan, $penempatan,$bpk,$delta,$transport, $id_status_proyek, $tanggal_masuk);
+			$hasil = $this->m_user->update_operator($id_user, $username, $password, 1, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan, $penempatan,$bpk,$delta,$transport,$komunikasi,$uang_hadir,$kontribusi,$insentif,$id_status_proyek, $tanggal_masuk);
 			$this->session->set_flashdata('edit','edit');
 			} else {
 				$this->session->set_flashdata('eror_edit','eror_edit');

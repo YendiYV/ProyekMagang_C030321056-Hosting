@@ -179,11 +179,11 @@
                                                 <th>Penempatan</th>
                                                 <th>BPK</th>
                                                 <th>Delta</th>
-                                                <th>Tunjangan Transport</th>
-                                                <th>Tunjangan 2</th>
-                                                <th>Tunjangan 3</th>
-                                                <th>Tunjangan 4</th>
-                                                <th>Tunjangan 5</th>
+                                                <th>Tunjangan Trans.</th>
+                                                <th>Tunjangan Kom.</th>
+                                                <th>Tunjangan Uang.H</th>
+                                                <th>Tunjangan Kontri</th>
+                                                <th>Tunjangan Insen</th>
                                                 <th>Aksi</th>
                                                 
                                             </tr>
@@ -209,6 +209,10 @@
                                             $nama_bpk = $i['nama_bpk'];
                                             $nama_delta = $i['nama_delta'];
                                             $transport = $i['nama_transport'];
+                                            $komunikasi = $i['nama_komunikasi'];
+                                            $uang_hadir = $i['nama_uang_hadir'];
+                                            $kontribusi = $i['nama_kontribusi'];
+                                            $insentif = $i['nama_insentif'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
@@ -224,6 +228,10 @@
                                                 <td style="<?= $nama_bpk ? '' : 'color: red;' ?>"><?= $nama_bpk ?: "Data Kosong" ?></td>
                                                 <td style="<?= $nama_delta ? '' : 'color: red;' ?>"><?= $nama_delta ?: "Data Kosong" ?></td>
                                                 <td style="<?= $transport ? '' : 'color: red;' ?>"><?= $transport ?: "Data Kosong" ?></td>
+                                                <td style="<?= $komunikasi ? '' : 'color: red;' ?>"><?= $komunikasi ?: "Data Kosong" ?></td>
+                                                <td style="<?= $uang_hadir ? '' : 'color: red;' ?>"><?= $uang_hadir ?: "Data Kosong" ?></td>
+                                                <td style="<?= $kontribusi ? '' : 'color: red;' ?>"><?= $kontribusi ?: "Data Kosong" ?></td>
+                                                <td style="<?= $insentif ? '' : 'color: red;' ?>"><?= $insentif ?: "Data Kosong" ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
@@ -401,7 +409,7 @@
                                                                     <label for="operator_level">Jabatan</label>
                                                                     <select class="form-control" id="operator_level" name="operator_level" required>
                                                                         <option value="0">Tidak ada</option>
-
+                                                                        
                                                                         <?php foreach ($nama_level_list as $nl) : 
                                                                             $id = $nl["id_level"];
                                                                             $nama_jabatan = $nl["operator_level"];
@@ -457,6 +465,58 @@
                                                                                     $tunjangan_transport = $ntl["tunjangan_transport"];
                                                                                 ?>
                                                                             <option value="<?= $id ?>"><?= $nama_transport ?> = <?= $tunjangan_transport ?></option>
+                                                                                <?php endforeach; ?>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="komunikasi">Tunjangan Komunikasi</label>
+                                                                        <select class="form-control" id="komunikasi" name="komunikasi" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                                <?php foreach ($nama_komunikasi_list as $nkl) : 
+                                                                                    $id = $nkl["id_komunikasi"];
+                                                                                    $nama_komunikasi = $nkl["nama_komunikasi"];
+                                                                                    $tunjangan_komunikasi = $nkl["tunjangan_komunikasi"];
+                                                                                ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_komunikasi?> = <?= $tunjangan_komunikasi ?></option>
+                                                                                <?php endforeach; ?>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                     <label for="uang_hadir">Tunjangan Uang Hadir</label>
+                                                                        <select class="form-control" id="uang_hadir" name="uang_hadir" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                                <?php foreach ($nama_uang_hadir_list as $nuhl) : 
+                                                                                    $id = $nuhl["id_uang_hadir"];
+                                                                                    $nama_uh = $nuhl["nama_uang_hadir"];
+                                                                                    $tunjangan_uh = $nuhl["tunjangan_uang_hadir"];
+                                                                                ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_uh ?> = <?= $tunjangan_uh ?></option>
+                                                                                <?php endforeach; ?>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="kontribusi">Tunjangan Kontribusi</label>
+                                                                        <select class="form-control" id="kontribusi" name="kontribusi" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                                <?php foreach ($nama_kontribusi_list as $nkol) : 
+                                                                                    $id = $nkol["id_kontribusi"];
+                                                                                    $nama_kontribusi = $nkol["nama_kontribusi"];
+                                                                                    $tunjangan_kontribusi = $nkol["tunjangan_kontribusi"];
+                                                                                ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_kontribusi ?> = <?= $tunjangan_kontribusi ?></option>
+                                                                                <?php endforeach; ?>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="insentif">Tunjangan Insentif</label>
+                                                                        <select class="form-control" id="insentif" name="insentif" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                                <?php foreach ($nama_insentif_list as $nil) : 
+                                                                                    $id = $nil["id_insentif"];
+                                                                                    $nama_insentif = $nil["nama_insentif"];
+                                                                                    $tunjangan_insentif = $nil["tunjangan_insentif"];
+                                                                                ?>
+                                                                            <option value="<?= $id ?>"><?= $nama_insentif ?> = <?= $tunjangan_insentif ?></option>
                                                                                 <?php endforeach; ?>
                                                                         </select>
                                                                 </div>
@@ -625,7 +685,59 @@
                                             <option value="<?= $id ?>"><?= $nama_transport ?> = <?= $tunjangan_transport ?></option>
                                                 <?php endforeach; ?>
                                         </select>
-                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="komunikasi">Tunjangan Komunikasi</label>
+                                        <select class="form-control" id="komunikasi" name="komunikasi" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_komunikasi_list as $nkl) : 
+                                                    $id = $nkl["id_komunikasi"];
+                                                    $nama_komunikasi = $nkl["nama_komunikasi"];
+                                                    $tunjangan_komunikasi = $nkl["tunjangan_komunikasi"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_komunikasi?> = <?= $tunjangan_komunikasi ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                        <label for="uang_hadir">Tunjangan Uang Hadir</label>
+                                        <select class="form-control" id="uang_hadir" name="uang_hadir" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_uang_hadir_list as $nuhl) : 
+                                                    $id = $nuhl["id_uang_hadir"];
+                                                    $nama_uh = $nuhl["nama_uang_hadir"];
+                                                    $tunjangan_uh = $nuhl["tunjangan_uang_hadir"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_uh ?> = <?= $tunjangan_uh ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kontribusi">Tunjangan Kontribusi</label>
+                                        <select class="form-control" id="kontribusi" name="kontribusi" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_kontribusi_list as $nkol) : 
+                                                    $id = $nkol["id_kontribusi"];
+                                                    $nama_kontribusi = $nkol["nama_kontribusi"];
+                                                    $tunjangan_kontribusi = $nkol["tunjangan_kontribusi"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_kontribusi ?> = <?= $tunjangan_kontribusi ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="insentif">Tunjangan Insentif</label>
+                                        <select class="form-control" id="insentif" name="insentif" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_insentif_list as $nil) : 
+                                                    $id = $nil["id_insentif"];
+                                                    $nama_insentif = $nil["nama_insentif"];
+                                                    $tunjangan_insentif = $nil["tunjangan_insentif"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_insentif ?> = <?= $tunjangan_insentif ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
                                 <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
                             </form>
                         </div>
