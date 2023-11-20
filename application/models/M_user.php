@@ -129,20 +129,21 @@ class M_user extends CI_Model
     }
 
 
-    public function delete_operator($id)
+    public function delete_operator($id_user)
     {
-       $this->db->trans_start();
+        $this->db->trans_start();
 
-       $this->db->query("DELETE FROM user WHERE id_user='$id'");
-       $this->db->query("DELETE FROM user_detail WHERE id_user_detail='$id'");
-
-       $this->db->trans_complete();
+        $this->db->query("DELETE FROM user WHERE id_user='$id_user'");
+        $this->db->query("DELETE FROM user_detail WHERE id_user='$id_user'");
+        $this->db->query("DELETE FROM cuti WHERE id_user_detail='$id_user'");
+        $this->db->query("DELETE FROM status_absensi WHERE id_user_detail='$id_user'");
+        $this->db->query("DELETE FROM status_gaji_bulanan WHERE id_user_detail='$id_user'");
+        $this->db->trans_complete();
         if($this->db->trans_status()==true)
             return true;
         else
             return false;
     }
-
     public function update_user($id, $password)
     {
        $this->db->trans_start();

@@ -151,7 +151,7 @@
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="16">Total Gaji</th>
+                                                    <th colspan="17">Total Gaji</th>
                                                 </tr>
                                                 <tr class="header-row"> 
                                                     <th>No</th>
@@ -168,8 +168,9 @@
                                                     <th>Komunikasi</th>  
                                                     <th>Uang Hadir</th>  
                                                     <th>Kontribusi</th>
-                                                    <th>Insentif</th>    
-                                                    <th style="background-color: #33bbff;">Total Bersih / Orang</th>             
+                                                    <th>Insentif</th>
+                                                    <th style="background-color: #33bbff;">Total Bersih / Orang</th>  
+                                                    <th>Insfeksi(Opsional)</th>              
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -194,6 +195,7 @@
                                                     foreach ($operator as $i) :
                                                         $no++;
                                                         $username = $i['username'];
+                                                        $id_user_detail= $i['id_user_detail'];
                                                         $nama_lengkap = $i['nama_lengkap'];
                                                         $penempatan = $i['gaji_penempatan'];
                                                         $nama_proyek = $i['gaji_proyek'];
@@ -253,7 +255,7 @@
                                                                     $tanggal_hari_ini = date('Y-m-d');
                                                                     ?>
                                                                     <input type="date" name="tanggal_input[]" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
-                                                                    <input type="hidden" name="username[]" value="<?= $username?>">
+                                                                    <input type="hidden" name="id_user_detail[]" value="<?= $id_user_detail?>">
                                                                     <input type="hidden" name="total_per_orang[]" value="<?= $total_per_orang ?>">
                                                                 </td>
                                                                 <td style="display: none;">
@@ -292,7 +294,7 @@
                                         <table id="example2" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="16">Total Gaji Baru</th>
+                                                    <th colspan="17">Total Gaji Baru</th>
                                                 </tr>
                                                 <tr class="header-row"> 
                                                     <th>No</th>
@@ -310,7 +312,8 @@
                                                     <th>Uang Hadir</th>  
                                                     <th>Kontribusi</th>
                                                     <th>Insentif</th> 
-                                                    <th style="background-color: #33bbff;">Total Bersih / Orang</th>             
+                                                    <th style="background-color: #33bbff;">Total Bersih / Orang</th>   
+                                                    <th>Insfeksi(Opsional)</th>          
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -335,6 +338,7 @@
                                                     foreach ($operator2 as $a) :
                                                         $no++;
                                                         $username = $a['username'];
+                                                        $id_user_detail = $a['id_user_detail'];
                                                         $nama_lengkap = $a['nama_lengkap'];
                                                         $penempatan = $a['gaji_penempatan'];
                                                         $nama_proyek = $a['gaji_proyek'];
@@ -342,10 +346,10 @@
                                                         $tahun_tmk = $a['rupiah_tmk'];
                                                         $status_bpk = $a['gaji_bpk'];
                                                         $transport = $a['tunjangan_transport'];
-                                                        $komunikasi= $i['tunjangan_komunikasi'];
-                                                        $uang_hadir= $i['tunjangan_uang_hadir'];
-                                                        $kontribusi = $i['tunjangan_kontribusi'];
-                                                        $insentif = $i['tunjangan_insentif'];
+                                                        $komunikasi= $a['tunjangan_komunikasi'];
+                                                        $uang_hadir= $a['tunjangan_uang_hadir'];
+                                                        $kontribusi = $a['tunjangan_kontribusi'];
+                                                        $insentif = $a['tunjangan_insentif'];
                                                         $upok = ($penempatan + $tahun_tmk) * 0.04;
                                                         $status_delta = $a['gaji_delta'];
                                                         // Hitung total gaji per orang
@@ -389,9 +393,16 @@
                                                                     $tanggal_hari_ini = date('Y-m-d');
                                                                     ?>
                                                                     <input type="date" name="tanggal_input2[]" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
-                                                                    <input type="hidden" name="username2[]" value="<?= $username?>">
+                                                                    <input type="hidden" name="id_user_detail2[]" value="<?= $id_user_detail?>">
                                                                     <input type="hidden" name="total_per_orang2[]" value="<?= $total_per_orang ?>">
                                                                 </td>
+                                                                <td><div class="input-group">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text">Rp</span>
+                                                                        </div>
+                                                                        <input type="number" class="form-control" aria-describedby="insfeksi2" id="insfeksi2" name="insfeksi2">
+                                                                    </div>
+                                                                    </td>
                                                                 <td style="display: none;">
                                                                     <input type="date" name="gaji_bulan2[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" style="display: none;" />
                                                                 </td>
@@ -417,7 +428,6 @@
                                                         <td style="background-color: #33bbff;"><?= $formatted_total ?></td>
                                                     </tr>
                                             </tbody>
-
                                         </table>
                                         <button type="submit" class="btn btn-primary">Simpan Semua</button>
                                     </form>

@@ -113,8 +113,9 @@ class operator extends CI_Controller {
 
 			$id = md5($username . $password);
 			if ($password == $re_password) {
-				$hashed_password = md5($password); // Ubah password menjadi hashed
-			
+				// Ubah password menjadi hashed
+				$hashed_password = md5($password);
+				$password =$hashed_password;
 				if ($username !== null){
 					$this->session->set_flashdata('input','input');
 					$hasil = $this->m_user->insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat,$id_status_proyek, $jabatan,$penempatan,$bpk,$delta,$transport ,$komunikasi,$uang_hadir,$kontribusi,$insentif ,$tanggal_masuk);
@@ -197,10 +198,11 @@ class operator extends CI_Controller {
 		// Check if the user is logged in and has the required user level
 		if ($this->session->userdata('logged_in') && $this->session->userdata('id_user_level') == 2) {
 			// Get the user ID from the POST data
-			$id = $this->input->post("id_user");
+			$id_user = $this->input->post("id_user");
+
 
 			// Delete the operator
-			$hasil = $this->m_user->delete_operator($id);
+			$hasil = $this->m_user->delete_operator($id_user);
 
 			// Set flash messages based on the result
 			if ($hasil == false) {
