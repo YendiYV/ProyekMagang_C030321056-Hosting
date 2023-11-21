@@ -53,7 +53,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?= base_url();?>Rgaji/view_super_admin" class="nav-link">
-                        <i class="nav-icon fas fa-money-bill"></i>
+                        <i class="nav-icon fas fa-university"></i>
                         <p>Data Rekap THP</p>
                     </a>
                 </li>
@@ -75,7 +75,7 @@
                         <p>Tunjangan Transport</p>
                     </a>
                 </li>
-                li class="nav-item">
+                <li class="nav-item">
                     <a href="<?= base_url();?>Komunikasi/view_super_admin" class="nav-link">
                         <i class="nav-icon fas fa-phone"></i>
                         <p>Tunjangan Komunikasi</p>
@@ -97,6 +97,12 @@
                     <a href="<?= base_url();?>Insentif/view_super_admin" class="nav-link">
                         <i class="nav-icon fas fa-plus"></i>
                             <p>Tunjangan Insentif</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Insfeksi/view_super_admin" class="nav-link">
+                        <i class="nav-icon fas fa-plug"></i>
+                            <p>Insfeksi Pegawai</p>
                     </a>
                 </li>
                 <li class="nav-item">

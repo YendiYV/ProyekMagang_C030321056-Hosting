@@ -41,6 +41,11 @@ class Dashboard extends CI_Controller {
 			$data['rgaji'] = $this->m_rgaji->count_all_rgaji()->row_array();
 			$data['rgaji_bulan_ini'] = $this->m_rgaji->count_all_rgaji_bulan_ini()->row_array();
 			$data['data_per_tanggal'] = $this->m_rgaji->data_per_tanggal()->row_array();
+			$data['data_per_tanggal'] = $this->m_rgaji->data_per_tanggal()->row_array();
+			$data['tunj_kom'] = $this->m_komunikasi->count_all_komunikasi()->row_array();
+			$data['tunj_uh'] = $this->m_uang_hadir->count_all_uang_hadir()->row_array();
+			$data['tunj_kontribusi'] = $this->m_kontribusi->count_all_kontribusi()->row_array();
+			$data['tunj_insentif'] = $this->m_insentif->count_all_insentif()->row_array();
 			$this->load->view('manager/dashboard', $data);
 
 		}else{
@@ -67,6 +72,10 @@ class Dashboard extends CI_Controller {
 			$data['rgaji'] = $this->m_rgaji->count_all_rgaji()->row_array();
 			$data['rgaji_bulan_ini'] = $this->m_rgaji->count_all_rgaji_bulan_ini()->row_array();
 			$data['data_per_tanggal'] = $this->m_rgaji->data_per_tanggal()->row_array();
+			$data['tunj_kom'] = $this->m_komunikasi->count_all_komunikasi()->row_array();
+			$data['tunj_uh'] = $this->m_uang_hadir->count_all_uang_hadir()->row_array();
+			$data['tunj_kontribusi'] = $this->m_kontribusi->count_all_kontribusi()->row_array();
+			$data['tunj_insentif'] = $this->m_insentif->count_all_insentif()->row_array();
 			$this->load->view('super_admin/dashboard', $data);
 	}else{
 

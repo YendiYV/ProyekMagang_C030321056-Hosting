@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url();?>Cuti/view_operator/<?=$this->session->userdata('id_user');?>" class="nav-link">
+                    <a href="<?= base_url();?>Cuti/view_operator" class="nav-link">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>Data Cuti</p>
                     </a>

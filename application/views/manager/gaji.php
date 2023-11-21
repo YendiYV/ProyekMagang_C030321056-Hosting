@@ -7,6 +7,96 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+    <?php if ($this->session->flashdata('input')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Data Berhasil Ditambahkan!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('eror')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Data Gagal Ditambahkan!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+    
+    <?php if ($this->session->flashdata('input_baru')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Data Baru Berhasil Ditambahkan!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('eror_baru')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Data Baru Gagal Ditambahkan!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('erorpass')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Password Salah!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('edit')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Data Berhasil Diedit!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('eror_edit')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Data Gagal Diedit!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('hapus')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Data Berhasil Dihapus!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('eror_hapus')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Data Gagal Dihapus !",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -34,7 +124,7 @@
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"></a>Manajer</li>
+                                <li class="breadcrumb-item"></a>Manager</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Gaji</li>
                             </ol>
@@ -57,225 +147,294 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="12">Total Gaji</th>
-                                            </tr>
-                                            <tr class="header-row"> 
-                                                <th>No</th>
-                                                <th>NIP</th>
-                                                <th>Nama Lengkap</th>
-                                                <th>Gaji UMK/UMP</th>
-                                                <th>TMK</th>
-                                                <th style="background-color: #80ff80;">UPOK</th>
-                                                <th>Gaji Jabatan</th>
-                                                <th>Gaji Proyek</th>
-                                                <th>BPK</th>
-                                                <th>Delta</th> 
-                                                <th>Transport</th>  
-                                                <th style="background-color: #33bbff;">Total Bersih / Orang</th>             
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                                $no = 0;
-
-                                                $total_operator_level = 0;
-                                                $total_nama_proyek = 0;
-                                                $total_penempatan = 0;
-                                                $total_tahun_tmk = 0;
-                                                $total_status_bpk = 0;
-                                                $total_status_delta = 0;
-                                                $total_transport = 0;
-                                                $upok=0;
-                                                $total_upok=0;
-                                                $total_semua = 0;
-
-                                                foreach ($operator as $i) :
-                                                    $no++;
-                                                    $username = $i['username'];
-                                                    $nama_lengkap = $i['nama_lengkap'];
-                                                    $penempatan = $i['gaji_penempatan'];
-                                                    $nama_proyek = $i['gaji_proyek'];
-                                                    $operator_level = $i['gaji_level'];
-                                                    $tahun_tmk = $i['rupiah_tmk'];
-                                                    $status_bpk = $i['gaji_bpk'];
-                                                    $transport = $i['tunjangan_transport'];
-                                                    $total_gaji = $i['total_gaji'];
-                                                    $upok = ($penempatan + $tahun_tmk) * 0.04;
-                                                    $status_delta = $total_gaji-($penempatan + $status_bpk + $tahun_tmk - $upok);
-                                                    if($status_delta <0){
-                                                        $status_delta =0;
-                                                    }
-                                                    // Hitung total gaji per orang
-                                                    $total_operator_level += $operator_level;
-                                                    $total_nama_proyek += $nama_proyek;
-                                                    $total_penempatan += $penempatan;
-                                                    $total_tahun_tmk += $tahun_tmk;
-                                                    $total_status_bpk += $status_bpk;
-                                                    $total_status_delta += $status_delta;
-                                                    $total_transport+= $transport;
-                                                    $total_upok += $upok;
-                                                    $total_gaji_sekarang = $penempatan + $status_bpk + $tahun_tmk - $upok;
-
-                                                    $total_per_orang = $operator_level + $nama_proyek +$penempatan + $tahun_tmk+ $status_bpk + $status_delta + $transport- $upok;
-                                                    $total_semua += $total_per_orang;
-                                                    ?>
-                                                        <tr>
-                                                            <td><?= $no ?></td>
-                                                            <td><?= $username ?></td>
-                                                            <td><?= $nama_lengkap ?></td>
-                                                            <td><?= "Rp. " . number_format($penempatan, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($tahun_tmk, 0, ',', '.') ?></td>
-                                                            <td style="background-color: #80ff80;"><?= "Rp. " . number_format($upok, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($operator_level, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($nama_proyek, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($status_bpk, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($status_delta, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($transport, 0, ',', '.') ?></td>
-                                                            <td style="background-color: #33bbff;">
-                                                                <span style="font-weight: bold;" id="total_per_orang_<?= $username ?>">
-                                                                    <?= "Rp. " . number_format($total_per_orang, 0, ',', '.') ?>
-                                                                </span>
-                                                                <?php
-                                                                $tanggal_hari_ini = date('Y-m-d');
-                                                                ?>
-                                                                <input type="date" name="tanggal_input[]" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
-                                                                <input type="hidden" name="username[]" value="<?= $username?>">
-                                                                <input type="hidden" name="total_per_orang[]" value="<?= $total_per_orang ?>">
-                                                            </td>
-                                                            <td style="display: none;">
-                                                                <input type="date" name="gaji_bulan[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" style="display: none;" />
-                                                            </td>
-                                                        </tr>
-                                                <?php endforeach; ?>
-                                                <tr style="font-weight: bold;">
-                                                    <td colspan="3" style="text-align: center; font-weight: bold;">Total Menyeluruh</td>
-                                                    <td><?= "Rp. " .number_format($total_penempatan, 0, '', '.') ?></td>
-                                                    <td><?= "Rp. " .number_format($total_tahun_tmk, 0, '', '.') ?></td>
-                                                    <td style="background-color: #80ff80;"><?= "Rp. " .number_format($total_upok, 0, '', '.') ?></td>
-                                                    <td><?= "Rp. " .number_format($total_operator_level, 0, '', '.') ?></td>
-                                                    <td><?= "Rp. " .number_format($total_nama_proyek, 0, '', '.') ?></td>
-                                                    <td><?= "Rp. " .number_format($total_status_bpk, 0, '', '.') ?></td>
-                                                    <td><?= "Rp. " .number_format($total_status_delta, 0, '', '.') ?></td>
-                                                    <td><?= "Rp. " .number_format($total_transport, 0, '', '.') ?></td>
-                                                    <?php
-                                                    $formatted_total = "Rp. " . number_format($total_semua, 0, '', '.');
-                                                    ?>
-                                                    <td style="background-color: #33bbff;"><?= $formatted_total ?></td>
+                                    <form action="<?= base_url('gaji/save_total_semua') ?>" method="post">
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="17">Total Gaji</th>
                                                 </tr>
-                                        </tbody>
-                                    </table>
+                                                <tr class="header-row"> 
+                                                    <th>No</th>
+                                                    <th>NIP</th>
+                                                    <th>Nama Lengkap</th>
+                                                    <th>Gaji UMK/UMP</th>
+                                                    <th>TMK</th>
+                                                    <th style="background-color: #80ff80;">UPOK</th>
+                                                    <th>Gaji Jabatan</th>
+                                                    <th>Gaji Proyek</th>
+                                                    <th>BPK</th>
+                                                    <th>Delta</th> 
+                                                    <th>Transport</th>
+                                                    <th>Komunikasi</th>  
+                                                    <th>Uang Hadir</th>  
+                                                    <th>Kontribusi</th>
+                                                    <th>Insentif</th>
+                                                    <th>Insfeksi(Opsional)</th>
+                                                    <th style="background-color: #33bbff;">Total Bersih / Orang</th>               
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                    $no = 0;
+
+                                                    $total_operator_level = 0;
+                                                    $total_nama_proyek = 0;
+                                                    $total_penempatan = 0;
+                                                    $total_tahun_tmk = 0;
+                                                    $total_status_bpk = 0;
+                                                    $total_status_delta = 0;
+                                                    $total_transport = 0;
+                                                    $total_komunikasi = 0;
+                                                    $total_uang_hadir = 0;
+                                                    $total_kontribusi = 0;
+                                                    $total_insentif = 0;
+                                                    $total_insfeksi = 0;
+                                                    $upok=0;
+                                                    $total_upok=0;
+                                                    $total_semua = 0;
+
+                                                    foreach ($operator as $i) :
+                                                        $no++;
+                                                        $username = $i['username'];
+                                                        $id_user_detail= $i['id_user_detail'];
+                                                        $nama_lengkap = $i['nama_lengkap'];
+                                                        $penempatan = $i['gaji_penempatan'];
+                                                        $nama_proyek = $i['gaji_proyek'];
+                                                        $operator_level = $i['gaji_level'];
+                                                        $tahun_tmk = $i['rupiah_tmk'];
+                                                        $status_bpk = $i['gaji_bpk'];
+                                                        $transport = $i['tunjangan_transport'];
+                                                        $total_gaji = $i['total_gaji'];
+                                                        $komunikasi= $i['tunjangan_komunikasi'];
+                                                        $uang_hadir= $i['tunjangan_uang_hadir'];
+                                                        $kontribusi = $i['tunjangan_kontribusi'];
+                                                        $insentif = $i['tunjangan_insentif'];
+                                                        $insfeksi =$i['gaji_insfeksi'];
+                                                        $upok = ($penempatan + $tahun_tmk) * 0.04;
+                                                        $status_delta = $total_gaji-($penempatan + $status_bpk + $tahun_tmk - $upok);
+                                                        if($status_delta <0){
+                                                            $status_delta =0;
+                                                        }
+                                                        // Hitung total gaji per orang
+                                                        $total_operator_level += $operator_level;
+                                                        $total_nama_proyek += $nama_proyek;
+                                                        $total_penempatan += $penempatan;
+                                                        $total_tahun_tmk += $tahun_tmk;
+                                                        $total_status_bpk += $status_bpk;
+                                                        $total_status_delta += $status_delta;
+                                                        $total_transport+= $transport;
+                                                        $total_komunikasi+= $komunikasi;
+                                                        $total_uang_hadir+= $uang_hadir;
+                                                        $total_kontribusi+= $kontribusi;
+                                                        $total_insentif+= $insentif;
+                                                        $total_insfeksi +=$insfeksi;
+                                                        $total_upok += $upok;
+                                                        $total_gaji_sekarang = $penempatan + $status_bpk + $tahun_tmk - $upok;
+
+                                                        $total_per_orang = $operator_level + $nama_proyek +$penempatan + $tahun_tmk+ $status_bpk + $status_delta + $transport+$komunikasi+ $uang_hadir + $kontribusi + $insentif + $insfeksi - $upok;
+                                                        $total_semua += $total_per_orang;
+                                                        ?>
+                                                            <tr>
+                                                                <td><?= $no ?></td>
+                                                                <td><?= $username ?></td>
+                                                                <td><?= $nama_lengkap ?></td>
+                                                                <td><?= "Rp. " . number_format($penempatan, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($tahun_tmk, 0, ',', '.') ?></td>
+                                                                <td style="background-color: #80ff80;"><?= "Rp. " .number_format($total_upok, 0, '', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($operator_level, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($nama_proyek, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($status_bpk, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($status_delta, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($transport, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($komunikasi, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($uang_hadir, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($kontribusi, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($insentif, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($insfeksi, 0, ',', '.') ?></td>
+                                                                <td style="background-color: <?= ($total_per_orang == 0) ? '#ff0000' : '#33bbff'; ?>">
+                                                                    <span style="font-weight: bold;" id="total_per_orang_<?= $username ?>">
+                                                                        <?= "Rp. " . number_format($total_per_orang, 0, ',', '.') ?>
+                                                                    </span>
+                                                                </td>
+
+                                                                <td style="display: none;">
+                                                                    <?php
+                                                                    $tanggal_hari_ini = date('Y-m-d');
+                                                                    ?>
+                                                                    <input type="date" name="tanggal_input[]" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
+                                                                    <input type="hidden" name="id_user_detail[]" value="<?= $id_user_detail?>">
+                                                                    <input type="hidden" name="total_per_orang[]" value="<?= $total_per_orang ?>">
+                                                                    <input type="date" name="gaji_bulan[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" style="display: none;" />
+                                                                </td>
+                                                            </tr>
+                                                    <?php endforeach; ?>
+                                                    <tr style="font-weight: bold;">
+                                                        <td colspan="3" style="text-align: center; font-weight: bold;">Total Menyeluruh</td>
+                                                        <td><?= "Rp. " .number_format($total_penempatan, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_tahun_tmk, 0, '', '.') ?></td>
+                                                        <td style="background-color: #80ff80;"><?= "Rp. " .number_format($total_upok, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_operator_level, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_nama_proyek, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_status_bpk, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_status_delta, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_transport, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_komunikasi, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_uang_hadir, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_kontribusi, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_insentif, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_insfeksi, 0, '', '.') ?></td>
+                                                        <?php
+                                                        $formatted_total = "Rp. " . number_format($total_semua, 0, '', '.');
+                                                        ?>
+                                                        <td style="background-color: #33bbff;"><?= $formatted_total ?></td>
+                                                    </tr>
+                                            </tbody>
+
+                                        </table>
+                                        <button type="submit" class="btn btn-primary">Simpan Semua</button>
+                                    </form>
                                     <br>
                                     <hr>
                                     <br>
-                                    <table id="example2" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="12">Total Gaji Baru</th>
-                                            </tr>
-                                            <tr class="header-row"> 
-                                                <th>No</th>
-                                                <th>NIP</th>
-                                                <th>Nama Lengkap</th>
-                                                <th>Gaji UMK/UMP</th>
-                                                <th>TMK</th>
-                                                <th style="background-color: #80ff80;">UPOK</th>
-                                                <th>Gaji Jabatan</th>
-                                                <th>Gaji Proyek</th>
-                                                <th>BPK</th>
-                                                <th>Delta</th> 
-                                                <th>Transport</th>  
-                                                <th style="background-color: #33bbff;">Total Bersih / Orang</th>             
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                                $no = 0;
-
-                                                $total_operator_level = 0;
-                                                $total_nama_proyek = 0;
-                                                $total_penempatan = 0;
-                                                $total_tahun_tmk = 0;
-                                                $total_status_bpk = 0;
-                                                $total_status_delta = 0;
-                                                $total_transport = 0;
-                                                $upok=0;
-                                                $total_upok=0;
-                                                $total_semua = 0;
-
-                                                foreach ($operator2 as $a) :
-                                                    $no++;
-                                                    $username = $a['username'];
-                                                    $nama_lengkap = $a['nama_lengkap'];
-                                                    $penempatan = $a['gaji_penempatan'];
-                                                    $nama_proyek = $a['gaji_proyek'];
-                                                    $operator_level = $a['gaji_level'];
-                                                    $tahun_tmk = $a['rupiah_tmk'];
-                                                    $status_bpk = $a['gaji_bpk'];
-                                                    $transport = $a['tunjangan_transport'];
-                                                    $upok = ($penempatan + $tahun_tmk) * 0.04;
-                                                    $status_delta = $a['gaji_delta'];
-                                                    // Hitung total gaji per orang
-                                                    $total_operator_level += $operator_level;
-                                                    $total_nama_proyek += $nama_proyek;
-                                                    $total_penempatan += $penempatan;
-                                                    $total_tahun_tmk += $tahun_tmk;
-                                                    $total_status_bpk += $status_bpk;
-                                                    $total_status_delta += $status_delta;
-                                                    $total_transport+= $transport;
-                                                    $total_upok += $upok;
-
-                                                    $total_per_orang = $operator_level + $nama_proyek +$penempatan + $tahun_tmk+ $status_bpk + $status_delta + $transport- $upok;
-                                                    $total_semua += $total_per_orang;
-                                                    ?>
-                                                        <tr>
-                                                            <td><?= $no ?></td>
-                                                            <td><?= $username ?></td>
-                                                            <td><?= $nama_lengkap ?></td>
-                                                            <td><?= "Rp. " . number_format($penempatan, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($tahun_tmk, 0, ',', '.') ?></td>
-                                                            <td style="background-color: #80ff80;"><?= "Rp. " . number_format($upok, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($operator_level, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($nama_proyek, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($status_bpk, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($status_delta, 0, ',', '.') ?></td>
-                                                            <td><?= "Rp. " . number_format($transport, 0, ',', '.') ?></td>
-                                                            <td style="background-color: #33bbff;">
-                                                                <span style="font-weight: bold;" id="total_per_orang_<?= $username ?>">
-                                                                    <?= "Rp. " . number_format($total_per_orang, 0, ',', '.') ?>
-                                                                </span>
-                                                                <?php
-                                                                $tanggal_hari_ini = date('Y-m-d');
-                                                                ?>
-                                                                <input type="date" name="tanggal_input2[]" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
-                                                                <input type="hidden" name="username2[]" value="<?= $username?>">
-                                                                <input type="hidden" name="total_per_orang2[]" value="<?= $total_per_orang ?>">
-                                                            </td>
-                                                            <td style="display: none;">
-                                                                <input type="date" name="gaji_bulan2[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" style="display: none;" />
-                                                            </td>
-                                                        </tr>
-                                                <?php endforeach; ?>
-                                                <tr style="font-weight: bold;">
-                                                    <td colspan="3" style="text-align: center; font-weight: bold;">Total Menyeluruh</td>
-                                                    <td><?= "Rp. " .number_format($total_penempatan, 0, '', '.') ?></td>
-                                                    <td><?= "Rp. " .number_format($total_tahun_tmk, 0, '', '.') ?></td>
-                                                    <td style="background-color: #80ff80;"><?= "Rp. " .number_format($total_upok, 0, '', '.') ?></td>
-                                                    <td><?= "Rp. " .number_format($total_operator_level, 0, '', '.') ?></td>
-                                                    <td><?= "Rp. " .number_format($total_nama_proyek, 0, '', '.') ?></td>
-                                                    <td><?= "Rp. " .number_format($total_status_bpk, 0, '', '.') ?></td>
-                                                    <td><?= "Rp. " .number_format($total_status_delta, 0, '', '.') ?></td>
-                                                    <td><?= "Rp. " .number_format($total_transport, 0, '', '.') ?></td>
-                                                    <?php
-                                                    $formatted_total = "Rp. " . number_format($total_semua, 0, '', '.');
-                                                    ?>
-                                                    <td style="background-color: #33bbff;"><?= $formatted_total ?></td>
+                                    <form action="<?= base_url('gaji/save_total_semua_baru') ?>" method="post">
+                                        <table id="example2" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="17">Total Gaji Baru</th>
                                                 </tr>
-                                        </tbody>
+                                                <tr class="header-row"> 
+                                                    <th>No</th>
+                                                    <th>NIP</th>
+                                                    <th>Nama Lengkap</th>
+                                                    <th>Gaji UMK/UMP</th>
+                                                    <th>TMK</th>
+                                                    <th style="background-color: #80ff80;">UPOK</th>
+                                                    <th>Gaji Jabatan</th>
+                                                    <th>Gaji Proyek</th>
+                                                    <th>BPK</th>
+                                                    <th>Delta</th> 
+                                                    <th>Transport</th>
+                                                    <th>Komunikasi</th>  
+                                                    <th>Uang Hadir</th>  
+                                                    <th>Kontribusi</th>
+                                                    <th>Insentif</th> 
+                                                    <th>Insfeksi(Opsional)</th>
+                                                    <th style="background-color: #33bbff;">Total Bersih / Orang</th>            
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                    $no = 0;
 
-                                    </table>
+                                                    $total_operator_level = 0;
+                                                    $total_nama_proyek = 0;
+                                                    $total_penempatan = 0;
+                                                    $total_tahun_tmk = 0;
+                                                    $total_status_bpk = 0;
+                                                    $total_status_delta = 0;
+                                                    $total_transport = 0;
+                                                    $total_komunikasi = 0;
+                                                    $total_uang_hadir = 0;
+                                                    $total_kontribusi = 0;
+                                                    $total_insentif = 0;
+                                                    $total_insfeksi = 0;
+                                                    
+                                                    $upok=0;
+                                                    $total_upok=0;
+                                                    $total_semua = 0;
+                                                    foreach ($operator2 as $a) :
+                                                        $no++;
+                                                        $username = $a['username'];
+                                                        $id_user_detail = $a['id_user_detail'];
+                                                        $nama_lengkap = $a['nama_lengkap'];
+                                                        $penempatan = $a['gaji_penempatan'];
+                                                        $nama_proyek = $a['gaji_proyek'];
+                                                        $operator_level = $a['gaji_level'];
+                                                        $tahun_tmk = $a['rupiah_tmk'];
+                                                        $status_bpk = $a['gaji_bpk'];
+                                                        $transport = $a['tunjangan_transport'];
+                                                        $komunikasi= $a['tunjangan_komunikasi'];
+                                                        $uang_hadir= $a['tunjangan_uang_hadir'];
+                                                        $kontribusi = $a['tunjangan_kontribusi'];
+                                                        $insentif = $a['tunjangan_insentif'];
+                                                        $insfeksi =$a['gaji_insfeksi'];
+                                                        $upok = ($penempatan + $tahun_tmk) * 0.04;
+                                                        $status_delta = $a['gaji_delta'];
+                                                        // Hitung total gaji per orang
+                                                        $total_operator_level += $operator_level;
+                                                        $total_nama_proyek += $nama_proyek;
+                                                        $total_penempatan += $penempatan;
+                                                        $total_tahun_tmk += $tahun_tmk;
+                                                        $total_status_bpk += $status_bpk;
+                                                        $total_status_delta += $status_delta;
+                                                        $total_transport+= $transport;
+                                                        $total_komunikasi+= $komunikasi;
+                                                        $total_uang_hadir+= $uang_hadir;
+                                                        $total_kontribusi+= $kontribusi;
+                                                        $total_insentif+= $insentif;
+                                                        $total_insfeksi += $insfeksi;
+                                                        $total_upok += $upok;
+
+                                                        $total_per_orang = $operator_level + $nama_proyek +$penempatan + $tahun_tmk+ $status_bpk + $status_delta + $transport+ $komunikasi + $uang_hadir + $kontribusi + $insentif + $insfeksi- $upok;
+                                                        $total_semua += $total_per_orang;
+                                                        ?>
+                                                            <tr>
+                                                                <td><?= $no ?></td>
+                                                                <td><?= $username ?></td>
+                                                                <td><?= $nama_lengkap ?></td>
+                                                                <td><?= "Rp. " . number_format($penempatan, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($tahun_tmk, 0, ',', '.') ?></td>
+                                                                <td style="background-color: #80ff80;"><?= "Rp. " .number_format($total_upok, 0, '', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($operator_level, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($nama_proyek, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($status_bpk, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($status_delta, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($transport, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($komunikasi, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($uang_hadir, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($kontribusi, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($insentif, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . number_format($insfeksi, 0, ',', '.') ?></td>
+                                                                <td style="background-color: <?= ($total_per_orang == 0) ? '#ff0000' : '#33bbff'; ?>">
+                                                                    <span style="font-weight: bold;" id="total_per_orang_<?= $username ?>">
+                                                                        <?= "Rp. " . number_format($total_per_orang, 0, ',', '.') ?>
+                                                                    </span>
+                                                                </td>
+                                                                <td style="display: none;">
+                                                                    <?php
+                                                                    $tanggal_hari_ini = date('Y-m-d');
+                                                                    ?>
+                                                                    <input type="date" name="tanggal_input2[]" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
+                                                                    <input type="hidden" name="id_user_detail2[]" value="<?= $id_user_detail?>">
+                                                                    <input type="hidden" name="total_per_orang2[]" value="<?= $total_per_orang ?>">
+                                                                    <input type="date" name="gaji_bulan2[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" style="display: none;" />
+                                                                </td>
+                                                            </tr>
+                                                    <?php endforeach; ?>
+                                                    <tr style="font-weight: bold;">
+                                                        <td colspan="3" style="text-align: center; font-weight: bold;">Total Menyeluruh</td>
+                                                        <td><?= "Rp. " .number_format($total_penempatan, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_tahun_tmk, 0, '', '.') ?></td>
+                                                        <td style="background-color: #80ff80;"><?= "Rp. " .number_format($total_upok, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_operator_level, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_nama_proyek, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_status_bpk, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_status_delta, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_transport, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_komunikasi, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_uang_hadir, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_kontribusi, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_insentif, 0, '', '.') ?></td>
+                                                        <td><?= "Rp. " .number_format($total_insfeksi, 0, '', '.') ?></td>
+                                                        <?php
+                                                        $formatted_total = "Rp. " . number_format($total_semua, 0, '', '.');
+                                                        ?>
+                                                        <td style="background-color: #33bbff;"><?= $formatted_total ?></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                        <button type="submit" class="btn btn-primary">Simpan Semua</button>
+                                    </form>
                                 </div>
                                 <!-- /.card-body -->
                             </div>

@@ -40,6 +40,7 @@ class Cuti extends CI_Controller {
     
 	public function view_admin()
 	{
+		
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
 
 			$data['cuti'] = $this->m_cuti->get_all_cuti()->result_array();
@@ -49,18 +50,18 @@ class Cuti extends CI_Controller {
 
 			$this->session->set_flashdata('loggin_err','loggin_err');
 			redirect('Login/index');
-
 		}
 
 	}
 	
-	public function view_operator($id_user)
+	public function view_operator()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 1) {
+			$id_user = $this->session->userdata('id_user');	
 			$data['cuti'] = $this->m_cuti->get_all_cuti_by_id_user($id_user)->result_array();
-			$data['operator'] = $this->m_user->get_operator_by_id($this->session->userdata('id_user'))->row_array();
+			$data['operator'] = $this->m_user->get_operator_by_id($id_user)->row_array();
 			$data['jenis_kelamin'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
-			$data['operator_data'] = $this->m_user->get_operator_by_id($this->session->userdata('id_user'))->result_array();
+			$data['operator_data'] = $this->m_user->get_operator_by_id($id_user)->result_array();
 		
 		$this->load->view('operator/cuti', $data);
 
@@ -74,64 +75,80 @@ class Cuti extends CI_Controller {
 	
 	public function hapus_cuti()
 	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 1) {
+			$id_cuti = $this->input->post("id_cuti");
+			$id_user = $this->input->post("id_user");
 
-		$id_cuti = $this->input->post("id_cuti");
-		$id_user = $this->input->post("id_user");
+			$hasil = $this->m_cuti->delete_cuti($id_cuti);
+			
+			if($hasil==false){
+				$this->session->set_flashdata('eror_hapus','eror_hapus');
+			}else{
+				$this->session->set_flashdata('hapus','hapus');
+			}
 
-		$hasil = $this->m_cuti->delete_cuti($id_cuti);
-		
-		if($hasil==false){
-			$this->session->set_flashdata('eror_hapus','eror_hapus');
-		}else{
-			$this->session->set_flashdata('hapus','hapus');
-		}
-
-		redirect('Cuti/view_operator/'.$id_user);
+			redirect('Cuti/view_operator');
+		} else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
 	}
 
 	public function hapus_cuti_admin()
 	{
+		if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+			$id_cuti = $this->input->post("id_cuti");
+			$id_user = $this->input->post("id_user");
 
-		$id_cuti = $this->input->post("id_cuti");
-		$id_user = $this->input->post("id_user");
+			$hasil = $this->m_cuti->delete_cuti($id_cuti);
+			
+			if($hasil==false){
+				$this->session->set_flashdata('eror_hapus','eror_hapus');
+			}else{
+				$this->session->set_flashdata('hapus','hapus');
+			}
 
-		$hasil = $this->m_cuti->delete_cuti($id_cuti);
-		
-		if($hasil==false){
-			$this->session->set_flashdata('eror_hapus','eror_hapus');
-		}else{
-			$this->session->set_flashdata('hapus','hapus');
-		}
-
-		redirect('Cuti/view_admin');
+			redirect('Cuti/view_admin');
+		} else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
 	}
 
 	public function edit_cuti_admin()
 	{
-		$id_user = $this->input->post("id_user");
-		$id_cuti = $this->input->post("id_cuti");
-		$alasan = $this->input->post("alasan");
-		$perihal_cuti = $this->input->post("perihal_cuti");
-		$tgl_diajukan = $this->input->post("tgl_diajukan");
-		$mulai = $this->input->post("mulai");
-		$berakhir = $this->input->post("berakhir");
+		if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+			$id_user = $this->input->post("id_user");
+			$id_cuti = $this->input->post("id_cuti");
+			$alasan = $this->input->post("alasan");
+			$perihal_cuti = $this->input->post("perihal_cuti");
+			$tgl_diajukan = $this->input->post("tgl_diajukan");
+			$mulai = $this->input->post("mulai");
+			$berakhir = $this->input->post("berakhir");
 
-		// Hitung jumlah hari cuti
-		$total_hari_cuti = $this->hitung_hari_cuti($mulai, $berakhir);
+			// Hitung jumlah hari cuti
+			$total_hari_cuti = $this->hitung_hari_cuti($mulai, $berakhir);
 
-		$hasil = $this->m_cuti->update_cuti($alasan, $perihal_cuti, $tgl_diajukan, $mulai, $berakhir, $id_cuti,$total_hari_cuti);
-		$hasil = $this->m_cuti->update_cuti_user_detail($id_user ,$total_hari_cuti);
-		
-		if($hasil==false){
-			$this->session->set_flashdata('eror_edit','eror_edit');
-		}else{
-			$this->session->set_flashdata('edit','edit');
-		}
-		if ($this->session->userdata('id_user_level') == 2) {
-			redirect('Cuti/view_admin');
-		} elseif ($this->session->userdata('id_user_level') == 3) {
-			redirect('Cuti/view_super_admin');
-		}
+			$hasil = $this->m_cuti->update_cuti($alasan, $perihal_cuti, $tgl_diajukan, $mulai, $berakhir, $id_cuti,$total_hari_cuti);
+			$hasil = $this->m_cuti->update_cuti_user_detail($id_user ,$total_hari_cuti);
+			
+			if($hasil==false){
+				$this->session->set_flashdata('eror_edit','eror_edit');
+			}else{
+				$this->session->set_flashdata('edit','edit');
+			}
+			if ($this->session->userdata('id_user_level') == 2) {
+				redirect('Cuti/view_admin');
+			} elseif ($this->session->userdata('id_user_level') == 3) {
+				redirect('Cuti/view_super_admin');
+			}
+		} else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
 	}
 
 	private function hitung_hari_cuti($mulai, $berakhir) 
@@ -158,36 +175,46 @@ class Cuti extends CI_Controller {
 	}
 	public function acc_cuti_admin($id_status_cuti1)
 	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
+			$id_cuti = $this->input->post("id_cuti");
+			$id_user = $this->input->post("id_user");
+			
+			$hasil = $this->m_cuti->confirm_cuti1($id_cuti, $id_status_cuti1);
 
-		$id_cuti = $this->input->post("id_cuti");
-		$id_user = $this->input->post("id_user");
+			if($hasil==false){
+				$this->session->set_flashdata('eror_input','eror_input');
+			}else{
+				$this->session->set_flashdata('input','input');
+			}
 		
-		$hasil = $this->m_cuti->confirm_cuti1($id_cuti, $id_status_cuti1);
-
-		if($hasil==false){
-			$this->session->set_flashdata('eror_input','eror_input');
-		}else{
-			$this->session->set_flashdata('input','input');
-		}
-	
-		redirect('Cuti/view_admin/'.$id_user);
+			redirect('Cuti/view_admin');
+		} else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
 	}
 
 	public function acc_cuti_super_admin($id_status_cuti2)
 	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
+			$id_cuti = $this->input->post("id_cuti");
+			$id_user = $this->input->post("id_user");
 
-		$id_cuti = $this->input->post("id_cuti");
-		$id_user = $this->input->post("id_user");
+			$hasil = $this->m_cuti->confirm_cuti2($id_cuti, $id_status_cuti2);
 
-		$hasil = $this->m_cuti->confirm_cuti2($id_cuti, $id_status_cuti2);
+			if($hasil==false){
+				$this->session->set_flashdata('eror_input','eror_input');
+			}else{
+				$this->session->set_flashdata('input','input');
+			}
 
-		if($hasil==false){
-			$this->session->set_flashdata('eror_input','eror_input');
-		}else{
-			$this->session->set_flashdata('input','input');
-		}
-
-		redirect('Cuti/view_super_admin/'.$id_user);
+			redirect('Cuti/view_super_admin');
+		} else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
 	}
 
 	public function acc_cuti_manager()

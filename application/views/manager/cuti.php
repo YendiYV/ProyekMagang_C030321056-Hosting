@@ -95,6 +95,7 @@
                                             XLSX.writeFile(wb, "Rekap Cuti.xlsx");
                                         });
                                     </script>
+                                    <hr>
                                     <br>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>

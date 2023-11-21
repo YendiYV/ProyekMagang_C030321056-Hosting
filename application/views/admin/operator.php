@@ -3,6 +3,7 @@
 
 <head>
     <?php $this->load->view("admin/components/header.php") ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <style>
         .responsive-table {
             width: 100%;
@@ -133,10 +134,29 @@
                         <div class="col-sm-6">
                             <h1 class="m-0">Data Operator</h1>
                             
-                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal"
-                            data-target="#exampleModal">
-                            Tambah Operator
-                        </button>
+                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Tambah Operator</button>
+                            <button type="button" class="btn btn-primary mt-3" id="exportButton">Cetak Rekap</button>
+                            <script>
+                                    document.getElementById("exportButton").addEventListener("click", function() {
+                                        // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
+                                        var table = document.getElementById("example1");
+
+                                        // Membuat objek Workbook Excel
+                                        var wb = XLSX.utils.table_to_book(table);
+
+                                        // Mendapatkan tanggal saat ini
+                                        var currentDate = new Date();
+                                        var year = currentDate.getFullYear();
+                                        var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Bulan (01-12)
+                                        var day = currentDate.getDate().toString().padStart(2, '0'); // Hari (01-31)
+
+                                        // Membuat format nama file dengan tanggal saat ini
+                                        var fileName = "Rekap Operator - " + day + "-" + month + "-" + year + ".xlsx";
+
+                                        // Membuat file Excel dan mengunduhnya dengan nama yang sudah dibuat
+                                        XLSX.writeFile(wb, fileName);
+                                    });
+                                    </script>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">

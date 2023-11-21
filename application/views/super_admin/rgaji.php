@@ -3,6 +3,7 @@
 
 <head>
     <?php $this->load->view("super_admin/components/header.php") ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -100,7 +101,6 @@
                         <div class="col-sm-6">
                             <h1 class="m-0">Data Rekap Gaji</h1>
                         </div><!-- /.col -->
-
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"></a>Supervisior</li>
@@ -126,6 +126,28 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col-sm-6 text-sm-right">
+                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="btn-group" role="group" aria-label="Cetak Options">
+                                                    <button type="button" class="btn btn-primary" id="exportButton">Cetak Rekap</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        document.getElementById("exportButton").addEventListener("click", function() {
+                                            // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
+                                            var table = document.getElementById("example1");
+
+                                            // Membuat objek Workbook Excel
+                                            var wb = XLSX.utils.table_to_book(table);
+
+                                            // Membuat file Excel dan mengunduhnya
+                                            XLSX.writeFile(wb, "Rekap Gaji.xlsx");
+                                        });
+                                    </script>
+                                    <hr>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>

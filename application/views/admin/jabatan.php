@@ -3,6 +3,7 @@
 
 <head>
     <?php $this->load->view("admin/components/header.php") ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -99,7 +100,36 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Data Jabatan</h1>
+                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Tambah Jabatan</button>
+                            <button type="button" class="btn btn-primary mt-3" id="exportButton">Cetak Rekap</button>
                         </div><!-- /.col -->
+                        <script>
+                        document.getElementById("exportButton").addEventListener("click", function() {
+                            // Mendapatkan tanggal saat tombol ditekan
+                            var currentDate = new Date();
+
+                            // Mengambil hari dalam format dua digit (01, 02, ..., 31)
+                            var day = String(currentDate.getDate()).padStart(2, '0');
+
+                            // Mengambil bulan dalam format dua digit (01, 02, ..., 12)
+                            var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+
+                            // Mengambil tahun empat digit (contoh: 2023)
+                            var year = currentDate.getFullYear();
+
+                            // Menggabungkan hari, bulan, dan tahun ke dalam nama file
+                            var fileName = "Rekap Jabatan - " + day + "-" + month + "-" + year + ".xlsx";
+
+                            // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
+                            var table = document.getElementById("example1");
+
+                            // Membuat objek Workbook Excel
+                            var wb = XLSX.utils.table_to_book(table);
+
+                            // Membuat file Excel dan mengunduhnya dengan nama file yang telah dibuat
+                            XLSX.writeFile(wb, fileName);
+                        });
+                        </script>
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -126,16 +156,6 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <div class="row mb-2">
-                                        <div class="col-sm-auto text-sm-right">
-                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                                <div class="btn-group" role="group" aria-label="Cetak Options">
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Jabatan</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>

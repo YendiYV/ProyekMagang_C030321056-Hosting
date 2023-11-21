@@ -18,7 +18,8 @@ class M_gaji extends CI_Model
                                     status_uang_hadir.tunjangan_uang_hadir,
                                     status_kontribusi.tunjangan_kontribusi,
                                     status_insentif.tunjangan_insentif,
-                                    status_gaji_bulanan.total_gaji
+                                    status_gaji_bulanan.total_gaji,
+                                    status_insfeksi.gaji_insfeksi
                                     FROM user_detail
                                         LEFT JOIN user ON user.id_user_detail = user_detail.id_user_detail
                                         LEFT JOIN status_proyek ON user_detail.proyek = status_proyek.id_status_proyek
@@ -33,6 +34,7 @@ class M_gaji extends CI_Model
                                         LEFT JOIN status_uang_hadir ON user_detail.uang_hadir = status_uang_hadir.id_uang_hadir
                                         LEFT JOIN status_kontribusi ON user_detail.kontribusi = status_kontribusi.id_kontribusi
                                         LEFT JOIN status_insentif ON user_detail.insentif = status_insentif.id_insentif
+                                        LEFT JOIN status_insfeksi ON user_detail.id_user_detail = status_insfeksi.id_user_detail
                                         WHERE user.id_user_level = 1
                                         AND DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y-%m-01') = DATE_FORMAT(status_gaji_bulanan.gaji_bulan, '%Y-%m-01')
                                         ORDER BY user.username ASC;
@@ -57,7 +59,8 @@ class M_gaji extends CI_Model
                                     status_kontribusi.tunjangan_kontribusi,
                                     status_insentif.tunjangan_insentif,
                                     status_gaji_bulanan.total_gaji,
-                                    status_delta.gaji_delta
+                                    status_delta.gaji_delta,
+                                    status_insfeksi.gaji_insfeksi
                                     FROM user_detail
                                         LEFT JOIN user ON user.id_user_detail = user_detail.id_user_detail
                                         LEFT JOIN status_proyek ON user_detail.proyek = status_proyek.id_status_proyek
@@ -72,6 +75,7 @@ class M_gaji extends CI_Model
                                         LEFT JOIN status_uang_hadir ON user_detail.uang_hadir = status_uang_hadir.id_uang_hadir
                                         LEFT JOIN status_kontribusi ON user_detail.kontribusi = status_kontribusi.id_kontribusi
                                         LEFT JOIN status_insentif ON user_detail.insentif = status_insentif.id_insentif
+                                        LEFT JOIN status_insfeksi ON user_detail.id_user_detail = status_insfeksi.id_user_detail
                                         WHERE user.id_user_level = 1  AND DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 MONTH), '%Y-%m-01') = DATE_FORMAT(status_gaji_bulanan.gaji_bulan, '%Y-%m-01') IS NULL
                                         ORDER BY user.username ASC;
         ");
@@ -94,7 +98,7 @@ class M_gaji extends CI_Model
 
     public function insert_data($id_user_detail,$gaji_bulan, $total_per_orang ,$tanggal_input){
         $this->db->trans_start();
-        $this->db->query("INSERT INTO status_gaji_bu1lanan (id_user_detail, gaji_bulan, total_gaji ,tgl_simpan) VALUES ('$id_user_detail','$gaji_bulan','$total_per_orang ','$tanggal_input')");
+        $this->db->query("INSERT INTO status_gaji_bulanan (id_user_detail, gaji_bulan, total_gaji ,tgl_simpan) VALUES ('$id_user_detail','$gaji_bulan','$total_per_orang ','$tanggal_input')");
         $this->db->trans_complete();
         if ($this->db->trans_status() == true) {
             $this->session->set_flashdata('input','input');

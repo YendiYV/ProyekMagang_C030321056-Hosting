@@ -100,6 +100,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= base_url();?>Insfeksi/view_admin" class="nav-link">
+                        <i class="nav-icon fas fa-plug"></i>
+                            <p>Insfeksi Pegawai</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= base_url();?>Penempatan/view_admin" class="nav-link">
                         <i class="nav-icon fas fa-map"></i>
                         <p>Data Penempatan</p>

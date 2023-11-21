@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php $this->load->view("admin/components/header.php") ?>
+    <?php $this->load->view("super_admin/components/header.php") ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 
@@ -86,11 +86,11 @@
         </div>
 
         <!-- Navbar -->
-        <?php $this->load->view("admin/components/navbar.php") ?>
+        <?php $this->load->view("super_admin/components/navbar.php") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php $this->load->view("admin/components/sidebar.php") ?>
+        <?php $this->load->view("super_admin/components/sidebar.php") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -99,43 +99,43 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data BPK</h1>
-                            <button type="button" class="btn btn-primary mt-3" id="exportButton">Cetak Rekap</button> 
-                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Tambah BPK</button>
-                        </div><!-- /.col -->
-                        <script>
-                        document.getElementById("exportButton").addEventListener("click", function() {
-                            // Mendapatkan tanggal saat tombol ditekan
-                            var currentDate = new Date();
+                            <h1 class="m-0">Data Uang Hadir</h1>
+                                <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Tambah Uang Hadir</button>
+                                <button type="button" class="btn btn-primary mt-3" id="exportButton">Cetak Rekap</button>
+                            </div><!-- /.col -->
+                            <script>
+                            document.getElementById("exportButton").addEventListener("click", function() {
+                                // Mendapatkan tanggal saat tombol ditekan
+                                var currentDate = new Date();
 
-                            // Mengambil hari dalam format dua digit (01, 02, ..., 31)
-                            var day = String(currentDate.getDate()).padStart(2, '0');
+                                // Mengambil hari dalam format dua digit (01, 02, ..., 31)
+                                var day = String(currentDate.getDate()).padStart(2, '0');
 
-                            // Mengambil bulan dalam format dua digit (01, 02, ..., 12)
-                            var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                                // Mengambil bulan dalam format dua digit (01, 02, ..., 12)
+                                var month = String(currentDate.getMonth() + 1).padStart(2, '0');
 
-                            // Mengambil tahun empat digit (contoh: 2023)
-                            var year = currentDate.getFullYear();
+                                // Mengambil tahun empat digit (contoh: 2023)
+                                var year = currentDate.getFullYear();
 
-                            // Menggabungkan hari, bulan, dan tahun ke dalam nama file
-                            var fileName = "Rekap BPK - " + day + "-" + month + "-" + year + ".xlsx";
+                                // Menggabungkan hari, bulan, dan tahun ke dalam nama file
+                                var fileName = "Rekap Uang Hadir - " + day + "-" + month + "-" + year + ".xlsx";
 
-                            // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
-                            var table = document.getElementById("example1");
+                                // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
+                                var table = document.getElementById("example1");
 
-                            // Membuat objek Workbook Excel
-                            var wb = XLSX.utils.table_to_book(table);
+                                // Membuat objek Workbook Excel
+                                var wb = XLSX.utils.table_to_book(table);
 
-                            // Membuat file Excel dan mengunduhnya dengan nama file yang telah dibuat
-                            XLSX.writeFile(wb, fileName);
-                        });
-                        </script>
+                                // Membuat file Excel dan mengunduhnya dengan nama file yang telah dibuat
+                                XLSX.writeFile(wb, fileName);
+                            });
+                            </script>
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"></a>Admin</li>
+                                <li class="breadcrumb-item"></a>Supervisior</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">BPK</li>
+                                <li class="breadcrumb-item active">Uang Hadir</li>
                             </ol>
                         </div><!-- /.col -->
                         <br>
@@ -152,7 +152,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data BPK</h3>
+                                    <h3 class="card-title">Data Uang Hadir</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -160,53 +160,53 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama BPK</th>  
-                                                <th>Gaji BPK</th>  
+                                                <th>Nama Uang Hadir</th>  
+                                                <th>Gaji Uang Hadir</th>  
                                                 <th>Aksi</th>        
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $no = 0;
-                                            foreach($bpk as $bpk_item) :
+                                            foreach($uang_hadir as $uh_item) :
                                             $no++;
-                                            $id_level = $bpk_item['id_level_bpk'];
-                                            $nama_bpk = $bpk_item['nama_bpk'];
-                                            $gaji_bpk = $bpk_item['gaji_bpk'];
+                                            $id_level = $uh_item['id_uang_hadir'];
+                                            $nama_uh = $uh_item['nama_uang_hadir'];
+                                            $gaji_uh = $uh_item['tunjangan_uang_hadir'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $nama_bpk ?></td>
-                                                <td><?= number_format($gaji_bpk, 0, ',', '.') ?></td>
+                                                <td><?= $nama_uh ?></td>
+                                                <td><?= number_format($gaji_uh, 0, ',', '.') ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">
-                                                            <a href="#" data-toggle="modal" data-target="#edit_data_bpk<?= $id_level ?>" class="btn btn-primary">
+                                                            <a href="#" data-toggle="modal" data-target="#edit_data_uh<?= $id_level ?>" class="btn btn-primary">
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </a>
-                                                            <a href="#" data-toggle="modal" data-target="#hapus_bpk<?= $id_level ?>" class="btn btn-danger">
+                                                            <a href="#" data-toggle="modal" data-target="#hapus_uh<?= $id_level ?>" class="btn btn-danger">
                                                                 <i class="fas fa-trash"></i> Hapus
                                                             </a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
-                                                <!-- Modal Hapus Data jabatan -->
-                                                <div class="modal fade" id="hapus_bpk<?= $id_level ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <!-- Modal Hapus Data Uang Hadir -->
+                                                <div class="modal fade" id="hapus_uh<?= $id_level ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Data BPK</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Data Uang Hadir</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="<?= base_url() ?>bpk/delete_bpk/<?=$id_level ?>" method="post" enctype="multipart/form-data">
+                                                                <form action="<?= base_url() ?>Uang_Hadir/delete_uh/<?=$id_level ?>" method="post" enctype="multipart/form-data">
                                                                     <div class="row">
                                                                         <div class="col-md-12">
                                                                             <input type="hidden" name="id_level" value="<?=$id_level ?>" />
-                                                                            <p>Apakah Anda yakin ingin menghapus BPK ini?</p>
+                                                                            <p>Apakah Anda yakin ingin menghapus Uang Hadir ini?</p>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -219,27 +219,27 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- Modal Edit Data BPK -->
-                                                <div class="modal fade" id="edit_data_bpk<?= $id_level?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <!-- Modal Edit Data Uang Hadir -->
+                                                <div class="modal fade" id="edit_data_uh<?= $id_level?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data BPK</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Data Uang Hadir</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <!-- Form for editing project data -->
-                                                                <form action="<?= base_url() ?>bpk/edit_bpk/<?= $id_level ?>" method="post">
+                                                                <form action="<?= base_url() ?>Uang_Hadir/edit_uh/<?= $id_level ?>" method="post">
                                                                     <input type="hidden" name="id_level" value="<?= $id_level ?>">
                                                                     <div class="form-group">
-                                                                        <label for="nama_bpk">Nama BPK</label>
-                                                                        <input type="text" class="form-control" id="nama_bpk" name="nama_bpk" value="<?= htmlspecialchars($nama_bpk) ?>" required>
+                                                                        <label for="nama_uh">Nama Uang Hadir</label>
+                                                                        <input type="text" class="form-control" id="nama_uh" name="nama_uh" value="<?= htmlspecialchars($nama_uh) ?>" required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="gaji_bpk">Gaji</label>
-                                                                        <input type="text" class="form-control" id="gaji_bpk" name="gaji_bpk" oninput="formatCurrency(this)" value="<?= htmlspecialchars($gaji_bpk) ?>" required>
+                                                                        <label for="gaji_uh">Gaji</label>
+                                                                        <input type="text" class="form-control" id="gaji_uh" name="gaji_uh" oninput="formatCurrency(this)" value="<?= htmlspecialchars($gaji_uh) ?>" required>
                                                                     </div>
                                                                     <!-- Add more form fields for editing other data if needed -->
                                                                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
@@ -263,30 +263,30 @@
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
-            <!-- Modal Tambah BPK -->
+            <!-- Modal Tambah Uang Hadir -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah BPK</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Uang Hadir</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="<?=base_url();?>bpk/tambah_bpk" method="POST">
+                            <form action="<?=base_url();?>Uang_Hadir/tambah_uh" method="POST">
                                 <div class="form-group">
-                                    <label for="nama_bpk">Nama BPK</label>
-                                    <input type="text" class="form-control" id="nama_bpk"
-                                        aria-describedby="nama_bpk" name="nama_bpk" required>
+                                    <label for="nama_uh">Nama Uang Hadir</label>
+                                    <input type="text" class="form-control" id="nama_uh"
+                                        aria-describedby="nama_uh" name="nama_uh" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="gaji_bpk">Gaji</label>
+                                    <label for="gaji_uh">Gaji</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Rp</span>
                                         </div>
-                                        <input type="number" class="form-control" aria-describedby="gaji_bpk" id="gaji_bpk" name="gaji_bpk"">
+                                        <input type="number" class="form-control" aria-describedby="gaji_uh" id="gaji_uh" name="gaji_uh"">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
@@ -307,6 +307,6 @@
     </div>
     <!-- ./wrapper -->
 
-    <?php $this->load->view("admin/components/js.php") ?>
+    <?php $this->load->view("super_admin/components/js.php") ?>
 </body>
 </html>

@@ -102,7 +102,6 @@ class Gaji extends CI_Controller {
     public function save_total_semua_baru() {
         $id_user_details = $this->input->post('id_user_detail2');
         $gaji_bulans = $this->input->post('gaji_bulan2');
-        $insfeksis = $this->input->post('insfeksi2');
         $total_per_orangs = $this->input->post('total_per_orang2');
         $tanggal_inputs = $this->input->post('tanggal_input2');
 
@@ -113,8 +112,6 @@ class Gaji extends CI_Controller {
             $total_per_orang = $total_per_orangs[$i];
             $gaji_bulan = $gaji_bulans[$i];
             $tanggal_input=$tanggal_inputs[$i];
-            $insfeksi = $insfeksis[$i];
-            echo "Before: insfeksi = $insfeksi<br>";
             // Ubah format tanggal untuk memeriksa apakah tanggal adalah 1
             $selected_date = date('d', strtotime($gaji_bulan));
 

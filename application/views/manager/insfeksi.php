@@ -7,76 +7,6 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <?php if ($this->session->flashdata('input')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Data Berhasil Ditambahkan!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('eror')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Data Gagal Ditambahkan!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-    
-    <?php if ($this->session->flashdata('erorpass')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Password Salah!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('edit')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Data Berhasil Diedit!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('eror_edit')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Data Gagal Diedit!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('hapus')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Data Berhasil Dihapus!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-
-    <?php if ($this->session->flashdata('eror_hapus')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Data Gagal Dihapus !",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -99,14 +29,14 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data Transport</h1>
+                            <h1 class="m-0">Data Insfeksi Pegawai</h1>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"></a>Manajer</li>
+                                <li class="breadcrumb-item"></a>Manager</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Transport</li>
+                                <li class="breadcrumb-item active">Insfeksi</li>
                             </ol>
                         </div><!-- /.col -->
                         <br>
@@ -123,7 +53,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Transport</h3>
+                                    <h3 class="card-title">Data Insfeksi Pegawai</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -151,7 +81,7 @@
                                         var day = currentDate.getDate().toString().padStart(2, '0'); // Hari (01-31)
 
                                         // Membuat format nama file dengan tanggal saat ini
-                                        var fileName = "Rekap Transport - " + day + "-" + month + "-" + year + ".xlsx";
+                                        var fileName = "Rekap Insfeksi - " + day + "-" + month + "-" + year + ".xlsx";
 
                                         // Membuat file Excel dan mengunduhnya dengan nama yang sudah dibuat
                                         XLSX.writeFile(wb, fileName);
@@ -163,23 +93,26 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Transport</th>  
-                                                <th>Tunjangan</th>          
+                                                <th>NIP</th>
+                                                <th>Nama</th>  
+                                                <th>Tunjangan Insfeksi</th>       
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             $no = 0;
-                                            foreach($transport as $transport_item) :
+                                            foreach($insfeksi as $insfeksi_item) :
                                             $no++;
-                                            $id_level = $transport_item['id_transport'];
-                                            $transport_level = $transport_item['nama_transport'];
-                                            $tunjangan = $transport_item['tunjangan_transport'];
+                                            $id_user_detail= $insfeksi_item['id_user_detail'];
+                                            $nip = $insfeksi_item['nip'];
+                                            $nama = $insfeksi_item['nama_lengkap'];
+                                            $gaji_insfeksi = $insfeksi_item['gaji_insfeksi'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $transport_level ?></td>
-                                                <td><?= number_format($tunjangan, 0, ',', '.') ?></td>
+                                                <td><?= $nip ?></td>
+                                                <td><?= $nama ?></td>
+                                                <td><?= "Rp. " . number_format($gaji_insfeksi, 0, ',', '.') ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>
@@ -195,6 +128,8 @@
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
+        <!-- /.content-wrapper -->
+
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">

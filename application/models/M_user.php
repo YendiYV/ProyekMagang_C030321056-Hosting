@@ -19,7 +19,7 @@ class M_user extends CI_Model
                                     LEFT JOIN status_kontribusi ON user_detail.kontribusi = status_kontribusi.id_kontribusi
                                     LEFT JOIN status_insentif ON user_detail.insentif = status_insentif.id_insentif
                                     WHERE user.id_user_level = 1
-                                    ORDER BY user_detail.nama_lengkap ASC
+                                    ORDER BY user_detail.nip ASC
                                 ');
         return $hasil;
     }
@@ -74,20 +74,6 @@ class M_user extends CI_Model
         return $hasil;
     } 
     
-    public function pendaftaran_user($id, $username, $password, $id_user_level)
-    {
-       $this->db->trans_start();
-
-       $this->db->query("INSERT INTO user(id_user,username,password,id_user_level, id_user_detail) VALUES ('$id','$username','$password','$id_user_level','$id')");
-       $this->db->query("INSERT INTO user_detail(id_user_detail) VALUES ('$id')");
-
-       $this->db->trans_complete();
-        if($this->db->trans_status()==true)
-            return true;
-        else
-            return false;
-    }
-
     public function getDaftarProyek() {
         $query = $this->db->query("SELECT id_status_proyek, nama_proyek FROM status_proyek");
         return $query->result_array();
@@ -97,12 +83,14 @@ class M_user extends CI_Model
     {
         $this->db->trans_start();
         $query = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username'");
-        if ($query->num_rows() == 0) {   // Insert data ke tabel 'user'
+        if ($query->num_rows() == 0) {   
+            // Insert data ke tabel 'user'
             $this->db->query("INSERT INTO user(id_user, username, password, id_user_level, id_user_detail) VALUES ('$id', '$username', '$password', '$id_user_level', '$id')");
-
             // Insert data ke tabel 'user_detail' termasuk jabatan dan tanggal_masuk
             $this->db->query("INSERT INTO user_detail(id_user_detail, nama_lengkap, id_jenis_kelamin, no_telp, alamat,proyek, nip, jabatan,penempatan,bpk,delta,transport,komunikasi,uang_hadir,kontribusi,insentif, tanggal_masuk ) VALUES ('$id', '$nama_lengkap', '$id_jenis_kelamin', '$no_telp', '$alamat', '$proyek', '$username', '$jabatan','$penempatan', '$bpk','$delta','$transport' ,'$komunikasi','$uang_hadir','$kontribusi','$insentif','$tanggal_masuk')");
-
+            // Insert data ke tabel 'status_insfeksi'
+            $this->db->query("INSERT INTO status_insfeksi(id_user_detail) VALUES ('$id')");
+            
             $this->db->trans_complete();
 
             return $this->db->trans_status();
@@ -134,10 +122,11 @@ class M_user extends CI_Model
         $this->db->trans_start();
 
         $this->db->query("DELETE FROM user WHERE id_user='$id_user'");
-        $this->db->query("DELETE FROM user_detail WHERE id_user='$id_user'");
-        $this->db->query("DELETE FROM cuti WHERE id_user_detail='$id_user'");
+        $this->db->query("DELETE FROM user_detail WHERE id_user_detail='$id_user'");
+        $this->db->query("DELETE FROM cuti WHERE id_user='$id_user'");
         $this->db->query("DELETE FROM status_absensi WHERE id_user_detail='$id_user'");
         $this->db->query("DELETE FROM status_gaji_bulanan WHERE id_user_detail='$id_user'");
+        $this->db->query("DELETE FROM status_insfeksi WHERE id_user_detail='$id_user'");
         $this->db->trans_complete();
         if($this->db->trans_status()==true)
             return true;

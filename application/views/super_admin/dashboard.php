@@ -48,6 +48,20 @@
                 <div class="container-fluid">
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
+                        <!-- ./col -->
+                        <div class="col-lg-12 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3><?=$rgaji_bulan_ini['total_data_gaji']?>/<?=$operator['total_user']?></h3>
+                                    <p class="m-0"><b>Monitor Data</b></p>
+                                    <p class="m-0">Rekap THP / Pekerja</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-monitor"></i>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-info">
@@ -63,7 +77,6 @@
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
-                        <!-- ./col -->
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-success">
@@ -231,17 +244,66 @@
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
-                        <div class="col-lg-12 col-6">
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3><?=$tunj_kom['total_komunikasi']?></h3>
+
+                                    <p>Data Komunikasi</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-wifi"></i>
+                                </div>
+                                <a href="<?=base_url();?>Komunikasi/view_super_admin" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3><?=$rgaji_bulan_ini['total_data_gaji']?>/<?=$operator['total_user']?></h3>
-                                    <p class="m-0"><b>Monitor Data</b></p>
-                                    <p class="m-0">Rekap THP / Pekerja</p>
+                                    <h3><?=$tunj_uh['total_uang_hadir']?></h3>
+
+                                    <p>Data Uang Hadir</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="ion ion-monitor"></i>
+                                    <i class="ion ion-man"></i>
                                 </div>
+                                <a href="<?=base_url();?>Uang_Hadir/view_super_admin" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3><?=$tunj_kontribusi['total_kontribusi']?></h3>
+
+                                    <p>Data Kontribusi</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-thumbsup"></i>
+                                </div>
+                                <a href="<?=base_url();?>Kontribusi/view_super_admin" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                            <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3><?=$tunj_insentif['total_insentif']?></h3>
+
+                                    <p>Data Insentif</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-lightbulb"></i>
+                                </div>
+                                <a href="<?=base_url();?>Insentif/view_super_admin" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
