@@ -125,45 +125,13 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <div class="row mb-2">
-                                        <div class="col-sm-auto text-sm-right">
-                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                                <div class="btn-group" role="group" aria-label="Cetak Options">
-                                                    <button type="button" class="btn btn-primary" id="exportButton">Cetak Rekap</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <script>
-                                    document.getElementById("exportButton").addEventListener("click", function() {
-                                        // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
-                                        var table = document.getElementById("example1");
-
-                                        // Membuat objek Workbook Excel
-                                        var wb = XLSX.utils.table_to_book(table);
-
-                                        // Mendapatkan tanggal saat ini
-                                        var currentDate = new Date();
-                                        var year = currentDate.getFullYear();
-                                        var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Bulan (01-12)
-                                        var day = currentDate.getDate().toString().padStart(2, '0'); // Hari (01-31)
-
-                                        // Membuat format nama file dengan tanggal saat ini
-                                        var fileName = "Rekap Insfeksi - " + day + "-" + month + "-" + year + ".xlsx";
-
-                                        // Membuat file Excel dan mengunduhnya dengan nama yang sudah dibuat
-                                        XLSX.writeFile(wb, fileName);
-                                    });
-                                    </script>
-                                    <hr>
-                                    <br>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>NIP</th>
                                                 <th>Nama</th>  
-                                                <th>Tunjangan Insfeksi</th>  
+                                                <th>Tunjangan</th>  
                                                 <th>Edit</th>        
                                             </tr>
                                         </thead>
@@ -181,7 +149,7 @@
                                                 <td><?= $no ?></td>
                                                 <td><?= $nip ?></td>
                                                 <td><?= $nama ?></td>
-                                                <td><?= "Rp. " . number_format($gaji_insfeksi, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($gaji_insfeksi, 0, '', '.') ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">
@@ -215,7 +183,7 @@
                                                                         <input type="text" class="form-control" id="nip" name="nip" value="<?= htmlspecialchars($nip) ?>" readonly required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="gaji_insfeksi">Gaji</label>
+                                                                        <label for="gaji_insfeksi">Besaran Insfeksi</label>
                                                                         <input type="text" class="form-control" id="gaji_insfeksi" name="gaji_insfeksi" oninput="formatCurrency(this)" value="<?= htmlspecialchars($gaji_insfeksi) ?>" required>
                                                                     </div>
                                                                     <!-- Add more form fields for editing other data if needed -->

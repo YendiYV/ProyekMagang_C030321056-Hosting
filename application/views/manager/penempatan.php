@@ -113,7 +113,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $nama_penempatan ?></td>
-                                                <td><?= number_format($gaji, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($gaji, 0, '', '.') ?></td>
                                                 <td><?= $tipe_um_penempatan?></td>
                                             </tr>
                                         <?php endforeach; ?>

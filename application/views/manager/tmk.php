@@ -113,7 +113,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $tahun_tmk ?></td>
-                                                <td><?= number_format($rupiah_tmk, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($rupiah_tmk, 0, '', '.') ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>

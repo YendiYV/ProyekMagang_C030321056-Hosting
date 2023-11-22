@@ -180,7 +180,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $tahun_tmk ?></td>
-                                                <td><?= number_format($rupiah_tmk, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($rupiah_tmk, 0, '', '.') ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">

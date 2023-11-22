@@ -146,12 +146,12 @@
                                     <h3 class="card-title">Data THP Operator</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body">
+                                <div class="card-body" style="overflow-x:auto;">
                                     <form action="<?= base_url('gaji/save_total_semua') ?>" method="post">
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="17">Total Gaji</th>
+                                                    <th colspan="17">Total Gaji<b style="color:red";>(Data Tidak Akan Tersimpan Apabila Total 0)</b></th>
                                                 </tr>
                                                 <tr class="header-row"> 
                                                     <th>No</th>
@@ -300,7 +300,7 @@
                                         <table id="example2" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="17">Total Gaji Baru</th>
+                                                    <th colspan="17">Total Gaji Baru<b style="color:red";>(Data Tidak Akan Tersimpan Apabila Total 0)</b></th>
                                                 </tr>
                                                 <tr class="header-row"> 
                                                     <th>No</th>

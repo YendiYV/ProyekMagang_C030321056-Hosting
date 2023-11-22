@@ -50,14 +50,10 @@ $berakhir = $i['berakhir'];
 $id_status_cuti1 = $i['id_status_cuti1'];
 $id_status_cuti2 = $i['id_status_cuti2'];
 $id_status_cuti3 = $i['id_status_cuti3'];
+$days =$i['jumlah_hari'];
 
 ?>
 
-    <?php $diff = abs(strtotime($mulai) - strtotime($berakhir));
-    $years = floor($diff / (365*60*60*24));
-    $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-    $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-    ?>
     <p style=" color: #1ac6ff; margin-top:0pt; margin-bottom:0pt; text-align:center; line-height:100%; font-size:12pt;"><span
             style="height:0pt; text-align:left; display:block; position:absolute; z-index:-1;"><img
                 src="<?=base_url();?>assets/login/images/logo.jpg"

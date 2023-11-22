@@ -10,7 +10,7 @@ class M_insfeksi extends CI_Model
 
     public function count_all_insfeksi()
     {
-        $hasil = $this->db->query('SELECT COUNT(id_user_detail) as total_insfeksi FROM status_insfeksi ');
+        $hasil = $this->db->query('SELECT COUNT(id_user_detail) as total_data_insfeksi FROM status_insfeksi WHERE  gaji_insfeksi > 0;');
         return $hasil;
     }
 

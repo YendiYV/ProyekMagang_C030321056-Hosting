@@ -109,7 +109,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $operator_level ?></td>
-                                                <td><?= number_format($gaji, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($gaji, 0, '', '.') ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>

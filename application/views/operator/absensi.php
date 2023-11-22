@@ -3,80 +3,11 @@
 
 <head>
     <?php $this->load->view("operator/components/header.php") ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <?php if ($this->session->flashdata('masuk')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Anda Telah Melakukan Absen Masuk!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-    <?php if ($this->session->flashdata('gagal_masuk')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Anda Gagal Melakukan Absen Masuk!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-    <?php if ($this->session->flashdata('pulang')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Anda Telah Melakukan Absen Pulang!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-    <?php if ($this->session->flashdata('gagal_pulang')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Anda Gagal Melakukan Absen Pulang!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-    <?php if ($this->session->flashdata('input_hadir')) { ?>
-        <script>
-            swal({
-                title: "Success!",
-                text: "Berhasil Melakukan Absen Hadir!",
-                icon: "success"
-            });
-        </script>
-    <?php } elseif ($this->session->flashdata('input_izin')) { ?>
-        <script>
-            swal({
-                title: "Success!",
-                text: "Berhasil Mengajukan Izin!",
-                icon: "success"
-            });
-        </script>
-    <?php } elseif ($this->session->flashdata('input_sakit')) { ?>
-        <script>
-            swal({
-                title: "Success!",
-                text: "Berhasil Melaporkan Sakit!",
-                icon: "success"
-            });
-        </script>
-    <?php } elseif ($this->session->flashdata('input_cuti')) { ?>
-        <script>
-            swal({
-                title: "Success!",
-                text: "Berhasil Mengajukan Cuti!",
-                icon: "success"
-            });
-        </script>
-    <?php } ?>
     <div class="wrapper">
-
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="<?= base_url();?>assets/admin_lte/dist/img/Loading.png"
@@ -123,7 +54,7 @@
                                     <h3 class="card-title">Data Absensi</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body">
+                                <div class="card-body" style="overflow-x:auto;">
                                     <table id="example1" class="table  table-bordered  table-striped">
                                         <?php
                                                 $bulan_ini = date('m');
@@ -132,7 +63,7 @@
                                         ?>
                                         <thead>
                                             <tr>
-                                                <td colspan="<?php echo $jumlah_hari; ?>" style="text-align: center; font-size: 20px; font-weight: bold;">
+                                                <td colspan="<?php echo $jumlah_hari; ?>" style="text-align: left; font-size: 20px; font-weight: bold;">
                                                     Data Absensi Bulan <?php echo $bulan_ini; ?> Tahun <?php echo $tahun_ini; ?>
                                                 </td>
                                             </tr>

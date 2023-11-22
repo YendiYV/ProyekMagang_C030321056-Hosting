@@ -108,7 +108,7 @@
                                         XLSX.writeFile(wb, fileName);
                                     });
 
-                                    </script>   
+                                    </script>    
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr style="font-size: 20px;">

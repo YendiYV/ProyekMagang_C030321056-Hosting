@@ -103,7 +103,7 @@ class Absensi extends CI_Controller {
 						$this->session->set_flashdata('input_sakit', 'input_sakit');
 						$this->m_absensi->insert_sakit($id_user); // Panggil fungsi model yang sesuai
 					} elseif ($action === 'ijin') {
-						$this->session->set_flashdata('input_sakit', 'input_izin');
+						$this->session->set_flashdata('input_izin', 'input_izin');
 						$this->m_absensi->insert_ijin($id_user); // Panggil fungsi model yang sesuai
 					} elseif ($action === 'cuti') {
 						$this->session->set_flashdata('input_cuti', 'input_cuti');
@@ -137,7 +137,7 @@ class Absensi extends CI_Controller {
 		$dayOfWeek = date('N'); // Dapatkan hari dalam format 1 hingga 7 (Senin hingga Minggu)
 
 		if ($dayOfWeek >= 1 && $dayOfWeek <= 5) { // Hanya lanjutkan jika hari Senin hingga Jumat
-			if ($waktu_sekarang >= '15:40' && $waktu_sekarang <= '17:00') {
+			if ($waktu_sekarang >= '15:40' && $waktu_sekarang <= '16:00') {
 				$cek_absen_pulang = $this->m_absensi->cek_status_untuk_absen_pulang($id_user);
 
 				if ($cek_absen_pulang > 0) {
@@ -181,7 +181,6 @@ class Absensi extends CI_Controller {
 				}
 			}
 			
-			//redirect('Absensi/view_admin');
 			redirect($_SERVER['HTTP_REFERER']);
         } else {
             // Handle kasus ketika pengguna tidak memiliki hak akses

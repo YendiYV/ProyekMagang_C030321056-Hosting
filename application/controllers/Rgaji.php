@@ -47,7 +47,7 @@ class Rgaji extends CI_Controller {
 
     public function tambah_rgaji(){
         if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
-            $username = $this->input->post('username');
+            $username = $this->input->post('id');
             $tanggal_gaji = $this->input->post('tanggal_gaji');
             $total_gaji = $this->input->post('total_gaji');
             $tanggal_simpan = $this->input->post('tanggal_input');

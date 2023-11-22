@@ -136,7 +136,7 @@
                                     <h3 class="card-title">Data Absensi</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body">
+                                <div class="card-body" >
                                     
                                         <div class="row mb-2">
                                             <!-- "Cetak Rekap" button -->
@@ -261,15 +261,11 @@
                                                                  echo "<td style='text-align: center; $style'>" . strtoupper($status) . " <button class='edit-button' data-nip='$nip' data-tanggal='$tanggal'><i class='fas fa-edit'></i></button></td>";
                                                             } else {
                                                                 // Jika tidak ada data, tampilkan tanda '-'
-                                                                echo "<td>- <button class='edit-button' data-nip='$nip' data-tanggal='$tanggal'><i class='fas fa-edit'></i></button>";
-
+                                                                echo "<td> - <button class='edit-button' data-nip='$nip' data-tanggal='$tanggal'><i class='fas fa-edit'></i></button></td>";
                                                             }
                                                         }
                                                         ?>
                                                     </tr>
-                                                    <div id="edit-container">
-                                                        <!-- Editing form or modal content goes here -->
-                                                    </div>
                                             <?php
                                             endif;
                                             endforeach;

@@ -120,10 +120,6 @@
                                 <li class="breadcrumb-item active">Operator</li>
                             </ol>
                         </div><!-- /.col -->
-                        <!-- <button type="button" class="btn btn-primary mt-3" data-toggle="modal"
-                            data-target="#exampleModal">
-                            Tambah operator
-                        </button> -->
                         <br>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->

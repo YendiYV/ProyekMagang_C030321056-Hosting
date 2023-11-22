@@ -4,14 +4,14 @@ class M_rgaji extends CI_Model
 {
     public function get_all_gaji_bulan()
     {
-        $query = $this->db->query('SELECT * FROM status_gaji_bulanan');
+        $query = $this->db->query('SELECT * FROM status_gaji_bulanan LEFT JOIN user_detail ON status_gaji_bulanan.id_user_detail = user_detail.id_user_detail');
 
         return $query->result_array();
     }
 
     public function get_all_gaji_bulan_manager()
     {
-        $query = $this->db->query('SELECT user_detail.nama_lengkap , status_gaji_bulanan.* FROM status_gaji_bulanan LEFT JOIN user_detail ON user_detail.nip = status_gaji_bulanan.id_user_detail');
+        $query = $this->db->query('SELECT user_detail.nama_lengkap ,user_detail.nip, status_gaji_bulanan.* FROM status_gaji_bulanan LEFT JOIN user_detail ON user_detail.id_user_detail = status_gaji_bulanan.id_user_detail');
 
         return $query->result_array();
     }

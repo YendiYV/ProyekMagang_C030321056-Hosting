@@ -64,33 +64,34 @@ class Gaji extends CI_Controller {
             $gaji_bulan = $gaji_bulans[$i];
             $tanggal_input=$tanggal_inputs[$i];
 
-            $total_tambah_insfeksi =$total_per_orang+ $insfeksi;
-            // Ubah format tanggal untuk memeriksa apakah tanggal adalah 1
-            $selected_date = date('d', strtotime($gaji_bulan));
+            if ($total_per_orang >0) {
+                $total_tambah_insfeksi =$total_per_orang+ $insfeksi;
+                // Ubah format tanggal untuk memeriksa apakah tanggal adalah 1
+                $selected_date = date('d', strtotime($gaji_bulan));
 
-            if ($selected_date === '01') {
-                // Periksa apakah data dengan username dan bulan yang sama sudah ada
-                $data_exist = $this->m_gaji->check_data_exist($id_user_detail, $gaji_bulan);
+                if ($selected_date === '01') {
+                    // Periksa apakah data dengan username dan bulan yang sama sudah ada
+                    $data_exist = $this->m_gaji->check_data_exist($id_user_detail, $gaji_bulan);
 
-                if ($data_exist) {
-                    $hasil = $this->m_gaji->update_data($id_user_detail, $gaji_bulan, $total_tambah_insfeksi ,$tanggal_input);
-                            if ($hasil) {
-                                $this->session->set_flashdata('input','input');
-                            } else {
-                                $this->session->set_flashdata('eror','eror');
-                            }
-                }else {
-                    $hasil = $this->m_gaji->insert_data($id_user_detail, $gaji_bulan, $total_tambah_insfeksi ,$tanggal_input);
+                    if ($data_exist) {
+                        $hasil = $this->m_gaji->update_data($id_user_detail, $gaji_bulan, $total_tambah_insfeksi ,$tanggal_input);
                         if ($hasil) {
                             $this->session->set_flashdata('input','input');
                         } else {
                             $this->session->set_flashdata('eror','eror');
                         }
+                    }else {
+                        $hasil = $this->m_gaji->insert_data($id_user_detail, $gaji_bulan, $total_tambah_insfeksi ,$tanggal_input);
+                        if ($hasil) {
+                            $this->session->set_flashdata('input','input');
+                        } else {
+                            $this->session->set_flashdata('eror','eror');
+                        }
+                    }
+                }else {
+                    $this->session->set_flashdata('eror','eror');
                 }
-            }else {
-                $this->session->set_flashdata('eror','eror');
             }
-
         }
         // Redirect atau berikan respons sesuai dengan kebutuhan Anda
         if ($this->session->userdata('id_user_level') == 2) {
@@ -99,6 +100,7 @@ class Gaji extends CI_Controller {
             redirect('Gaji/view_super_admin');
         }
     }
+
     public function save_total_semua_baru() {
         $id_user_details = $this->input->post('id_user_detail2');
         $gaji_bulans = $this->input->post('gaji_bulan2');
@@ -115,28 +117,29 @@ class Gaji extends CI_Controller {
             // Ubah format tanggal untuk memeriksa apakah tanggal adalah 1
             $selected_date = date('d', strtotime($gaji_bulan));
 
-            if ($selected_date === '01') {
-                // Periksa apakah data dengan username dan bulan yang sama sudah ada
-                $data_exist = $this->m_gaji->check_data_exist($id_user_detail, $gaji_bulan);
-                if ($data_exist) {
-                    $hasil = $this->m_gaji->update_data($id_user_detail, $gaji_bulan, $total_per_orang ,$tanggal_input);
+            if ($total_per_orang >0) {
+                if ($selected_date === '01') {
+                    // Periksa apakah data dengan username dan bulan yang sama sudah ada
+                    $data_exist = $this->m_gaji->check_data_exist($id_user_detail, $gaji_bulan);
+                    if ($data_exist) {
+                        $hasil = $this->m_gaji->update_data($id_user_detail, $gaji_bulan, $total_per_orang ,$tanggal_input);
+                                if ($hasil) {
+                                    $this->session->set_flashdata('input_baru','input_baru');
+                                } else {
+                                    $this->session->set_flashdata('eror_baru','eror_baru');
+                                }
+                    }else {
+                        $hasil = $this->m_gaji->insert_data($id_user_detail, $gaji_bulan, $total_per_orang ,$tanggal_input);
                             if ($hasil) {
                                 $this->session->set_flashdata('input_baru','input_baru');
                             } else {
                                 $this->session->set_flashdata('eror_baru','eror_baru');
                             }
+                    }
                 }else {
-                    $hasil = $this->m_gaji->insert_data($id_user_detail, $gaji_bulan, $total_per_orang ,$tanggal_input);
-                        if ($hasil) {
-                            $this->session->set_flashdata('input_baru','input_baru');
-                        } else {
-                            $this->session->set_flashdata('eror_baru','eror_baru');
-                        }
+                    $this->session->set_flashdata('eror','eror');
                 }
-            }else {
-                $this->session->set_flashdata('eror','eror');
             }
-
         }
         // Redirect atau berikan respons sesuai dengan kebutuhan Anda
         if ($this->session->userdata('id_user_level') == 2) {

@@ -39,9 +39,8 @@
         const sekarang = new Date();
         const jam = sekarang.getHours().toString().padStart(2, '0');
         const menit = sekarang.getMinutes().toString().padStart(2, '0');
-        const detik = sekarang.getSeconds().toString().padStart(2, '0');
         const tanggal = sekarang.toLocaleDateString();
-        const jamTanggal = `${jam}:${menit}:${detik} - ${tanggal}`;
+        const jamTanggal = `${jam}:${menit} - ${tanggal}`;
         document.getElementById('jamTanggal').textContent = jamTanggal;
     }
 

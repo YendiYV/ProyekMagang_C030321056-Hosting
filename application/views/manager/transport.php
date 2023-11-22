@@ -179,7 +179,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $transport_level ?></td>
-                                                <td><?= number_format($tunjangan, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($tunjangan, 0, '', '.') ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>

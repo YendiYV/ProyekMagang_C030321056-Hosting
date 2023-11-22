@@ -102,7 +102,7 @@ class operator extends CI_Controller {
 			$id_status_proyek = $this->input->post('id_status_proyek');
 			$jabatan = $this->input->post("operator_level");
 			$penempatan = $this->input->post("penempatan");
-			$tanggal_masuk = date("Y-m-d");
+			$tanggal_masuk = $this->input->post("tanggal_masuk");
 			$delta = $this->input->post("delta");
 			$bpk = $this->input->post("bpk");
 			$transport = $this->input->post("transport");
@@ -156,7 +156,7 @@ class operator extends CI_Controller {
 			$kontribusi = $this->input->post("kontribusi");
 			$insentif = $this->input->post("insentif");
 			$id_status_proyek = $this->input->post("id_status_proyek");
-			$tanggal_masuk = date("Y-m-d");
+			$tanggal_masuk = $this->input->post("tanggal_masuk");
 
 			// Mendapatkan password lama dari database
 			$oldPasswordQuery = $this->db->query("SELECT password FROM user WHERE id_user='$id_user'");

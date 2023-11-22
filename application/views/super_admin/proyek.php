@@ -179,7 +179,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $nama_proyek ?></td>
-                                                <td><?= number_format($gaji, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($gaji, 0, '', '.') ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">

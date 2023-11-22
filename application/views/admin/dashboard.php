@@ -61,6 +61,19 @@
                                 </div>
                             </div>
                         </div>
+                         <div class="col-lg-12 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3><?=$tunj_insfeksi['total_data_insfeksi']?>/<?=$operator['total_user']?></h3>
+                                    <p class="m-0"><b>Monitor Insfeksi</b></p>
+                                    <p class="m-0">Data Terisi / Pekerja</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-monitor"></i>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-info">

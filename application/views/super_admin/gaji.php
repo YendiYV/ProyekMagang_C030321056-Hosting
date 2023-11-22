@@ -146,7 +146,7 @@
                                     <h3 class="card-title">Data THP Operator</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body">
+                                <div class="card-body" style="overflow-x:auto;">
                                     <form action="<?= base_url('gaji/save_total_semua') ?>" method="post">
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>

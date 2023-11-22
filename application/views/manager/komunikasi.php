@@ -109,7 +109,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $nama_kom ?></td>
-                                                <td><?= number_format($gaji_kom, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($gaji_kom, 0, '', '.') ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>

@@ -119,7 +119,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Data THP Operator</h1>
+                            <h1 class="m-0">Data Total Gaji Operator</h1>
                         </div><!-- /.col -->
 
                         <div class="col-sm-6">
@@ -143,10 +143,10 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data THP Operator</h3>
+                                    <h3 class="card-title">Data Total Gaji Operator</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body">
+                                <div class="card-body" style="overflow-x:auto;">
                                     <form action="<?= base_url('gaji/save_total_semua') ?>" method="post">
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>

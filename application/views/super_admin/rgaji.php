@@ -100,7 +100,31 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Data Rekap Gaji</h1>
+                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Tambah Proyek</button>
+                            <button type="button" class="btn btn-primary mt-3" id="exportButton">Cetak Rekap</button>
                         </div><!-- /.col -->
+                        <script>
+                        document.getElementById("exportButton").addEventListener("click", function() {
+                            // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
+                            var table = document.getElementById("example1");
+
+                            // Membuat objek Workbook Excel
+                            var wb = XLSX.utils.table_to_book(table);
+
+                            // Mendapatkan tanggal saat ini
+                            var currentDate = new Date();
+                            var year = currentDate.getFullYear();
+                            var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Bulan (01-12)
+                            var day = currentDate.getDate().toString().padStart(2, '0'); // Hari (01-31)
+
+                            // Membuat format nama file dengan tanggal saat ini
+                            var fileName = "Rekap Total THP - " + day + "-" + month + "-" + year + ".xlsx";
+
+                            // Membuat file Excel dan mengunduhnya dengan nama yang sudah dibuat
+                            XLSX.writeFile(wb, fileName);
+                        });
+                        </script>
+
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"></a>Supervisior</li>
@@ -126,35 +150,14 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <div class="row mb-2">
-                                        <div class="col-sm-6 text-sm-right">
-                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                                <div class="btn-group" role="group" aria-label="Cetak Options">
-                                                    <button type="button" class="btn btn-primary" id="exportButton">Cetak Rekap</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <script>
-                                        document.getElementById("exportButton").addEventListener("click", function() {
-                                            // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
-                                            var table = document.getElementById("example1");
-
-                                            // Membuat objek Workbook Excel
-                                            var wb = XLSX.utils.table_to_book(table);
-
-                                            // Membuat file Excel dan mengunduhnya
-                                            XLSX.writeFile(wb, "Rekap Gaji.xlsx");
-                                        });
-                                    </script>
-                                    <hr>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>NIP</th>  
-                                                <th>Tanggal</th>
+                                                <th>Tanggal Gaji</th>
                                                 <th>Total Gaji</th>
+                                                <th>Tanggal Simpan</th>
                                                 <th>Aksi</th>      
                                             </tr>
                                         </thead>
@@ -164,14 +167,17 @@
                                             foreach($gaji_bulan as $gaji_bulan_item) :
                                             $no++;
                                             $id_user_detail = $gaji_bulan_item['id_user_detail'];
+                                            $nip = $gaji_bulan_item['nip'];
                                             $gaji_bulan = $gaji_bulan_item['gaji_bulan'];
                                             $total_gaji = $gaji_bulan_item['total_gaji'];
+                                            $tanggal_simpan = $gaji_bulan_item['tgl_simpan'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $id_user_detail?></td>
+                                                <td><?= $nip?></td>
                                                 <td><?= date('d-m-Y', strtotime($gaji_bulan)) ?></td>
-                                                <td><?= number_format($total_gaji, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($total_gaji, 0, '', '.') ?></td>
+                                                <td><?= date('d-m-Y', strtotime($tanggal_simpan)) ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">
@@ -183,7 +189,6 @@
                                                             </a>
                                                         </div>
                                                     </div>
-
                                                 </td>
 
 
@@ -237,6 +242,14 @@
                                                                         <label for="total_gaji">Total Gaji</label>
                                                                         <input type="text" class="form-control" id="total_gaji" name="total_gaji" value="<?= htmlspecialchars($total_gaji) ?>" required>
                                                                     </div>
+                                                                    <div class="form-group">
+                                                                        <div class="input-group">
+                                                                            <?php
+                                                                            $tanggal_hari_ini = date('Y-m-d');
+                                                                            ?>
+                                                                            <input type="date" name="tanggal_input" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
+                                                                        </div>
+                                                                    </div>
 
                                                                     <!-- Add more form fields for editing other data if needed -->
                                                                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
@@ -260,6 +273,74 @@
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
+            <!-- Modal Tambah Delta -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data THP</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="<?= base_url(); ?>rgaji/tambah_rgaji" method="POST">
+                                <div class="form-group">
+                                    <label for="username">NIP Pegawai</label>
+                                    <select class="form-control" id="id"
+                                        name="id" required>
+                                        <?php foreach($username as $u)
+                                        :
+                                        $id = $u["id_user_detail"];
+                                        $username = $u["username"];
+                                        ?>
+                                            <option value="<?= $id ?>" <?php if($id == $username){
+                                                echo 'selected';
+                                            }else{
+                                                echo '';
+                                            }?>
+                                            ><?= $username ?>
+                                            </option>
+
+                                        <?php endforeach?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggal_gaji">Tanggal Gaji</label>
+                                    <div class="input-group">
+                                        <?php
+                                        $currentDate = date('Y-m-01');
+                                        $minDate = date('2000-m-01');
+                                        $maxDate = date('Y-m-1');
+                                        ?>
+                                        <input type="date" name="tanggal_gaji" value="<?= $currentDate ?>" min="<?= $minDate ?>" max="<?= $maxDate ?>" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="total_gaji">Total Gaji Bersih</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Rp</span>
+                                        </div>
+                                        <input type="number" class="form-control" aria-describedby="total_gaji" id="total_gaji" name="total_gaji">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <?php
+                                        $tanggal_hari_ini = date('Y-m-d');
+                                        ?>
+                                        <input type="date" name="tanggal_input" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.content-wrapper -->
         </div>
         <!-- /.content-wrapper -->
 

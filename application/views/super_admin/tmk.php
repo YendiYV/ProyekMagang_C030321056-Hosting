@@ -3,6 +3,7 @@
 
 <head>
     <?php $this->load->view("super_admin/components/header.php") ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -99,21 +100,36 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Data TMK</h1>
-                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
-                                 Tambah TMK
-                            </button>
+                            <button type="button" class="btn btn-primary mt-3" id="exportButton">Cetak Rekap</button> 
+                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Tambah TMK</button>
                         </div><!-- /.col -->
+                        <script>
+                        document.getElementById("exportButton").addEventListener("click", function() {
+                            // Mendapatkan tanggal saat tombol ditekan
+                            var currentDate = new Date();
 
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"></a>Supervisior</li>
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">TMK</li>
-                            </ol>
-                        </div><!-- /.col -->
+                            // Mengambil hari dalam format dua digit (01, 02, ..., 31)
+                            var day = String(currentDate.getDate()).padStart(2, '0');
 
-                        
-                        <br>
+                            // Mengambil bulan dalam format dua digit (01, 02, ..., 12)
+                            var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+
+                            // Mengambil tahun empat digit (contoh: 2023)
+                            var year = currentDate.getFullYear();
+
+                            // Menggabungkan hari, bulan, dan tahun ke dalam nama file
+                            var fileName = "Rekap TMK - " + day + "-" + month + "-" + year + ".xlsx";
+
+                            // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
+                            var table = document.getElementById("example1");
+
+                            // Membuat objek Workbook Excel
+                            var wb = XLSX.utils.table_to_book(table);
+
+                            // Membuat file Excel dan mengunduhnya dengan nama file yang telah dibuat
+                            XLSX.writeFile(wb, fileName);
+                        });
+                        </script>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
@@ -154,7 +170,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $tahun_tmk ?></td>
-                                                <td><?= number_format($rupiah_tmk, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($rupiah_tmk, 0, '', '.') ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">

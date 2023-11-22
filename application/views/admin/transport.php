@@ -177,7 +177,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $transport_level ?></td>
-                                                <td><?= number_format($tunjangan, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($tunjangan, 0, '', '.') ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">

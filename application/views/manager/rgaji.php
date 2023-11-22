@@ -176,7 +176,7 @@
                                             foreach($gaji_bulan as $gaji_bulan_item) :
                                             $no++;
                                             $nama_lengkap = $gaji_bulan_item['nama_lengkap'];
-                                            $id_user_detail = $gaji_bulan_item['id_user_detail'];
+                                            $id_user_detail = $gaji_bulan_item['nip'];
                                             $gaji_bulan = $gaji_bulan_item['gaji_bulan'];
                                             $total_gaji = $gaji_bulan_item['total_gaji'];
                                             $tanggal_simpan = $gaji_bulan_item['tgl_simpan'];
@@ -186,7 +186,7 @@
                                                 <td><?= $nama_lengkap ?></td>
                                                 <td><?= $id_user_detail?></td>
                                                 <td><?= date('d-m-Y', strtotime($gaji_bulan)) ?></td>
-                                                <td><?= number_format($total_gaji, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($total_gaji, 0, '', '.') ?></td>
                                                 <td><?= date('d-m-Y', strtotime($tanggal_simpan)) ?></td>
                                             </tr>
                                         <?php endforeach; ?>

@@ -160,8 +160,8 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama Insentif</th>  
-                                                <th>Gaji Insentif</th>  
+                                                <th>Insentif</th>  
+                                                <th>Tunjangan</th>  
                                                 <th>Aksi</th>        
                                             </tr>
                                         </thead>
@@ -177,7 +177,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $nama_insentif ?></td>
-                                                <td><?= number_format($gaji_insentif, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($gaji_insentif, 0, '', '.') ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">

@@ -22,6 +22,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('m_uang_hadir');
 		$this->load->model('m_kontribusi');
 		$this->load->model('m_insentif');
+		$this->load->model('m_insfeksi');
 	}
 
 	public function dashboard_manager()
@@ -46,6 +47,7 @@ class Dashboard extends CI_Controller {
 			$data['tunj_uh'] = $this->m_uang_hadir->count_all_uang_hadir()->row_array();
 			$data['tunj_kontribusi'] = $this->m_kontribusi->count_all_kontribusi()->row_array();
 			$data['tunj_insentif'] = $this->m_insentif->count_all_insentif()->row_array();
+			$data['tunj_insfeksi'] = $this->m_insfeksi->count_all_insfeksi()->row_array();
 			$this->load->view('manager/dashboard', $data);
 
 		}else{
@@ -76,6 +78,7 @@ class Dashboard extends CI_Controller {
 			$data['tunj_uh'] = $this->m_uang_hadir->count_all_uang_hadir()->row_array();
 			$data['tunj_kontribusi'] = $this->m_kontribusi->count_all_kontribusi()->row_array();
 			$data['tunj_insentif'] = $this->m_insentif->count_all_insentif()->row_array();
+			$data['tunj_insfeksi'] = $this->m_insfeksi->count_all_insfeksi()->row_array();
 			$this->load->view('super_admin/dashboard', $data);
 	}else{
 
@@ -106,6 +109,7 @@ class Dashboard extends CI_Controller {
 			$data['tunj_uh'] = $this->m_uang_hadir->count_all_uang_hadir()->row_array();
 			$data['tunj_kontribusi'] = $this->m_kontribusi->count_all_kontribusi()->row_array();
 			$data['tunj_insentif'] = $this->m_insentif->count_all_insentif()->row_array();
+			$data['tunj_insfeksi'] = $this->m_insfeksi->count_all_insfeksi()->row_array();
 			$this->load->view('admin/dashboard', $data);
 
 		}else{

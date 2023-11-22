@@ -347,35 +347,30 @@
                                                                 </script>
                                                                 <div class="form-group">
                                                                     <label for="password">Password</label>
-                                                                    <input type="password" class="form-control" id="password" aria-describedby="password" name="password" value="<?= $password ?>" required>
-                                                                    <div class="input-group-append">
-                                                                        <button id="showPassword" type="button" class="btn btn-outline-secondary">Show Password</button>
-                                                                    </div>
+                                                                    <input type="password" class="form-control" id="password" name="password" aria-describedby="password" required>
+                                                                    <small id="passwordHelp" class="form-text text-muted">Password harus minimal 8 karakter dan mengandung angka.</small>
                                                                 </div>
-                                                                <script>
-                                                                    var passwordInput = document.getElementById("password");
-                                                                    var showPasswordButton = document.getElementById("showPassword");
 
-                                                                    if (showPasswordButton) {
-                                                                        showPasswordButton.addEventListener("click", function() {
-                                                                            if (passwordInput.type === "password") {
-                                                                                passwordInput.type = "text";
-                                                                                showPasswordButton.textContent = "Hide Password";
+                                                                <script>
+                                                                    document.getElementById("password").addEventListener("input", function() {
+                                                                        var passwordInput = this.value;
+
+                                                                        // Validasi panjang password
+                                                                        if (passwordInput.length < 8) {
+                                                                            document.getElementById("passwordHelp").innerText = "Password harus minimal 8 karakter dan mengandung angka.";
+                                                                        } else {
+                                                                            // Validasi keberadaan angka di password
+                                                                            if (/\d/.test(passwordInput)) {
+                                                                                document.getElementById("passwordHelp").innerText = "Password valid.";
                                                                             } else {
-                                                                                passwordInput.type = "password";
-                                                                                showPasswordButton.textContent = "Show Password";
+                                                                                document.getElementById("passwordHelp").innerText = "Password harus mengandung angka.";
                                                                             }
-                                                                        });
-                                                                    } else {
-                                                                        console.error("Element with ID 'showPassword' not found");
-                                                                    }
+                                                                        }
+                                                                    });
                                                                 </script>
                                                                 <div class="form-group">
                                                                     <label for="nama_lengkap">Nama Lengkap</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="nama_lengkap"
-                                                                        aria-describedby="nama_lengkap"
-                                                                        name="nama_lengkap" value="<?= $nama_lengkap ?>" required>
+                                                                    <input type="text" class="form-control" id="nama_lengkap" aria-describedby="nama_lengkap" name="nama_lengkap" value="<?= $nama_lengkap ?>" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="tanggal_masuk">Tanggal Masuk</label>
@@ -383,8 +378,7 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="id_jenis_kelamin">Jenis Kelamin</label>
-                                                                    <select class="form-control" id="id_jenis_kelamin"
-                                                                        name="id_jenis_kelamin" required>
+                                                                    <select class="form-control" id="id_jenis_kelamin" name="id_jenis_kelamin" required>
                                                                         <?php foreach($jenis_kelamin_p as $u)
                                                                         :
                                                                         $id = $u["id_jenis_kelamin"];
@@ -584,10 +578,10 @@
                                     <div class="col-md-9">
                                         <div class="input-group">
                                             <input type="password" class="form-control" id="password" name="password" required>
+                                            <small class="text-muted" style="font-size: smaller;">Password Minimal 8 Kata ditambahkan angka</small>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label for="confirm_password" class="col-md-3 col-form-label">Konfirmasi Password</label>
                                     <div class="col-md-9">

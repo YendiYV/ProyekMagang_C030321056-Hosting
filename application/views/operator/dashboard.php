@@ -36,6 +36,33 @@
             });
         </script>
     <?php } ?>
+    <?php if ($this->session->flashdata('input_sakit')) { ?>
+        <script>
+            swal({
+                title: "Berhasil!",
+                text: "Anda Telah Melakukan Absen !",
+                icon: "success"
+            });
+        </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('input_cuti')) { ?>
+        <script>
+            swal({
+                title: "Berhasil!",
+                text: "Anda Telah Melakukan Absen!",
+                icon: "success"
+            });
+        </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('input_izin')) { ?>
+        <script>
+            swal({
+                title: "Berhasil!",
+                text: "Anda Telah Melakukan Absen!",
+                icon: "success"
+            });
+        </script>
+    <?php } ?>
     <?php if ($this->session->flashdata('input_pulang')) { ?>
         <script>
             swal({
@@ -50,7 +77,7 @@
         <script>
             swal({
                 title: "Peringatan!",
-                text: "Anda Hanya Bisa Absen Jam  15.4--16.00 WITA!",
+                text: "Anda Hanya Bisa Absen Jam  15.40-16.00 WITA!",
                 icon: "error"
             });
         </script>

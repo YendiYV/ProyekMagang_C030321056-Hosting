@@ -183,15 +183,16 @@
                                             foreach($gaji_bulan as $gaji_bulan_item) :
                                             $no++;
                                             $id_user_detail = $gaji_bulan_item['id_user_detail'];
+                                            $nip = $gaji_bulan_item['nip'];
                                             $gaji_bulan = $gaji_bulan_item['gaji_bulan'];
                                             $total_gaji = $gaji_bulan_item['total_gaji'];
                                             $tanggal_simpan = $gaji_bulan_item['tgl_simpan'];
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $id_user_detail?></td>
+                                                <td><?= $nip?></td>
                                                 <td><?= date('d-m-Y', strtotime($gaji_bulan)) ?></td>
-                                                <td><?= number_format($total_gaji, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($total_gaji, 0, '', '.') ?></td>
                                                 <td><?= date('d-m-Y', strtotime($tanggal_simpan)) ?></td>
                                                 <td>
                                                     <div class="table-responsive">
@@ -302,11 +303,11 @@
                             <form action="<?= base_url(); ?>rgaji/tambah_rgaji" method="POST">
                                 <div class="form-group">
                                     <label for="username">NIP Pegawai</label>
-                                    <select class="form-control" id="username"
-                                        name="username" required>
+                                    <select class="form-control" id="id"
+                                        name="id" required>
                                         <?php foreach($username as $u)
                                         :
-                                        $id = $u["username"];
+                                        $id = $u["id_user_detail"];
                                         $username = $u["username"];
                                         ?>
                                             <option value="<?= $id ?>" <?php if($id == $username){

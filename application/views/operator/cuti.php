@@ -84,7 +84,7 @@
                                     <h3 class="card-title">Data Cuti</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body">
+                                <div class="card-body" style="overflow-x:auto;">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>

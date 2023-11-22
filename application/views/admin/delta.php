@@ -155,16 +155,6 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body container-fluid">
-                                    <div class="row mb-2">
-                                        <div class="col-sm-auto text-sm-right">
-                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                                <div class="btn-group" role="group" >
-                                                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Tambah Delta</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
@@ -186,7 +176,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $nama_delta ?></td>
-                                                <td><?= number_format($gaji_delta, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " .number_format($gaji_delta, 0, '', '.') ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">
