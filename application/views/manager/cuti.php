@@ -102,6 +102,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Lengkap</th>
+                                                <th>Tipe Cuti</th>
                                                 <th>Alasan</th>
                                                 <th>Tanggal Diajukan</th>
                                                 <th>Mulai</th>
@@ -110,7 +111,7 @@
                                                 <th>Status Cuti 1</th>
                                                 <th>Status Cuti 2</th>
                                                 <th>Status Cuti 3</th>
-                                                <th>Cetak Surat Pengajuan</th>
+                                                <th>Cetak Surat</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -123,6 +124,8 @@
                                         $no++;
                                         $id_cuti = $i['id_cuti'];
                                         $id_user = $i['id_user'];
+                                        $tipe_cuti = $i['jenis_cuti'];
+                                        $id_tipe_cuti = $i['id_tipe_cuti'];
                                         $nama_lengkap = $i['nama_lengkap'];
                                         $alasan = $i['alasan'];
                                         $tgl_diajukan = $i['tgl_diajukan'];
@@ -137,6 +140,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $nama_lengkap ?></td>
+                                                <td><?= $tipe_cuti?></td>
                                                 <td><?= $alasan ?></td>
                                                 <td><?= $tgl_diajukan ?></td>
                                                 <td><?= $mulai ?></td>
@@ -232,7 +236,7 @@
                                                 <td>
                                                     <?php if ($id_status_cuti1 == 2 && $id_status_cuti2 == 2) { ?>
                                                         <a href="<?= base_url(); ?>Cetak/surat_cuti_pdf/<?= $id_cuti ?>" target="_blank" class="btn btn-info">
-                                                            Cetak Surat Pengajuan
+                                                            Cetak Surat Cuti
                                                         </a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-danger">
@@ -289,6 +293,7 @@
                                                                     <div class="col-md-12">
                                                                         <input type="hidden" name="id_cuti" value="<?php echo $id_cuti?>" />
                                                                         <input type="hidden" name="id_user" value="<?php echo $id_user?>" />
+                                                                        <input type="hidden" name="id_tipe_cuti" value="<?php echo $id_tipe_cuti?>" />
                                                                         <input type="hidden" name="mulai" value="<?php echo $mulai?>" />
                                                                         <input type="hidden" name="berakhir" value="<?php echo $berakhir?>" />
                                                                         <p>Apakah kamu yakin ingin Menyetujui Izin Cuti
@@ -328,6 +333,7 @@
                                                                     <div class="col-md-12">
                                                                         <input type="hidden" name="id_cuti" value="<?php echo $id_cuti?>" />
                                                                         <input type="hidden" name="id_user" value="<?php echo $id_user?>" />
+                                                                        <input type="hidden" name="id_tipe_cuti" value="<?php echo $id_tipe_cuti?>" />
                                                                         <input type="hidden" name="mulai" value="<?php echo $mulai?>" />
                                                                         <input type="hidden" name="berakhir" value="<?php echo $berakhir?>" />
                                                                         <input type="hidden" name="id_status_cuti3" value="<?php echo $id_status_cuti3?>" />

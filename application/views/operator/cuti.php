@@ -89,7 +89,8 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama Lengkap</th>
+                                                <th>Nomor Cuti</th>
+                                                <th>Tipe Cuti</th>
                                                 <th>Alasan</th>
                                                 <th>Tanggal Diajukan</th>
                                                 <th>Mulai</th>
@@ -97,8 +98,8 @@
                                                 <th>Status Cuti 1</th>
                                                 <th>Status Cuti 2</th>
                                                 <th>Status Cuti 3</th>
-                                                <th>Cetak Surat Pengajuan</th>
-                                                <th>Cetak Surat Konfirmasi</th>
+                                                <th>Cetak Surat</th>
+                                                <th>Cetak Surat Polosan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -109,9 +110,10 @@
                                         foreach($cuti as $i)
                                         :
                                         $no++;
+                                        $id_cuti_detail = $i['id_cuti_detail'];
                                         $id_cuti = $i['id_cuti'];
                                         $id_user = $i['id_user'];
-                                        $nama_lengkap = $i['nama_lengkap'];
+                                        $jenis_cuti = $i['jenis_cuti'];
                                         $alasan = $i['alasan'];
                                         $tgl_diajukan = $i['tgl_diajukan'];
                                         $mulai = $i['mulai'];
@@ -123,7 +125,8 @@
                                         ?>
                                             <tr>
                                                 <td><?= $no ?></td>
-                                                <td><?= $nama_lengkap ?></td>
+                                                <td><?= $id_cuti ?></td>
+                                                <td><?= $jenis_cuti?></td>
                                                 <td><?= $alasan ?></td>
                                                 <td><?= $tgl_diajukan ?></td>
                                                 <td><?= $mulai ?></td>
@@ -227,7 +230,7 @@
                                                     <?php } ?>
                                                 </td>
                                                 <td>
-                                                    <?php if ($id_status_cuti1 == 2 && $id_status_cuti2 == 2 && $id_status_cuti3 ==2) { ?>
+                                                    <?php if ($id_status_cuti1 == 2) { ?>
                                                         <a href="<?= base_url(); ?>CetakAcc/surat_cuti_acc_pdf/<?= $id_cuti ?>" target="_blank" class="btn btn-info">
                                                             Cetak Surat Konfirmasi
                                                         </a>
@@ -245,7 +248,7 @@
                                                         <div class="table-responsive">
                                                             <div class="table table-striped table-hover ">
                                                                 <a href="" data-toggle="modal"
-                                                                    data-target="#hapus<?= $id_cuti ?>"
+                                                                    data-target="#hapus<?= $id_cuti_detail ?>"
                                                                     class="btn btn-danger"><i class="fas fa-trash"></i>
                                                                 </a>
                                                             </div>
@@ -255,7 +258,7 @@
 
                                             </tr>
                                             <!-- Modal Hapus Data Cuti -->
-                                            <div class="modal fade" id="hapus<?= $id_cuti ?>" tabindex="-1"
+                                            <div class="modal fade" id="hapus<?= $id_cuti_detail ?>" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -277,7 +280,7 @@
                                                                 <form action="<?php echo base_url() ?>Cuti/hapus_cuti" method="post" enctype="multipart/form-data">
                                                                     <div class="row">
                                                                         <div class="col-md-12">
-                                                                            <input type="hidden" name="id_cuti" value="<?php echo $id_cuti ?>" />
+                                                                            <input type="hidden" name="id_cuti_detail" value="<?php echo $id_cuti_detail ?>" />
                                                                             <input type="hidden" name="id_user" value="<?php echo $id_user ?>" />
 
                                                                             <p>Apakah kamu yakin ingin menghapus data ini?</p>

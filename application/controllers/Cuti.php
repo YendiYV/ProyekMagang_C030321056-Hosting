@@ -27,7 +27,7 @@ class Cuti extends CI_Controller {
 	{
 	if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
 
-		$data['cuti'] = $this->m_cuti->get_all_cuti()->result_array();
+		$data['cuti'] = $this->m_cuti->get_all_cuti()->result_array();	
 		$this->load->view('super_admin/cuti', $data);
 
 	}else{
@@ -44,6 +44,7 @@ class Cuti extends CI_Controller {
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
 
 			$data['cuti'] = $this->m_cuti->get_all_cuti()->result_array();
+			$data['tipe_cuti'] = $this->m_cuti->get_tipe_cuti()->result_array();
 			$this->load->view('admin/cuti', $data);
 
 		}else{
@@ -76,10 +77,10 @@ class Cuti extends CI_Controller {
 	public function hapus_cuti()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 1) {
-			$id_cuti = $this->input->post("id_cuti");
+			$id_cuti_detail = $this->input->post("id_cuti_detail");
 			$id_user = $this->input->post("id_user");
 
-			$hasil = $this->m_cuti->delete_cuti($id_cuti);
+			$hasil = $this->m_cuti->delete_cuti($id_cuti_detail);
 			
 			if($hasil==false){
 				$this->session->set_flashdata('eror_hapus','eror_hapus');
@@ -98,10 +99,10 @@ class Cuti extends CI_Controller {
 	public function hapus_cuti_admin()
 	{
 		if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
-			$id_cuti = $this->input->post("id_cuti");
+			$id_cuti_detail = $this->input->post("id_cuti_detail");
 			$id_user = $this->input->post("id_user");
 
-			$hasil = $this->m_cuti->delete_cuti($id_cuti);
+			$hasil = $this->m_cuti->delete_cuti($id_cuti_detail);
 			
 			if($hasil==false){
 				$this->session->set_flashdata('eror_hapus','eror_hapus');
@@ -121,8 +122,9 @@ class Cuti extends CI_Controller {
 	{
 		if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
 			$id_user = $this->input->post("id_user");
-			$id_cuti = $this->input->post("id_cuti");
+			$id_cuti_detail = $this->input->post("id_cuti_detail");
 			$alasan = $this->input->post("alasan");
+			$tipe_cuti= $this->input->post("tipe_cuti");
 			$perihal_cuti = $this->input->post("perihal_cuti");
 			$tgl_diajukan = $this->input->post("tgl_diajukan");
 			$mulai = $this->input->post("mulai");
@@ -131,7 +133,7 @@ class Cuti extends CI_Controller {
 			// Hitung jumlah hari cuti
 			$total_hari_cuti = $this->hitung_hari_cuti($mulai, $berakhir);
 
-			$hasil = $this->m_cuti->update_cuti($alasan, $perihal_cuti, $tgl_diajukan, $mulai, $berakhir, $id_cuti,$total_hari_cuti);
+			$hasil = $this->m_cuti->update_cuti($alasan, $perihal_cuti, $tgl_diajukan, $mulai, $berakhir, $id_cuti_detail,$total_hari_cuti,$tipe_cuti);
 			$hasil = $this->m_cuti->update_cuti_user_detail($id_user ,$total_hari_cuti);
 			
 			if($hasil==false){
@@ -176,10 +178,10 @@ class Cuti extends CI_Controller {
 	public function acc_cuti_admin($id_status_cuti1)
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
-			$id_cuti = $this->input->post("id_cuti");
+			$id_cuti_detail= $this->input->post("id_cuti_detail");
 			$id_user = $this->input->post("id_user");
 			
-			$hasil = $this->m_cuti->confirm_cuti1($id_cuti, $id_status_cuti1);
+			$hasil = $this->m_cuti->confirm_cuti1($id_cuti_detail, $id_status_cuti1);
 
 			if($hasil==false){
 				$this->session->set_flashdata('eror_input','eror_input');
@@ -221,18 +223,21 @@ class Cuti extends CI_Controller {
 	{
 		$id_cuti = $this->input->post("id_cuti");
 		$id_user = $this->input->post("id_user");
+		$tipe_cuti = $this->input->post("id_tipe_cuti");
 		$mulai = $this->input->post("mulai");
 		$berakhir = $this->input->post("berakhir");
 		
 		$total_hari_cuti = $this->hitung_total_cuti($mulai, $berakhir);
-		$hasil = $this->m_cuti->confirm_cuti3($id_cuti, $id_status_cuti3); 
-		$hasil = $this->m_cuti->insert_user_detail($id_user, $total_hari_cuti);    
+		$hasil = $this->m_cuti->confirm_cuti3($id_cuti, $id_status_cuti3);
+		if($tipe_cuti == 3){
+		$hasil = $this->m_cuti->insert_user_detail($id_user, $total_hari_cuti);
+		}
 		if ($hasil == false) {
 			$this->session->set_flashdata('eror_input', 'eror_input');
 		} else {
 			$this->session->set_flashdata('input', 'input');
 		}
-		redirect('Cuti/view_manager/' . $id_user);
+		redirect('Cuti/view_manager');
 	}
 
 	public function tolak_cuti_manager()
@@ -240,6 +245,7 @@ class Cuti extends CI_Controller {
 		$id_cuti = $this->input->post("id_cuti");
 		$id_user = $this->input->post("id_user");
 		$mulai = $this->input->post("mulai");
+		$tipe_cuti = $this->input->post("id_tipe_cuti");
 		$berakhir = $this->input->post("berakhir");
 		$id_status_cuti3 = $this->input->post("id_status_cuti3");
 		
@@ -247,7 +253,9 @@ class Cuti extends CI_Controller {
 			$total_hari_cuti = $this->hitung_total_cuti($mulai, $berakhir);
 			
 			$hasil = $this->m_cuti->tolak_cuti3($id_cuti, $id_status_cuti3);
+			if($tipe_cuti == 3){
 			$hasil = $this->m_cuti->insert_user_detail_hapus($id_user, $total_hari_cuti);
+			}
 			if ($hasil == false) {
 				$this->session->set_flashdata('eror_input', 'eror_input');
 			}else {

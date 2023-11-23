@@ -136,5 +136,68 @@ class Settings extends CI_Controller {
 		}
 	}
 
-    
+	public function upload_ttd_ops() {
+		$id = $this->session->userdata('id_user');
+		$config['upload_path']   = FCPATH . 'assets/ttd/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['max_size']      = 1024;
+		$config['overwrite']     = TRUE; // Set to TRUE to overwrite the file if it already exists
+		$config['file_name']     = 'ttd-ops-'.$id.'.jpg'; // Set the desired file name with the file extension
+
+		$this->load->library('upload', $config);
+
+		if ($this->upload->do_upload('signatureFile')) {
+			// File uploaded successfully
+			$file_path = 'assets/ttd/' . $this->upload->data('file_name');
+			// You can do further processing with the file path if needed
+			$this->session->set_flashdata('ttd_upload', 'ttd_upload');
+		} else {
+			// File upload failed
+			$this->session->set_flashdata('ttd_gagal', 'ttd_gagal');
+		}
+
+		redirect('Settings/view_operator');
+	}
+	public function upload_ttd_spv() {
+		$config['upload_path']   = FCPATH . 'assets/ttd/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['max_size']      = 1024;
+		$config['overwrite']     = TRUE; // Set to TRUE to overwrite the file if it already exists
+		$config['file_name']     = 'ttd-spv.jpg'; // Set the desired file name with the file extension
+
+		$this->load->library('upload', $config);
+
+		if ($this->upload->do_upload('signatureFile')) {
+			// File uploaded successfully
+			$file_path = 'assets/ttd/' . $this->upload->data('file_name');
+			// You can do further processing with the file path if needed
+			$this->session->set_flashdata('ttd_upload', 'ttd_upload');
+		} else {
+			// File upload failed
+			$this->session->set_flashdata('ttd_gagal', 'ttd_gagal');
+		}
+
+		redirect('Settings/view_super_admin');
+	}
+	public function upload_ttd_mng() {
+		$config['upload_path']   = FCPATH . 'assets/ttd/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['max_size']      = 1024;
+		$config['overwrite']     = TRUE; // Set to TRUE to overwrite the file if it already exists
+		$config['file_name']     = 'ttd-mng.jpg'; // Set the desired file name with the file extension
+
+		$this->load->library('upload', $config);
+
+		if ($this->upload->do_upload('signatureFile')) {
+			// File uploaded successfully
+			$file_path = 'assets/ttd/' . $this->upload->data('file_name');
+			// You can do further processing with the file path if needed
+			$this->session->set_flashdata('ttd_upload', 'ttd_upload');
+		} else {
+			// File upload failed
+			$this->session->set_flashdata('ttd_gagal', 'ttd_gagal');
+		}
+
+		redirect('Settings/view_manager');
+	}
 }

@@ -101,6 +101,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Lengkap</th>
+                                                <th>Tipe Cuti</th>
                                                 <th>Alasan</th>
                                                 <th>Tanggal Diajukan</th>
                                                 <th>Mulai</th>
@@ -109,8 +110,7 @@
                                                 <th>Status Cuti 1</th>
                                                 <th>Status Cuti 2</th>
                                                 <th>Status Cuti 3</th>
-                                                <th>Cetak Surat Pengajuan</th>
-                                                <th>Cetak Surat Konfirmasi</th>
+                                                <th>Cetak Surat</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -124,6 +124,7 @@
                                         $id_cuti = $i['id_cuti'];
                                         $id_user = $i['id_user'];
                                         $nama_lengkap = $i['nama_lengkap'];
+                                        $jenis_cuti= $i['jenis_cuti'];
                                         $alasan = $i['alasan'];
                                         $tgl_diajukan = $i['tgl_diajukan'];
                                         $mulai = $i['mulai'];
@@ -137,6 +138,7 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $nama_lengkap ?></td>
+                                                <td><?= $jenis_cuti?></td>
                                                 <td><?= $alasan ?></td>
                                                 <td><?= $tgl_diajukan ?></td>
                                                 <td><?= $mulai ?></td>
@@ -232,18 +234,7 @@
                                                 <td>
                                                     <?php if ($id_status_cuti1 == 2) { ?>
                                                         <a href="<?= base_url(); ?>Cetak/surat_cuti_pdf/<?= $id_cuti ?>" target="_blank" class="btn btn-info">
-                                                            Cetak Surat Pengajuan
-                                                        </a>
-                                                    <?php } else { ?>
-                                                        <a class="btn btn-danger">
-                                                            Belum Dapat Mencetak
-                                                        </a>
-                                                    <?php } ?>
-                                                </td>
-                                                <td>
-                                                    <?php if ($id_status_cuti1 == 2 ) { ?>
-                                                        <a href="<?= base_url(); ?>CetakAcc/surat_cuti_acc_pdf/<?= $id_cuti ?>" target="_blank" class="btn btn-info">
-                                                            Cetak Surat Konfirmasi
+                                                            Cetak Surat Cuti
                                                         </a>
                                                     <?php } else { ?>
                                                         <a class="btn btn-danger">
@@ -312,6 +303,19 @@
                                                         <div class="modal-body">
                                                                     <form action="<?= base_url(); ?>Cuti/edit_cuti_admin" method="POST">
                                                                 <input type="text" value="<?= $id_cuti ?>" name="id_cuti" hidden>
+                                                                <div class="form-group">
+                                                                    <label for="jenis_cuti">Jenis Cuti</label>
+                                                                    <select class="form-control" id="tipe_cuti" name="tipe_cuti" required>
+                                                                        <?php foreach($tipe_cuti as $tc)
+                                                                                                :
+                                                                                                $id = $tc["id_tipe_cuti"];
+                                                                                                $tipe_cuti = $tc["jenis_cuti"];
+                                                                                                ?>
+                                                                        <option value="<?= $id ?>"> <?= $tipe_cuti ?></option>
+
+                                                                        <?php endforeach?>
+                                                                    </select>
+                                                                </div>
                                                                 <div class="form-group">
                                                                     <label for="alasan">Alasan</label>
                                                                     <textarea class="form-control" id="alasan" rows="3" name="alasan" required><?= $alasan ?></textarea>

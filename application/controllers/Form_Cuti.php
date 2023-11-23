@@ -28,7 +28,8 @@ class Form_Cuti extends CI_Controller {
 				// Total cuti dalam setahun kurang dari 12, muat tampilan pengajuan cuti
 				$data['operator_data'] = $this->m_user->get_operator_by_id($this->session->userdata('id_user'))->result_array();
 				$data['operator'] = $this->m_user->get_operator_by_id($this->session->userdata('id_user'))->row_array();
-				$data['jenis_kelamin'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();	
+				$data['jenis_kelamin'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
+				$data['tipe_cuti'] = $this->m_cuti->get_tipe_cuti()->result_array();	
 				$this->load->view('operator/form_pengajuan_cuti', $data);
 			}
 		} else {
@@ -41,6 +42,7 @@ class Form_Cuti extends CI_Controller {
 		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 1) {
 			// Menggunakan ID pengguna dari sesi saat ini
 			$id_user = $this->input->post("id_user");
+			$tipe_cuti= $this->input->post("tipe_cuti");
 			$alasan = $this->input->post("alasan");
 			$perihal_cuti = $this->input->post("perihal_cuti");
 			$mulai = $this->input->post("mulai");
@@ -54,7 +56,7 @@ class Form_Cuti extends CI_Controller {
 
 			while ($nomor_urut_cuti_exists) {
 				$nomor_urut = str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
-				$nomor_urut_cuti = $nomor_urut . "-SP-Cuti-" . $tahun;
+				$nomor_urut_cuti = "PLN.".$nomor_urut . ".SP.CK." . $tahun;
 				$nomor_urut_cuti_exists = $this->m_cuti->check_data_cuti($nomor_urut_cuti);
 			}
 
@@ -63,8 +65,7 @@ class Form_Cuti extends CI_Controller {
 			$id_status_cuti1 = 1;
 			$id_status_cuti2 = 1;
 			$id_status_cuti3 = 1;
-
-			$hasil = $this->m_cuti->insert_data_cuti($nomor_urut_cuti, $id_user, $alasan, $mulai, $berakhir, $id_status_cuti1, $id_status_cuti2, $id_status_cuti3, $perihal_cuti, $total_hari_cuti);
+			$hasil = $this->m_cuti->insert_data_cuti($nomor_urut_cuti, $id_user, $alasan, $mulai, $berakhir, $id_status_cuti1, $id_status_cuti2, $id_status_cuti3, $perihal_cuti, $tipe_cuti,$total_hari_cuti);
 
 			if ($hasil) {
 				$this->session->set_flashdata('input','input');

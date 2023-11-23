@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 22, 2023 at 12:51 PM
+-- Generation Time: Nov 23, 2023 at 04:20 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -52,7 +52,8 @@ INSERT INTO `absensi_level` (`id_absen_level`, `nama_status`, `singkatan_status`
 --
 
 CREATE TABLE `cuti` (
-  `id_cuti` varchar(30) NOT NULL,
+  `id_cuti_detail` int(11) NOT NULL,
+  `id_cuti` varchar(50) NOT NULL,
   `id_user` varchar(256) NOT NULL,
   `alasan` text NOT NULL,
   `tgl_diajukan` date NOT NULL,
@@ -62,16 +63,9 @@ CREATE TABLE `cuti` (
   `id_status_cuti2` int(12) NOT NULL,
   `id_status_cuti3` int(12) NOT NULL,
   `perihal_cuti` varchar(100) NOT NULL,
+  `tipe_cuti` int(11) NOT NULL,
   `jumlah_hari` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `cuti`
---
-
-INSERT INTO `cuti` (`id_cuti`, `id_user`, `alasan`, `tgl_diajukan`, `mulai`, `berakhir`, `id_status_cuti1`, `id_status_cuti2`, `id_status_cuti3`, `perihal_cuti`, `jumlah_hari`) VALUES
-('4323-SP-Cuti-2023', '23bdd1cd96888f836956a97a0fdc6bd5', 'Cuti Keluar Daerah', '2023-11-30', '2023-12-04', '2023-12-08', 2, 2, 1, 'Keluar Pulau', 6),
-('6342-SP-Cuti-2023', '23bdd1cd96888f836956a97a0fdc6bd5', 'Liburan\r\n', '2023-11-15', '2023-12-04', '2023-12-11', 2, 3, 3, 'Pengajuan Cuti', 6);
 
 -- --------------------------------------------------------
 
@@ -113,7 +107,7 @@ INSERT INTO `operator_level` (`id_level`, `operator_level`, `gaji_level`) VALUES
 (5, 'Operasional', 1500000),
 (13, 'Lapangan', 1200000),
 (14, 'SDM', 1500000),
-(15, 'BIllman', 1200000);
+(15, 'Billman', 1200000);
 
 -- --------------------------------------------------------
 
@@ -144,7 +138,11 @@ INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `st
 (76, '135b31d37c7c2bbb758b8151db8665f4', '2023-11-22', '4'),
 (77, '240da85a0ccef5e081e75610614713b9', '2023-11-22', '2'),
 (78, '13afa9a1477ed79f6ae6909556d00818', '2023-11-01', '1'),
-(80, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-10-02', '1');
+(80, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-10-02', '1'),
+(81, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-23', '5'),
+(82, 'b47e7355884c086901144e5f15d6356f', '2023-11-23', '5'),
+(83, 'a39976b1e1fe2c17022e944a2f0c19dd', '2023-11-23', '5'),
+(84, 'fb6049cf299977a56a3c4e8a4baa26c1', '2023-11-23', '5');
 
 -- --------------------------------------------------------
 
@@ -458,6 +456,26 @@ INSERT INTO `status_um` (`id_status_um`, `tipe_um`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tipe_cuti`
+--
+
+CREATE TABLE `tipe_cuti` (
+  `id_tipe_cuti` int(11) NOT NULL,
+  `jenis_cuti` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tipe_cuti`
+--
+
+INSERT INTO `tipe_cuti` (`id_tipe_cuti`, `jenis_cuti`) VALUES
+(1, 'Cuti Sakit'),
+(2, 'Cuti Izin'),
+(3, 'Cuti Tahunan\r\n');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -524,7 +542,7 @@ INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`,
 ('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, 0),
 ('135b31d37c7c2bbb758b8151db8665f4', 'Rahmat', 1, '0812345678', 'Jl. Pengayaan', '1231232PKY', 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, '2023-11-20', 0),
 ('13afa9a1477ed79f6ae6909556d00818', 'Asep', 1, '0812345678', 'Jl. Karamunting', '1231236PKY', 0, 1, 1, 3, 2, 1, 2, 2, 0, 3, '2023-11-20', 0),
-('23bdd1cd96888f836956a97a0fdc6bd5', 'YENDI', 1, '0812345678', 'Jl. Listrik 2', '1231231PKY', 2, 15, 2, 3, 1, 3, 2, 2, 3, 4, '2023-11-23', 6),
+('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '0812345678', 'Jl. Listrik 2', '1231231PKY', 2, 15, 2, 3, 1, 3, 2, 2, 3, 4, '2023-11-23', 0),
 ('240da85a0ccef5e081e75610614713b9', 'Fitri', 2, '0876543', 'Jl. Negara', '1231233PKY', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2023-11-20', 0),
 ('3be7679db1758d177f0ce012cf9e3c21', 'Amat', 1, '098765', 'Jl. Hasan Basri', '1231235BJM', 1, 1, 3, 1, 1, 5, 0, 0, 0, 0, '2023-10-02', 0),
 ('494980575570192dc9328b10ed5c74b8', 'Tuti', 2, '0987654', 'Jl. LN 2', '1231237PKY', 0, 1, 2, 1, 3, 3, 2, 2, 2, 3, '2023-11-20', 0),
@@ -532,9 +550,9 @@ INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`,
 ('a39976b1e1fe2c17022e944a2f0c19dd', 'Jamal', 1, '09876543', 'Jl. Hasan Basri', '1231234BJM', 1, 15, 1, 1, 1, 3, 3, 2, 3, 4, '2023-06-01', 0),
 ('b47e7355884c086901144e5f15d6356f', 'Budi', 1, '09876543', 'Jl. Karamunting', '1231234PKY', 2, 13, 7, 3, 1, 1, 2, 2, 2, 3, '2023-11-20', 0),
 ('cd333c4693523fb52e4e6a04fae07782', 'RENDI', 1, '09876', 'Jl. Hasan Basri', '1231232BJM', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0),
-('eb71208764d1a8a02cdf86a49ccd1489', 'Manajer Yendi', 1, '081212121212', 'Jl. Hidayatullah No.22', '1234567MNJ', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0),
-('f5972fbf4ef53843c1e12c3ae99e5005', 'Supervisior', 1, NULL, NULL, '1234567SPV', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0),
-('fb6049cf299977a56a3c4e8a4baa26c1', 'Udin', 1, '098765', 'Jl. Karamunting', '1231231BJM', 1, 1, 1, 1, 2, 3, 3, 2, 3, 0, '2023-11-01', 0);
+('eb71208764d1a8a02cdf86a49ccd1489', 'Maulana Rizman Muttaqin', 1, '081212121212', 'Jl. Hidayatullah No.22', '1234567MNJ', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0),
+('f5972fbf4ef53843c1e12c3ae99e5005', 'Nama Supervisior', 1, NULL, NULL, '1234567SPV', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0),
+('fb6049cf299977a56a3c4e8a4baa26c1', 'Udin', 1, '098765', 'Jl. Karamunting', '1231231BJM', 1, 1, 1, 1, 2, 3, 3, 2, 3, 0, '2023-11-01', 6);
 
 -- --------------------------------------------------------
 
@@ -571,7 +589,7 @@ ALTER TABLE `absensi_level`
 -- Indexes for table `cuti`
 --
 ALTER TABLE `cuti`
-  ADD PRIMARY KEY (`id_cuti`);
+  ADD PRIMARY KEY (`id_cuti_detail`);
 
 --
 -- Indexes for table `jenis_kelamin`
@@ -676,6 +694,12 @@ ALTER TABLE `status_um`
   ADD PRIMARY KEY (`id_status_um`);
 
 --
+-- Indexes for table `tipe_cuti`
+--
+ALTER TABLE `tipe_cuti`
+  ADD PRIMARY KEY (`id_tipe_cuti`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -704,6 +728,12 @@ ALTER TABLE `absensi_level`
   MODIFY `id_absen_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `cuti`
+--
+ALTER TABLE `cuti`
+  MODIFY `id_cuti_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `jenis_kelamin`
 --
 ALTER TABLE `jenis_kelamin`
@@ -719,7 +749,7 @@ ALTER TABLE `operator_level`
 -- AUTO_INCREMENT for table `status_absensi`
 --
 ALTER TABLE `status_absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`
@@ -786,6 +816,12 @@ ALTER TABLE `status_transport`
 --
 ALTER TABLE `status_uang_hadir`
   MODIFY `id_uang_hadir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tipe_cuti`
+--
+ALTER TABLE `tipe_cuti`
+  MODIFY `id_tipe_cuti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user_level`

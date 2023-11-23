@@ -99,8 +99,6 @@ class M_user extends CI_Model
         }
     }
 
-
-
     public function update_operator($id_user, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan, $penempatan, $bpk, $delta, $transport,$komunikasi,$uang_hadir,$kontribusi,$insentif, $id_status_proyek, $tanggal_masuk)
     {
         $this->db->trans_start();

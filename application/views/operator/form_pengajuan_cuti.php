@@ -80,6 +80,20 @@
                     <form action="<?= base_url();?>Form_Cuti/proses_cuti" method="POST" enctype="multipart/form-data">
                         <input type="text" value="<?=$this->session->userdata('id_user') ?>" name="id_user" hidden>
                         <div class="form-group">
+                            <label for="tipe_cuti">Tipe Cuti</label>
+                            <select class="form-control" id="tipe_cuti" name="tipe_cuti" required>
+                                <?php foreach($tipe_cuti as $tc)
+                                                        :
+                                                        $id = $tc["id_tipe_cuti"];
+                                                        $tipe_cuti = $tc["jenis_cuti"];
+                                                        ?>
+                                <option value="<?= $id ?>"> <?= $tipe_cuti ?></option>
+
+                                <?php endforeach?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="perihal_cuti">Perihal Cuti</label>
                             <input type="text" class="form-control" id="perihal_cuti" aria-describedby="perihal_cuti"
                                 name="perihal_cuti" required>

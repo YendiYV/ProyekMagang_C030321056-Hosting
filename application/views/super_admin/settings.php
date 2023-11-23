@@ -33,6 +33,24 @@
     });
     </script>
     <?php } ?>
+    <?php if ($this->session->flashdata('ttd_upload')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Data Berhasil di Upload!",
+        icon: "succes"
+    });
+    </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('ttd_gagal')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Data Gagal Diupload!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -70,6 +88,17 @@
             <!-- /.content-header -->
 
             <!-- Main content -->
+            <hr>
+            <div class="col-sm-auto text-sm-right">
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group" role="group" >
+                        <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#exampleTtd">Upload TTD</button>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <hr>
             <section class="content">
                 <div class="container-fluid">
 
@@ -88,6 +117,48 @@
                     </form>
                 </div><!-- /.container-fluid -->
             </section>
+            <div class="modal fade" id="exampleTtd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Upload TTD</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        <!-- Add your form for signature upload -->
+                        <form action="<?= base_url(); ?>Settings/upload_ttd_spv" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="signatureFile">Pilih File</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="signatureFile" name="signatureFile" accept=".png, .jpg, .jpeg" onchange="displayFileName()">
+                                    <label class="custom-file-label" for="signatureFile" id="fileLabel">Choose file</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
+
+                        <script>
+                        function displayFileName() {
+                            var input = document.getElementById('signatureFile');
+                            var label = document.getElementById('fileLabel');
+                            if (input.files.length > 0) {
+                                label.innerText = input.files[0].name;
+                            } else {
+                                label.innerText = 'Choose file';
+                            }
+                        }
+                        </script>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
