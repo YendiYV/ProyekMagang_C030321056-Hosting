@@ -25,6 +25,25 @@
     <!--===============================================================================================-->
     <!-- Sweetalert -->
     <script src="<?= base_url() ?>node_modules/sweetalert/dist/sweetalert.min.js"></script>
+    <!--===============================================================================================-->
+    <style>
+         .color-changing-text {
+            animation: changeColor 5s infinite alternate; /* Ganti warna setiap 5 detik */
+        }
+        @keyframes changeColor {
+        0% {
+            color: red; /* Warna awal */
+        }
+        50% {
+            color: yellow; /* Warna kedua */
+        }
+        100% {
+            color: blue; /* Warna akhir */
+        }
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -107,19 +126,24 @@
                 </div>
 
                 <form class="login100-form validate-form" action="<?= base_url();?>Login/proses" method="POST">
-                    <span class="login100-form-title">
-                        SMP3C<br>
+                    <span class="login100-form-title color-changing-text">
+                        <span class="smp3c-char s">S</span>
+                        <span class="smp3c-char m">M</span>
+                        <span class="smp3c-char p">P</span>
+                        <span class="smp3c-char 3">3</span>
+                        <span class="smp3c-char c">C</span><br>
                         PLN Tarakan UP2
                     </span>
+                    
                    <div class="wrap-input100 validate-input" data-validate="Masukkan NIP yang terdiri dari 7 Angka 3 Huruf">
-                        <input class="input100" type="text" name="username" placeholder="username">
+                        <input class="input100" type="text" name="username" placeholder="Username">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="password" placeholder="password">
+                        <input class="input100" type="password" name="password" placeholder="Password">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -131,14 +155,19 @@
                             Login
                         </button>
                     </div>
-
+                    <!-- Tombol Butuh Bantuan dengan Ikon -->
+                    <div class="text-center p-t-12">
+                        <span class="txt1">
+                            Butuh Bantuan?
+                        </span>
+                        <a class="txt2" href="mailto:yendiyv3903@gmail.com">
+                            Hubungi Administrator
+                        </a>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-
-
-
 
     <!--===============================================================================================-->
     <script src="<?= base_url();?>assets/login/vendor/jquery/jquery-3.2.1.min.js"></script>

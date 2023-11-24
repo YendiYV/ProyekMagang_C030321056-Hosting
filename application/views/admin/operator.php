@@ -233,6 +233,17 @@
                                             $uang_hadir = $i['nama_uang_hadir'];
                                             $kontribusi = $i['nama_kontribusi'];
                                             $insentif = $i['nama_insentif'];
+
+                                            $id_proyek= $i['proyek'];
+                                            $id_jabatan= $i['jabatan']; 
+                                            $id_penempatan= $i['penempatan']; 
+                                            $id_bpk= $i['bpk']; 
+                                            $id_delta= $i['delta']; 
+                                            $id_transport= $i['transport']; 
+                                            $id_komunikasi= $i['komunikasi']; 
+                                            $id_uh= $i['uang_hadir']; 
+                                            $id_kontribusi= $i['kontribusi']; 
+                                            $id_insentif= $i['insentif']; 
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
@@ -405,133 +416,204 @@
                                                                     <input type="text" class="form-control" id="alamat"
                                                                         aria-describedby="alamat" name="alamat" value="<?= $alamat ?>" required>
                                                                 </div>
-                                                                <div class="form-group">
+                                                                 <div class="form-group">
                                                                     <label for="id_status_proyek">Proyek</label>
                                                                     <select class="form-control" id="id_status_proyek" name="id_status_proyek" required>
                                                                         <option value="0">Tidak ada</option>
-
-                                                                        <?php foreach ($nama_proyek_list as $np) : 
-                                                                            $id = $np["id_status_proyek"];
-                                                                            $nama_proyek = $np["nama_proyek"];
+                                                                        <?php foreach($nama_proyek_list as $np)
+                                                                        :
+                                                                        $id = $np["id_status_proyek"];
+                                                                        $nama_proyek = $np["nama_proyek"];
                                                                         ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_proyek ?></option>
-                                                                            
-                                                                        <?php endforeach; ?>
+                                                                            <option value="<?= $id ?>" <?php if($id == $id_proyek){
+                                                                                echo 'selected';
+                                                                            }else{
+                                                                                echo '';
+                                                                            }?>
+                                                                            ><?= $nama_proyek ?>
+                                                                            </option>
+
+                                                                        <?php endforeach?>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="operator_level">Jabatan</label>
                                                                     <select class="form-control" id="operator_level" name="operator_level" required>
                                                                         <option value="0">Tidak ada</option>
-                                                                        
-                                                                        <?php foreach ($nama_level_list as $nl) : 
-                                                                            $id = $nl["id_level"];
-                                                                            $nama_jabatan = $nl["operator_level"];
+                                                                        <?php foreach($nama_level_list as $nl)
+                                                                        :
+                                                                        $id = $nl["id_level"];
+                                                                        $operator_level = $nl["operator_level"];
                                                                         ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_jabatan ?></option>
-                                                                        <?php endforeach; ?>
+                                                                            <option value="<?= $id ?>" <?php if($id == $id_jabatan){
+                                                                                echo 'selected';
+                                                                            }else{
+                                                                                echo '';
+                                                                            }?>
+                                                                            ><?= $operator_level ?>
+                                                                            </option>
+
+                                                                        <?php endforeach?>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="penempatan">Penempatan</label>
                                                                         <select class="form-control" id="penempatan" name="penempatan" required>
                                                                             <option value="0">Tidak ada</option>
-                                                                                <?php foreach ($nama_penempatan_list as $npl) : 
-                                                                                    $id = $npl["id_penempatan"];
-                                                                                    $nama_penempatan = $npl["nama_penempatan"];
-                                                                                ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_penempatan ?></option>
-                                                                                <?php endforeach; ?>
+                                                                            <?php foreach($nama_penempatan_list as $npl)
+                                                                            :
+                                                                            $id = $npl["id_penempatan"];
+                                                                            $nama_penempatan= $npl["nama_penempatan"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_penempatan){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_penempatan ?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
                                                                         </select>
                                                                 </div>
                                                                  <div class="form-group">
                                                                     <label for="$nama_bpk_list">BPK</label>
                                                                         <select class="form-control" id="bpk" name="bpk" required>
                                                                             <option value="0">Tidak ada</option>
-                                                                                <?php foreach ($nama_bpk_list as $nbl) : 
-                                                                                    $id = $nbl["id_level_bpk"];
-                                                                                    $nama_bpk = $nbl["nama_bpk"];
-                                                                                ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_bpk?></option>
-                                                                                <?php endforeach; ?>
+                                                                            <?php foreach($nama_bpk_list as $nbl)
+                                                                            :
+                                                                            $id = $nbl["id_level_bpk"];
+                                                                            $nama_bpk= $nbl["nama_bpk"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_bpk){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_bpk?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
                                                                         </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="delta">Delta</label>
                                                                         <select class="form-control" id="delta" name="delta" required>
                                                                             <option value="0">Tidak ada</option>
-                                                                                <?php foreach ($nama_delta_list as $ndl) : 
-                                                                                    $id = $ndl["id_level_delta"];
-                                                                                    $nama_delta = $ndl["nama_delta"];
-                                                                                    $nama_delta = $ndl["nama_delta"];
-                                                                                ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_delta ?></option>
-                                                                                <?php endforeach; ?>
+                                                                            <?php foreach($nama_delta_list as $ndl)
+                                                                            :
+                                                                            $id = $ndl["id_level_delta"];
+                                                                            $nama_delta= $ndl["nama_delta"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_delta){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_delta?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
                                                                         </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="transport">Tunjangan Transport</label>
                                                                         <select class="form-control" id="transport" name="transport" required>
                                                                             <option value="0">Tidak ada</option>
-                                                                                <?php foreach ($nama_transport_list as $ntl) : 
-                                                                                    $id = $ntl["id_transport"];
-                                                                                    $nama_transport = $ntl["nama_transport"];
-                                                                                    $tunjangan_transport = $ntl["tunjangan_transport"];
-                                                                                ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_transport ?> = <?= $tunjangan_transport ?></option>
-                                                                                <?php endforeach; ?>
+                                                                            <?php foreach($nama_transport_list as $ntl)
+                                                                            :
+                                                                            $id = $ntl["id_transport"];
+                                                                            $nama_transport= $ntl["nama_transport"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_transport){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_transport?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
                                                                         </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="komunikasi">Tunjangan Komunikasi</label>
                                                                         <select class="form-control" id="komunikasi" name="komunikasi" required>
                                                                             <option value="0">Tidak ada</option>
-                                                                                <?php foreach ($nama_komunikasi_list as $nkl) : 
-                                                                                    $id = $nkl["id_komunikasi"];
-                                                                                    $nama_komunikasi = $nkl["nama_komunikasi"];
-                                                                                    $tunjangan_komunikasi = $nkl["tunjangan_komunikasi"];
-                                                                                ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_komunikasi?> = <?= $tunjangan_komunikasi ?></option>
-                                                                                <?php endforeach; ?>
+                                                                            <?php foreach($nama_komunikasi_list as $nkl)
+                                                                            :
+                                                                            $id = $nkl["id_komunikasi"];
+                                                                            $nama_komunikasi= $nkl["nama_komunikasi"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_komunikasi){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_komunikasi?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
                                                                         </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                      <label for="uang_hadir">Tunjangan Uang Hadir</label>
                                                                         <select class="form-control" id="uang_hadir" name="uang_hadir" required>
                                                                             <option value="0">Tidak ada</option>
-                                                                                <?php foreach ($nama_uang_hadir_list as $nuhl) : 
-                                                                                    $id = $nuhl["id_uang_hadir"];
-                                                                                    $nama_uh = $nuhl["nama_uang_hadir"];
-                                                                                    $tunjangan_uh = $nuhl["tunjangan_uang_hadir"];
-                                                                                ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_uh ?> = <?= $tunjangan_uh ?></option>
-                                                                                <?php endforeach; ?>
+                                                                            <?php foreach($nama_uang_hadir_list as $nuhl)
+                                                                            :
+                                                                            $id = $nuhl["id_uang_hadir"];
+                                                                            $nama_uh= $nuhl["nama_uang_hadir"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_uh){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_uh?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
                                                                         </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="kontribusi">Tunjangan Kontribusi</label>
                                                                         <select class="form-control" id="kontribusi" name="kontribusi" required>
                                                                             <option value="0">Tidak ada</option>
-                                                                                <?php foreach ($nama_kontribusi_list as $nkol) : 
-                                                                                    $id = $nkol["id_kontribusi"];
-                                                                                    $nama_kontribusi = $nkol["nama_kontribusi"];
-                                                                                    $tunjangan_kontribusi = $nkol["tunjangan_kontribusi"];
-                                                                                ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_kontribusi ?> = <?= $tunjangan_kontribusi ?></option>
-                                                                                <?php endforeach; ?>
+                                                                            <?php foreach($nama_kontribusi_list as $nkol)
+                                                                            :
+                                                                            $id = $nkol["id_kontribusi"];
+                                                                            $nama_kontribusi= $nkol["nama_kontribusi"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_kontribusi){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_kontribusi?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
                                                                         </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="insentif">Tunjangan Insentif</label>
                                                                         <select class="form-control" id="insentif" name="insentif" required>
                                                                             <option value="0">Tidak ada</option>
-                                                                                <?php foreach ($nama_insentif_list as $nil) : 
-                                                                                    $id = $nil["id_insentif"];
-                                                                                    $nama_insentif = $nil["nama_insentif"];
-                                                                                    $tunjangan_insentif = $nil["tunjangan_insentif"];
-                                                                                ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_insentif ?> = <?= $tunjangan_insentif ?></option>
-                                                                                <?php endforeach; ?>
+                                                                            <?php foreach($nama_insentif_list as $nil)
+                                                                            :
+                                                                            $id = $nil["id_insentif"];
+                                                                            $nama_insentif= $nil["nama_insentif"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_insentif){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_insentif?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
                                                                         </select>
                                                                 </div>
                                                                 <button type="submit" class="btn btn-primary">Submit</button>

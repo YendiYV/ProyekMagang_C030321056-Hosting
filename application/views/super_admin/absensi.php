@@ -233,8 +233,10 @@
                                                         return 'purple';
                                                     case 'HS':
                                                         return 'black';
-                                                    default:
+                                                    case 'A':
                                                         return 'red';
+                                                    default:
+                                                        return 'black';
 
                                                 }
                                             }

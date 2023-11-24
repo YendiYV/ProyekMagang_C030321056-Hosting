@@ -89,15 +89,16 @@
 
             <!-- Main content -->
             <hr>
-            <div class="col-sm-auto text-sm-right">
+            <div class="col-sm-auto text-sm-left" style="margin-left: 5pt;">
+                <span class="mr-2">
+                    <label for="upload_ttd" style="font-size:19px;">Upload Tanda Tangan</label>
+                </span>
                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group" role="group" >
-                        <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#exampleTtd">Upload TTD</button>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary btn-lg mt-2 mb-2" data-toggle="modal" data-target="#exampleTtd">Upload File</button>
                     </div>
                 </div>
             </div>
-
-            <br>
             <hr>
             <section class="content">
                 <div class="container-fluid">
@@ -121,7 +122,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Upload TTD</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -133,7 +134,8 @@
                                 <label for="signatureFile">Pilih File</label>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="signatureFile" name="signatureFile" accept=".png, .jpg, .jpeg" onchange="displayFileName()">
-                                    <label class="custom-file-label" for="signatureFile" id="fileLabel">Choose file</label>
+                                    <label class="custom-file-label" for="signatureFile" id="fileLabel">Pilih File</label>
+                                    <small><b>Ukuran Max 1024 KB</b></small>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Upload</button>

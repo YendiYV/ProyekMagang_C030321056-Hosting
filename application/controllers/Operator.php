@@ -58,6 +58,10 @@ class operator extends CI_Controller {
 			$data['nama_bpk_list'] = $this->m_bpk->get_all_bpk();
 			$data['nama_delta_list'] = $this->m_delta->get_all_delta();
 			$data['nama_transport_list'] = $this->m_transport->get_all_transport();
+			$data['nama_komunikasi_list'] = $this->m_komunikasi->get_all_komunikasi();
+			$data['nama_uang_hadir_list'] = $this->m_uang_hadir->get_all_uang_hadir();
+			$data['nama_kontribusi_list'] = $this->m_kontribusi->get_all_kontribusi();
+			$data['nama_insentif_list'] = $this->m_insentif->get_all_insentif();
 			$this->load->view('super_admin/operator', $data);
 
 		}else{
@@ -79,6 +83,10 @@ class operator extends CI_Controller {
 			$data['nama_bpk_list'] = $this->m_bpk->get_all_bpk();
 			$data['nama_delta_list'] = $this->m_delta->get_all_delta();
 			$data['nama_transport_list'] = $this->m_transport->get_all_transport();
+			$data['nama_komunikasi_list'] = $this->m_komunikasi->get_all_komunikasi();
+			$data['nama_uang_hadir_list'] = $this->m_uang_hadir->get_all_uang_hadir();
+			$data['nama_kontribusi_list'] = $this->m_kontribusi->get_all_kontribusi();
+			$data['nama_insentif_list'] = $this->m_insentif->get_all_insentif();
 			$this->load->view('manager/operator', $data);
 			
 		}else{

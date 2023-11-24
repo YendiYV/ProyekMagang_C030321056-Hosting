@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 23, 2023 at 04:20 PM
+-- Generation Time: Nov 24, 2023 at 03:29 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -66,6 +66,13 @@ CREATE TABLE `cuti` (
   `tipe_cuti` int(11) NOT NULL,
   `jumlah_hari` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cuti`
+--
+
+INSERT INTO `cuti` (`id_cuti_detail`, `id_cuti`, `id_user`, `alasan`, `tgl_diajukan`, `mulai`, `berakhir`, `id_status_cuti1`, `id_status_cuti2`, `id_status_cuti3`, `perihal_cuti`, `tipe_cuti`, `jumlah_hari`) VALUES
+(8, 'PLN.7731.SP.CK.2023', 'fb6049cf299977a56a3c4e8a4baa26c1', '-', '2023-11-24', '2023-11-27', '2023-12-01', 2, 2, 2, 'Pengambilan Cuti Tahunan', 2, 5);
 
 -- --------------------------------------------------------
 
@@ -142,7 +149,8 @@ INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `st
 (81, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-23', '5'),
 (82, 'b47e7355884c086901144e5f15d6356f', '2023-11-23', '5'),
 (83, 'a39976b1e1fe2c17022e944a2f0c19dd', '2023-11-23', '5'),
-(84, 'fb6049cf299977a56a3c4e8a4baa26c1', '2023-11-23', '5');
+(84, 'fb6049cf299977a56a3c4e8a4baa26c1', '2023-11-23', '5'),
+(85, 'fb6049cf299977a56a3c4e8a4baa26c1', '2023-11-24', '5');
 
 -- --------------------------------------------------------
 
@@ -245,6 +253,14 @@ CREATE TABLE `status_insentif` (
   `nama_insentif` varchar(255) NOT NULL,
   `tunjangan_insentif` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `status_insentif`
+--
+
+INSERT INTO `status_insentif` (`id_insentif`, `nama_insentif`, `tunjangan_insentif`) VALUES
+(5, 'Insentif A', 12000),
+(6, 'Insentif B', 20000);
 
 -- --------------------------------------------------------
 
@@ -498,7 +514,7 @@ INSERT INTO `user` (`id_user`, `username`, `password`, `id_user_level`, `id_user
 ('23bdd1cd96888f836956a97a0fdc6bd5', '1231231PKY', '202cb962ac59075b964b07152d234b70', 1, '23bdd1cd96888f836956a97a0fdc6bd5'),
 ('240da85a0ccef5e081e75610614713b9', '1231233PKY', '202cb962ac59075b964b07152d234b70', 1, '240da85a0ccef5e081e75610614713b9'),
 ('3be7679db1758d177f0ce012cf9e3c21', '1231235BJM', '202cb962ac59075b964b07152d234b70', 1, '3be7679db1758d177f0ce012cf9e3c21'),
-('494980575570192dc9328b10ed5c74b8', '1231237PKY', '202cb962ac59075b964b07152d234b70', 1, '494980575570192dc9328b10ed5c74b8'),
+('494980575570192dc9328b10ed5c74b8', '1231237ADM', '202cb962ac59075b964b07152d234b70', 1, '494980575570192dc9328b10ed5c74b8'),
 ('5ed4d0b87388632ecb567b745a1cdf68', '1231233BJM', '202cb962ac59075b964b07152d234b70', 1, '5ed4d0b87388632ecb567b745a1cdf68'),
 ('a39976b1e1fe2c17022e944a2f0c19dd', '1231234BJM', '202cb962ac59075b964b07152d234b70', 1, 'a39976b1e1fe2c17022e944a2f0c19dd'),
 ('b47e7355884c086901144e5f15d6356f', '1231234PKY', '202cb962ac59075b964b07152d234b70', 1, 'b47e7355884c086901144e5f15d6356f'),
@@ -539,10 +555,10 @@ CREATE TABLE `user_detail` (
 --
 
 INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `komunikasi`, `uang_hadir`, `kontribusi`, `insentif`, `tanggal_masuk`, `jumlah_cuti`) VALUES
-('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, '08080808', 'Jl. Pangeran H No.22', '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, 0),
+('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', 1, NULL, NULL, '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, 0),
 ('135b31d37c7c2bbb758b8151db8665f4', 'Rahmat', 1, '0812345678', 'Jl. Pengayaan', '1231232PKY', 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, '2023-11-20', 0),
 ('13afa9a1477ed79f6ae6909556d00818', 'Asep', 1, '0812345678', 'Jl. Karamunting', '1231236PKY', 0, 1, 1, 3, 2, 1, 2, 2, 0, 3, '2023-11-20', 0),
-('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '0812345678', 'Jl. Listrik 2', '1231231PKY', 2, 15, 2, 3, 1, 3, 2, 2, 3, 4, '2023-11-23', 0),
+('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', 1, '0812345678', 'Jl. Listrik 2', '1231231PKY', 2, 15, 2, 3, 1, 3, 2, 2, 3, 5, '2023-11-23', 0),
 ('240da85a0ccef5e081e75610614713b9', 'Fitri', 2, '0876543', 'Jl. Negara', '1231233PKY', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2023-11-20', 0),
 ('3be7679db1758d177f0ce012cf9e3c21', 'Amat', 1, '098765', 'Jl. Hasan Basri', '1231235BJM', 1, 1, 3, 1, 1, 5, 0, 0, 0, 0, '2023-10-02', 0),
 ('494980575570192dc9328b10ed5c74b8', 'Tuti', 2, '0987654', 'Jl. LN 2', '1231237PKY', 0, 1, 2, 1, 3, 3, 2, 2, 2, 3, '2023-11-20', 0),
@@ -550,9 +566,9 @@ INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `id_jenis_kelamin`,
 ('a39976b1e1fe2c17022e944a2f0c19dd', 'Jamal', 1, '09876543', 'Jl. Hasan Basri', '1231234BJM', 1, 15, 1, 1, 1, 3, 3, 2, 3, 4, '2023-06-01', 0),
 ('b47e7355884c086901144e5f15d6356f', 'Budi', 1, '09876543', 'Jl. Karamunting', '1231234PKY', 2, 13, 7, 3, 1, 1, 2, 2, 2, 3, '2023-11-20', 0),
 ('cd333c4693523fb52e4e6a04fae07782', 'RENDI', 1, '09876', 'Jl. Hasan Basri', '1231232BJM', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0),
-('eb71208764d1a8a02cdf86a49ccd1489', 'Maulana Rizman Muttaqin', 1, '081212121212', 'Jl. Hidayatullah No.22', '1234567MNJ', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0),
+('eb71208764d1a8a02cdf86a49ccd1489', 'Maulana Rizman Muttaqin', 1, NULL, NULL, '1234567MNJ', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0),
 ('f5972fbf4ef53843c1e12c3ae99e5005', 'Nama Supervisior', 1, NULL, NULL, '1234567SPV', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0),
-('fb6049cf299977a56a3c4e8a4baa26c1', 'Udin', 1, '098765', 'Jl. Karamunting', '1231231BJM', 1, 1, 1, 1, 2, 3, 3, 2, 3, 0, '2023-11-01', 6);
+('fb6049cf299977a56a3c4e8a4baa26c1', 'Udin', 1, '0812345678', 'Jl. Karamunting', '1231231BJM', 1, 1, 1, 1, 2, 3, 3, 2, 3, 0, '2012-11-27', 10);
 
 -- --------------------------------------------------------
 
@@ -731,7 +747,7 @@ ALTER TABLE `absensi_level`
 -- AUTO_INCREMENT for table `cuti`
 --
 ALTER TABLE `cuti`
-  MODIFY `id_cuti_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_cuti_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `jenis_kelamin`
@@ -749,7 +765,7 @@ ALTER TABLE `operator_level`
 -- AUTO_INCREMENT for table `status_absensi`
 --
 ALTER TABLE `status_absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`
@@ -779,7 +795,7 @@ ALTER TABLE `status_gaji_bulanan`
 -- AUTO_INCREMENT for table `status_insentif`
 --
 ALTER TABLE `status_insentif`
-  MODIFY `id_insentif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_insentif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `status_komunikasi`
@@ -827,7 +843,7 @@ ALTER TABLE `tipe_cuti`
 -- AUTO_INCREMENT for table `user_level`
 --
 ALTER TABLE `user_level`
-  MODIFY `id_user_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

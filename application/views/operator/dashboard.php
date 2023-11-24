@@ -200,7 +200,7 @@
                                             if ($date_mulai >= 0 and $date_akhir >= 0) {
                                                 echo $date_akhir . ' Hari Lagi';
                                             } else {
-                                                echo "Tidak Ada";
+                                                echo "-";
                                             }
                                         }
 

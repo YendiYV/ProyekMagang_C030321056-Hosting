@@ -4,6 +4,21 @@
 <head>
     <?php $this->load->view("super_admin/components/header.php") ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <style>
+        .responsive-table {
+            width: 100%;
+            max-width: 100%;
+            table-layout: auto;
+        }
+        @media screen and (max-width: 768px) {
+            /* Aturan CSS untuk layar yang lebih kecil */
+            .responsive-table {
+                font-size: 14px;
+            }
+        }
+        
+
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -22,6 +37,16 @@
     swal({
         title: "Erorr!",
         text: "Data Gagal Ditambahkan!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+    
+    <?php if ($this->session->flashdata('erorpass')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Password Salah!",
         icon: "error"
     });
     </script>
@@ -66,8 +91,7 @@
     });
     </script>
     <?php } ?>
-
-    <?php if ($this->session->flashdata('eror_ada')){ ?>
+     <?php if ($this->session->flashdata('eror_ada')){ ?>
     <script>
     swal({
         title: "Erorr!",
@@ -76,7 +100,6 @@
     });
     </script>
     <?php } ?>
-
     <?php if ($this->session->flashdata('eror_password')){ ?>
     <script>
     swal({
@@ -109,36 +132,11 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Operator</h1>
+                            <h1 class="m-0">Data Operator</h1>
+                            
                             <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Tambah Operator</button>
                             <button type="button" class="btn btn-primary mt-3" id="exportButton">Cetak Rekap</button>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"></a>Supervisior</li>
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Operator</li>
-                            </ol>
-                        </div><!-- /.col -->
-                        <br>
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Data Operator</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <script>
+                            <script>
                                     document.getElementById("exportButton").addEventListener("click", function() {
                                         // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
                                         var table = document.getElementById("example1");
@@ -159,6 +157,33 @@
                                         XLSX.writeFile(wb, fileName);
                                     });
                                     </script>
+                        </div><!-- /.col -->
+
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"></a>Supervisior</li>
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Operator</li>
+                            </ol>
+                        </div><!-- /.col -->
+                        <br>
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Data Operator</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                             <tr>
@@ -174,8 +199,13 @@
                                                 <th>Penempatan</th>
                                                 <th>BPK</th>
                                                 <th>Delta</th>
-                                                <th>Tunjangan Transport</th>
+                                                <th>Tunjangan Trans.</th>
+                                                <th>Tunjangan Kom.</th>
+                                                <th>Tunjangan Uang.H</th>
+                                                <th>Tunjangan Kontri</th>
+                                                <th>Tunjangan Insen</th>
                                                 <th>Aksi</th>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -199,6 +229,21 @@
                                             $nama_bpk = $i['nama_bpk'];
                                             $nama_delta = $i['nama_delta'];
                                             $transport = $i['nama_transport'];
+                                            $komunikasi = $i['nama_komunikasi'];
+                                            $uang_hadir = $i['nama_uang_hadir'];
+                                            $kontribusi = $i['nama_kontribusi'];
+                                            $insentif = $i['nama_insentif'];
+
+                                            $id_proyek= $i['proyek'];
+                                            $id_jabatan= $i['jabatan']; 
+                                            $id_penempatan= $i['penempatan']; 
+                                            $id_bpk= $i['bpk']; 
+                                            $id_delta= $i['delta']; 
+                                            $id_transport= $i['transport']; 
+                                            $id_komunikasi= $i['komunikasi']; 
+                                            $id_uh= $i['uang_hadir']; 
+                                            $id_kontribusi= $i['kontribusi']; 
+                                            $id_insentif= $i['insentif']; 
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
@@ -214,6 +259,10 @@
                                                 <td style="<?= $nama_bpk ? '' : 'color: red;' ?>"><?= $nama_bpk ?: "Data Kosong" ?></td>
                                                 <td style="<?= $nama_delta ? '' : 'color: red;' ?>"><?= $nama_delta ?: "Data Kosong" ?></td>
                                                 <td style="<?= $transport ? '' : 'color: red;' ?>"><?= $transport ?: "Data Kosong" ?></td>
+                                                <td style="<?= $komunikasi ? '' : 'color: red;' ?>"><?= $komunikasi ?: "Data Kosong" ?></td>
+                                                <td style="<?= $uang_hadir ? '' : 'color: red;' ?>"><?= $uang_hadir ?: "Data Kosong" ?></td>
+                                                <td style="<?= $kontribusi ? '' : 'color: red;' ?>"><?= $kontribusi ?: "Data Kosong" ?></td>
+                                                <td style="<?= $insentif ? '' : 'color: red;' ?>"><?= $insentif ?: "Data Kosong" ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
@@ -292,7 +341,6 @@
                                                                 <div class="form-group">
                                                                     <label for="username">NIP</label>
                                                                     <input type="text" class="form-control" id="username" aria-describedby="username" name="username" value="<?= $username ?>" required oninput="validateNIP(this)" pattern="^\d{7}[A-Z]{3}$">
-
                                                                     <small id="usernameError" class="text-danger"></small>
                                                                 </div>
 
@@ -310,35 +358,30 @@
                                                                 </script>
                                                                 <div class="form-group">
                                                                     <label for="password">Password</label>
-                                                                    <input type="password" class="form-control" id="password" aria-describedby="password" name="password" value="<?= $password ?>" required>
-                                                                    <div class="input-group-append">
-                                                                        <button id="showPassword" type="button" class="btn btn-outline-secondary">Show Password</button>
-                                                                    </div>
+                                                                    <input type="password" class="form-control" id="password" name="password" aria-describedby="password" required>
+                                                                    <small id="passwordHelp" class="form-text text-muted">Password harus minimal 8 karakter dan mengandung angka.</small>
                                                                 </div>
-                                                                <script>
-                                                                    var passwordInput = document.getElementById("password");
-                                                                    var showPasswordButton = document.getElementById("showPassword");
 
-                                                                    if (showPasswordButton) {
-                                                                        showPasswordButton.addEventListener("click", function() {
-                                                                            if (passwordInput.type === "password") {
-                                                                                passwordInput.type = "text";
-                                                                                showPasswordButton.textContent = "Hide Password";
+                                                                <script>
+                                                                    document.getElementById("password").addEventListener("input", function() {
+                                                                        var passwordInput = this.value;
+
+                                                                        // Validasi panjang password
+                                                                        if (passwordInput.length < 8) {
+                                                                            document.getElementById("passwordHelp").innerText = "Password harus minimal 8 karakter dan mengandung angka.";
+                                                                        } else {
+                                                                            // Validasi keberadaan angka di password
+                                                                            if (/\d/.test(passwordInput)) {
+                                                                                document.getElementById("passwordHelp").innerText = "Password valid.";
                                                                             } else {
-                                                                                passwordInput.type = "password";
-                                                                                showPasswordButton.textContent = "Show Password";
+                                                                                document.getElementById("passwordHelp").innerText = "Password harus mengandung angka.";
                                                                             }
-                                                                        });
-                                                                    } else {
-                                                                        console.error("Element with ID 'showPassword' not found");
-                                                                    }
+                                                                        }
+                                                                    });
                                                                 </script>
                                                                 <div class="form-group">
                                                                     <label for="nama_lengkap">Nama Lengkap</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="nama_lengkap"
-                                                                        aria-describedby="nama_lengkap"
-                                                                        name="nama_lengkap" value="<?= $nama_lengkap ?>" required>
+                                                                    <input type="text" class="form-control" id="nama_lengkap" aria-describedby="nama_lengkap" name="nama_lengkap" value="<?= $nama_lengkap ?>" required>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="tanggal_masuk">Tanggal Masuk</label>
@@ -346,8 +389,7 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="id_jenis_kelamin">Jenis Kelamin</label>
-                                                                    <select class="form-control" id="id_jenis_kelamin"
-                                                                        name="id_jenis_kelamin" required>
+                                                                    <select class="form-control" id="id_jenis_kelamin" name="id_jenis_kelamin" required>
                                                                         <?php foreach($jenis_kelamin_p as $u)
                                                                         :
                                                                         $id = $u["id_jenis_kelamin"];
@@ -374,81 +416,204 @@
                                                                     <input type="text" class="form-control" id="alamat"
                                                                         aria-describedby="alamat" name="alamat" value="<?= $alamat ?>" required>
                                                                 </div>
-                                                                <div class="form-group">
+                                                                 <div class="form-group">
                                                                     <label for="id_status_proyek">Proyek</label>
                                                                     <select class="form-control" id="id_status_proyek" name="id_status_proyek" required>
                                                                         <option value="0">Tidak ada</option>
-
-                                                                        <?php foreach ($nama_proyek_list as $np) : 
-                                                                            $id = $np["id_status_proyek"];
-                                                                            $nama_proyek = $np["nama_proyek"];
+                                                                        <?php foreach($nama_proyek_list as $np)
+                                                                        :
+                                                                        $id = $np["id_status_proyek"];
+                                                                        $nama_proyek = $np["nama_proyek"];
                                                                         ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_proyek ?></option>
-                                                                            
-                                                                        <?php endforeach; ?>
+                                                                            <option value="<?= $id ?>" <?php if($id == $id_proyek){
+                                                                                echo 'selected';
+                                                                            }else{
+                                                                                echo '';
+                                                                            }?>
+                                                                            ><?= $nama_proyek ?>
+                                                                            </option>
+
+                                                                        <?php endforeach?>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="operator_level">Jabatan</label>
                                                                     <select class="form-control" id="operator_level" name="operator_level" required>
                                                                         <option value="0">Tidak ada</option>
-
-                                                                        <?php foreach ($nama_level_list as $nl) : 
-                                                                            $id = $nl["id_level"];
-                                                                            $nama_jabatan = $nl["operator_level"];
+                                                                        <?php foreach($nama_level_list as $nl)
+                                                                        :
+                                                                        $id = $nl["id_level"];
+                                                                        $operator_level = $nl["operator_level"];
                                                                         ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_jabatan ?></option>
-                                                                        <?php endforeach; ?>
+                                                                            <option value="<?= $id ?>" <?php if($id == $id_jabatan){
+                                                                                echo 'selected';
+                                                                            }else{
+                                                                                echo '';
+                                                                            }?>
+                                                                            ><?= $operator_level ?>
+                                                                            </option>
+
+                                                                        <?php endforeach?>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="penempatan">Penempatan</label>
                                                                         <select class="form-control" id="penempatan" name="penempatan" required>
                                                                             <option value="0">Tidak ada</option>
-                                                                                <?php foreach ($nama_penempatan_list as $npl) : 
-                                                                                    $id = $npl["id_penempatan"];
-                                                                                    $nama_penempatan = $npl["nama_penempatan"];
-                                                                                ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_penempatan ?></option>
-                                                                                <?php endforeach; ?>
+                                                                            <?php foreach($nama_penempatan_list as $npl)
+                                                                            :
+                                                                            $id = $npl["id_penempatan"];
+                                                                            $nama_penempatan= $npl["nama_penempatan"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_penempatan){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_penempatan ?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
                                                                         </select>
                                                                 </div>
                                                                  <div class="form-group">
                                                                     <label for="$nama_bpk_list">BPK</label>
                                                                         <select class="form-control" id="bpk" name="bpk" required>
                                                                             <option value="0">Tidak ada</option>
-                                                                                <?php foreach ($nama_bpk_list as $nbl) : 
-                                                                                    $id = $nbl["id_level_bpk"];
-                                                                                    $nama_bpk = $nbl["nama_bpk"];
-                                                                                ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_bpk?></option>
-                                                                                <?php endforeach; ?>
+                                                                            <?php foreach($nama_bpk_list as $nbl)
+                                                                            :
+                                                                            $id = $nbl["id_level_bpk"];
+                                                                            $nama_bpk= $nbl["nama_bpk"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_bpk){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_bpk?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
                                                                         </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="delta">Delta</label>
                                                                         <select class="form-control" id="delta" name="delta" required>
                                                                             <option value="0">Tidak ada</option>
-                                                                                <?php foreach ($nama_delta_list as $ndl) : 
-                                                                                    $id = $ndl["id_level_delta"];
-                                                                                    $nama_delta = $ndl["nama_delta"];
-                                                                                    $nama_delta = $ndl["nama_delta"];
-                                                                                ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_delta ?></option>
-                                                                                <?php endforeach; ?>
+                                                                            <?php foreach($nama_delta_list as $ndl)
+                                                                            :
+                                                                            $id = $ndl["id_level_delta"];
+                                                                            $nama_delta= $ndl["nama_delta"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_delta){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_delta?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
                                                                         </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="transport">Tunjangan Transport</label>
                                                                         <select class="form-control" id="transport" name="transport" required>
                                                                             <option value="0">Tidak ada</option>
-                                                                                <?php foreach ($nama_transport_list as $ntl) : 
-                                                                                    $id = $ntl["id_transport"];
-                                                                                    $nama_transport = $ntl["nama_transport"];
-                                                                                    $tunjangan_transport = $ntl["tunjangan_transport"];
-                                                                                ?>
-                                                                            <option value="<?= $id ?>"><?= $nama_transport ?> = <?= $tunjangan_transport ?></option>
-                                                                                <?php endforeach; ?>
+                                                                            <?php foreach($nama_transport_list as $ntl)
+                                                                            :
+                                                                            $id = $ntl["id_transport"];
+                                                                            $nama_transport= $ntl["nama_transport"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_transport){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_transport?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="komunikasi">Tunjangan Komunikasi</label>
+                                                                        <select class="form-control" id="komunikasi" name="komunikasi" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                            <?php foreach($nama_komunikasi_list as $nkl)
+                                                                            :
+                                                                            $id = $nkl["id_komunikasi"];
+                                                                            $nama_komunikasi= $nkl["nama_komunikasi"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_komunikasi){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_komunikasi?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                     <label for="uang_hadir">Tunjangan Uang Hadir</label>
+                                                                        <select class="form-control" id="uang_hadir" name="uang_hadir" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                            <?php foreach($nama_uang_hadir_list as $nuhl)
+                                                                            :
+                                                                            $id = $nuhl["id_uang_hadir"];
+                                                                            $nama_uh= $nuhl["nama_uang_hadir"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_uh){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_uh?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="kontribusi">Tunjangan Kontribusi</label>
+                                                                        <select class="form-control" id="kontribusi" name="kontribusi" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                            <?php foreach($nama_kontribusi_list as $nkol)
+                                                                            :
+                                                                            $id = $nkol["id_kontribusi"];
+                                                                            $nama_kontribusi= $nkol["nama_kontribusi"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_kontribusi){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_kontribusi?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
+                                                                        </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="insentif">Tunjangan Insentif</label>
+                                                                        <select class="form-control" id="insentif" name="insentif" required>
+                                                                            <option value="0">Tidak ada</option>
+                                                                            <?php foreach($nama_insentif_list as $nil)
+                                                                            :
+                                                                            $id = $nil["id_insentif"];
+                                                                            $nama_insentif= $nil["nama_insentif"];
+                                                                            ?>
+                                                                                <option value="<?= $id ?>" <?php if($id == $id_insentif){
+                                                                                    echo 'selected';
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }?>
+                                                                                ><?= $nama_insentif?>
+                                                                                </option>
+
+                                                                            <?php endforeach?>
                                                                         </select>
                                                                 </div>
                                                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -459,6 +624,7 @@
                                             </div>
                                             <?php endforeach; ?>
                                         </tbody>
+
                                     </table>
                                 </div>
                                 <!-- /.card-body -->
@@ -494,10 +660,10 @@
                                     <div class="col-md-9">
                                         <div class="input-group">
                                             <input type="password" class="form-control" id="password" name="password" required>
+                                            <small class="text-muted" style="font-size: smaller;">Password Minimal 8 Kata ditambahkan angka</small>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <label for="confirm_password" class="col-md-3 col-form-label">Konfirmasi Password</label>
                                     <div class="col-md-9">
@@ -615,7 +781,59 @@
                                             <option value="<?= $id ?>"><?= $nama_transport ?> = <?= $tunjangan_transport ?></option>
                                                 <?php endforeach; ?>
                                         </select>
-                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="komunikasi">Tunjangan Komunikasi</label>
+                                        <select class="form-control" id="komunikasi" name="komunikasi" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_komunikasi_list as $nkl) : 
+                                                    $id = $nkl["id_komunikasi"];
+                                                    $nama_komunikasi = $nkl["nama_komunikasi"];
+                                                    $tunjangan_komunikasi = $nkl["tunjangan_komunikasi"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_komunikasi?> = <?= $tunjangan_komunikasi ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                        <label for="uang_hadir">Tunjangan Uang Hadir</label>
+                                        <select class="form-control" id="uang_hadir" name="uang_hadir" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_uang_hadir_list as $nuhl) : 
+                                                    $id = $nuhl["id_uang_hadir"];
+                                                    $nama_uh = $nuhl["nama_uang_hadir"];
+                                                    $tunjangan_uh = $nuhl["tunjangan_uang_hadir"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_uh ?> = <?= $tunjangan_uh ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kontribusi">Tunjangan Kontribusi</label>
+                                        <select class="form-control" id="kontribusi" name="kontribusi" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_kontribusi_list as $nkol) : 
+                                                    $id = $nkol["id_kontribusi"];
+                                                    $nama_kontribusi = $nkol["nama_kontribusi"];
+                                                    $tunjangan_kontribusi = $nkol["tunjangan_kontribusi"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_kontribusi ?> = <?= $tunjangan_kontribusi ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="insentif">Tunjangan Insentif</label>
+                                        <select class="form-control" id="insentif" name="insentif" required>
+                                            <option value="0">Tidak ada</option>
+                                                <?php foreach ($nama_insentif_list as $nil) : 
+                                                    $id = $nil["id_insentif"];
+                                                    $nama_insentif = $nil["nama_insentif"];
+                                                    $tunjangan_insentif = $nil["tunjangan_insentif"];
+                                                ?>
+                                            <option value="<?= $id ?>"><?= $nama_insentif ?> = <?= $tunjangan_insentif ?></option>
+                                                <?php endforeach; ?>
+                                        </select>
+                                </div>
                                 <button type="submit" class="btn btn-primary" id="submit_button">Submit</button>
                             </form>
                         </div>
@@ -636,5 +854,4 @@
 
     <?php $this->load->view("super_admin/components/js.php") ?>
 </body>
-
 </html>

@@ -103,30 +103,33 @@
                                                         return 'brown';
                                                     case 'I':
                                                         return 'purple';
-                                                    default:
+                                                    case 'A':
                                                         return 'red';
+                                                    default:
+                                                        return 'black';
 
                                                 }
                                             }
                                             ?>
                                             <tr>
-                                               <?php
-                                                // Loop through each date
+                                                <?php
                                                 for ($day = 1; $day <= $jumlah_hari; $day++) {
-                                                    $tanggal = "$tahun_ini-$bulan_ini-" . str_pad($day, 2, '0', STR_PAD_LEFT); // Format tanggal
-                                                    $status = isset($absensi[$tanggal]) ? $absensi[$tanggal] : '-';
-                                                    
-                                                    // Ensure $status is a string
-                                                    if (is_array($status)) {
-                                                        $status = implode(", ", $status); // Convert array elements to a comma-separated string
-                                                    }
-                                                    
-                                                    $cellColor = ($status == '-') ? 'black' : getStatusColor($status);
-                                                    echo "<td style='color: $cellColor; font-size: 18px;'><img src='" . getStatusColor($status) . "' alt='$status' /></td>";
+                                                $tanggal = "$tahun_ini-$bulan_ini-" . str_pad($day, 2, '0', STR_PAD_LEFT); // Format tanggal
+                                                $status = isset($absensi[$tanggal]) ? $absensi[$tanggal] : '-';
+
+                                                // Ensure $status is a string
+                                                if (is_array($status)) {
+                                                    $status = implode(", ", $status); // Convert array elements to a comma-separated string
                                                 }
+
+                                                 $style = "color: " . getStatusColor($status) . "; font-size: 18px;";
+
+                                                // Use a div with a background color instead of an image
+                                                  echo "<td style='text-align: center; $style'>" . strtoupper($status) ."</td>";
+                                            }
                                                 ?>
                                             </tr>
-                                        </tbody>
+                                        </tbody>    
                                     </table>
                                     <script>
                                     $(document).ready(function () {

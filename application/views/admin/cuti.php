@@ -182,6 +182,7 @@
                                         $id_user = $i['id_user'];
                                         $nama_lengkap = $i['nama_lengkap'];
                                         $jenis_cuti = $i['jenis_cuti'];
+                                        $tipe_cuti = $i['tipe_cuti'];
                                         $alasan = $i['alasan'];
                                         $tgl_diajukan = $i['tgl_diajukan'];
                                         $mulai = $i['mulai'];
@@ -353,23 +354,29 @@
                                                                 <div class="form-group">
                                                                     <label for="jenis_cuti">Jenis Cuti</label>
                                                                     <select class="form-control" id="tipe_cuti" name="tipe_cuti" required>
-                                                                        <?php foreach($tipe_cuti as $tc)
-                                                                                                :
-                                                                                                $id = $tc["id_tipe_cuti"];
-                                                                                                $tipe_cuti = $tc["jenis_cuti"];
-                                                                                                ?>
-                                                                        <option value="<?= $id ?>"> <?= $tipe_cuti ?></option>
+                                                                        <?php foreach($tabel_tipe_cuti as $ttc)
+                                                                        :
+                                                                        $id = $ttc["id_tipe_cuti"];
+                                                                        $je_cuti = $ttc["jenis_cuti"];
+                                                                        ?>
+                                                                            <option value="<?= $id ?>" <?php if($id == $tipe_cuti){
+                                                                                echo 'selected';
+                                                                            }else{
+                                                                                echo '';
+                                                                            }?>
+                                                                            ><?= $je_cuti ?>
+                                                                            </option>
 
                                                                         <?php endforeach?>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="alasan">Alasan</label>
-                                                                    <textarea class="form-control" id="alasan" rows="3" name="alasan" required><?= $alasan ?></textarea>
-                                                                </div>
-                                                                <div class="form-group">
                                                                     <label for="perihal_cuti">Perihal Cuti</label>
                                                                     <input type="text" class="form-control" id="perihal_cuti" aria-describedby="perihal_cuti" name="perihal_cuti" value="<?= $perihal_cuti ?>" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="alasan">Alasan</label>
+                                                                    <textarea class="form-control" id="alasan" rows="3" name="alasan" required><?= $alasan ?></textarea>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="tgl_diajukan">Tanggal Diajukan</label>

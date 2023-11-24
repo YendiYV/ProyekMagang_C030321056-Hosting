@@ -25,7 +25,7 @@ class M_cuti extends CI_Model
         return $hasil;
     }
 
-    public function get_all_cuti_by_id_cuti($id_cuti)
+    public function get_all_cuti_by_id_cuti($id_cuti_detail)
     {
         $hasil = $this->db->query("SELECT * FROM cuti JOIN user ON cuti.id_user = user.id_user 
                                    JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail 
@@ -33,7 +33,7 @@ class M_cuti extends CI_Model
                                    LEFT JOIN operator_level ON user_detail.jabatan = operator_level.id_level
                                    LEFT JOIN status_penempatan ON user_detail.penempatan = status_penempatan.id_penempatan
                                    LEFT JOIN tipe_cuti ON cuti.tipe_cuti = tipe_cuti.id_tipe_cuti
-                                   WHERE cuti.id_cuti='$id_cuti'");
+                                   WHERE cuti.id_cuti_detail='$id_cuti_detail'");
         return $hasil;
     }
 
@@ -61,8 +61,8 @@ class M_cuti extends CI_Model
         }
     }
 
-    public function check_data_cuti($id_cuti){
-        $hasil = $this->db->query("SELECT cuti.id_cuti FROM cuti WHERE id_cuti='$id_cuti'");
+    public function check_data_cuti($id_cuti_detail){
+        $hasil = $this->db->query("SELECT cuti.id_cuti_detail FROM cuti WHERE id_cuti_detail='$id_cuti_detail'");
     }
 
     public function insert_user_detail($id_user, $total_hari_cuti)
@@ -177,49 +177,49 @@ class M_cuti extends CI_Model
 
     public function count_all_cuti()
     {
-        $hasil = $this->db->query('SELECT COUNT(id_cuti) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail');
+        $hasil = $this->db->query('SELECT COUNT(id_cuti_detail) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail');
         return $hasil;
     }
 
     public function count_all_cuti_by_id($id_user)
     {
-        $hasil = $this->db->query("SELECT COUNT(id_cuti) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE cuti.id_user='$id_user'");
+        $hasil = $this->db->query("SELECT COUNT(id_cuti_detail) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE cuti.id_user='$id_user'");
         return $hasil;
     }
 
     public function count_all_cuti_acc()
     {
-        $hasil = $this->db->query('SELECT COUNT(id_cuti) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti1=2 AND id_status_cuti2=2 AND id_status_cuti3=2');
+        $hasil = $this->db->query('SELECT COUNT(id_cuti_detail) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti1=2 AND id_status_cuti2=2 AND id_status_cuti3=2');
         return $hasil;
     }
 
     public function count_all_cuti_acc_by_id($id_user)
     {
-        $hasil = $this->db->query("SELECT COUNT(id_cuti) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti1=2 AND id_status_cuti2=2 AND id_status_cuti3=2 AND cuti.id_user='$id_user'");
+        $hasil = $this->db->query("SELECT COUNT(id_cuti_detail) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti1=2 AND id_status_cuti2=2 AND id_status_cuti3=2 AND cuti.id_user='$id_user'");
         return $hasil;
     }
 
     public function count_all_cuti_confirm()
     {
-        $hasil = $this->db->query('SELECT COUNT(id_cuti) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti2=1');
+        $hasil = $this->db->query('SELECT COUNT(id_cuti_detail) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti2=1');
         return $hasil;
     }
 
     public function count_all_cuti_confirm_by_id($id_user)
     {
-        $hasil = $this->db->query("SELECT COUNT(id_cuti) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti2=1 AND cuti.id_user='$id_user'");
+        $hasil = $this->db->query("SELECT COUNT(id_cuti_detail) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti2=1 AND cuti.id_user='$id_user'");
         return $hasil;
     }
 
     public function count_all_cuti_reject()
     {
-        $hasil = $this->db->query('SELECT COUNT(id_cuti) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti1=3 OR id_status_cuti2=3 OR id_status_cuti3=3');
+        $hasil = $this->db->query('SELECT COUNT(id_cuti_detail) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti1=3 OR id_status_cuti2=3 OR id_status_cuti3=3');
         return $hasil;
     }
 
     public function count_all_cuti_reject_by_id($id_user)
     {
-        $hasil = $this->db->query("SELECT COUNT(id_cuti) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti2=3 AND cuti.id_user='$id_user'");
+        $hasil = $this->db->query("SELECT COUNT(id_cuti_detail) as total_cuti FROM cuti JOIN user ON cuti.id_user = user.id_user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE id_status_cuti2=3 AND cuti.id_user='$id_user'");
         return $hasil;
     }
     public function total_hari_cuti_by_id_for_form($id_user)

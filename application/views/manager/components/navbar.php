@@ -18,7 +18,9 @@
                 <i class="far fa-user"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <a href="<?= base_url(); ?>Login/log_out" class="dropdown-item dropdown-footer">Logout</a>
+                <a href="mailto:yendiyv3903@gmail.com" class="dropdown-item dropdown-footer">Hubungi Administrator <i class="fas fa-headset"></i></a>
+                <div class="dropdown-divider"></div>
+                <a href="<?= base_url(); ?>Login/log_out" class="dropdown-item dropdown-footer">Logout <i class="fas fa-power-off"></i></a>
             </div>
         </li>
         <li class="nav-item">

@@ -162,12 +162,12 @@
 
                                                     if (!empty($operator_item['id_user_detail']) && file_exists($imagePath)) {
                                                     ?>
-                                                        <img src="<?= base_url($imagePath); ?>" width="160" height="80" alt="" class="fr-fir fr-dib fr-draggable">
+                                                        <img src="<?= base_url($imagePath); ?>" width="120" height="60" alt="" class="fr-fir fr-dib fr-draggable">
                                                     <?php
                                                     } else {
                                                     ?>
                                                         <!-- Add an alternative image or placeholder if the image file is not found -->
-                                                        <img src="<?= base_url('path/to/placeholder-image.jpg'); ?>" width="160" height="80" alt="Tanda Tangan Tidak Tersedia" class="fr-fir fr-dib fr-draggable">
+                                                        <img src="<?= base_url('path/to/placeholder-image.jpg'); ?>" width="120" height="60" alt="Tanda Tangan Tidak Tersedia" class="fr-fir fr-dib fr-draggable">
                                                     <?php
                                                     }
                                                     ?>
@@ -230,7 +230,8 @@
                                 <label for="signatureFile">Pilih File</label>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="signatureFile" name="signatureFile" accept=".png, .jpg, .jpeg" onchange="displayFileName()">
-                                    <label class="custom-file-label" for="signatureFile" id="fileLabel">Choose file</label>
+                                    <label class="custom-file-label" for="signatureFile" id="fileLabel">Pilih File</label>
+                                    <small><b>Ukuran Max 1024 KB</b></small>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Upload</button>

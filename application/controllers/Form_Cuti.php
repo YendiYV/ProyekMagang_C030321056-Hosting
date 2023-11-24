@@ -72,7 +72,7 @@ class Form_Cuti extends CI_Controller {
 			} else {
 				$this->session->set_flashdata('eror','eror');
 			}
-			redirect('Form_Cuti/view_operator');
+			redirect('Cuti/view_operator');
 			
 		}else {
 			$this->session->set_flashdata('loggin_err', 'loggin_err');

@@ -122,6 +122,7 @@
                                         foreach($cuti as $i)
                                         :
                                         $no++;
+                                        $id_cuti_detail= $i['id_cuti_detail'];
                                         $id_cuti = $i['id_cuti'];
                                         $id_user = $i['id_user'];
                                         $tipe_cuti = $i['jenis_cuti'];
@@ -139,6 +140,7 @@
                                         ?>
                                             <tr>
                                                 <td><?= $no ?></td>
+                                                <td><?= $id_cuti ?></td>
                                                 <td><?= $nama_lengkap ?></td>
                                                 <td><?= $tipe_cuti?></td>
                                                 <td><?= $alasan ?></td>
@@ -235,7 +237,7 @@
                                                 </td>
                                                 <td>
                                                     <?php if ($id_status_cuti1 == 2 && $id_status_cuti2 == 2) { ?>
-                                                        <a href="<?= base_url(); ?>Cetak/surat_cuti_pdf/<?= $id_cuti ?>" target="_blank" class="btn btn-info">
+                                                        <a href="<?= base_url(); ?>Cetak/surat_cuti_pdf/<?= $id_cuti_detail ?>" target="_blank" class="btn btn-info">
                                                             Cetak Surat Cuti
                                                         </a>
                                                     <?php } else { ?>
@@ -250,7 +252,7 @@
                                                         <div class="table-responsive">
                                                             <div class="table table-striped table-hover ">
                                                                 <a class="btn btn-primary" data-toggle="modal"
-                                                                    data-target="#setuju<?= $id_cuti ?>">
+                                                                    data-target="#setuju<?= $id_cuti_detail ?>">
                                                                     <i class="fas fa-check"></i>
                                                                 </a>
                                                             </div>
@@ -260,7 +262,7 @@
                                                         <div class="table-responsive">
                                                             <div class="table table-striped table-hover ">
                                                                 <a data-toggle="modal"
-                                                                    data-target="#tidak_setuju<?= $id_cuti ?>"
+                                                                    data-target="#tidak_setuju<?= $id_cuti_detail ?>"
                                                                     class="btn btn-danger"><i class="fas fa-times"></i>
                                                                 </a>
                                                             </div>
@@ -273,7 +275,7 @@
                                             </tr>
 
                                             <!-- Modal Setuju Cuti -->
-                                            <div class="modal fade" id="setuju<?= $id_cuti ?>" tabindex="-1"
+                                            <div class="modal fade" id="setuju<?= $id_cuti_detail ?>" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -291,7 +293,7 @@
                                                             <form action="<?php echo base_url()?>Cuti/acc_cuti_manager" method="post" enctype="multipart/form-data">
                                                                 <div class="row">
                                                                     <div class="col-md-12">
-                                                                        <input type="hidden" name="id_cuti" value="<?php echo $id_cuti?>" />
+                                                                        <input type="hidden" name="id_cuti_detail" value="<?php echo $id_cuti_detail?>" />
                                                                         <input type="hidden" name="id_user" value="<?php echo $id_user?>" />
                                                                         <input type="hidden" name="id_tipe_cuti" value="<?php echo $id_tipe_cuti?>" />
                                                                         <input type="hidden" name="mulai" value="<?php echo $mulai?>" />
@@ -311,7 +313,7 @@
                                             </div>
 
                                             <!-- Modal Tidak Setuju Cuti -->
-                                            <div class="modal fade" id="tidak_setuju<?= $id_cuti ?>" tabindex="-1"
+                                            <div class="modal fade" id="tidak_setuju<?= $id_cuti_detail ?>" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -331,7 +333,7 @@
                                                                 method="post" enctype="multipart/form-data">
                                                                 <div class="row">
                                                                     <div class="col-md-12">
-                                                                        <input type="hidden" name="id_cuti" value="<?php echo $id_cuti?>" />
+                                                                        <input type="hidden" name="id_cuti_detail" value="<?php echo $id_cuti_detail?>" />
                                                                         <input type="hidden" name="id_user" value="<?php echo $id_user?>" />
                                                                         <input type="hidden" name="id_tipe_cuti" value="<?php echo $id_tipe_cuti?>" />
                                                                         <input type="hidden" name="mulai" value="<?php echo $mulai?>" />
