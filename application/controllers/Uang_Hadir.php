@@ -46,7 +46,7 @@ class Uang_Hadir extends CI_Controller {
     
     public function edit_uh()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_level = $this->input->post("id_level");
             $nama_uang_hadir = $this->input->post("nama_uh");
             $gaji_uang_hadir = $this->input->post("gaji_uh");
@@ -75,7 +75,7 @@ class Uang_Hadir extends CI_Controller {
 
     public function delete_uh($id_level)
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $this->m_uang_hadir->delete_uang_hadir($id_level);
             if ($this->session->userdata('id_user_level') == 2) {
                 redirect('Uang_Hadir/view_admin');
@@ -90,7 +90,7 @@ class Uang_Hadir extends CI_Controller {
 
     public function tambah_uh()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $nama_uang_hadir = $this->input->post('nama_uh');
             $gaji_uang_hadir = $this->input->post('gaji_uh');
             if ($gaji_uang_hadir !== null) {

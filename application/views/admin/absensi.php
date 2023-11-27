@@ -136,8 +136,7 @@
                                     <h3 class="card-title">Data Absensi</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body" >
-                                    
+                                <div class="card-body" style="overflow-x:auto;">
                                         <div class="row mb-2">
                                             <!-- "Cetak Rekap" button -->
                                             <div class="col-sm-1 text-sm-right">

@@ -46,7 +46,7 @@ class Kontribusi extends CI_Controller {
     
     public function edit_kontribusi()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_level = $this->input->post("id_level");
             $nama_kontribusi = $this->input->post("nama_kontribusi");
             $gaji_kontribusi = $this->input->post("gaji_kontribusi");
@@ -74,7 +74,7 @@ class Kontribusi extends CI_Controller {
 
     public function delete_kontribusi($id_level)
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $this->m_kontribusi->delete_kontribusi($id_level);
             if ($this->session->userdata('id_user_level') == 2) {
                 redirect('Kontribusi/view_admin');
@@ -89,7 +89,7 @@ class Kontribusi extends CI_Controller {
 
     public function tambah_kontribusi()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $nama_kontribusi = $this->input->post('nama_kontribusi');
             $gaji_kontribusi = $this->input->post('gaji_kontribusi');
             if ($gaji_kontribusi !== null) {

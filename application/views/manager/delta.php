@@ -56,7 +56,7 @@
                                     <h3 class="card-title">Data Delta</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body container-fluid">
+                                <div class="card-body container-fluid" style="overflow-x:auto;">
                                     <div class="row mb-2">
                                         <div class="col-sm-auto text-sm-right">
                                             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">

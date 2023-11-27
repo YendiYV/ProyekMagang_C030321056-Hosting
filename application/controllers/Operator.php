@@ -204,7 +204,7 @@ class operator extends CI_Controller {
 	public function hapus_operator()
 	{
 		// Check if the user is logged in and has the required user level
-		if ($this->session->userdata('logged_in') && $this->session->userdata('id_user_level') == 2) {
+		if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
 			// Get the user ID from the POST data
 			$id_user = $this->input->post("id_user");
 

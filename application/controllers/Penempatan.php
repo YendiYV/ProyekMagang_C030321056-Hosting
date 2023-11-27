@@ -48,7 +48,7 @@ class Penempatan extends CI_Controller {
     }
     public function edit_penempatan()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_penempatan = $this->input->post("id_penempatan");
             $nama_penempatan = $this->input->post("nama_penempatan");
             $gaji = $this->input->post("gaji");
@@ -77,7 +77,7 @@ class Penempatan extends CI_Controller {
 
     public function delete_penempatan($id_penempatan)
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $this->m_penempatan->delete_penempatan($id_penempatan);
             if ($this->session->userdata('id_user_level') == 2) {
                 redirect('Penempatan/view_admin');
@@ -92,7 +92,7 @@ class Penempatan extends CI_Controller {
 
     public function tambah_penempatan()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $nama_penempatan = $this->input->post('nama_penempatan');
             $gaji = $this->input->post('gaji');
             $tipe_um = $this->input->post("tipe_um");

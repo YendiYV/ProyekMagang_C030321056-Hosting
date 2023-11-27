@@ -45,7 +45,7 @@ class Proyek extends CI_Controller {
 
     public function edit_proyek()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_status_proyek = $this->input->post("id_proyek");
             $nama_proyek = $this->input->post("nama_proyek");
             $gaji = $this->input->post("gaji");
@@ -79,7 +79,7 @@ class Proyek extends CI_Controller {
 
     public function delete_proyek($id_proyek)
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $this->m_proyek->delete_proyek($id_proyek);
             if ($this->session->userdata('id_user_level') == 2) {
                 redirect('Proyek/view_admin');
@@ -97,7 +97,7 @@ class Proyek extends CI_Controller {
 
     public function tambah_proyek()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $nama_proyek = $this->input->post('nama_proyek');
             $gaji = $this->input->post('gaji');
             if ($gaji !== null) {

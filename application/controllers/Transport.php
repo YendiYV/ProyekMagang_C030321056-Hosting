@@ -44,7 +44,7 @@ class Transport extends CI_Controller {
     }
     public function edit_transport()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_transport = $this->input->post("id_level");
             $nama_transport = $this->input->post("nama_transport");
             $tunjangan_transport = $this->input->post("tunjangan_transport");
@@ -76,7 +76,7 @@ class Transport extends CI_Controller {
 
     public function delete_transport($id_transport)
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $this->m_transport->delete_transport($id_transport);
             if ($this->session->userdata('id_user_level') == 2) {
                 redirect('Transport/view_admin');
@@ -93,7 +93,7 @@ class Transport extends CI_Controller {
 
     public function tambah_transport()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $nama_transport = $this->input->post('nama_transport');
             $tunjangan_transport = $this->input->post('gaji');
             if ($tunjangan_transport !== null) {

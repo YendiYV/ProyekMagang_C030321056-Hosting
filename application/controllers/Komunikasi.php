@@ -46,7 +46,7 @@ class Komunikasi extends CI_Controller {
     
     public function edit_komunikasi()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_level = $this->input->post("id_level");
             $nama_kom = $this->input->post("nama_kom");
             $gaji_kom = $this->input->post("gaji_kom");
@@ -74,7 +74,7 @@ class Komunikasi extends CI_Controller {
 
     public function delete_komunikasi($id_level)
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $this->m_komunikasi->delete_komunikasi($id_level);
             if ($this->session->userdata('id_user_level') == 2) {
                 redirect('Komunikasi/view_admin');
@@ -89,7 +89,7 @@ class Komunikasi extends CI_Controller {
 
     public function tambah_komunikasi()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $nama_kom = $this->input->post('nama_komunikasi');
             $gaji_kom = $this->input->post('gaji_kom');
             if ($gaji_kom !== null) {

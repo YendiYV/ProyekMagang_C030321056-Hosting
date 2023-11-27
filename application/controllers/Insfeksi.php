@@ -46,7 +46,7 @@ class Insfeksi extends CI_Controller {
     
     public function edit_insfeksi()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_user_detail = $this->input->post("id_user_detail");
             $gaji_insfeksi = $this->input->post("gaji_insfeksi");
 

@@ -45,7 +45,7 @@ class Delta extends CI_Controller {
     
     public function edit_delta()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_level = $this->input->post("id_level");
             $nama_delta = $this->input->post("nama_delta");
             $gaji_delta = $this->input->post("gaji_delta");
@@ -77,7 +77,7 @@ class Delta extends CI_Controller {
 
     public function delete_delta($id_level)
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $this->m_delta->delete_delta($id_level);
             if ($this->session->userdata('id_user_level') == 2) {
                 redirect('Delta/view_admin');
@@ -94,7 +94,7 @@ class Delta extends CI_Controller {
 
     public function tambah_delta()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $nama_delta = $this->input->post('nama_delta');
             $gaji_delta = $this->input->post('gaji_delta');
             if ($gaji_delta !== null) {

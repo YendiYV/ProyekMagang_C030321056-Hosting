@@ -46,7 +46,7 @@ class Rgaji extends CI_Controller {
     }
 
     public function tambah_rgaji(){
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $username = $this->input->post('id');
             $tanggal_gaji = $this->input->post('tanggal_gaji');
             $total_gaji = $this->input->post('total_gaji');
@@ -57,19 +57,35 @@ class Rgaji extends CI_Controller {
                 if ($total_gaji !== null){
                 $this->session->set_flashdata('input');
                 $hasil = $this->m_rgaji->insert_gaji_bulan($username,$tanggal_gaji, $total_gaji,$tanggal_simpan);
-                redirect('Rgaji/view_admin');
+                if ($this->session->userdata('id_user_level') == 2) {
+                    redirect('Rgaji/view_admin');
+                }elseif ($this->session->userdata('id_user_level') == 3) {
+                    redirect('Rgaji/view_super_admin');
+                }
                 }else {
                     $this->session->set_flashdata('eror');
-                    redirect('Rgaji/view_admin');
+                    if ($this->session->userdata('id_user_level') == 2) {
+                        redirect('Rgaji/view_admin');
+                    }elseif ($this->session->userdata('id_user_level') == 3) {
+                        redirect('Rgaji/view_super_admin');
+                    }
                 } 
             }else{
                 if ($total_gaji !== null){
                     $this->session->set_flashdata('edit');
                     $hasil = $this->m_rgaji->edit_gaji_bulan_tambah($username, $tanggal_gaji, $total_gaji,$tanggal_simpan);
-                    redirect('Rgaji/view_admin');
+                    if ($this->session->userdata('id_user_level') == 2) {
+                        redirect('Rgaji/view_admin');
+                    }elseif ($this->session->userdata('id_user_level') == 3) {
+                        redirect('Rgaji/view_super_admin');
+                    }
                 }else {
                     $this->session->set_flashdata('eror');
-                    redirect('Rgaji/view_admin');
+                    if ($this->session->userdata('id_user_level') == 2) {
+                        redirect('Rgaji/view_admin');
+                    }elseif ($this->session->userdata('id_user_level') == 3) {
+                        redirect('Rgaji/view_super_admin');
+                    }
                 } 
             }
         }
@@ -80,34 +96,27 @@ class Rgaji extends CI_Controller {
     }
     public function edit_gaji_bulan()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_user_detail = $this->input->post("id_user_detail");
             $gaji_bulan = $this->input->post("gaji_bulan");
             $total_gaji = $this->input->post("total_gaji");
             $tanggal_simpan = $this->input->post('tanggal_input');
-
-            if ($this->session->userdata('id_user_level') == 2) {
                 if ($gaji_bulan !== null) {
                     $this->session->set_flashdata('edit');
                     $hasil = $this->m_rgaji->edit_gaji_bulan($id_user_detail, $gaji_bulan, $total_gaji,$tanggal_simpan);
-                    redirect('Rgaji/view_admin');
+                    if ($this->session->userdata('id_user_level') == 2) {
+                        redirect('Rgaji/view_admin');
+                    }elseif ($this->session->userdata('id_user_level') == 3) {
+                        redirect('Rgaji/view_super_admin');
+                    }
                 } else {
                     $this->session->set_flashdata('eror_edit');
-                    redirect('Rgaji/view_admin');
+                    if ($this->session->userdata('id_user_level') == 2) {
+                        redirect('Rgaji/view_admin');
+                    }elseif ($this->session->userdata('id_user_level') == 3) {
+                        redirect('Rgaji/view_super_admin');
+                    }
                 }
-            }elseif ($this->session->userdata('id_user_level') == 3) {
-                if ($gaji_bulan !== null) {
-                    $this->session->set_flashdata('edit');
-                    $hasil = $this->m_rgaji->edit_gaji_bulan($id_user_detail, $gaji_bulan, $total_gaji,$tanggal_simpan);
-                    redirect('Rgaji/view_super_admin');
-                } else {
-                    $this->session->set_flashdata('eror_edit');
-                    redirect('Rgaji/view_super_admin');
-                }
-            } else {
-                $this->session->set_flashdata('loggin_err', 'loggin_err');
-                redirect('Login/index');
-            }
         } else {
             $this->session->set_flashdata('loggin_err', 'loggin_err');
             redirect('Login/index');
@@ -116,7 +125,7 @@ class Rgaji extends CI_Controller {
 
     public function delete_gaji_bulan($id_user_detail)
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $this->m_rgaji->delete_gaji_bulan($id_user_detail);
             if ($this->session->userdata('id_user_level') == 2) {
                 redirect('Rgaji/view_admin');

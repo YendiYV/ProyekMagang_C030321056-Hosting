@@ -46,7 +46,7 @@ class Bpk extends CI_Controller {
     
     public function edit_bpk()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_level = $this->input->post("id_level");
             $nama_bpk = $this->input->post("nama_bpk");
             $gaji_bpk = $this->input->post("gaji_bpk");
@@ -78,7 +78,7 @@ class Bpk extends CI_Controller {
 
     public function delete_bpk($id_level)
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $this->m_bpk->delete_bpk($id_level);
             if ($this->session->userdata('id_user_level') == 2) {
                 redirect('Bpk/view_admin');
@@ -93,7 +93,7 @@ class Bpk extends CI_Controller {
 
     public function tambah_bpk()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $nama_bpk = $this->input->post('nama_bpk');
             $gaji_bpk = $this->input->post('gaji_bpk');
             if ($gaji_bpk !== null) {

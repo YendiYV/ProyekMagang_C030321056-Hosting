@@ -45,7 +45,7 @@ class Jabatan extends CI_Controller {
 
     public function edit_jabatan()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_level = $this->input->post("id_level");
             $operator_level = $this->input->post("operator_level");
             $gaji = $this->input->post("gaji");
@@ -73,7 +73,7 @@ class Jabatan extends CI_Controller {
 
     public function delete_jabatan($id_level)
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $this->m_jabatan->delete_jabatan($id_level);
             if ($this->session->userdata('id_user_level') == 2) {
                 redirect('Jabatan/view_admin');
@@ -88,7 +88,7 @@ class Jabatan extends CI_Controller {
 
     public function tambah_jabatan()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $operator_level = $this->input->post('operator_level');
             $gaji = $this->input->post('gaji');
             if ($gaji !== null) {

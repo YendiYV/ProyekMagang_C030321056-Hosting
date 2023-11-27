@@ -27,21 +27,43 @@
     <script src="<?= base_url() ?>node_modules/sweetalert/dist/sweetalert.min.js"></script>
     <!--===============================================================================================-->
     <style>
-         .color-changing-text {
-            animation: changeColor 5s infinite alternate; /* Ganti warna setiap 5 detik */
-        }
-        @keyframes changeColor {
-        0% {
-            color: red; /* Warna awal */
-        }
-        50% {
-            color: yellow; /* Warna kedua */
-        }
-        100% {
-            color: blue; /* Warna akhir */
-        }
+        @keyframes colorChange {
+            0%, 60% { color: red; }
+            20%, 80% { color: blue; }
+            40% { color: yellow; }
         }
 
+        .login100-form-title.color-changing-text {
+            display: inline-block;
+            animation: colorChange 5s infinite; /* Mengubah warna setiap 5 detik */
+        }
+
+        .hover-effect:hover {
+            color: blue;
+            cursor: pointer;
+        }
+
+        .smp3c-char {
+            display: inline-block;
+        }
+
+        .s {
+            color: red;
+        }
+
+        .m {
+            color: blue;
+        }
+
+        .p {
+            color: yellow;
+        }
+        .tiga {
+            color: red;
+        }
+        .c {
+            color: blue;
+        }
     </style>
 
 </head>
@@ -122,7 +144,7 @@
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="<?= base_url();?>assets/login/images/logo.jpg" alt="IMG">
+                    <img id="logo" src="<?= base_url();?>assets/login/images/logo.jpg" alt="IMG">
                 </div>
 
                 <form class="login100-form validate-form" action="<?= base_url();?>Login/proses" method="POST">
@@ -130,7 +152,7 @@
                         <span class="smp3c-char s">S</span>
                         <span class="smp3c-char m">M</span>
                         <span class="smp3c-char p">P</span>
-                        <span class="smp3c-char 3">3</span>
+                        <span class="smp3c-char tiga">3</span>
                         <span class="smp3c-char c">C</span><br>
                         PLN Tarakan UP2
                     </span>
@@ -160,7 +182,7 @@
                         <span class="txt1">
                             Butuh Bantuan?
                         </span>
-                        <a class="txt2" href="mailto:yendiyv3903@gmail.com">
+                        <a class="hover-effect" href="mailto:yendiyv3903@gmail.com">
                             Hubungi Administrator
                         </a>
                     </div>

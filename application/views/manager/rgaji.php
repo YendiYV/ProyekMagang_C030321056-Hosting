@@ -126,7 +126,7 @@
                                     <h3 class="card-title">Data Rekap Gaji</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body">
+                                <div class="card-body" style="overflow-x:auto;">
                                     <div class="row mb-2">
                                         <div class="col-sm-auto text-sm-right">
                                             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">

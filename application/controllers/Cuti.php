@@ -99,7 +99,7 @@ class Cuti extends CI_Controller {
 
 	public function hapus_cuti_admin()
 	{
-		if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+		if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
 			$id_cuti_detail = $this->input->post("id_cuti_detail");
 			$id_user = $this->input->post("id_user");
 
@@ -121,7 +121,7 @@ class Cuti extends CI_Controller {
 
 	public function edit_cuti_admin()
 	{
-		if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+		if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
 			$id_user = $this->input->post("id_user");
 			$id_cuti_detail = $this->input->post("id_cuti_detail");
 			$alasan = $this->input->post("alasan");
@@ -222,56 +222,69 @@ class Cuti extends CI_Controller {
 
 	public function acc_cuti_manager()
 	{
-		$id_cuti_detail = $this->input->post("id_cuti_detail");
-		$id_user = $this->input->post("id_user");
-		$tipe_cuti = $this->input->post("id_tipe_cuti");
-		$mulai = $this->input->post("mulai");
-		$berakhir = $this->input->post("berakhir");
-		
-		$total_hari_cuti = $this->hitung_total_cuti($mulai, $berakhir);
-		$hasil = $this->m_cuti->confirm_cuti3($id_cuti_detail, $id_status_cuti3);
-		if($tipe_cuti == 3){
-		$hasil = $this->m_cuti->insert_user_detail($id_user, $total_hari_cuti);
-		}
-		if ($hasil == false) {
-			$this->session->set_flashdata('eror_input', 'eror_input');
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
+			$id_cuti_detail = $this->input->post("id_cuti_detail");
+			$id_user = $this->input->post("id_user");
+			$tipe_cuti = $this->input->post("id_tipe_cuti");
+			$mulai = $this->input->post("mulai");
+			$berakhir = $this->input->post("berakhir");
+			
+			$total_hari_cuti = $this->hitung_total_cuti($mulai, $berakhir);
+			$hasil = $this->m_cuti->confirm_cuti3($id_cuti_detail, $id_status_cuti3);
+			if($tipe_cuti == 3){
+			$hasil = $this->m_cuti->insert_user_detail($id_user, $total_hari_cuti);
+			}
+			if ($hasil == false) {
+				$this->session->set_flashdata('eror_input', 'eror_input');
+			} else {
+				$this->session->set_flashdata('input', 'input');
+			}
+			redirect('Cuti/view_manager');
+
 		} else {
-			$this->session->set_flashdata('input', 'input');
-		}
-		redirect('Cuti/view_manager');
+		// Handle kasus ketika pengguna tidak memiliki hak akses
+		$this->session->set_flashdata('loggin_err', 'loggin_err');
+		redirect('Login/index');
+        }
 	}
 
 	public function tolak_cuti_manager()
 	{
-		$id_cuti_detail = $this->input->post("id_cuti_detail");
-		$id_user = $this->input->post("id_user");
-		$mulai = $this->input->post("mulai");
-		$tipe_cuti = $this->input->post("id_tipe_cuti");
-		$berakhir = $this->input->post("berakhir");
-		$id_status_cuti3 = $this->input->post("id_status_cuti3");
-		
-		if ($id_status_cuti3=== '2') {
-			$total_hari_cuti = $this->hitung_total_cuti($mulai, $berakhir);
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
+			$id_cuti_detail = $this->input->post("id_cuti_detail");
+			$id_user = $this->input->post("id_user");
+			$mulai = $this->input->post("mulai");
+			$tipe_cuti = $this->input->post("id_tipe_cuti");
+			$berakhir = $this->input->post("berakhir");
+			$id_status_cuti3 = $this->input->post("id_status_cuti3");
 			
-			$hasil = $this->m_cuti->tolak_cuti3($id_cuti_detail, $id_status_cuti3);
-			if($tipe_cuti == 3){
-			$hasil = $this->m_cuti->insert_user_detail_hapus($id_user, $total_hari_cuti);
+			if ($id_status_cuti3=== '2') {
+				$total_hari_cuti = $this->hitung_total_cuti($mulai, $berakhir);
+				
+				$hasil = $this->m_cuti->tolak_cuti3($id_cuti_detail, $id_status_cuti3);
+				if($tipe_cuti == 3){
+				$hasil = $this->m_cuti->insert_user_detail_hapus($id_user, $total_hari_cuti);
+				}
+				if ($hasil == false) {
+					$this->session->set_flashdata('eror_input', 'eror_input');
+				}else {
+					$this->session->set_flashdata('input', 'input');
+				}
+			}elseif ($id_status_cuti3 === '1') {
+				$total_hari_cuti = $this->hitung_total_cuti($mulai, $berakhir);
+				$hasil = $this->m_cuti->confirm_cuti3($id_cuti_detail, $id_status_cuti3);
+				if ($hasil == false) {
+					$this->session->set_flashdata('eror_input', 'eror_input');
+				}else {
+					$this->session->set_flashdata('input', 'input');
+				}
 			}
-			if ($hasil == false) {
-				$this->session->set_flashdata('eror_input', 'eror_input');
-			}else {
-				$this->session->set_flashdata('input', 'input');
-			}
-		}elseif ($id_status_cuti3 === '1') {
-			$total_hari_cuti = $this->hitung_total_cuti($mulai, $berakhir);
-			$hasil = $this->m_cuti->confirm_cuti3($id_cuti_detail, $id_status_cuti3);
-			if ($hasil == false) {
-				$this->session->set_flashdata('eror_input', 'eror_input');
-			}else {
-				$this->session->set_flashdata('input', 'input');
-			}
-		}
-		redirect('Cuti/view_manager/' . $id_user);
+			redirect('Cuti/view_manager');
+		} else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
 	}
 
 	private function hitung_total_cuti($mulai, $berakhir) 

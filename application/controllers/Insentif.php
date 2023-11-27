@@ -46,7 +46,7 @@ class Insentif extends CI_Controller {
     
     public function edit_insentif()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_level = $this->input->post("id_level");
             $nama_insentif = $this->input->post("nama_insentif");
             $gaji_insentif = $this->input->post("gaji_insentif");
@@ -74,7 +74,7 @@ class Insentif extends CI_Controller {
 
     public function delete_insentif($id_level)
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $this->m_insentif->delete_insentif($id_level);
             if ($this->session->userdata('id_user_level') == 2) {
                 redirect('Insentif/view_admin');
@@ -89,7 +89,7 @@ class Insentif extends CI_Controller {
 
     public function tambah_insentif()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $nama_insentif = $this->input->post('nama_insentif');
             $gaji_insentif = $this->input->post('gaji_insentif');
             if ($gaji_insentif !== null) {

@@ -47,7 +47,7 @@ class Tmk extends CI_Controller {
 
     public function edit_tmk()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $id_status_tmk = $this->input->post("id_status_tmk");
             $rupiah_tmk = $this->input->post("rupiah_tmk");
             if ($rupiah_tmk !== null) {
@@ -78,7 +78,7 @@ class Tmk extends CI_Controller {
 
     public function delete_tmk($id_status_tmk)
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $this->m_tmk->delete_penempatan($id_status_tmk);
             if ($this->session->userdata('id_user_level') == 2) {
                 redirect('Tmk/view_admin');
@@ -95,7 +95,7 @@ class Tmk extends CI_Controller {
 
     public function tambah_tmk()
     {
-        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 4)) {
+        if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
             $rupiah_tmk = $this->input->post('rupiah_tmk');
             if ($rupiah_tmk !== null) {
                 $this->session->set_flashdata('input');

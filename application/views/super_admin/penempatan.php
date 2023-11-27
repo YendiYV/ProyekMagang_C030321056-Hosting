@@ -100,36 +100,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Data Penempatan</h1>
-                            <button type="button" class="btn btn-primary mt-3" id="exportButton">Cetak Rekap</button>
-                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Tambah Penempatan</button>
                         </div><!-- /.col -->
-                        <script>
-                        document.getElementById("exportButton").addEventListener("click", function() {
-                            // Mendapatkan tanggal saat tombol ditekan
-                            var currentDate = new Date();
-
-                            // Mengambil hari dalam format dua digit (01, 02, ..., 31)
-                            var day = String(currentDate.getDate()).padStart(2, '0');
-
-                            // Mengambil bulan dalam format dua digit (01, 02, ..., 12)
-                            var month = String(currentDate.getMonth() + 1).padStart(2, '0');
-
-                            // Mengambil tahun empat digit (contoh: 2023)
-                            var year = currentDate.getFullYear();
-
-                            // Menggabungkan hari, bulan, dan tahun ke dalam nama file
-                            var fileName = "Rekap Penempatan - " + day + "-" + month + "-" + year + ".xlsx";
-
-                            // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
-                            var table = document.getElementById("example1");
-
-                            // Membuat objek Workbook Excel
-                            var wb = XLSX.utils.table_to_book(table);
-
-                            // Membuat file Excel dan mengunduhnya dengan nama file yang telah dibuat
-                            XLSX.writeFile(wb, fileName);
-                        });
-                        </script>
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -155,7 +126,37 @@
                                     <h3 class="card-title">Data Penempatan</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body">
+                                <div class="card-body" style="overflow-x:auto;">
+                                    <button type="button" class="btn btn-primary" id="exportButton">Cetak Rekap</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Penempatan</button>
+                                    <script>
+                                    document.getElementById("exportButton").addEventListener("click", function() {
+                                        // Mendapatkan tanggal saat tombol ditekan
+                                        var currentDate = new Date();
+
+                                        // Mengambil hari dalam format dua digit (01, 02, ..., 31)
+                                        var day = String(currentDate.getDate()).padStart(2, '0');
+
+                                        // Mengambil bulan dalam format dua digit (01, 02, ..., 12)
+                                        var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+
+                                        // Mengambil tahun empat digit (contoh: 2023)
+                                        var year = currentDate.getFullYear();
+
+                                        // Menggabungkan hari, bulan, dan tahun ke dalam nama file
+                                        var fileName = "Rekap Penempatan - " + day + "-" + month + "-" + year + ".xlsx";
+
+                                        // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
+                                        var table = document.getElementById("example1");
+
+                                        // Membuat objek Workbook Excel
+                                        var wb = XLSX.utils.table_to_book(table);
+
+                                        // Membuat file Excel dan mengunduhnya dengan nama file yang telah dibuat
+                                        XLSX.writeFile(wb, fileName);
+                                    });
+                                    </script>
+                                    <hr>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
@@ -175,6 +176,7 @@
                                             $nama_penempatan = $penempatan_item['nama_penempatan'];
                                             $gaji = $penempatan_item['gaji_penempatan'];
                                             $tipe_um_penempatan = $penempatan_item['tipe_um'];
+                                            $id_tipe_um = $penempatan_item['um'];
                                             // Tambahkan kolom lain yang diperlukan sesuai dengan data penempatan
                                             
                                             ?>
@@ -245,14 +247,19 @@
                                                                     <div class="form-group">
                                                                         <label for="tipe_um">Tipe UM</label>
                                                                             <select class="form-control" id="tipe_um" name="tipe_um" required>
-                                                                                <option value="0">Tidak ada</option>
+                                                                                <?php foreach($tipe_um as $tu):
+                                                                                $id = $tu["id_status_um"];
+                                                                                $nama_tipe_um = $tu["tipe_um"];
+                                                                                ?>
+                                                                                    <option value="<?= $id ?>" <?php if($id == $id_tipe_um){
+                                                                                        echo 'selected';
+                                                                                    }else{
+                                                                                        echo '';
+                                                                                    }?>
+                                                                                    ><?= $nama_tipe_um?>
+                                                                                </option>
 
-                                                                                    <?php foreach ($tipe_um as $tu) : 
-                                                                                        $id_um = $tu["id_status_um"];
-                                                                                        $nama_um = $tu["tipe_um"];
-                                                                                    ?>
-                                                                                <option value="<?= $id_um ?>"><?= $nama_um ?></option>
-                                                                                <?php endforeach; ?>
+                                                                                <?php endforeach?>
                                                                             </select>
                                                                     </div>
                                                                     <div class="form-group">
