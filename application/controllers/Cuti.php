@@ -232,7 +232,7 @@ class Cuti extends CI_Controller {
 			$total_hari_cuti = $this->hitung_total_cuti($mulai, $berakhir);
 			$hasil = $this->m_cuti->confirm_cuti3($id_cuti_detail, $id_status_cuti3);
 			if($tipe_cuti == 3){
-			$hasil = $this->m_cuti->insert_user_detail($id_user, $total_hari_cuti);
+				$hasil = $this->m_cuti->insert_user_detail_sakit($id_user, $total_hari_cuti);
 			}
 			if ($hasil == false) {
 				$this->session->set_flashdata('eror_input', 'eror_input');
@@ -240,7 +240,6 @@ class Cuti extends CI_Controller {
 				$this->session->set_flashdata('input', 'input');
 			}
 			redirect('Cuti/view_manager');
-
 		} else {
 		// Handle kasus ketika pengguna tidak memiliki hak akses
 		$this->session->set_flashdata('loggin_err', 'loggin_err');

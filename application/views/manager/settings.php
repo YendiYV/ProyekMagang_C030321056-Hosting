@@ -33,20 +33,20 @@
     });
     </script>
     <?php } ?>
-    <?php if ($this->session->flashdata('ttd_upload')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Data Berhasil di Upload!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
-    <?php if ($this->session->flashdata('ttd_gagal')){ ?>
+    <?php if ($this->session->flashdata('eror')){ ?>
     <script>
     swal({
         title: "Erorr!",
-        text: "Data Gagal Diupload!",
+        text: "Data Gagal Ditambahkan!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('error_password')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Password Tidak Bisa Sama!",
         icon: "error"
     });
     </script>
@@ -88,36 +88,115 @@
             <!-- /.content-header -->
 
             <!-- Main content -->
-            <hr>
-            <div class="col-sm-auto text-sm-left" style="margin-left: 5pt;">
-                <span class="mr-2">
-                    <label for="upload_ttd" style="font-size:19px;">Upload Tanda Tangan</label>
-                </span>
-                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-primary btn-lg mt-2 mb-2" data-toggle="modal" data-target="#exampleTtd">Upload File</button>
+            <section class="content">
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Setting </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body container-fluid">
+                                    <div class="row mb-2">
+                                        <div class="col-sm-auto text-sm-right">
+                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="btn-group" role="group" >
+                                                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Ganti Password</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-auto text-sm-right">
+                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="btn-group" role="group" >
+                                                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleTtd">Upload TandaTangan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <hr>
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <?php foreach ($manager as $manager_item) : ?>
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3" style="text-align: center; font-size: 20px;">Biodata Manajer</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>Nama</th><td>:</td><td><?= !empty($manager_item['nama_lengkap']) ? $manager_item['nama_lengkap'] : '-' ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Jenis Kelamin</th><td>:</td><td><?= !empty($manager['jenis_kelamin']) ? $manager_item['jenis_kelamin'] : '-' ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>No. Telepon</th><td>:</td><td><?= !empty($manager_item['no_telp']) ? $manager['no_telp'] : '-' ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Alamat</th><td>:</td><td><?= !empty($manager['alamat']) ? $manager_item['alamat'] : '-' ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>NIP</th><td>:</td><td><?= !empty($manager['nip']) ? $manager['nip'] : '-' ?></td>
+                                            </tr>
+                                            <tr>
+                                                 <th>Tanda Tangan</th><td>:</td>
+                                                 <td>
+                                                    <?php
+                                                    $imagePath = 'assets/ttd/ttd-mng.jpg';
+                                                    if (file_exists($imagePath)) {
+
+                                                        // Display the image
+                                                        echo 'Tanda Tangan Tersedia';
+                                                    } else {
+                                                        // Show an error message if the file doesn't exist
+                                                        echo 'Tanda Tangan tidak Tersedia atau ada masalah dengan path/file.';
+                                                    }
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ganti Password</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="<?=base_url();?>Settings/settings_account_manager" method="POST">
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        aria-describedby="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="re_password">Ulangi Password</label>
+                                    <input type="password" class="form-control" id="re_password" name="re_password"
+                                        aria-describedby="re_password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <hr>
-            <section class="content">
-                <div class="container-fluid">
-
-                    <form action="<?=base_url();?>Settings/settings_account_manager" method="POST">
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password"
-                                aria-describedby="password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="re_password">Ulangi Password</label>
-                            <input type="password" class="form-control" id="re_password" name="re_password"
-                                aria-describedby="re_password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div><!-- /.container-fluid -->
-            </section>
             <div class="modal fade" id="exampleTtd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -160,8 +239,6 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
 

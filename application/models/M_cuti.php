@@ -37,6 +37,11 @@ class M_cuti extends CI_Model
         return $hasil;
     }
 
+    public function get_data_manager_U()
+    {
+        $hasil = $this->db->query("SELECT * FROM status_manager_u");
+        return $hasil;
+    }
     public function get_data_manager()
     {
         $hasil = $this->db->query("SELECT * FROM user_detail LEFT JOIN user ON user_detail.id_user_detail = user.id_user  WHERE user.id_user_level='4'");

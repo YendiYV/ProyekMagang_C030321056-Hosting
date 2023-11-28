@@ -130,6 +130,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= base_url();?>Dmunit/view_admin" class="nav-link">
+                        <i class="nav-icon fas fa-info"></i>
+                        <p>Data Manager Unit</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= base_url();?>Settings/view_admin" class="nav-link">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>Settings</p>

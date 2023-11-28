@@ -2,19 +2,10 @@
 <html lang="en">
 
 <head>
-    <?php $this->load->view("super_admin/components/header.php") ?>
+    <?php $this->load->view("admin/components/header.php") ?>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <?php if ($this->session->flashdata('password_err')){ ?>
-    <script>
-    swal({
-        title: "Error Password!",
-        text: "Ketik Ulang Password!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
     <?php if ($this->session->flashdata('edit')){ ?>
     <script>
     swal({
@@ -33,20 +24,20 @@
     });
     </script>
     <?php } ?>
-    <?php if ($this->session->flashdata('eror')){ ?>
+    <?php if ($this->session->flashdata('ttd_upload')){ ?>
     <script>
     swal({
-        title: "Erorr!",
-        text: "Data Gagal Ditambahkan!",
-        icon: "error"
+        title: "Success!",
+        text: "Tanda Tangan Berhasil di Upload!",
+        icon: "success"
     });
     </script>
     <?php } ?>
-    <?php if ($this->session->flashdata('error_password')){ ?>
+    <?php if ($this->session->flashdata('ttd_gagal')){ ?>
     <script>
     swal({
         title: "Erorr!",
-        text: "Password Tidak Bisa Sama!",
+        text: "Tanda Tangan Gagal di Upload!",
         icon: "error"
     });
     </script>
@@ -60,11 +51,11 @@
         </div>
 
         <!-- Navbar -->
-        <?php $this->load->view("super_admin/components/navbar.php") ?>
+        <?php $this->load->view("admin/components/navbar.php") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php $this->load->view("super_admin/components/sidebar.php") ?>
+        <?php $this->load->view("admin/components/sidebar.php") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -77,9 +68,9 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"></a>Supervisior</li>
+                                <li class="breadcrumb-item"></a>Admin</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Setting</li>
+                                <li class="breadcrumb-item active">Manager Unit</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -95,7 +86,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Setting </h3>
+                                    <h3 class="card-title">Data Manager Unit</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body container-fluid">
@@ -103,52 +94,59 @@
                                         <div class="col-sm-auto text-sm-right">
                                             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                                 <div class="btn-group" role="group" >
-                                                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Ganti Password</button>
+                                                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">Ganti Data</button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-auto text-sm-right">
                                             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                                 <div class="btn-group" role="group" >
-                                                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleTtd">Upload TandaTangan</button>
+                                                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleTtd">Upload Tanda Tangan</button>
                                                 </div>
                                             </div>
                                         </div>
                                         
                                     </div>
-                                    <hr>
                                     <table id="example1" class="table table-bordered table-striped">
-                                        <?php foreach ($super_admin as $super_admin_item) : ?>
+                                        <?php foreach ($manager_u as $mu) : 
+                                        $nama = $mu['nama_manager_u'];
+                                        $nip = $mu['nip_manager_u'];
+                                        $nomor_telp = $mu['nomor_telp'];
+                                        $jk_m = $mu['jk'];
+                                        $alamat = $mu['alamat_manager_u'];
+
+                                        ?>
                                         <thead>
                                             <tr>
-                                                <th colspan="3" style="text-align: center; font-size: 20px;">Biodata Supervisior</b></th>
+                                                <th colspan="3" style="text-align: center; font-size: 20px;">Biodata Manager Unit</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <th>Nama</th><td>:</td><td><?= !empty($super_admin_item['nama_lengkap']) ? $super_admin_item['nama_lengkap'] : '-' ?></td>
+                                                <th>Nama</th><td>:</td><td><?= !empty($mu['nama_manager_u']) ? $mu['nama_manager_u'] : '-' ?></td>
                                             </tr>
                                             <tr>
-                                                <th>Jenis Kelamin</th><td>:</td><td><?= !empty($super_admin_item['jenis_kelamin']) ? $super_admin_item['jenis_kelamin'] : '-' ?></td>
+                                                <th>NIP</th><td>:</td><td><?= !empty($mu['nip_manager_u']) ? $mu['nip_manager_u'] : '-' ?></td>
                                             </tr>
                                             <tr>
-                                                <th>No. Telepon</th><td>:</td><td><?= !empty($super_admin_item_item['no_telp']) ? $super_admin_item['no_telp'] : '-' ?></td>
+                                                <th>Jenis Kelamin</th><td>:</td><td><?= !empty($mu['jenis_kelamin']) ? $mu['jenis_kelamin'] : '-' ?></td>
                                             </tr>
                                             <tr>
-                                                <th>Alamat</th><td>:</td><td><?= !empty($super_admin_item['alamat']) ? $super_admin_item['alamat'] : '-' ?></td>
+                                                <th>No. Telepon</th><td>:</td><td><?= !empty($mu['nomor_telp']) ? $mu['nomor_telp'] : '-' ?></td>
                                             </tr>
                                             <tr>
-                                                <th>NIP</th><td>:</td><td><?= !empty($super_admin_item['nip']) ? $super_admin_item['nip'] : '-' ?></td>
+                                                <th>Alamat</th><td>:</td><td><?= !empty($mu['alamat_manager_u']) ? $mu['alamat_manager_u'] : '-' ?></td>
                                             </tr>
                                             <tr>
                                                  <th>Tanda Tangan</th><td>:</td>
                                                  <td>
                                                     <?php
-                                                    $imagePath = 'assets/ttd/ttd-spv.jpg';
+                                                    $imagePath = 'assets/ttd/ttd-mng-u.jpg';
+
                                                     if (file_exists($imagePath)) {
 
                                                         // Display the image
-                                                        echo 'Tanda Tangan Tersedia';
+                                                        echo '<img src="' . base_url($imagePath) . '" width="120" height="60" alt="Tanda Tangan">';
                                                     } else {
                                                         // Show an error message if the file doesn't exist
                                                         echo 'Tanda Tangan tidak Tersedia atau ada masalah dengan path/file.';
@@ -174,22 +172,52 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ganti Password</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ganti Data</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="<?=base_url();?>Settings/settings_account_super_admin" method="POST">
+                            <form action="<?=base_url();?>Dmunit/edit_data" method="POST">
+                                <input type="hidden" class="form-control" id="nip_awal" name="nip_awal" value="<?= $nip ?>" aria-describedby="nip_awal" required>
                                 <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password"
-                                        aria-describedby="password" required>
+                                    <label for="nama_manager_u">Nama</label>
+                                    <input type="text" class="form-control" id="nama_manager_u" name="nama_manager_u" value="<?= $nama ?>"
+                                        aria-describedby="nama_manager_u" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="re_password">Ulangi Password</label>
-                                    <input type="password" class="form-control" id="re_password" name="re_password"
-                                        aria-describedby="re_password" required>
+                                    <label for="nip_manager_u">NIP</label>
+                                    <input type="text" class="form-control" id="nip_manager_u" name="nip_manager_u" value="<?= $nip ?>"
+                                        aria-describedby="nip_manager_u" pattern="^\d{7}[A-Z]{3}$" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jenis_kelamin">Jenis Kelamin</label>
+                                    <select class="form-control" id="id_jenis_kelamin" name="id_jenis_kelamin" required>
+                                        <?php foreach($jk as $u)
+                                        :
+                                        $id = $u["id_jenis_kelamin"];
+                                        $jenis_kelamin = $u["jenis_kelamin"];
+                                        ?>
+                                            <option value="<?= $id ?>" <?php if($id == $jk_m){
+                                                echo 'selected';
+                                            }else{
+                                                echo '';
+                                            }?>
+                                            ><?= $jenis_kelamin ?>
+                                            </option>
+
+                                        <?php endforeach?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nomor_telp">No.Telp</label>
+                                    <input type="text" class="form-control" id="nomor_telp" name="nomor_telp" value="<?= $nomor_telp ?>"
+                                        aria-describedby="nomor_telp" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="alamat_manager_u">Alamat</label>
+                                    <input type="text" class="form-control" id="alamat_manager_u" name="alamat_manager_u" value="<?= $alamat ?>"
+                                        aria-describedby="alamat_manager_u" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -201,14 +229,14 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Upload TTD</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Upload Tanda Tangan</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                         <!-- Add your form for signature upload -->
-                        <form action="<?= base_url(); ?>Settings/upload_ttd_spv" method="post" enctype="multipart/form-data">
+                        <form action="<?= base_url(); ?>Dmunit/upload_ttd_mng_u" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="signatureFile">Pilih File</label>
                                 <div class="custom-file">
@@ -251,7 +279,7 @@
     </div>
     <!-- ./wrapper -->
 
-    <?php $this->load->view("super_admin/components/js.php") ?>
+    <?php $this->load->view("admin/components/js.php") ?>
 </body>
 
 </html>

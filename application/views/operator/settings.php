@@ -161,14 +161,9 @@
                                                     $imagePath = 'assets/ttd/ttd-ops-' . $operator_item['id_user_detail'] . '.jpg';
 
                                                     if (!empty($operator_item['id_user_detail']) && file_exists($imagePath)) {
-                                                    ?>
-                                                        <img src="<?= base_url($imagePath); ?>" width="120" height="60" alt="" class="fr-fir fr-dib fr-draggable">
-                                                    <?php
+                                                        echo 'Tanda Tangan Tersedia.';
                                                     } else {
-                                                    ?>
-                                                        <!-- Add an alternative image or placeholder if the image file is not found -->
-                                                        <img src="<?= base_url('path/to/placeholder-image.jpg'); ?>" width="120" height="60" alt="Tanda Tangan Tidak Tersedia" class="fr-fir fr-dib fr-draggable">
-                                                    <?php
+                                                        echo 'Tanda Tangan tidak Tersedia atau ada masalah dengan path/file.';
                                                     }
                                                     ?>
                                                 </td>

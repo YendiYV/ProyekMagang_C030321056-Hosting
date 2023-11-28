@@ -26,6 +26,8 @@ class Rgaji extends CI_Controller {
     {
         if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
             $data['gaji_bulan'] = $this->m_rgaji->get_all_gaji_bulan();
+            $data['data_per_tanggal'] = $this->m_rgaji->data_per_tanggal();
+            $data['username'] = $this->m_user->get_all_operator()->result_array();
             $this->load->view('super_admin/rgaji', $data);
         } else {
             // Handle kasus ketika pengguna tidak memiliki hak akses

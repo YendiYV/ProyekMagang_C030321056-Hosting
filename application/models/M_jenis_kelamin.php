@@ -8,5 +8,4 @@ class M_jenis_kelamin extends CI_Model
         $hasil = $this->db->query('SELECT * FROM jenis_kelamin');
         return $hasil;
     }
-
 }

@@ -108,7 +108,7 @@
                 style="font-family:'Times New Roman';">&nbsp;Proyek</span><span
                 style="width:17.7pt; display:inline-block;">&nbsp;</span><span
                 style="width:78pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">:
-                <?=$proyek?></span>
+                <?= $proyek ?? '-' ?></span>
         </p>
         <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
                 style="width:36pt; display:inline-block;">&nbsp;</span><span
@@ -117,7 +117,7 @@
                 style="font-family:'Times New Roman';">&nbsp;Wilayah Kerja</span><span
                 style="width:17.7pt; display:inline-block;">&nbsp;</span><span
                 style="width:42pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">:
-                <?=$penempatan?></span>
+                <?=$penempatan ?? '-' ?></span>
         </p>
         <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
                 style="width:36pt; display:inline-block;">&nbsp;</span><span
@@ -126,7 +126,7 @@
                 style="font-family:'Times New Roman';">&nbsp;Tanggal Pengajuan</span><span
                 style="width:17.7pt; display:inline-block;">&nbsp;</span><span
                 style="width:20pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">:
-               <?= tgl_indo($tgl_diajukan)?></span>
+               <?= tgl_indo($tgl_diajukan) ?? '-' ?></span>
         </p>
                  <p style="margin-top:0pt; margin-bottom:0pt; line-height:20%;"><span
                 style="font-family:'Times New Roman';">&nbsp;</span></p>
@@ -190,7 +190,7 @@
                                 <p style="font-family: 'Times New Roman'; margin: 0; font-size: 15px;">PT. PLN Nusa Daya UP Kalimantan 2</p>
                                 <?php if($id_status_cuti3 == 2){ ?>
                                         <?php
-                                        $imagePath = 'assets/ttd/ttd-mnj.jpg';
+                                        $imagePath = 'assets/ttd/ttd-mng-u.jpg';
 
                                         if (file_exists($imagePath)) {
                                         ?>
@@ -211,18 +211,21 @@
                                 }
                                 ?>
                                  <p style="margin-top: -10px; margin-bottom: -10px;">__________________________</p>
-                                <p style="font-family: 'Times New Roman';">Akbar Kurnia Octavianto</p>
+                                <p style="font-family: 'Times New Roman';"><?php foreach ($mng_u as $mng_u): ?>
+                                        <?php echo $mng_u['nama_manager_u']; ?>
+                                        <?php endforeach; ?>
+                                </p>
                         </td>
                         
                         <td style="text-align: center;">
                                 <!-- Kolom Kanan -->
                                 <b style="font-family: 'Times New Roman'; margin: 0;">Banjarbaru, 
-                                <span id="tanggalMulai">
+                                <span id="tanggalPengajuan">
                                         <?php
-                                        $mulai = $i['mulai'];
-                                        if ($mulai) {
-                                        $tanggalMulaiFormatted = date("d-m-Y", strtotime($mulai));
-                                        echo $tanggalMulaiFormatted;
+                                        $pengajuan = $i['tgl_diajukan'];
+                                        if ($pengajuan) {
+                                        $tanggalPengajuanFormatted = date("d-m-Y", strtotime($pengajuan));
+                                        echo $tanggalPengajuanFormatted;
                                         } else {
                                         echo "Tidak valid";
                                         }

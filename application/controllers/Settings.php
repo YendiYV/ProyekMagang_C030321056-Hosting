@@ -11,8 +11,10 @@ class Settings extends CI_Controller {
 
 	public function view_manager()
 	{
+		$id = $this->session->userdata('id_user');
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
-			$this->load->view('manager/settings');
+			$data['manager'] = $this->m_user->get_all_operator_setting($id)->result_array();
+			$this->load->view('manager/settings',$data);
 		} else {
 			// Handle kasus ketika pengguna tidak memiliki hak akses
 			$this->session->set_flashdata('loggin_err', 'loggin_err');
@@ -21,8 +23,10 @@ class Settings extends CI_Controller {
     }
     public function view_super_admin()
 	{
+		$id = $this->session->userdata('id_user');
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
-			$this->load->view('super_admin/settings');
+			$data['super_admin'] = $this->m_user->get_all_operator_setting($id)->result_array();
+			$this->load->view('super_admin/settings',$data);
 		} else {
 			// Handle kasus ketika pengguna tidak memiliki hak akses
 			$this->session->set_flashdata('loggin_err', 'loggin_err');

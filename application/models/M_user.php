@@ -23,6 +23,24 @@ class M_user extends CI_Model
                                 ');
         return $hasil;
     }
+    public function get_manager_u()
+    {
+         $hasil = $this->db->query('SELECT * FROM status_manager_u JOIN jenis_kelamin ON status_manager_u.jk = jenis_kelamin.id_jenis_kelamin');
+        return $hasil;
+    }
+
+    public function edit_data_manager_u($nama_manager_u,$nip_manager_u,$id_jenis_kelamin,$nomor_telp,$alamat_manager_u,$nip_awal)
+    {
+        $this->db->trans_start();
+        $this->db->query("UPDATE status_manager_u SET nip_manager_u ='$nip_manager_u',nama_manager_u='$nama_manager_u', jk='$id_jenis_kelamin' , nomor_telp= '$nomor_telp', alamat_manager_u = '$alamat_manager_u' WHERE nip_manager_u='$nip_awal'");
+        $this->db->trans_complete();
+        if ($this->db->trans_status() == true) {
+            $this->session->set_flashdata('edit','edit');
+            return $this->db->trans_status();
+        }else {
+            $this->session->set_flashdata('eror_edit','eror_edit');
+        }
+    }
     public function get_all_operator_setting($id)
     {
         $hasil = $this->db->query("SELECT user.*, user_detail.*, jenis_kelamin.*,operator_level.* ,status_proyek.nama_proyek,status_penempatan.*,status_bpk.*,status_delta.*
@@ -39,6 +57,7 @@ class M_user extends CI_Model
                                 ");
         return $hasil;
     }
+
     public function count_all_operator()
     {
         $hasil = $this->db->query('SELECT COUNT(id_user) as total_user FROM user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail 

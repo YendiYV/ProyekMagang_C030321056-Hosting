@@ -226,7 +226,7 @@
                                                             </a>
                                                         <?php } else { ?>
                                                             <a href="<?= base_url(); ?>Cetak/surat_cuti_pdf/<?= $id_cuti_detail ?>" target="_blank" class="btn btn-info">
-                                                                Cetak Surat Pengajuan
+                                                                Cetak Surat
                                                             </a>
                                                         <?php } ?>
                                                     </td>

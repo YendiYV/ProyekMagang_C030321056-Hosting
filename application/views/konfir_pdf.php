@@ -81,7 +81,7 @@
                 style="font-family:'Times New Roman';">&nbsp;Nama</span><span
                 style="width:6.99pt; display:inline-block;">&nbsp;</span><span
                 style="width:93.7pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">:
-                <?=$nama_lengkap?></span>
+                <?=$nama_lengkap ?? '-' ?></span>
         </p>
         <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
                 style="width:36pt; display:inline-block;">&nbsp;</span><span
@@ -90,7 +90,7 @@
                 style="font-family:'Times New Roman';">&nbsp;NIP</span><span
                 style="width:16.3pt; display:inline-block;">&nbsp;</span><span
                 style="width:94pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">:
-                <?=$nip?></span>
+                <?=$nip ?? '-' ?></span>
         </p>
         <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
                 style="width:36pt; display:inline-block;">&nbsp;</span><span
@@ -107,7 +107,7 @@
                 style="font-family:'Times New Roman';">&nbsp;Proyek</span><span
                 style="width:17.7pt; display:inline-block;">&nbsp;</span><span
                 style="width:78pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">:
-                <?=$proyek?></span>
+                <?=$proyek ?? '-' ?><span>
         </p>
         <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
                 style="width:36pt; display:inline-block;">&nbsp;</span><span
@@ -116,7 +116,7 @@
                 style="font-family:'Times New Roman';">&nbsp;Wilayah Kerja</span><span
                 style="width:17.7pt; display:inline-block;">&nbsp;</span><span
                 style="width:42pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">:
-                <?=$penempatan?></span>
+                 <?=$penempatan ?? '-' ?></span>
         </p>
         <p style="margin-top:0pt; margin-bottom:0pt; line-height:150%;"><span
                 style="width:36pt; display:inline-block;">&nbsp;</span><span
@@ -125,7 +125,7 @@
                 style="font-family:'Times New Roman';">&nbsp;Tanggal Pengajuan</span><span
                 style="width:17.7pt; display:inline-block;">&nbsp;</span><span
                 style="width:20pt; display:inline-block;">&nbsp;</span><span style="font-family:'Times New Roman';">:
-               <?= tgl_indo($tgl_diajukan)?></span>
+               <?= tgl_indo($tgl_diajukan) ?? '-' ?></span>
         </p>
                  <p style="margin-top:0pt; margin-bottom:0pt; line-height:20%;"><span
                 style="font-family:'Times New Roman';">&nbsp;</span></p>
@@ -189,7 +189,9 @@
                                 <p style="font-family: 'Times New Roman'; margin: 0; font-size: 15px;">PT. PLN Nusa Daya UP Kalimantan 2</p>
                                 <br><br><br>
                                  <p style="margin-top: -10px; margin-bottom: -10px;">__________________________</p>
-                                <p style="font-family: 'Times New Roman';">Akbar Kurnia Octavianto</p>
+                                <p style="font-family: 'Times New Roman';"><?php foreach ($mng_u as $mng_u): ?>
+                                        <?php echo $mng_u['nama_manager_u']; ?>
+                                        <?php endforeach; ?></p>
                         </td>
                         
                         <td style="text-align: center;">
