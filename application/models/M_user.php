@@ -4,7 +4,7 @@ class M_user extends CI_Model
 {
     public function get_all_operator()
     {
-        $hasil = $this->db->query('SELECT user.*, user_detail.*, jenis_kelamin.*,operator_level.* ,status_proyek.nama_proyek,status_penempatan.*,status_bpk.*,status_delta.*,status_transport.*,            status_komunikasi.*,status_uang_hadir.*,status_kontribusi.*,status_insentif.*
+        $hasil = $this->db->query('SELECT user.*, user_detail.*, jenis_kelamin.*,operator_level.* ,status_proyek.nama_proyek,status_penempatan.*,status_bpk.*,status_delta.*,status_transport.*,status_komunikasi.*,status_uang_hadir.*,status_kontribusi.*,status_insentif.*, status_wajib.*,status_kategori.*
                                     FROM user_detail
                                     JOIN user ON user.id_user_detail = user_detail.id_user_detail
                                     JOIN jenis_kelamin ON user_detail.id_jenis_kelamin = jenis_kelamin.id_jenis_kelamin
@@ -18,6 +18,8 @@ class M_user extends CI_Model
                                     LEFT JOIN status_uang_hadir ON user_detail.uang_hadir = status_uang_hadir.id_uang_hadir
                                     LEFT JOIN status_kontribusi ON user_detail.kontribusi = status_kontribusi.id_kontribusi
                                     LEFT JOIN status_insentif ON user_detail.insentif = status_insentif.id_insentif
+                                    LEFT JOIN status_kategori ON user_detail.kategori = status_kategori.id_kategori
+                                    LEFT JOIN status_wajib ON user_detail.kode_wajib = status_wajib.id_wajib
                                     WHERE user.id_user_level = 1
                                     ORDER BY user_detail.nip ASC
                                 ');
@@ -153,13 +155,18 @@ class M_user extends CI_Model
     public function update_user($id, $password)
     {
        $this->db->trans_start();
-
        $this->db->query("UPDATE user SET  password='$password' WHERE id_user='$id'");
-      
        $this->db->trans_complete();
         if($this->db->trans_status()==true)
             return true;
         else
             return false;
+    }
+
+    public function update_data_plnt($id_user,$no_spk,$no_serti,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib)
+    {
+        $this->db->trans_start();  
+        $this->db->query("UPDATE user_detail SET  no_spk='$no_spk', no_serti='$no_serti',tgl_berlaku='$tgl_berlaku' , tgl_berakhir='$tgl_berakhir',kategori='$id_kategori',kode_wajib='$id_wajib' WHERE id_user_detail='$id_user'");
+        $this->db->trans_complete();
     }
 }

@@ -237,7 +237,7 @@
                                                             </a>
                                                         <?php } else { ?>
                                                             
-                                                            <a href="<?= base_url(); ?>CetakAcc/surat_cuti_acc_pdf/<?= $id_cuti_detail ?>" target="_blank" class="btn btn-info">
+                                                            <a href="<?= base_url(); ?>Cetak/surat_cuti_acc_pdf/<?= $id_cuti_detail ?>" target="_blank" class="btn btn-info">
                                                                 Cetak Surat Konfirmasi
                                                             </a>
                                                         <?php } ?>

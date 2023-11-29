@@ -18,6 +18,8 @@ class operator extends CI_Controller {
 		$this->load->model('m_uang_hadir');
 		$this->load->model('m_kontribusi');
 		$this->load->model('m_insentif');
+		$this->load->model('m_kategori');
+		$this->load->model('m_wajib');
 	}
 	
 	public function view_admin()
@@ -94,6 +96,39 @@ class operator extends CI_Controller {
 			$this->session->set_flashdata('loggin_err','loggin_err');
 			redirect('Login/index');
 
+		}
+    }
+	public function view_admin_plnt()
+	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 5) {
+			$data['operator'] = $this->m_user->get_all_operator()->result_array();
+			$data['data_wajib'] = $this->m_wajib->get_all_wajib();
+			$data['data_kategori'] = $this->m_kategori->get_all_kategori();
+			$this->load->view('admin_plnt/operator', $data);
+			
+		}else{
+
+			$this->session->set_flashdata('loggin_err','loggin_err');
+			redirect('Login/index');
+
+		}
+    }
+	public function edit_data_plnt()
+	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 5) {
+			$id_user = $this->input->post("id_user");
+			$no_spk = $this->input->post("no_spk");
+			$no_serti = $this->input->post("no_serti");
+			$tgl_berlaku = $this->input->post("tgl_berlaku");
+			$tgl_berakhir = $this->input->post("tgl_berakhir");
+			$id_kategori = $this->input->post("id_kategori");
+			$id_wajib= $this->input->post("id_wajib");
+			$this->session->set_flashdata('edit','edit');
+			$hasil = $this->m_user->update_data_plnt($id_user,$no_spk,$no_serti,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib);
+			redirect($_SERVER['HTTP_REFERER']);
+		}else{
+			$this->session->set_flashdata('loggin_err','loggin_err');
+			redirect('Login/index');
 		}
     }
 	public function tambah_operator()

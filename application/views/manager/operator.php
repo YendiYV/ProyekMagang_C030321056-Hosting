@@ -108,7 +108,11 @@
                                                 <th>Penempatan</th>
                                                 <th>BPK</th>
                                                 <th>Delta</th>
-                                                <th>Tunjangan Transport</th>
+                                                <th>Tunjangan Trans.</th>
+                                                <th>Tunjangan Kom.</th>
+                                                <th>Tunjangan Uang.H</th>
+                                                <th>Tunjangan Kontri</th>
+                                                <th>Tunjangan Insen</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -116,10 +120,9 @@
                                             $no = 0;
                                             foreach($operator as $i)
                                             :
-                                            $no++;
+                                             $no++;
                                             $id_user = $i['id_user'];
                                             $username = $i['username'];
-                                            $password = $i['password'];
                                             $nama_lengkap = $i['nama_lengkap'];
                                             $tanggal_masuk = $i['tanggal_masuk'];
                                             $jenis_kelamin = $i['jenis_kelamin'];
@@ -132,6 +135,11 @@
                                             $nama_bpk = $i['nama_bpk'];
                                             $nama_delta = $i['nama_delta'];
                                             $transport = $i['nama_transport'];
+                                            $komunikasi = $i['nama_komunikasi'];
+                                            $uang_hadir = $i['nama_uang_hadir'];
+                                            $kontribusi = $i['nama_kontribusi'];
+                                            $insentif = $i['nama_insentif'];
+
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
@@ -147,6 +155,10 @@
                                                 <td style="<?= $nama_bpk ? '' : 'color: red;' ?>"><?= $nama_bpk ?: "Data Kosong" ?></td>
                                                 <td style="<?= $nama_delta ? '' : 'color: red;' ?>"><?= $nama_delta ?: "Data Kosong" ?></td>
                                                 <td style="<?= $transport ? '' : 'color: red;' ?>"><?= $transport ?: "Data Kosong" ?></td>
+                                                <td style="<?= $komunikasi ? '' : 'color: red;' ?>"><?= $komunikasi ?: "Data Kosong" ?></td>
+                                                <td style="<?= $uang_hadir ? '' : 'color: red;' ?>"><?= $uang_hadir ?: "Data Kosong" ?></td>
+                                                <td style="<?= $kontribusi ? '' : 'color: red;' ?>"><?= $kontribusi ?: "Data Kosong" ?></td>
+                                                <td style="<?= $insentif ? '' : 'color: red;' ?>"><?= $insentif ?: "Data Kosong" ?></td>
                                             </tr>
                                             <?php endforeach; ?>
                                         </tbody>

@@ -64,6 +64,15 @@ class Login extends CI_Controller {
 
 					$this->session->set_flashdata('success_login', 'success_login');
 					redirect('Dashboard/dashboard_manager');
+				} else if ($user['id_user_level'] == 5) {
+					// Jika tingkat pengguna adalah 5 (Admin PLNT), sesi diatur untuk Admin PLT
+					$this->session->set_userdata('logged_in', true);
+					$this->session->set_userdata('id_user', $user['id_user']);
+					$this->session->set_userdata('username', $user['username']);
+					$this->session->set_userdata('id_user_level', $user['id_user_level']);
+
+					$this->session->set_flashdata('success_login', 'success_login');
+					redirect('Dashboard/dashboard_admin_plnt');
 				} else {
 					// Jika tingkat pengguna tidak sesuai dengan yang diharapkan
 					$this->session->set_flashdata('loggin_err', 'loggin_err');

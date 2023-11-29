@@ -25,6 +25,15 @@ class Dashboard extends CI_Controller {
 		$this->load->model('m_insfeksi');
 	}
 
+	public function dashboard_admin_plnt()
+	{
+		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 5) {
+			$this->load->view('admin_plnt/dashboard');
+		}else{
+			$this->session->set_flashdata('loggin_err','loggin_err');
+			redirect('Login/index');
+		}
+	}
 	public function dashboard_manager()
 	{
 		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 4) {
@@ -159,6 +168,5 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('loggin_err', 'loggin_err');
 			redirect('Login/index');
 		}
-	}
-	 
+	}	 
 }

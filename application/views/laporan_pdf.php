@@ -188,7 +188,7 @@
                                 <p style="font-family: 'Times New Roman'; margin: 0; font-size: 15px;">Menyetujui,</p>
                                 <p style="font-family: 'Times New Roman'; margin: 0; font-size: 15px;">Manager Unit Layanan Banjarmasin</p>
                                 <p style="font-family: 'Times New Roman'; margin: 0; font-size: 15px;">PT. PLN Nusa Daya UP Kalimantan 2</p>
-                                <?php if($id_status_cuti3 == 2){ ?>
+                                <?php if($id_status_cuti2 == 2){ ?>
                                         <?php
                                         $imagePath = 'assets/ttd/ttd-mng-u.jpg';
 
