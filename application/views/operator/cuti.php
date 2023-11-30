@@ -36,6 +36,15 @@
     });
     </script>
     <?php } ?>
+    <?php if ($this->session->flashdata('input')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Data Cuti Berhasil Ditambahkan !",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
 
     <div class="wrapper">
 

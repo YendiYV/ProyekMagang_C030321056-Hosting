@@ -158,9 +158,9 @@
                                                  <th>Tanda Tangan</th><td>:</td>
                                                  <td>
                                                     <?php
-                                                    $imagePath = 'assets/ttd/ttd-ops-' . $operator_item['id_user_detail'] . '.jpg';
+                                                    $imagePath = 'assets/ttd/ttd-ops-' . $operator_item['username'] . '.jpg';
 
-                                                    if (!empty($operator_item['id_user_detail']) && file_exists($imagePath)) {
+                                                    if (!empty($operator_item['username']) && file_exists($imagePath)) {
                                                         echo 'Tanda Tangan Tersedia.';
                                                     } else {
                                                         echo 'Tanda Tangan tidak Tersedia atau ada masalah dengan path/file.';

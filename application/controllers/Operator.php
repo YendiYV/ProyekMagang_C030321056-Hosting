@@ -118,13 +118,14 @@ class operator extends CI_Controller {
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 5) {
 			$id_user = $this->input->post("id_user");
 			$no_spk = $this->input->post("no_spk");
+			$spk = $this->input->post("spk");
 			$no_serti = $this->input->post("no_serti");
 			$tgl_berlaku = $this->input->post("tgl_berlaku");
 			$tgl_berakhir = $this->input->post("tgl_berakhir");
 			$id_kategori = $this->input->post("id_kategori");
 			$id_wajib= $this->input->post("id_wajib");
 			$this->session->set_flashdata('edit','edit');
-			$hasil = $this->m_user->update_data_plnt($id_user,$no_spk,$no_serti,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib);
+			$hasil = $this->m_user->update_data_plnt($id_user,$no_spk,$spk,$no_serti,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib);
 			redirect($_SERVER['HTTP_REFERER']);
 		}else{
 			$this->session->set_flashdata('loggin_err','loggin_err');
@@ -137,10 +138,12 @@ class operator extends CI_Controller {
 			$username = $this->input->post("username");
 			$password = $this->input->post("password");
 			$re_password = $this->input->post("confirm_password");
+			$nik = $this->input->post("nik");
 			$nama_lengkap = $this->input->post("nama_lengkap");
 			$id_jenis_kelamin = $this->input->post("id_jenis_kelamin");
 			$no_telp = $this->input->post("no_telp");
 			$alamat = $this->input->post("alamat");
+			$spk = $this->input->post("spk");
 			$id_user_level = 1;
 			$id_status_proyek = $this->input->post('id_status_proyek');
 			$jabatan = $this->input->post("operator_level");
@@ -161,7 +164,7 @@ class operator extends CI_Controller {
 				$password =$hashed_password;
 				if ($username !== null){
 					$this->session->set_flashdata('input','input');
-					$hasil = $this->m_user->insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat,$id_status_proyek, $jabatan,$penempatan,$bpk,$delta,$transport ,$komunikasi,$uang_hadir,$kontribusi,$insentif ,$tanggal_masuk);
+					$hasil = $this->m_user->insert_operator($id, $username, $password, $id_user_level, $nik, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat,$spk,$id_status_proyek, $jabatan,$penempatan,$bpk,$delta,$transport ,$komunikasi,$uang_hadir,$kontribusi,$insentif ,$tanggal_masuk);
 				}
 				else {
 					$this->session->set_flashdata('eror_ada','eror_ada');
@@ -186,9 +189,11 @@ class operator extends CI_Controller {
 			$username = $this->input->post("username");
 			$newPassword = $this->input->post("password");
 			$nama_lengkap = $this->input->post("nama_lengkap");
+			$nik = $this->input->post("nik");
 			$id_jenis_kelamin = $this->input->post("id_jenis_kelamin");
 			$no_telp = $this->input->post("no_telp");
 			$alamat = $this->input->post("alamat");
+			$spk = $this->input->post("spk");
 			$jabatan = $this->input->post("operator_level");
 			$penempatan = $this->input->post("penempatan");
 			$delta = $this->input->post("delta");
@@ -202,7 +207,7 @@ class operator extends CI_Controller {
 			$tanggal_masuk = $this->input->post("tanggal_masuk");
 
 			// Mendapatkan password lama dari database
-			$oldPasswordQuery = $this->db->query("SELECT password FROM user WHERE id_user='$id_user'");
+			$oldPasswordQuery = $this->db->query("SELECT password FROM user WHERE username='$username'");
 			$oldPasswordRow = $oldPasswordQuery->row();
 			$oldPasswordFromDatabase = $oldPasswordRow->password;
 
@@ -217,7 +222,7 @@ class operator extends CI_Controller {
 
 
 			if ($username !== null){
-			$hasil = $this->m_user->update_operator($id_user, $username, $password, 1, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan, $penempatan,$bpk,$delta,$transport,$komunikasi,$uang_hadir,$kontribusi,$insentif,$id_status_proyek, $tanggal_masuk);
+			$hasil = $this->m_user->update_operator($id_user, $username, $password, 1, $nama_lengkap,$nik, $id_jenis_kelamin, $no_telp, $alamat,$spk, $jabatan, $penempatan,$bpk,$delta,$transport,$komunikasi,$uang_hadir,$kontribusi,$insentif,$id_status_proyek, $tanggal_masuk);
 			$this->session->set_flashdata('edit','edit');
 			} else {
 				$this->session->set_flashdata('eror_edit','eror_edit');
@@ -241,11 +246,11 @@ class operator extends CI_Controller {
 		// Check if the user is logged in and has the required user level
 		if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {
 			// Get the user ID from the POST data
-			$id_user = $this->input->post("id_user");
+			$username = $this->input->post("username");
 
 
 			// Delete the operator
-			$hasil = $this->m_user->delete_operator($id_user);
+			$hasil = $this->m_user->delete_operator($username);
 
 			// Set flash messages based on the result
 			if ($hasil == false) {

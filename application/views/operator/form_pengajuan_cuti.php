@@ -78,7 +78,7 @@
                 <div class="container-fluid">
 
                     <form action="<?= base_url();?>Form_Cuti/proses_cuti" method="POST" enctype="multipart/form-data">
-                        <input type="text" value="<?=$this->session->userdata('id_user') ?>" name="id_user" hidden>
+                        <input type="text" value="<?=$this->session->userdata('username') ?>" name="username" hidden>
                         <div class="form-group">
                             <label for="tipe_cuti">Tipe Cuti</label>
                             <select class="form-control" id="tipe_cuti" name="tipe_cuti" required>

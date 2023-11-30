@@ -112,7 +112,7 @@
                                                 <td><?= $no ?></td>
                                                 <td><?= $nip ?></td>
                                                 <td><?= $nama ?></td>
-                                                <td><?= "Rp. " . number_format($gaji_insfeksi, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " . ($gaji_insfeksi !== null ? number_format($gaji_insfeksi, 0, '', '.') : "0") ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>

@@ -177,9 +177,9 @@
                                         foreach($cuti as $i)
                                         :
                                         $no++;
+                                        $username =$i['nip'];
+                                        $id_cuti = $i['id_cuti'];;
                                         $id_cuti_detail = $i['id_cuti_detail'];
-                                        $id_cuti = $i['id_cuti'];
-                                        $id_user = $i['id_user'];
                                         $nama_lengkap = $i['nama_lengkap'];
                                         $jenis_cuti = $i['jenis_cuti'];
                                         $tipe_cuti = $i['tipe_cuti'];
@@ -350,7 +350,7 @@
                                                         <div class="modal-body">
                                                                     <form action="<?= base_url(); ?>Cuti/edit_cuti_admin" method="POST">
                                                                 <input type="hidden" value="<?= $id_cuti_detail ?>" name="id_cuti_detail"  hidden>
-                                                                <input type="hidden" name="id_user" value="<?php echo $id_user?>" />
+                                                                <input type="hidden" name="username" value="<?php echo $username?>" />
                                                                 <div class="form-group">
                                                                     <label for="jenis_cuti">Jenis Cuti</label>
                                                                     <select class="form-control" id="tipe_cuti" name="tipe_cuti" required>
@@ -419,8 +419,8 @@
                                                                     <div class="col-md-12">
                                                                         <input type="hidden" name="id_cuti_detail"
                                                                             value="<?php echo $id_cuti_detail?>" />
-                                                                        <input type="hidden" name="id_user"
-                                                                            value="<?php echo $id_user?>" />
+                                                                        <input type="hidden" name="username"
+                                                                            value="<?php echo $username?>" />
 
                                                                         <p>Apakah kamu yakin ingin menghapus data
                                                                             ini?</i></b></p>
@@ -460,8 +460,8 @@
                                                                     <div class="col-md-12">
                                                                         <input type="hidden" name="id_cuti_detail"
                                                                             value="<?php echo $id_cuti_detail?>" />
-                                                                        <input type="hidden" name="id_user"
-                                                                            value="<?php echo $id_user?>" />
+                                                                        <input type="hidden" name="username"
+                                                                            value="<?php echo $username?>" />
                                                                         <p>Apakah kamu yakin ingin Menyetujui Izin Cuti
                                                                             ini?</i></b></p>
                                                                     </div>
@@ -501,8 +501,8 @@
                                                                     <div class="col-md-12">
                                                                         <input type="hidden" name="id_cuti_detail"
                                                                             value="<?php echo $id_cuti_detail?>" />
-                                                                        <input type="hidden" name="id_user"
-                                                                            value="<?php echo $id_user?>" />
+                                                                        <input type="hidden" name="username"
+                                                                            value="<?php echo $username?>" />
 
                                                                         <p>Apakah kamu yakin ingin Menolak Izin Cuti
                                                                             ini?</i></b></p>

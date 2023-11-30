@@ -70,11 +70,13 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Data Insfeksi Pegawai</h1>
+                            
                         </div><!-- /.col -->
+                        
 
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"></a>Supervisior</li>
+                                <li class="breadcrumb-item"></a>Admin</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Insfeksi</li>
                             </ol>
@@ -132,7 +134,7 @@
                                                 <th>No</th>
                                                 <th>NIP</th>
                                                 <th>Nama</th>  
-                                                <th>Tunjangan Insfeksi</th>  
+                                                <th>Tunjangan</th>  
                                                 <th>Edit</th>        
                                             </tr>
                                         </thead>
@@ -150,7 +152,7 @@
                                                 <td><?= $no ?></td>
                                                 <td><?= $nip ?></td>
                                                 <td><?= $nama ?></td>
-                                                <td><?= "Rp. " . number_format($gaji_insfeksi, 0, ',', '.') ?></td>
+                                                <td><?= "Rp. " . ($gaji_insfeksi !== null ? number_format($gaji_insfeksi, 0, '', '.') : "0") ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">
@@ -184,8 +186,8 @@
                                                                         <input type="text" class="form-control" id="nip" name="nip" value="<?= htmlspecialchars($nip) ?>" readonly required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="gaji_insfeksi">Gaji</label>
-                                                                        <input type="text" class="form-control" id="gaji_insfeksi" name="gaji_insfeksi" oninput="formatCurrency(this)" value="<?= htmlspecialchars($gaji_insfeksi) ?>" required>
+                                                                        <label for="gaji_insfeksi">Besaran Insfeksi</label>
+                                                                        <input type="text" class="form-control" id="gaji_insfeksi" name="gaji_insfeksi" oninput="formatCurrency(this)" value="<?= htmlspecialchars($gaji_insfeksi ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
                                                                     </div>
                                                                     <!-- Add more form fields for editing other data if needed -->
                                                                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>

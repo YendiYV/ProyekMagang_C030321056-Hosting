@@ -152,7 +152,7 @@
                                                 <td><?= $no ?></td>
                                                 <td><?= $nip ?></td>
                                                 <td><?= $nama ?></td>
-                                                <td><?= "Rp. " .number_format($gaji_insfeksi, 0, '', '.') ?></td>
+                                                <td><?= "Rp. " . ($gaji_insfeksi !== null ? number_format($gaji_insfeksi, 0, '', '.') : "0") ?></td>
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">
@@ -187,7 +187,7 @@
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="gaji_insfeksi">Besaran Insfeksi</label>
-                                                                        <input type="text" class="form-control" id="gaji_insfeksi" name="gaji_insfeksi" oninput="formatCurrency(this)" value="<?= htmlspecialchars($gaji_insfeksi) ?>" required>
+                                                                        <input type="text" class="form-control" id="gaji_insfeksi" name="gaji_insfeksi" oninput="formatCurrency(this)" value="<?= htmlspecialchars($gaji_insfeksi ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
                                                                     </div>
                                                                     <!-- Add more form fields for editing other data if needed -->
                                                                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>

@@ -36,7 +36,7 @@ class Login extends CI_Controller {
 					$this->session->set_userdata('nama_lengkap', $user['nama_lengkap']);
 
 					$this->session->set_flashdata('success_login', 'success_login');
-					redirect('Dashboard/dashboard_operator');
+					redirect('Dashboard/view_operator');
 				} else if ($user['id_user_level'] == 2) {
 					// Jika tingkat pengguna adalah 2 (Admin), sesi diatur untuk Admin
 					$this->session->set_userdata('logged_in', true);
@@ -45,7 +45,7 @@ class Login extends CI_Controller {
 					$this->session->set_userdata('id_user_level', $user['id_user_level']);
 
 					$this->session->set_flashdata('success_login', 'success_login');
-					redirect('Dashboard/dashboard_admin');
+					redirect('Dashboard/view_admin');
 				} else if ($user['id_user_level'] == 3) {
 					// Jika tingkat pengguna adalah 3 (Super Admin), sesi diatur untuk Super Admin
 					$this->session->set_userdata('logged_in', true);
@@ -54,7 +54,7 @@ class Login extends CI_Controller {
 					$this->session->set_userdata('id_user_level', $user['id_user_level']);
 
 					$this->session->set_flashdata('success_login', 'success_login');
-					redirect('Dashboard/dashboard_super_admin');
+					redirect('Dashboard/view_super_admin');
 				} else if ($user['id_user_level'] == 4) {
 					// Jika tingkat pengguna adalah 4 (Manager), sesi diatur untuk Manager
 					$this->session->set_userdata('logged_in', true);
@@ -63,7 +63,7 @@ class Login extends CI_Controller {
 					$this->session->set_userdata('id_user_level', $user['id_user_level']);
 
 					$this->session->set_flashdata('success_login', 'success_login');
-					redirect('Dashboard/dashboard_manager');
+					redirect('Dashboard/view_manager');
 				} else if ($user['id_user_level'] == 5) {
 					// Jika tingkat pengguna adalah 5 (Admin PLNT), sesi diatur untuk Admin PLT
 					$this->session->set_userdata('logged_in', true);
@@ -72,7 +72,7 @@ class Login extends CI_Controller {
 					$this->session->set_userdata('id_user_level', $user['id_user_level']);
 
 					$this->session->set_flashdata('success_login', 'success_login');
-					redirect('Dashboard/dashboard_admin_plnt');
+					redirect('Dashboard/view_admin_plnt');
 				} else {
 					// Jika tingkat pengguna tidak sesuai dengan yang diharapkan
 					$this->session->set_flashdata('loggin_err', 'loggin_err');

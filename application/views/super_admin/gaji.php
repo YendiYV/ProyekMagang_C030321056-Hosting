@@ -226,7 +226,6 @@
                                                     foreach ($operator as $i) :
                                                         $no++;
                                                         $username = $i['username'];
-                                                        $id_user_detail= $i['id_user_detail'];
                                                         $nama_lengkap = $i['nama_lengkap'];
                                                         $penempatan = $i['gaji_penempatan'];
                                                         $nama_proyek = $i['gaji_proyek'];
@@ -268,19 +267,19 @@
                                                                 <td><?= $no ?></td>
                                                                 <td><?= $username ?></td>
                                                                 <td><?= $nama_lengkap ?></td>
-                                                                <td><?= "Rp. " . number_format($penempatan, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($tahun_tmk, 0, ',', '.') ?></td>
-                                                                <td style="background-color: #80ff80;"><?= "Rp. " .number_format($total_upok, 0, '', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($operator_level, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($nama_proyek, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($status_bpk, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($status_delta, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($transport, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($komunikasi, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($uang_hadir, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($kontribusi, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($insentif, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($insfeksi, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . ($penempatan !== null ? number_format($penempatan, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($tahun_tmk !== null ? number_format($tahun_tmk, 0, ',', '.') : "0") ?></td>
+                                                                <td style="background-color: #80ff80;"><?= "Rp. " . ($total_upok !== null ? number_format($total_upok, 0, '', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($operator_level !== null ? number_format($operator_level, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($nama_proyek !== null ? number_format($nama_proyek, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($status_bpk !== null ? number_format($status_bpk, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($status_delta !== null ? number_format($status_delta, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($transport !== null ? number_format($transport, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($komunikasi !== null ? number_format($komunikasi, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($uang_hadir !== null ? number_format($uang_hadir, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($kontribusi !== null ? number_format($kontribusi, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($insentif !== null ? number_format($insentif, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($insfeksi !== null ? number_format($insfeksi, 0, ',', '.') : "0") ?></td>
                                                                 <td style="background-color: <?= ($total_per_orang == 0) ? '#ff0000' : '#33bbff'; ?>">
                                                                     <span style="font-weight: bold;" id="total_per_orang_<?= $username ?>">
                                                                         <?= "Rp. " . number_format($total_per_orang, 0, ',', '.') ?>
@@ -292,7 +291,7 @@
                                                                     $tanggal_hari_ini = date('Y-m-d');
                                                                     ?>
                                                                     <input type="date" name="tanggal_input[]" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
-                                                                    <input type="hidden" name="id_user_detail[]" value="<?= $id_user_detail?>">
+                                                                    <input type="hidden" name="username[]" value="<?= $username?>">
                                                                     <input type="hidden" name="total_per_orang[]" value="<?= $total_per_orang ?>">
                                                                     <input type="date" name="gaji_bulan[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" style="display: none;" />
                                                                 </td>
@@ -423,7 +422,6 @@
                                                     foreach ($operator2 as $a) :
                                                         $no++;
                                                         $username = $a['username'];
-                                                        $id_user_detail = $a['id_user_detail'];
                                                         $nama_lengkap = $a['nama_lengkap'];
                                                         $penempatan = $a['gaji_penempatan'];
                                                         $nama_proyek = $a['gaji_proyek'];
@@ -460,19 +458,19 @@
                                                                 <td><?= $no ?></td>
                                                                 <td><?= $username ?></td>
                                                                 <td><?= $nama_lengkap ?></td>
-                                                                <td><?= "Rp. " . number_format($penempatan, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($tahun_tmk, 0, ',', '.') ?></td>
-                                                                <td style="background-color: #80ff80;"><?= "Rp. " .number_format($total_upok, 0, '', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($operator_level, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($nama_proyek, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($status_bpk, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($status_delta, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($transport, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($komunikasi, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($uang_hadir, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($kontribusi, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($insentif, 0, ',', '.') ?></td>
-                                                                <td><?= "Rp. " . number_format($insfeksi, 0, ',', '.') ?></td>
+                                                                <td><?= "Rp. " . ($penempatan !== null ? number_format($penempatan, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($tahun_tmk !== null ? number_format($tahun_tmk, 0, ',', '.') : "0") ?></td>
+                                                                <td style="background-color: #80ff80;"><?= "Rp. " . ($total_upok !== null ? number_format($total_upok, 0, '', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($operator_level !== null ? number_format($operator_level, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($nama_proyek !== null ? number_format($nama_proyek, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($status_bpk !== null ? number_format($status_bpk, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($status_delta !== null ? number_format($status_delta, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($transport !== null ? number_format($transport, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($komunikasi !== null  ? number_format($komunikasi, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($uang_hadir !== null ? number_format($uang_hadir, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($kontribusi !== null ? number_format($kontribusi, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($insentif !== null ? number_format($insentif, 0, ',', '.') : "0") ?></td>
+                                                                <td><?= "Rp. " . ($insfeksi !== null ? number_format($insfeksi, 0, ',', '.') : "0") ?></td>
                                                                 <td style="background-color: <?= ($total_per_orang == 0) ? '#ff0000' : '#33bbff'; ?>">
                                                                     <span style="font-weight: bold;" id="total_per_orang_<?= $username ?>">
                                                                         <?= "Rp. " . number_format($total_per_orang, 0, ',', '.') ?>
@@ -483,7 +481,7 @@
                                                                     $tanggal_hari_ini = date('Y-m-d');
                                                                     ?>
                                                                     <input type="date" name="tanggal_input2[]" value="<?= $tanggal_hari_ini; ?>" style="display: none;">
-                                                                    <input type="hidden" name="id_user_detail2[]" value="<?= $id_user_detail?>">
+                                                                    <input type="hidden" name="username2[]" value="<?= $username?>">
                                                                     <input type="hidden" name="total_per_orang2[]" value="<?= $total_per_orang ?>">
                                                                     <input type="date" name="gaji_bulan2[]" value="<?= date('Y-m-01'); ?>" min="<?= date('2000-m-01'); ?>" max="<?= date('Y-m-1'); ?>" style="display: none;" />
                                                                 </td>

@@ -6,7 +6,7 @@ class M_user extends CI_Model
     {
         $hasil = $this->db->query('SELECT user.*, user_detail.*, jenis_kelamin.*,operator_level.* ,status_proyek.nama_proyek,status_penempatan.*,status_bpk.*,status_delta.*,status_transport.*,status_komunikasi.*,status_uang_hadir.*,status_kontribusi.*,status_insentif.*, status_wajib.*,status_kategori.*
                                     FROM user_detail
-                                    JOIN user ON user.id_user_detail = user_detail.id_user_detail
+                                    JOIN user ON user.username = user_detail.nip
                                     JOIN jenis_kelamin ON user_detail.id_jenis_kelamin = jenis_kelamin.id_jenis_kelamin
                                     LEFT JOIN status_proyek ON user_detail.proyek = status_proyek.id_status_proyek
                                     LEFT JOIN operator_level ON user_detail.jabatan = operator_level.id_level
@@ -43,18 +43,18 @@ class M_user extends CI_Model
             $this->session->set_flashdata('eror_edit','eror_edit');
         }
     }
-    public function get_all_operator_setting($id)
+    public function get_all_operator_setting($username)
     {
         $hasil = $this->db->query("SELECT user.*, user_detail.*, jenis_kelamin.*,operator_level.* ,status_proyek.nama_proyek,status_penempatan.*,status_bpk.*,status_delta.*
                                     FROM user_detail
-                                    JOIN user ON user.id_user_detail = user_detail.id_user_detail
+                                    JOIN user ON user.username = user_detail.nip
                                     JOIN jenis_kelamin ON user_detail.id_jenis_kelamin = jenis_kelamin.id_jenis_kelamin
                                     LEFT JOIN status_proyek ON user_detail.proyek = status_proyek.id_status_proyek
                                     LEFT JOIN operator_level ON user_detail.jabatan = operator_level.id_level
                                     LEFT JOIN status_penempatan ON user_detail.penempatan = status_penempatan.id_penempatan
                                     LEFT JOIN status_bpk ON user_detail.bpk = status_bpk.id_level_bpk
                                     LEFT JOIN status_delta ON user_detail.delta = status_delta.id_level_delta
-                                    WHERE user_detail.id_user_detail = '$id'
+                                    WHERE user_detail.nip = '$username'
                                     ORDER BY user_detail.nama_lengkap ASC
                                 ");
         return $hasil;
@@ -62,7 +62,7 @@ class M_user extends CI_Model
 
     public function count_all_operator()
     {
-        $hasil = $this->db->query('SELECT COUNT(id_user) as total_user FROM user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail 
+        $hasil = $this->db->query('SELECT COUNT(username) as total_user FROM user JOIN user_detail ON user.username = user_detail.nip 
         JOIN jenis_kelamin ON user_detail.id_jenis_kelamin = jenis_kelamin.id_jenis_kelamin 
         WHERE id_user_level = 1');
         return $hasil;
@@ -70,7 +70,7 @@ class M_user extends CI_Model
 
     public function count_all_admin()
     {
-        $hasil = $this->db->query('SELECT COUNT(id_user) as total_user FROM user
+        $hasil = $this->db->query('SELECT COUNT(username) as total_user FROM user
         WHERE id_user_level = 2');
         return $hasil;
     }
@@ -84,14 +84,14 @@ class M_user extends CI_Model
 
     public function get_operator_by_id($id_user)
     {
-        $hasil = $this->db->query("SELECT * FROM user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail 
-        WHERE user.id_user='$id_user'");
+        $hasil = $this->db->query("SELECT * FROM user JOIN user_detail ON user.username = user_detail.nip 
+        WHERE user.username='$id_user'");
         return $hasil;
     }
 
     public function cek_login($username)
     {  
-        $hasil=$this->db->query("SELECT * FROM user JOIN user_detail ON user.id_user_detail = user_detail.id_user_detail WHERE username='$username'");
+        $hasil=$this->db->query("SELECT * FROM user JOIN user_detail ON user.username = user_detail.nip WHERE nip='$username'");
         return $hasil;
     } 
     
@@ -100,17 +100,17 @@ class M_user extends CI_Model
         return $query->result_array();
     }
 
-    public function insert_operator($id, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $proyek, $jabatan,$penempatan,$bpk,$delta ,$transport ,$komunikasi,$uang_hadir,$kontribusi,$insentif,$tanggal_masuk)
+    public function insert_operator($id, $username, $password, $id_user_level, $nama_lengkap,$nik, $id_jenis_kelamin, $no_telp, $alamat,$spk, $proyek, $jabatan,$penempatan,$bpk,$delta ,$transport ,$komunikasi,$uang_hadir,$kontribusi,$insentif,$tanggal_masuk)
     {
         $this->db->trans_start();
         $query = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username'");
         if ($query->num_rows() == 0) {   
             // Insert data ke tabel 'user'
-            $this->db->query("INSERT INTO user(id_user, username, password, id_user_level, id_user_detail) VALUES ('$id', '$username', '$password', '$id_user_level', '$id')");
+            $this->db->query("INSERT INTO user(username, password, id_user_level) VALUES ( '$username', '$password', '$id_user_level')");
             // Insert data ke tabel 'user_detail' termasuk jabatan dan tanggal_masuk
-            $this->db->query("INSERT INTO user_detail(id_user_detail, nama_lengkap, id_jenis_kelamin, no_telp, alamat,proyek, nip, jabatan,penempatan,bpk,delta,transport,komunikasi,uang_hadir,kontribusi,insentif, tanggal_masuk ) VALUES ('$id', '$nama_lengkap', '$id_jenis_kelamin', '$no_telp', '$alamat', '$proyek', '$username', '$jabatan','$penempatan', '$bpk','$delta','$transport' ,'$komunikasi','$uang_hadir','$kontribusi','$insentif','$tanggal_masuk')");
+            $this->db->query("INSERT INTO user_detail(nama_lengkap,nik, id_jenis_kelamin, no_telp, alamat,spk, proyek, nip, jabatan,penempatan,bpk,delta,transport,komunikasi,uang_hadir,kontribusi,insentif, tanggal_masuk ) VALUES ('$nama_lengkap', '$nik','$id_jenis_kelamin', '$no_telp', '$alamat','$spk', '$proyek', '$username', '$jabatan','$penempatan', '$bpk','$delta','$transport' ,'$komunikasi','$uang_hadir','$kontribusi','$insentif','$tanggal_masuk')");
             // Insert data ke tabel 'status_insfeksi'
-            $this->db->query("INSERT INTO status_insfeksi(id_user_detail) VALUES ('$id')");
+            $this->db->query("INSERT INTO status_insfeksi(nip) VALUES ('$username')");
             
             $this->db->trans_complete();
 
@@ -120,12 +120,12 @@ class M_user extends CI_Model
         }
     }
 
-    public function update_operator($id_user, $username, $password, $id_user_level, $nama_lengkap, $id_jenis_kelamin, $no_telp, $alamat, $jabatan, $penempatan, $bpk, $delta, $transport,$komunikasi,$uang_hadir,$kontribusi,$insentif, $id_status_proyek, $tanggal_masuk)
+    public function update_operator($id_user, $username, $password, $id_user_level, $nama_lengkap,$nik, $id_jenis_kelamin, $no_telp, $alamat,$spk, $jabatan, $penempatan, $bpk, $delta, $transport,$komunikasi,$uang_hadir,$kontribusi,$insentif, $id_status_proyek, $tanggal_masuk)
     {
         $this->db->trans_start();
-        $this->db->query("UPDATE user SET username='$username',password='$password', id_user_level='$id_user_level' WHERE id_user='$id_user'");
+        $this->db->query("UPDATE user SET username='$username',password='$password', id_user_level='$id_user_level' WHERE username='$username'");
         // NIP ada, lakukan update di tabel user_detail
-        $this->db->query("UPDATE user_detail SET nama_lengkap='$nama_lengkap', id_jenis_kelamin='$id_jenis_kelamin', no_telp='$no_telp', nip='$username', alamat='$alamat', jabatan='$jabatan', penempatan='$penempatan', bpk='$bpk', delta='$delta', transport='$transport',komunikasi='$komunikasi',uang_hadir='$uang_hadir',kontribusi='$kontribusi',insentif='$insentif', proyek='$id_status_proyek', tanggal_masuk='$tanggal_masuk' WHERE nip='$username'");
+        $this->db->query("UPDATE user_detail SET nama_lengkap='$nama_lengkap',nik='$nik' , id_jenis_kelamin='$id_jenis_kelamin', no_telp='$no_telp', nip='$username', alamat='$alamat',spk='$spk', jabatan='$jabatan', penempatan='$penempatan', bpk='$bpk', delta='$delta', transport='$transport',komunikasi='$komunikasi',uang_hadir='$uang_hadir',kontribusi='$kontribusi',insentif='$insentif', proyek='$id_status_proyek', tanggal_masuk='$tanggal_masuk' WHERE nip='$username'");
 
         $this->db->trans_complete();
         if ($this->db->trans_status() == true){
@@ -136,7 +136,7 @@ class M_user extends CI_Model
     }
 
 
-    public function delete_operator($id_user)
+    public function delete_operator($username)
     {
         $this->db->trans_start();
 
@@ -152,10 +152,10 @@ class M_user extends CI_Model
         else
             return false;
     }
-    public function update_user($id, $password)
+    public function update_user($username, $password)
     {
        $this->db->trans_start();
-       $this->db->query("UPDATE user SET  password='$password' WHERE id_user='$id'");
+       $this->db->query("UPDATE user SET  password='$password' WHERE username='$username'");
        $this->db->trans_complete();
         if($this->db->trans_status()==true)
             return true;
@@ -163,10 +163,10 @@ class M_user extends CI_Model
             return false;
     }
 
-    public function update_data_plnt($id_user,$no_spk,$no_serti,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib)
+    public function update_data_plnt($id_user,$no_spk,$spk,$no_serti,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib)
     {
         $this->db->trans_start();  
-        $this->db->query("UPDATE user_detail SET  no_spk='$no_spk', no_serti='$no_serti',tgl_berlaku='$tgl_berlaku' , tgl_berakhir='$tgl_berakhir',kategori='$id_kategori',kode_wajib='$id_wajib' WHERE id_user_detail='$id_user'");
+        $this->db->query("UPDATE user_detail SET  no_spk='$no_spk',spk='$spk' ,no_serti='$no_serti',tgl_berlaku='$tgl_berlaku' , tgl_berakhir='$tgl_berakhir',kategori='$id_kategori',kode_wajib='$id_wajib' WHERE id_user_detail='$id_user'");
         $this->db->trans_complete();
     }
 }

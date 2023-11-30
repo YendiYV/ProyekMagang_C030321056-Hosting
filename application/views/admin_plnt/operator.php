@@ -112,7 +112,8 @@
                                                 <th style="background-color: #87CEFA;">Penempatan</th>
                                                 <th style="background-color: #87CEFA;">Alamat</th>
                                                 <th style="background-color: #87CEFA;">No. Telp</th>
-                                                <th>No. SPK</th>
+                                                <th>No. SPK PLNT</th>
+                                                <th>SPK(PCN)</th>
                                                 <th>No. Sertifikat</th>
                                                 <th>Tanggal Berlaku</th>
                                                 <th>Tanggal Berakhir</th>
@@ -140,6 +141,7 @@
                                             $alamat = $i['alamat'];
                                             $no_telp = $i['no_telp'];
                                             $no_spk = $i['no_spk'];
+                                            $spk = $i['spk'];
                                             $no_serti = $i['no_serti'];
                                             $tgl_berlaku = $i['tgl_berlaku'];
                                             $tgl_berakhir = $i['tgl_berakhir'];
@@ -163,6 +165,7 @@
                                                 <td style="<?= $alamat ? '' : 'color: red;' ?>"><?= $alamat ?: "Data Kosong" ?></td>
                                                 <td style="<?= $no_telp ? '' : 'color: red;' ?>"><?= $no_telp ?: "Data Nomor Kosong" ?></td>
                                                 <td style="<?= $no_spk ? '' : 'color: red;' ?>"><?= $no_spk ?: "Data Kosong" ?></td>
+                                                <td style="<?= $spk ? '' : 'color: red;' ?>"><?= $spk ?: "Data Kosong" ?></td>
                                                 <td style="<?= $no_serti ? '' : 'color: red;' ?>"><?= $no_serti ?: "Data Kosong" ?></td>
                                                 <td style="<?= $tgl_berlaku ? '' : 'color: red;' ?>"><?= $tgl_berlaku ? date('d-m-Y', strtotime($tgl_berlaku)) : "Data Kosong" ?></td>
                                                 <td style="<?= $tgl_berakhir ? '' : 'color: red;' ?>"><?= $tgl_berakhir ? date('d-m-Y', strtotime($tgl_berakhir)) : "Data Kosong" ?></td>
@@ -216,6 +219,10 @@
                                                                 <div class="form-group">
                                                                     <label for="no_spk">No. SPK</label>
                                                                     <input type="text" class="form-control" id="no_spk" aria-describedby="no_spk" name="no_spk" value="<?= $no_spk ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="spk">SPK</label>
+                                                                    <input type="text" class="form-control" id="spk" aria-describedby="spk" name="spk" value="<?= $spk ?>">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="no_serti">No. Sertifikasi</label>

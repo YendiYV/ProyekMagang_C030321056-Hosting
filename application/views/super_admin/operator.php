@@ -4,21 +4,6 @@
 <head>
     <?php $this->load->view("super_admin/components/header.php") ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-    <style>
-        .responsive-table {
-            width: 100%;
-            max-width: 100%;
-            table-layout: auto;
-        }
-        @media screen and (max-width: 768px) {
-            /* Aturan CSS untuk layar yang lebih kecil */
-            .responsive-table {
-                font-size: 14px;
-            }
-        }
-        
-
-    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -185,15 +170,17 @@
                                     </script>
                                     <hr>
                                     <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
+                                    <thead >
                                             <tr>
                                                 <th>No</th>
                                                 <th>NIP</th>
+                                                <th>NIK</th>
                                                 <th>Nama Lengkap</th>
                                                 <th>Tanggal Masuk</th>
                                                 <th>Jenis Kelamin</th>
                                                 <th>No Telp</th>
                                                 <th>Alamat</th>
+                                                <th>SPK</th>
                                                 <th>Proyek</th>
                                                 <th>Jabatan</th>
                                                 <th>Penempatan</th>
@@ -214,15 +201,16 @@
                                             foreach($operator as $i)
                                             :
                                             $no++;
-                                            $id_user = $i['id_user'];
                                             $username = $i['username'];
                                             $password = $i['password'];
+                                            $nik = $i['nik'];
                                             $nama_lengkap = $i['nama_lengkap'];
                                             $tanggal_masuk = $i['tanggal_masuk'];
                                             $jenis_kelamin = $i['jenis_kelamin'];
                                             $id_jenis_kelamin = $i['id_jenis_kelamin'];
                                             $no_telp = $i['no_telp'];
                                             $alamat = $i['alamat'];
+                                            $spk = $i['spk'];
                                             $penempatan = $i['nama_penempatan'];
                                             $nama_proyek = $i['nama_proyek'];
                                             $operator_level = $i['operator_level'];
@@ -248,11 +236,13 @@
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td style="<?= $username ? '' : 'color: red;' ?>"><?= $username ?: "Data Kosong" ?></td>
+                                                <td style="<?= $nik ? '' : 'color: red;' ?>"><?= $nik ?: "Data Kosong" ?></td>
                                                 <td style="<?= $nama_lengkap ? '' : 'color: red;' ?>"><?= $nama_lengkap ?: "Data Kosong" ?></td>
                                                 <td style="<?= $tanggal_masuk ? '' : 'color: red;' ?>"><?= $tanggal_masuk ? date('d-m-Y', strtotime($tanggal_masuk)) : "Data Kosong" ?></td>
                                                 <td style="<?= $jenis_kelamin ? '' : 'color: red;' ?>"><?= $jenis_kelamin ?: "Data Kosong" ?></td>
                                                 <td style="<?= $no_telp ? '' : 'color: red;' ?>"><?= $no_telp ?: "Data Kosong" ?></td>
                                                 <td style="<?= $alamat ? '' : 'color: red;' ?>"><?= $alamat ?: "Data Kosong" ?></td>
+                                                <td style="<?= $spk ? '' : 'color: red;' ?>"><?= $spk ?: "Data Kosong" ?></td>
                                                 <td style="<?= $nama_proyek ? '' : 'color: red;' ?>"><?= $nama_proyek ?: "Data Kosong" ?></td>
                                                 <td style="<?= $operator_level ? '' : 'color: red;' ?>"><?= $operator_level ?: "Data Kosong" ?></td>
                                                 <td style="<?= $penempatan ? '' : 'color: red;' ?>"><?= $penempatan ?: "Data Kosong" ?></td>
@@ -267,7 +257,7 @@
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
                                                             <a href="" class="btn btn-primary" data-toggle="modal"
-                                                                data-target="#edit_data_operator<?=$id_user?>">
+                                                                data-target="#edit_data_operator<?=$username?>">
                                                                 <i class="fas fa-edit"></i>
                                                             </a>
                                                         </div>
@@ -275,7 +265,7 @@
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
                                                             <a href="" data-toggle="modal"
-                                                                data-target="#hapus<?=$id_user?>"
+                                                                data-target="#hapus<?=$username?>"
                                                                 class="btn btn-danger"><i class="fas fa-trash"></i>
                                                             </a>
                                                         </div>
@@ -285,7 +275,7 @@
                                             </tr>
 
                                             <!-- Modal Hapus Data operator -->
-                                            <div class="modal fade" id="hapus<?= $id_user ?>" tabindex="-1"
+                                            <div class="modal fade" id="hapus<?= $username ?>" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -303,8 +293,8 @@
                                                                 method="post" enctype="multipart/form-data">
                                                                 <div class="row">
                                                                     <div class="col-md-12">
-                                                                        <input type="hidden" name="id_user"
-                                                                            value="<?php echo $id_user?>" />
+                                                                        <input type="hidden" name="username"
+                                                                            value="<?php echo $username?>" />
                                                                         <p>Apakah kamu yakin ingin menghapus data
                                                                             ini?</i></b></p>
                                                                     </div>
@@ -322,7 +312,7 @@
                                             </div>
 
                                             <!-- Modal Edit operator -->
-                                            <div class="modal fade" id="edit_data_operator<?=$id_user?>" tabindex="-1"
+                                            <div class="modal fade" id="edit_data_operator<?=$username?>" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -337,7 +327,7 @@
                                                         <div class="modal-body">
                                                             <form action="<?=base_url();?>operator/edit_operator"
                                                                 method="POST">
-                                                                <input type="text" value="<?= $id_user ?>" name="id_user" hidden>
+                                                                <input type="text" value="<?= $username ?>" name="username" hidden>
                                                                 <div class="form-group">
                                                                     <label for="username">NIP</label>
                                                                     <input type="text" class="form-control" id="username" aria-describedby="username" name="username" value="<?= $username ?>" required oninput="validateNIP(this)" pattern="^\d{7}[A-Z]{3}$">
@@ -380,6 +370,10 @@
                                                                     });
                                                                 </script>
                                                                 <div class="form-group">
+                                                                    <label for="nik">NIK</label>
+                                                                    <input type="number" class="form-control" id="nik" aria-describedby="nik" name="nik" value="<?= $nik ?>" maxlength="20">
+                                                                </div>
+                                                                <div class="form-group">
                                                                     <label for="nama_lengkap">Nama Lengkap</label>
                                                                     <input type="text" class="form-control" id="nama_lengkap" aria-describedby="nama_lengkap" name="nama_lengkap" value="<?= $nama_lengkap ?>" required>
                                                                 </div>
@@ -415,6 +409,11 @@
                                                                     <label for="alamat">Alamat</label>
                                                                     <input type="text" class="form-control" id="alamat"
                                                                         aria-describedby="alamat" name="alamat" value="<?= $alamat ?>" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="spk">SPK</label>
+                                                                    <input type="text" class="form-control" id="spk"
+                                                                        aria-describedby="spk" name="spk" value="<?= $spk?>">
                                                                 </div>
                                                                  <div class="form-group">
                                                                     <label for="id_status_proyek">Proyek</label>
@@ -658,10 +657,8 @@
                                 <div class="form-group row">
                                     <label for="password" class="col-md-3 col-form-label">Password</label>
                                     <div class="col-md-9">
-                                        <div class="input-group">
-                                            <input type="password" class="form-control" id="password" name="password" required>
-                                            <small id="passwordHelp" class="form-text text-muted">Password harus minimal 8 karakter dan mengandung angka.</small>
-                                        </div>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <small class="text-muted" style="font-size: smaller;">Password Minimal 8 Kata ditambahkan angka</small>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -671,6 +668,10 @@
                                             <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nik">NIK</label>
+                                    <input type="number" class="form-control" id="nik" aria-describedby="nik" name="nik" value="<?= $nik ?>" maxlength="20" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama_lengkap">Nama Lengkap</label>
@@ -703,6 +704,11 @@
                                     <label for="alamat">Alamat</label>
                                     <input type="text" class="form-control" id="alamat" aria-describedby="alamat"
                                         name="alamat" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="spk">SPK</label>
+                                    <input type="text" class="form-control" id="spk" aria-describedby="spk"
+                                        name="spk">
                                 </div>
                                <div class="form-group">
                                     <label for="id_status_proyek">Proyek</label>

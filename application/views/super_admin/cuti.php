@@ -4,9 +4,63 @@
 <head>
     <?php $this->load->view("super_admin/components/header.php") ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <style>
+        .responsive-table {
+            width: 100%;
+            max-width: 100%;
+            table-layout: auto;
+        }
+        @media screen and (max-width: 768px) {
+            /* Aturan CSS untuk layar yang lebih kecil */
+            .responsive-table {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+
+    <?php if ($this->session->flashdata('edit')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Data Berhasil Diedit!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('eror_edit')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Data Gagal Diedit !",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('hapus')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Data Berhasil Dihapus!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+
+    <?php if ($this->session->flashdata('eror_hapus')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Data Gagal Dihapus !",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+
     <?php if ($this->session->flashdata('input')){ ?>
     <script>
     swal({
@@ -26,24 +80,7 @@
     });
     </script>
     <?php } ?>
-    <?php if ($this->session->flashdata('eror_edit')){ ?>
-    <script>
-    swal({
-        title: "Erorr!",
-        text: "Data Cuti Gagal Diubah!",
-        icon: "error"
-    });
-    </script>
-    <?php } ?>
-    <?php if ($this->session->flashdata('edit')){ ?>
-    <script>
-    swal({
-        title: "Success!",
-        text: "Data Cuti Berhasil Diubah!",
-        icon: "success"
-    });
-    </script>
-    <?php } ?>
+
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -66,7 +103,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Cuti-Supervisior</h1>
+                            <h1 class="m-0">Cuti</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -75,15 +112,14 @@
                                 <li class="breadcrumb-item active">Cuti</li>
                             </ol>
                         </div><!-- /.col -->
+                        <br>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
-
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -102,24 +138,26 @@
                                         </div>
                                     </div>
                                     <script>
-                                        document.getElementById("exportButton").addEventListener("click", function() {
-                                            // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
-                                            var table = document.getElementById("example1");
+                                    document.getElementById("exportButton").addEventListener("click", function() {
+                                        // Mendapatkan referensi ke tabel HTML (ganti "example1" dengan ID tabel Anda)
+                                        var table = document.getElementById("example1");
 
-                                            // Membuat objek Workbook Excel
-                                            var wb = XLSX.utils.table_to_book(table);
+                                        // Membuat objek Workbook Excel
+                                        var wb = XLSX.utils.table_to_book(table);
 
-                                            // Membuat file Excel dan mengunduhnya
-                                            XLSX.writeFile(wb, "Rekap Cuti.xlsx");
-                                        });
+                                        // Membuat file Excel dan mengunduhnya
+                                        XLSX.writeFile(wb, "Rekap Cuti.xlsx");
+                                    });
                                     </script>
                                     <hr>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
+                                        <br>
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Lengkap</th>
-                                                <th>Tipe Cuti</th>
+                                                <th>ID Cuti</th>
+                                                <th>Jenis Cuti</th>
                                                 <th>Alasan</th>
                                                 <th>Tanggal Diajukan</th>
                                                 <th>Mulai</th>
@@ -139,12 +177,12 @@
                                         foreach($cuti as $i)
                                         :
                                         $no++;
+                                        $username =$i['nip'];
+                                        $id_cuti = $i['id_cuti'];;
                                         $id_cuti_detail = $i['id_cuti_detail'];
-                                        $id_cuti = $i['id_cuti'];
-                                        $id_user = $i['id_user'];
                                         $nama_lengkap = $i['nama_lengkap'];
-                                        $jenis_cuti= $i['jenis_cuti'];
-                                        $tipe_cuti= $i['tipe_cuti'];
+                                        $jenis_cuti = $i['jenis_cuti'];
+                                        $tipe_cuti = $i['tipe_cuti'];
                                         $alasan = $i['alasan'];
                                         $tgl_diajukan = $i['tgl_diajukan'];
                                         $mulai = $i['mulai'];
@@ -153,16 +191,16 @@
                                         $id_status_cuti2 = $i['id_status_cuti2'];
                                         $id_status_cuti3 = $i['id_status_cuti3'];
                                         $perihal_cuti = $i['perihal_cuti'];
-
                                         ?>
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td><?= $nama_lengkap ?></td>
-                                                <td><?= $jenis_cuti?></td>
+                                                <td><?= $id_cuti ?></td>
+                                                <td><?= $jenis_cuti ?></td>
                                                 <td><?= $alasan ?></td>
-                                                <td><?= $tgl_diajukan ?></td>
-                                                <td><?= $mulai ?></td>
-                                                <td><?= $berakhir ?></td>
+                                                <td><?= date('d-m-Y', strtotime($tgl_diajukan)) ?></td>
+                                                <td><?= date('d-m-Y', strtotime($mulai)) ?></td>
+                                                <td><?= date('d-m-Y', strtotime($berakhir)) ?></td>
                                                 <td><?=$perihal_cuti?></td>
                                                 <td><?php if($id_status_cuti1 == 1){ ?>
                                                     <div class="table-responsive">
@@ -252,19 +290,11 @@
                                                     <?php }?>
                                                 </td>
                                                 <td>
-                                                    <?php if ($id_status_cuti1 == 2) { ?>
-                                                        <a href="<?= base_url(); ?>Cetak/surat_cuti_pdf/<?= $id_cuti_detail ?>" target="_blank" class="btn btn-info">
-                                                            Cetak Surat Cuti
-                                                        </a>
-                                                    <?php } else { ?>
-                                                        <a class="btn btn-danger">
-                                                            Belum Dapat Mencetak
-                                                        </a>
-                                                    <?php } ?>
+                                                    <a href="<?= base_url(); ?>Cetak/surat_cuti_pdf/<?= $id_cuti_detail ?>" target="_blank" class="btn btn-info">
+                                                        Cetak Surat
+                                                    </a>
                                                 </td>
-                                            
                                                 <td>
-                                                <?php if ($id_status_cuti1 == 2 ) { ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
                                                             <a class="btn btn-primary" data-toggle="modal"
@@ -276,12 +306,12 @@
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
                                                             <a data-toggle="modal"
-                                                                data-target="#hapus<?= $id_cuti_detail ?>"
+                                                                data-target="#hapus<?= $id_cuti_detail?>"
                                                                 class="btn btn-danger"><i class="fas fa-trash"></i>
                                                             </a>
                                                         </div>
                                                     </div>
-                                                    <?php if ($id_status_cuti2 == 1  || $id_status_cuti2== 3) { ?>
+                                                    <?php if ($id_status_cuti2 == 1  || $id_status_cuti2 == 3) { ?>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover ">
                                                             <a class="btn btn-primary" data-toggle="modal"
@@ -299,9 +329,6 @@
                                                             </a>
                                                         </div>
                                                     </div>
-                                                    <?php } ?>
-                                                    <?php }else{ ?>
-                                                        <p style="text-align: center;">Aksi Belum Tersedia</p>
                                                     <?php } ?>
                                                 </td>
                                             </tr>
@@ -322,7 +349,8 @@
 
                                                         <div class="modal-body">
                                                                     <form action="<?= base_url(); ?>Cuti/edit_cuti_admin" method="POST">
-                                                                <input type="hidden" value="<?= $id_cuti_detail ?>" name="id_cuti_detail" hidden>
+                                                                <input type="hidden" value="<?= $id_cuti_detail ?>" name="id_cuti_detail"  hidden>
+                                                                <input type="hidden" name="username" value="<?php echo $username?>" />
                                                                 <div class="form-group">
                                                                     <label for="jenis_cuti">Jenis Cuti</label>
                                                                     <select class="form-control" id="tipe_cuti" name="tipe_cuti" required>
@@ -363,8 +391,6 @@
                                                                     <input type="date" class="form-control" id="berakhir" aria-describedby="berakhir" name="berakhir" value="<?= $berakhir ?>" required>
                                                                 </div>
                                                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                                                <!-- Tombol Batal -->
-                                                                <button type="button" class="btn btn-secondary" onclick="window.history.back()">Batal</button>
                                                             </form>
 
                                                         </div>
@@ -393,8 +419,8 @@
                                                                     <div class="col-md-12">
                                                                         <input type="hidden" name="id_cuti_detail"
                                                                             value="<?php echo $id_cuti_detail?>" />
-                                                                        <input type="hidden" name="id_user"
-                                                                            value="<?php echo $id_user?>" />
+                                                                        <input type="hidden" name="username"
+                                                                            value="<?php echo $username?>" />
 
                                                                         <p>Apakah kamu yakin ingin menghapus data
                                                                             ini?</i></b></p>
@@ -434,8 +460,8 @@
                                                                     <div class="col-md-12">
                                                                         <input type="hidden" name="id_cuti_detail"
                                                                             value="<?php echo $id_cuti_detail?>" />
-                                                                        <input type="hidden" name="id_user"
-                                                                            value="<?php echo $id_user?>" />
+                                                                        <input type="hidden" name="username"
+                                                                            value="<?php echo $username?>" />
                                                                         <p>Apakah kamu yakin ingin Menyetujui Izin Cuti
                                                                             ini?</i></b></p>
                                                                     </div>
@@ -475,8 +501,8 @@
                                                                     <div class="col-md-12">
                                                                         <input type="hidden" name="id_cuti_detail"
                                                                             value="<?php echo $id_cuti_detail?>" />
-                                                                        <input type="hidden" name="id_user"
-                                                                            value="<?php echo $id_user?>" />
+                                                                        <input type="hidden" name="username"
+                                                                            value="<?php echo $username?>" />
 
                                                                         <p>Apakah kamu yakin ingin Menolak Izin Cuti
                                                                             ini?</i></b></p>
@@ -495,7 +521,6 @@
                                             </div>
                                             <?php endforeach;?>
                                         </tbody>
-
                                     </table>
                                 </div>
                                 <!-- /.card-body -->

@@ -23,9 +23,9 @@ class Settings extends CI_Controller {
     }
     public function view_super_admin()
 	{
-		$id = $this->session->userdata('id_user');
+		$username = $this->session->userdata('username');
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
-			$data['super_admin'] = $this->m_user->get_all_operator_setting($id)->result_array();
+			$data['super_admin'] = $this->m_user->get_all_operator_setting($username)->result_array();
 			$this->load->view('super_admin/settings',$data);
 		} else {
 			// Handle kasus ketika pengguna tidak memiliki hak akses
@@ -44,18 +44,28 @@ class Settings extends CI_Controller {
 			redirect('Login/index');
         }
 	}
+	public function view_admin_plnt()
+	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 5) {
+			$this->load->view('admin_plnt/settings');
+		} else {
+			// Handle kasus ketika pengguna tidak memiliki hak akses
+			$this->session->set_flashdata('loggin_err', 'loggin_err');
+			redirect('Login/index');
+        }
+	}
 	
 	public function view_operator()
 	{
-		$id = $this->session->userdata('id_user');
-		$data['operator'] = $this->m_user->get_all_operator_setting($id)->result_array();
+		$username = $this->session->userdata('username');
+		$data['operator'] = $this->m_user->get_all_operator_setting($username)->result_array();
 		$this->load->view('operator/settings',$data);
 	}
 
 	public function settings_account_manager()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
-			$id = $this->session->userdata('id_user');
+			$username = $this->session->userdata('username');
 			$password = $this->input->post("password");
 			$re_password = $this->input->post("re_password");
 
@@ -64,7 +74,7 @@ class Settings extends CI_Controller {
 				$encrypted_password = md5($password);
 				
 				// Memanggil model untuk mengupdate data pengguna dengan password yang terenkripsi
-				$hasil = $this->m_user->update_user($id, $encrypted_password);
+				$hasil = $this->m_user->update_user($username, $encrypted_password);
 
 				if ($hasil == false) {
 					$this->session->set_flashdata('error_edit', 'error_edit');
@@ -87,7 +97,7 @@ class Settings extends CI_Controller {
 	public function settings_account_super_admin()
 	{
 		 if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
-			$id = $this->session->userdata('id_user');
+			$username = $this->session->userdata('username');
 			$password = $this->input->post("password");
 			$re_password = $this->input->post("re_password");
 
@@ -96,7 +106,7 @@ class Settings extends CI_Controller {
 				$encrypted_password = md5($password);
 				
 				// Memanggil model untuk mengupdate data pengguna dengan password yang terenkripsi
-				$hasil = $this->m_user->update_user($id, $encrypted_password);
+				$hasil = $this->m_user->update_user($username, $encrypted_password);
 
 				if ($hasil == false) {
 					$this->session->set_flashdata('error_edit', 'error_edit');
@@ -120,7 +130,7 @@ class Settings extends CI_Controller {
 	public function settings_account_admin()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
-			$id = $this->session->userdata('id_user');
+			$username = $this->session->userdata('username');
 			$password = $this->input->post("password");
 			$re_password = $this->input->post("re_password");
 
@@ -129,7 +139,7 @@ class Settings extends CI_Controller {
 				$encrypted_password = md5($password);
 				
 				// Memanggil model untuk mengupdate data pengguna dengan password yang terenkripsi
-				$hasil = $this->m_user->update_user($id, $encrypted_password);
+				$hasil = $this->m_user->update_user($username, $encrypted_password);
 
 				if ($hasil == false) {
 					$this->session->set_flashdata('error_edit', 'error_edit');
@@ -148,11 +158,42 @@ class Settings extends CI_Controller {
             redirect('Login/index');
         }
 	}
+	public function settings_account_admin_plnt()
+	{
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 5) {
+			$username = $this->session->userdata('username');
+			$password = $this->input->post("password");
+			$re_password = $this->input->post("re_password");
+
+			if ($password == $re_password) {
+				// Mengenkripsi password menggunakan bcrypt
+				$encrypted_password = md5($password);
+				
+				// Memanggil model untuk mengupdate data pengguna dengan password yang terenkripsi
+				$hasil = $this->m_user->update_user($username, $encrypted_password);
+
+				if ($hasil == false) {
+					$this->session->set_flashdata('error_edit', 'error_edit');
+				} else {
+					$this->session->set_flashdata('edit', 'edit');
+				}
+				
+				redirect('Settings/view_admin_plnt');
+			} else {
+				$this->session->set_flashdata('password_err', 'password_err');
+				redirect('Settings/view_admin_plnt');
+			}
+		} else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
+	}
 
 
 	public function settings_account_operator()
 	{
-		$id = $this->session->userdata('id_user');
+		$username = $this->session->userdata('username');
 		$password = $this->input->post("password");
 		$re_password = $this->input->post("re_password");
 
@@ -161,7 +202,7 @@ class Settings extends CI_Controller {
 			$encrypted_password = md5($password);
 			
 			// Memanggil model untuk mengupdate data pengguna dengan password yang terenkripsi
-			$hasil = $this->m_user->update_user($id, $encrypted_password);
+			$hasil = $this->m_user->update_user($username, $encrypted_password);
 
 			if ($hasil == false) {
 				$this->session->set_flashdata('error_edit', 'error_edit');
@@ -177,12 +218,12 @@ class Settings extends CI_Controller {
 	}
 
 	public function upload_ttd_ops() {
-		$id = $this->session->userdata('id_user');
+		$username= $this->session->userdata('username');
 		$config['upload_path']   = FCPATH . 'assets/ttd/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
 		$config['allowed_types'] = 'jpg|jpeg|png';
 		$config['max_size']      = 1024;
 		$config['overwrite']     = TRUE; // Set to TRUE to overwrite the file if it already exists
-		$config['file_name']     = 'ttd-ops-'.$id.'.jpg'; // Set the desired file name with the file extension
+		$config['file_name']     = 'ttd-ops-'.$username.'.jpg'; // Set the desired file name with the file extension
 
 		$this->load->library('upload', $config);
 

@@ -6,6 +6,33 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+    <?php if ($this->session->flashdata('password_err')){ ?>
+    <script>
+    swal({
+        title: "Error Password!",
+        text: "Ketik Ulang Password!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('edit')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Data Berhasil Diedit!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('eror_edit')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Data Gagal Diedit!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -28,14 +55,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard Admin PLNT</a>
-							</h1>
+                            <h1 class="m-0">Setting</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"></a>Admin PLNT</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard</li>
+                                <li class="breadcrumb-item active">Setting</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -46,31 +72,25 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    <!-- Small boxes (Stat box) -->
-                    <div class="row">
-                        <div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3><?=$operator['total_user']?></h3>
-
-                                    <p>Total Operator</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-person-stalker"></i>
-                                </div>
-                                <a href="<?=base_url();?>operator/view_super_admin" class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></a>
-                            </div>
+                    <form action="<?=base_url();?>Settings/settings_account_admin_plnt" method="POST">
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                aria-describedby="password" required>
                         </div>
-                    </div>
-                    <!-- /.row -->
+                        <div class="form-group">
+                            <label for="re_password">Ulangi Password</label>
+                            <input type="password" class="form-control" id="re_password" name="re_password"
+                                aria-describedby="re_password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        
+
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">

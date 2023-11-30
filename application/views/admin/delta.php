@@ -155,6 +155,7 @@
                                         XLSX.writeFile(wb, fileName);
                                     });
                                     </script>
+                                    <hr>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>

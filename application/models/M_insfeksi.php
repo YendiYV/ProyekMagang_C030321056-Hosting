@@ -4,7 +4,7 @@ class M_insfeksi extends CI_Model
 {
     public function get_all_insfeksi()
     {
-        $query = $this->db->query('SELECT * FROM status_insfeksi LEFT JOIN user_detail ON user_detail.id_user_detail = status_insfeksi.id_user_detail ORDER BY user_detail.nip ASC');
+        $query = $this->db->query('SELECT * FROM status_insfeksi LEFT JOIN user_detail ON user_detail.nip = status_insfeksi.id_user_detail ORDER BY user_detail.nip ASC');
         return $query->result_array();
     }
 

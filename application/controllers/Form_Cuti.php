@@ -15,10 +15,10 @@ class Form_Cuti extends CI_Controller {
 	{
 		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 1) {
 			// Menggunakan ID pengguna dari sesi saat ini
-			$id_user = $this->session->userdata('id_user');
+			$username = $this->session->userdata('username');
 
 			 // Hitung total cuti dalam setahun
-			$total_hari_cuti = $this->m_cuti->total_hari_cuti_by_id_for_form($id_user);
+			$total_hari_cuti = $this->m_cuti->total_hari_cuti_by_id_for_form($username);
 
 			if ($total_hari_cuti >= 12) {
 				// Total cuti dalam setahun lebih dari atau sama dengan 12, Anda dapat mengarahkan pengguna ke tampilan lain
@@ -26,8 +26,8 @@ class Form_Cuti extends CI_Controller {
 				redirect('Dashboard/dashboard_operator');
 			} else {
 				// Total cuti dalam setahun kurang dari 12, muat tampilan pengajuan cuti
-				$data['operator_data'] = $this->m_user->get_operator_by_id($this->session->userdata('id_user'))->result_array();
-				$data['operator'] = $this->m_user->get_operator_by_id($this->session->userdata('id_user'))->row_array();
+				$data['operator_data'] = $this->m_user->get_operator_by_id($this->session->userdata('username'))->result_array();
+				$data['operator'] = $this->m_user->get_operator_by_id($this->session->userdata('username'))->row_array();
 				$data['jenis_kelamin'] = $this->m_jenis_kelamin->get_all_jenis_kelamin()->result_array();
 				$data['tipe_cuti'] = $this->m_cuti->get_tipe_cuti()->result_array();	
 				$this->load->view('operator/form_pengajuan_cuti', $data);
@@ -41,7 +41,7 @@ class Form_Cuti extends CI_Controller {
 	public function proses_cuti() {
 		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 1) {
 			// Menggunakan ID pengguna dari sesi saat ini
-			$id_user = $this->input->post("id_user");
+			$username = $this->input->post("username");
 			$tipe_cuti= $this->input->post("tipe_cuti");
 			$alasan = $this->input->post("alasan");
 			$perihal_cuti = $this->input->post("perihal_cuti");
@@ -65,13 +65,8 @@ class Form_Cuti extends CI_Controller {
 			$id_status_cuti1 = 1;
 			$id_status_cuti2 = 1;
 			$id_status_cuti3 = 1;
-			$hasil = $this->m_cuti->insert_data_cuti($nomor_urut_cuti, $id_user, $alasan, $mulai, $berakhir, $id_status_cuti1, $id_status_cuti2, $id_status_cuti3, $perihal_cuti, $tipe_cuti,$total_hari_cuti);
-
-			if ($hasil) {
-				$this->session->set_flashdata('input','input');
-			} else {
-				$this->session->set_flashdata('eror','eror');
-			}
+			$this->session->set_flashdata('input','input');
+			$hasil = $this->m_cuti->insert_data_cuti($nomor_urut_cuti, $username, $alasan, $mulai, $berakhir, $id_status_cuti1, $id_status_cuti2, $id_status_cuti3, $perihal_cuti, $tipe_cuti,$total_hari_cuti);
 			redirect('Cuti/view_operator');
 			
 		}else {

@@ -182,7 +182,7 @@
                                             $no = 0;
                                             foreach($gaji_bulan as $gaji_bulan_item) :
                                             $no++;
-                                            $id_user_detail = $gaji_bulan_item['id_user_detail'];
+                                            $username = $gaji_bulan_item['nip'];
                                             $nip = $gaji_bulan_item['nip'];
                                             $gaji_bulan = $gaji_bulan_item['gaji_bulan'];
                                             $total_gaji = $gaji_bulan_item['total_gaji'];
@@ -197,10 +197,10 @@
                                                 <td>
                                                     <div class="table-responsive">
                                                         <div class="table table-striped table-hover">
-                                                            <a href="#" data-toggle="modal" data-target="#edit_gaji_bulan<?= $id_user_detail ?>" class="btn btn-primary">
+                                                            <a href="#" data-toggle="modal" data-target="#edit_gaji_bulan<?= $username ?>" class="btn btn-primary">
                                                                 <i class="fas fa-edit"></i> Edit
                                                             </a>
-                                                            <a href="#" data-toggle="modal" data-target="#hapus_gaji_bulan<?= $id_user_detail ?>" class="btn btn-danger">
+                                                            <a href="#" data-toggle="modal" data-target="#hapus_gaji_bulan<?= $username ?>" class="btn btn-danger">
                                                                 <i class="fas fa-trash"></i> Hapus
                                                             </a>
                                                         </div>
@@ -210,7 +210,7 @@
 
                                             </tr>
                                                 <!-- Modal Hapus Data jabatan -->
-                                                    <div class="modal fade" id="hapus_gaji_bulan<?= $id_user_detail ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="hapus_gaji_bulan<?= $username ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -220,10 +220,11 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form action="<?= base_url() ?>rgaji/delete_gaji_bulan/<?=$id_user_detail ?>" method="post" enctype="multipart/form-data">
+                                                                    <form action="<?= base_url() ?>rgaji/delete_gaji_bulan/<?=$username ?>" method="post" enctype="multipart/form-data">
                                                                         <div class="row">
                                                                             <div class="col-md-12">
-                                                                                <input type="hidden" name="id_level" value="<?=$id_user_detail ?>" />
+                                                                                <input type="hidden" name="username" value="<?=$username ?>" />
+                                                                                <input type="hidden" name="gaji_bulan" value="<?=$gaji_bulan ?>" />
                                                                                 <p>Apakah Anda yakin ingin menghapus Data Gaji ini?</p>
                                                                             </div>
                                                                         </div>
@@ -237,7 +238,7 @@
                                                         </div>
                                                     </div>
                                                 <!-- Modal Edit Data Delta -->
-                                                <div class="modal fade" id="edit_gaji_bulan<?= $id_user_detail?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="edit_gaji_bulan<?= $username?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -248,8 +249,8 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <!-- Form for editing project data -->
-                                                                <form action="<?= base_url() ?>rgaji/edit_gaji_bulan/<?= $id_user_detail ?>" method="post">
-                                                                    <input type="hidden" name="id_user_detail" value="<?= $id_user_detail ?>">
+                                                                <form action="<?= base_url() ?>rgaji/edit_gaji_bulan/<?= $username ?>" method="post">
+                                                                    <input type="hidden" name="username" value="<?= $username ?>">
                                                                     <div class="form-group">
                                                                         <label for="gaji_bulan">Tanggal Gaji</label>
                                                                         <input type="date" class="form-control" id="gaji_bulan" name="gaji_bulan" value="<?= htmlspecialchars($gaji_bulan) ?>" required>
@@ -303,22 +304,13 @@
                             <form action="<?= base_url(); ?>rgaji/tambah_rgaji" method="POST">
                                 <div class="form-group">
                                     <label for="username">NIP Pegawai</label>
-                                    <select class="form-control" id="id"
-                                        name="id" required>
-                                        <?php foreach($username as $u)
-                                        :
-                                        $id = $u["id_user_detail"];
-                                        $username = $u["username"];
-                                        ?>
-                                            <option value="<?= $id ?>" <?php if($id == $username){
-                                                echo 'selected';
-                                            }else{
-                                                echo '';
-                                            }?>
-                                            ><?= $username ?>
+                                    <select class="form-control" id="id" name="id" required>
+                                        <?php foreach ($username as $u) : ?>
+                                            <?php $username = $u["username"]; ?>
+                                            <option value="<?= $username ?>">
+                                                <?= $username ?>
                                             </option>
-
-                                        <?php endforeach?>
+                                        <?php endforeach ?>
                                     </select>
                                 </div>
                                 <div class="form-group">

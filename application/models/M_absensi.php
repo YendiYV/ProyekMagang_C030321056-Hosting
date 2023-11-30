@@ -6,7 +6,7 @@ class M_absensi extends CI_Model
     {
         $query = $this->db->query('SELECT user_detail.nip, user_detail.nama_lengkap, tanggal_absen, absensi_level.*,status_absensi.*
                                     FROM status_absensi
-                                    LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
+                                    LEFT JOIN user_detail ON user_detail.nip = status_absensi.id_user_detail
                                     LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
                                     ');
 
@@ -16,7 +16,7 @@ class M_absensi extends CI_Model
     public function get_data_absensi() {
         $query = $this->db->query('SELECT user_detail.nip, tanggal_absen, absensi_level.nama_status,absensi_level.id_absen_level,absensi_level.singkatan_status
             FROM status_absensi
-            LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
+            LEFT JOIN user_detail ON user_detail.nip = status_absensi.id_user_detail
             LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
             WHERE MONTH(tanggal_absen) = MONTH(NOW()) AND YEAR(tanggal_absen) = YEAR(NOW())');
 
@@ -42,7 +42,7 @@ class M_absensi extends CI_Model
     {
         $query = $this->db->query("SELECT user_detail.nip, user_detail.nama_lengkap, tanggal_absen, absensi_level.nama_status
                                     FROM status_absensi
-                                    LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
+                                    LEFT JOIN user_detail ON user_detail.nip = status_absensi.id_user_detail
                                     LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
                                     WHERE DATE_FORMAT(tanggal_absen, '%Y-%m') = '$cari_bulan'");
         return $query->result_array();
@@ -52,7 +52,7 @@ class M_absensi extends CI_Model
     {
         $query = $this->db->query("SELECT user_detail.nip, tanggal_absen, absensi_level.nama_status, absensi_level.id_absen_level, absensi_level.singkatan_status
             FROM status_absensi
-            LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
+            LEFT JOIN user_detail ON user_detail.nip = status_absensi.id_user_detail
             LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
             WHERE DATE_FORMAT(tanggal_absen, '%Y-%m') = '$cari_bulan'");
 
@@ -79,7 +79,7 @@ class M_absensi extends CI_Model
     {
         $query = $this->db->query('SELECT user_detail.nip, user_detail.nama_lengkap, tanggal_absen, absensi_level.nama_status
                                     FROM status_absensi
-                                    LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
+                                    LEFT JOIN user_detail ON user_detail.nip = status_absensi.id_user_detail
                                     LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
                                     ');
 
@@ -89,7 +89,7 @@ class M_absensi extends CI_Model
     public function get_data_absensi_menurut_tanggal($tanggal) {
         $query = $this->db->query('SELECT user_detail.nip, tanggal_absen, absensi_level.nama_status,absensi_level.id_absen_level,absensi_level.singkatan_status
             FROM status_absensi
-            LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
+            LEFT JOIN user_detail ON user_detail.nip = status_absensi.id_user_detail
             LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
             WHERE MONTH(tanggal_absen) = MONTH(NOW()) AND YEAR(tanggal_absen) = YEAR(NOW())');
 
@@ -111,11 +111,11 @@ class M_absensi extends CI_Model
         return $data_absensi;
     }
 
-    public function get_data_absensi_operator($id_user_detail) {
+    public function get_data_absensi_operator($username) {
         $query = $this->db->query("SELECT tanggal_absen, absensi_level.nama_status,status_absen,absensi_level.singkatan_status
             FROM status_absensi
             LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
-            WHERE MONTH(tanggal_absen) = MONTH(NOW()) AND YEAR(tanggal_absen) = YEAR(NOW()) AND id_user_detail = ?", array($id_user_detail));
+            WHERE MONTH(tanggal_absen) = MONTH(NOW()) AND YEAR(tanggal_absen) = YEAR(NOW()) AND id_user_detail = ?", array($username));
 
         $data_absensi = array();
 
@@ -135,12 +135,12 @@ class M_absensi extends CI_Model
         return $data_absensi;
     }
 
-    public function cek_kehadiran_absensi($id_user) {
+    public function cek_kehadiran_absensi($username) {
         $today = date('Y-m-d');
 
         $ketersediaan_data = $this->db->query("SELECT COUNT(*) as jumlah_kehadiran
             FROM status_absensi
-            WHERE id_user_detail = '$id_user'
+            WHERE id_user_detail = '$username'
             AND tanggal_absen = '$today'
             AND status_absen BETWEEN 1 AND 4
         ");
@@ -149,16 +149,16 @@ class M_absensi extends CI_Model
         return $row;
     }
 
-    public function cek_kehadiran_absensi2($id_user) {
+    public function cek_kehadiran_absensi2($username) {
         $today = date('Y-m-d');
 
-        $ketersediaan_data2 = $this->db->query("SELECT * FROM status_absensi WHERE id_user_detail = '$id_user' AND tanggal_absen = '$today' ");
+        $ketersediaan_data2 = $this->db->query("SELECT * FROM status_absensi WHERE id_user_detail = '$username' AND tanggal_absen = '$today' ");
         
         // Mengambil hasil dari kueri dan mengembalikannya sebagai array
         return $ketersediaan_data2;
     }
 
-    public function cek_status_absensi($id_user) {
+    public function cek_status_absensi($username) {
         $today = date('Y-m-d');  
 
         $hasil = $this->db->query("SELECT 
@@ -174,15 +174,15 @@ class M_absensi extends CI_Model
                                         END AS color_class
                                 FROM status_absensi
                                 LEFT JOIN absensi_level ON absensi_level.id_absen_level = status_absensi.status_absen
-                                WHERE id_user_detail = '$id_user' AND tanggal_absen = '$today'
+                                WHERE id_user_detail = '$username' AND tanggal_absen = '$today'
                                 ");
         return $hasil;
     }
 
-    public function cek_status_untuk_absen_pulang($id_user) {
+    public function cek_status_untuk_absen_pulang($username) {
         $today = date('Y-m-d');  
 
-        $hasil = $this->db->query("SELECT COUNT(*) as count FROM status_absensi WHERE id_user_detail = '$id_user' AND tanggal_absen = '$today' AND status_absen ='1'");
+        $hasil = $this->db->query("SELECT COUNT(*) as count FROM status_absensi WHERE id_user_detail = '$username' AND tanggal_absen = '$today' AND status_absen ='1'");
         
         return $hasil;
     }
@@ -190,10 +190,10 @@ class M_absensi extends CI_Model
 
 
 
-    public function insert_hadir($id_user){
+    public function insert_hadir($username){
         $this->db->trans_start();
         $currentDateTime = date('Y-m-d');
-        $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$id_user', '$currentDateTime', '1')");
+        $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$username', '$currentDateTime', '1')");
 
         $this->db->trans_complete();
 
@@ -205,10 +205,10 @@ class M_absensi extends CI_Model
             
         }
     }
-    public function insert_sakit($id_user){
+    public function insert_sakit($username){
         $this->db->trans_start();
         $currentDateTime = date('Y-m-d');
-        $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$id_user', '$currentDateTime', '3')");
+        $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$username', '$currentDateTime', '3')");
 
         $this->db->trans_complete();
 
@@ -220,10 +220,10 @@ class M_absensi extends CI_Model
             
         }
     }
-    public function insert_ijin($id_user){
+    public function insert_ijin($username){
         $this->db->trans_start();
         $currentDateTime = date('Y-m-d');
-        $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$id_user', '$currentDateTime', '4')");
+        $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$username', '$currentDateTime', '4')");
 
         $this->db->trans_complete();
 
@@ -236,10 +236,10 @@ class M_absensi extends CI_Model
         }
     }
 
-    public function insert_cuti($id_user){
+    public function insert_cuti($username){
         $this->db->trans_start();
         $currentDateTime = date('Y-m-d');
-        $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$id_user', '$currentDateTime', '2')");
+        $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$username', '$currentDateTime', '2')");
 
         $this->db->trans_complete();
 
@@ -251,10 +251,10 @@ class M_absensi extends CI_Model
             
         }
     }
-    public function insert_pulang($id_user){
+    public function insert_pulang($username){
         $this->db->trans_start();
         $currentDateTime = date('Y-m-d');
-        $this->db->query("UPDATE status_absensi SET status_absen='6' WHERE id_user_detail = '$id_user' AND tanggal_absen= '$currentDateTime'");
+        $this->db->query("UPDATE status_absensi SET status_absen='6' WHERE id_user_detail = '$username' AND tanggal_absen= '$currentDateTime'");
 
         $this->db->trans_complete();
 
@@ -266,17 +266,17 @@ class M_absensi extends CI_Model
             
         }
     }
-    public function insert_alfa($id_user){
+    public function insert_alfa($username){
         $this->db->trans_start();
         $currentDateTime = date('Y-m-d');
-        $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$id_user', '$currentDateTime', '5')");
+        $this->db->query("INSERT INTO status_absensi(id_user_detail, tanggal_absen, status_absen) VALUES ('$username', '$currentDateTime', '5')");
 
         $this->db->trans_complete();
     }
 
-    public function cek_absensi_hari_ini($id_user){
+    public function cek_absensi_hari_ini($username){
         $currentDateTime = date('Y-m-d');
-        $hasil = $this->db->query("SELECT COUNT(*) as jumlah_absensi FROM status_absensi WHERE id_user_detail = '$id_user' AND tanggal_absen= '$currentDateTime'");
+        $hasil = $this->db->query("SELECT COUNT(*) as jumlah_absensi FROM status_absensi WHERE id_user_detail = '$username' AND tanggal_absen= '$currentDateTime'");
         $row = $hasil->row();
         return $row->jumlah_absensi;
     }
@@ -286,7 +286,7 @@ class M_absensi extends CI_Model
 
         // Perbaikan pernyataan SQL
         $sql = "DELETE status_absensi FROM status_absensi 
-                LEFT JOIN user_detail  ON status_absensi.id_user_detail = user_detail.id_user_detail
+                LEFT JOIN user_detail  ON status_absensi.id_user_detail = user_detail.nip
                 WHERE status_absensi.tanggal_absen = ? AND user_detail.nip = ?";
 
         $this->db->query($sql, array($tanggal, $nip));
@@ -307,7 +307,7 @@ class M_absensi extends CI_Model
 
         // Perbaikan pernyataan SQL
         $sql = "UPDATE status_absensi AS sa
-                LEFT JOIN user_detail AS ud ON sa.id_user_detail = ud.id_user_detail
+                LEFT JOIN user_detail AS ud ON sa.id_user_detail = ud.nip
                 SET sa.status_absen = ?
                 WHERE sa.tanggal_absen = ? AND ud.nip = ?";
 
@@ -327,7 +327,7 @@ class M_absensi extends CI_Model
     public function cek_edit_absensi_admin_data_kosong($nip, $tanggal) {
         $query = $this->db->query("SELECT COUNT(*) as edit_admin_kosong
             FROM status_absensi
-            LEFT JOIN user_detail ON user_detail.id_user_detail = status_absensi.id_user_detail
+            LEFT JOIN user_detail ON user_detail.nip = status_absensi.id_user_detail
             WHERE user_detail.nip = '$nip'  
             AND tanggal_absen = '$tanggal'  
         ");
@@ -336,11 +336,11 @@ class M_absensi extends CI_Model
         return $row->edit_admin_kosong;
     }
 
-    public function edit_absensi_admin_data_kosong($id_user_detail,$tanggal,$status_absen){
+    public function edit_absensi_admin_data_kosong($username,$tanggal,$status_absen){
         $this->db->trans_start();
 
         // Perbaikan pernyataan SQL
-        $this->db->query("INSERT INTO status_absensi (id_user_detail, tanggal_absen, status_absen) VALUES ('$id_user_detail','$tanggal','$status_absen')");  
+        $this->db->query("INSERT INTO status_absensi (id_user_detail, tanggal_absen, status_absen) VALUES ('$username','$tanggal','$status_absen')");  
         
         $this->db->trans_complete();
             
@@ -352,7 +352,7 @@ class M_absensi extends CI_Model
         }
     }
     public function cari_absensi_admin_data_kosong($nip){
-        $query = $this->db->query("SELECT id_user_detail FROM user_detail WHERE nip='$nip'");
+        $query = $this->db->query("SELECT nip FROM user_detail WHERE nip='$nip'");
         $result = $query->row(); // Mengambil satu baris data dari hasil query
         return $result; // Mengembalikan hasil query sebagai nilai kembali
     }

@@ -4,14 +4,14 @@ class M_rgaji extends CI_Model
 {
     public function get_all_gaji_bulan()
     {
-        $query = $this->db->query('SELECT * FROM status_gaji_bulanan LEFT JOIN user_detail ON status_gaji_bulanan.id_user_detail = user_detail.id_user_detail');
+        $query = $this->db->query('SELECT * FROM status_gaji_bulanan LEFT JOIN user_detail ON status_gaji_bulanan.id_user_detail = user_detail.nip');
 
         return $query->result_array();
     }
 
     public function get_all_gaji_bulan_manager()
     {
-        $query = $this->db->query('SELECT user_detail.nama_lengkap ,user_detail.nip, status_gaji_bulanan.* FROM status_gaji_bulanan LEFT JOIN user_detail ON user_detail.id_user_detail = status_gaji_bulanan.id_user_detail');
+        $query = $this->db->query('SELECT user_detail.nama_lengkap ,user_detail.nip, status_gaji_bulanan.* FROM status_gaji_bulanan LEFT JOIN user_detail ON user_detail.nip = status_gaji_bulanan.id_user_detail');
 
         return $query->result_array();
     }
@@ -51,14 +51,14 @@ class M_rgaji extends CI_Model
         }
     }
 
-    public function edit_gaji_bulan($id_user_detail,$gaji_bulan,$total_gaji,$tanggal_simpan)
+    public function edit_gaji_bulan($username,$gaji_bulan,$total_gaji,$tanggal_simpan)
     {
         if ($gaji_bulan < 0) {
             $this->session->set_flashdata('eror_edit','eror_edit');
             return false;
         }else{
             $this->db->trans_start();
-            $this->db->query("UPDATE status_gaji_bulanan SET total_gaji='$total_gaji',gaji_bulan='$gaji_bulan', tgl_simpan='$tanggal_simpan' WHERE id_user_detail = '$id_user_detail'");
+            $this->db->query("UPDATE status_gaji_bulanan SET total_gaji='$total_gaji',gaji_bulan='$gaji_bulan', tgl_simpan='$tanggal_simpan' WHERE id_user_detail = '$username'");
             $this->db->trans_complete();
 
             if ($this->db->trans_status() == true) {
@@ -86,10 +86,10 @@ class M_rgaji extends CI_Model
         }
     }
 
-    public function delete_gaji_bulan($id_user_detail)
+    public function delete_gaji_bulan($username,$gaji_bulan)
     {
         $this->db->trans_start();
-        $this->db->query("DELETE FROM status_gaji_bulanan WHERE id_user_detail='$id_user_detail'");
+        $this->db->query("DELETE FROM status_gaji_bulanan WHERE id_user_detail='$username' AND gaji_bulan='$gaji_bulan'");
         $this->db->trans_complete();
 
         if ($this->db->trans_status() == true) {

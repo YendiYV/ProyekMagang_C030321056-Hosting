@@ -37,7 +37,19 @@ class Cetak extends CI_Controller {
         $this->pdf->set_option('isRemoteEnabled', true);
         $this->pdf->filename = "surat-cuti.pdf";
         $this->pdf->load_view('konfir_pdf', $data);
+    }
+    public function cetak_fakta_integitas($id_user){
+        $nama_lengkap= $this->input->post("nama_lengkap");
+        $nik= $this->input->post("nik");
+        $alamat= $this->input->post("alamat");
+        $nama_lengka= $this->input->post("nama_lengkap");
     
+        $this->load->library('word');
+
     
+        $this->pdf->setPaper('Letter', 'potrait');
+        $this->pdf->set_option('isRemoteEnabled', true);
+        $this->pdf->filename = "surat-fakta-integitas.pdf";
+        $this->pdf->load_view('konfir_pdf', $data);
     }
 }

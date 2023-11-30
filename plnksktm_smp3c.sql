@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 29, 2023 at 03:37 PM
+-- Generation Time: Nov 30, 2023 at 04:03 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -72,8 +72,8 @@ CREATE TABLE `cuti` (
 --
 
 INSERT INTO `cuti` (`id_cuti_detail`, `id_cuti`, `id_user`, `alasan`, `tgl_diajukan`, `mulai`, `berakhir`, `id_status_cuti1`, `id_status_cuti2`, `id_status_cuti3`, `perihal_cuti`, `tipe_cuti`, `jumlah_hari`) VALUES
-(8, 'PLN.7731.SP.CK.2023', 'fb6049cf299977a56a3c4e8a4baa26c1', '-', '2023-11-24', '2023-12-01', '2023-12-04', 2, 2, 2, 'Pengambilan Cuti Tahunan', 2, 5),
-(13, 'PLN.6892.SP.CK.2023', 'fb6049cf299977a56a3c4e8a4baa26c1', 'Melakukan Kunjungan keluarga keluar kota\r\n', '2023-11-28', '2023-11-29', '2023-11-30', 2, 2, 1, 'Kunjungan Keluarga', 5, 2);
+(13, 'PLN.6892.SP.CK.2023', '1231232PKY\n', 'Melakukan Kunjungan keluarga keluar kota\r\n', '2023-11-28', '2023-11-29', '2023-11-30', 2, 2, 1, 'Kunjungan Keluarga', 5, 2),
+(18, 'PLN.3518.SP.CK.2023', '1231231BJM', '-\r\n', '2023-11-30', '2023-12-04', '2023-12-08', 2, 2, 1, 'Pengambilan Cuti TAhunan', 4, 6);
 
 -- --------------------------------------------------------
 
@@ -135,27 +135,10 @@ CREATE TABLE `status_absensi` (
 --
 
 INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `status_absen`) VALUES
-(46, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-14', '1'),
-(67, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-20', '1'),
-(70, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-10-11', '1'),
-(71, '13afa9a1477ed79f6ae6909556d00818', '2023-11-21', '5'),
-(72, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-21', '5'),
-(73, 'fb6049cf299977a56a3c4e8a4baa26c1', '2023-11-21', '5'),
-(74, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-22', '1'),
-(76, '135b31d37c7c2bbb758b8151db8665f4', '2023-11-22', '4'),
-(77, '240da85a0ccef5e081e75610614713b9', '2023-11-22', '2'),
-(80, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-10-02', '2'),
-(81, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-23', '5'),
-(82, 'b47e7355884c086901144e5f15d6356f', '2023-11-23', '5'),
-(83, 'a39976b1e1fe2c17022e944a2f0c19dd', '2023-11-23', '5'),
-(84, 'fb6049cf299977a56a3c4e8a4baa26c1', '2023-11-23', '5'),
-(85, 'fb6049cf299977a56a3c4e8a4baa26c1', '2023-11-24', '5'),
-(86, 'fb6049cf299977a56a3c4e8a4baa26c1', '2023-11-28', '1'),
-(89, '135b31d37c7c2bbb758b8151db8665f4', '2023-11-28', '4'),
-(90, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-28', '2'),
-(91, 'a39976b1e1fe2c17022e944a2f0c19dd', '2023-11-28', '4'),
-(92, 'b47e7355884c086901144e5f15d6356f', '2023-11-28', '3'),
-(93, '13afa9a1477ed79f6ae6909556d00818', '2023-11-01', '5');
+(46, '1231231PKY', '2023-11-14', '2'),
+(67, '1231232PKY', '2023-11-20', '1'),
+(95, '1231231BJM', '2023-11-30', '5'),
+(96, '1231231BJM', '2023-11-15', '3');
 
 -- --------------------------------------------------------
 
@@ -237,15 +220,14 @@ CREATE TABLE `status_gaji_bulanan` (
 --
 
 INSERT INTO `status_gaji_bulanan` (`no_sgb`, `id_user_detail`, `gaji_bulan`, `total_gaji`, `tgl_simpan`) VALUES
-(157, 'fb6049cf299977a56a3c4e8a4baa26c1', '2023-11-01', 6263000, '2023-11-22'),
-(158, '23bdd1cd96888f836956a97a0fdc6bd5', '2023-11-01', 6039000, '2023-11-22'),
-(159, '135b31d37c7c2bbb758b8151db8665f4', '2023-11-01', 5934000, '2023-11-22'),
-(160, '5ed4d0b87388632ecb567b745a1cdf68', '2023-11-01', 600000, '2023-11-22'),
-(161, 'a39976b1e1fe2c17022e944a2f0c19dd', '2023-11-01', 7099688, '2023-11-22'),
-(162, 'b47e7355884c086901144e5f15d6356f', '2023-11-01', 8840000, '2023-11-22'),
-(163, '3be7679db1758d177f0ce012cf9e3c21', '2023-11-01', 5760000, '2023-11-22'),
-(164, '13afa9a1477ed79f6ae6909556d00818', '2023-11-01', 3794000, '2023-11-22'),
-(165, '494980575570192dc9328b10ed5c74b8', '2023-11-01', 4350000, '2023-11-22');
+(165, '1231232PKY', '2023-10-01', 500000, '2023-11-30'),
+(166, '1231231BJM', '2023-10-01', 8354268, '2023-11-30'),
+(167, '1231232BJM', '2023-10-01', 1520000, '2023-11-30'),
+(168, '1231233PKY', '2023-10-01', 600000, '2023-11-30'),
+(175, '1231231BJM', '2023-11-01', 13182956, '2023-11-30'),
+(176, '1231232BJM', '2023-11-01', 3040000, '2023-11-30'),
+(177, '1231232PKY', '2023-10-01', 500000, '2023-11-30'),
+(178, '1231233PKY', '2023-11-01', 1200000, '2023-11-30');
 
 -- --------------------------------------------------------
 
@@ -283,18 +265,17 @@ CREATE TABLE `status_insfeksi` (
 --
 
 INSERT INTO `status_insfeksi` (`id_user_detail`, `gaji_insfeksi`) VALUES
-('135b31d37c7c2bbb758b8151db8665f4', 60000),
-('13afa9a1477ed79f6ae6909556d00818', 20000),
-('21ce9f88901187545268813989373cc4', NULL),
-('23bdd1cd96888f836956a97a0fdc6bd5', NULL),
-('240da85a0ccef5e081e75610614713b9', 0),
-('3be7679db1758d177f0ce012cf9e3c21', NULL),
-('494980575570192dc9328b10ed5c74b8', 0),
-('5ed4d0b87388632ecb567b745a1cdf68', 600000),
-('a39976b1e1fe2c17022e944a2f0c19dd', NULL),
-('b47e7355884c086901144e5f15d6356f', 0),
-('cd333c4693523fb52e4e6a04fae07782', NULL),
-('fb6049cf299977a56a3c4e8a4baa26c1', 300000);
+('1231231BJM', 60000),
+('1231231PKY', 50000),
+('1231232BJM', 20000),
+('1231232PKY', 10),
+('1231233BJM', 20),
+('1231233PKY', 600000),
+('1231234BJM', NULL),
+('1231234PKY', NULL),
+('1231235BJM', NULL),
+('1231236PKY', 0),
+('1231237PKY', NULL);
 
 -- --------------------------------------------------------
 
@@ -576,33 +557,31 @@ INSERT INTO `tipe_cuti` (`id_tipe_cuti`, `jenis_cuti`) VALUES
 --
 
 CREATE TABLE `user` (
-  `id_user` varchar(256) NOT NULL,
   `username` varchar(10) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `id_user_level` int(11) NOT NULL,
-  `id_user_detail` varchar(256) NOT NULL
+  `id_user_level` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `username`, `password`, `id_user_level`, `id_user_detail`) VALUES
-('134e349e4f50a051d8ca3687d6a7de1a', '1234567ADM', '202cb962ac59075b964b07152d234b70', 2, '134e349e4f50a051d8ca3687d6a7de1a'),
-('135b31d37c7c2bbb758b8151db8665f4', '1231232PKY', '202cb962ac59075b964b07152d234b70', 1, '135b31d37c7c2bbb758b8151db8665f4'),
-('13afa9a1477ed79f6ae6909556d00818', '1231236PKY', '202cb962ac59075b964b07152d234b70', 1, '13afa9a1477ed79f6ae6909556d00818'),
-('21ce9f88901187545268813989373cc4', '1234567PLT', '202cb962ac59075b964b07152d234b70', 5, '21ce9f88901187545268813989373cc4'),
-('23bdd1cd96888f836956a97a0fdc6bd5', '1231231PKY', '202cb962ac59075b964b07152d234b70', 1, '23bdd1cd96888f836956a97a0fdc6bd5'),
-('240da85a0ccef5e081e75610614713b9', '1231233PKY', '202cb962ac59075b964b07152d234b70', 1, '240da85a0ccef5e081e75610614713b9'),
-('3be7679db1758d177f0ce012cf9e3c21', '1231235BJM', '202cb962ac59075b964b07152d234b70', 1, '3be7679db1758d177f0ce012cf9e3c21'),
-('494980575570192dc9328b10ed5c74b8', '1231237PKY', '202cb962ac59075b964b07152d234b70', 1, '494980575570192dc9328b10ed5c74b8'),
-('5ed4d0b87388632ecb567b745a1cdf68', '1231233BJM', '202cb962ac59075b964b07152d234b70', 1, '5ed4d0b87388632ecb567b745a1cdf68'),
-('a39976b1e1fe2c17022e944a2f0c19dd', '1231234BJM', '202cb962ac59075b964b07152d234b70', 1, 'a39976b1e1fe2c17022e944a2f0c19dd'),
-('b47e7355884c086901144e5f15d6356f', '1231234PKY', '202cb962ac59075b964b07152d234b70', 1, 'b47e7355884c086901144e5f15d6356f'),
-('cd333c4693523fb52e4e6a04fae07782', '1231232BJM', '202cb962ac59075b964b07152d234b70', 1, 'cd333c4693523fb52e4e6a04fae07782'),
-('eb71208764d1a8a02cdf86a49ccd1489', '1234567MNJ', '202cb962ac59075b964b07152d234b70', 4, 'eb71208764d1a8a02cdf86a49ccd1489'),
-('f5972fbf4ef53843c1e12c3ae99e5005', '1234567SPV', '202cb962ac59075b964b07152d234b70', 3, 'f5972fbf4ef53843c1e12c3ae99e5005'),
-('fb6049cf299977a56a3c4e8a4baa26c1', '1231231BJM', '202cb962ac59075b964b07152d234b70', 1, 'fb6049cf299977a56a3c4e8a4baa26c1');
+INSERT INTO `user` (`username`, `password`, `id_user_level`) VALUES
+('1231231BJM', '202cb962ac59075b964b07152d234b70', 1),
+('1231231PKY', '202cb962ac59075b964b07152d234b70', 1),
+('1231232BJM', '202cb962ac59075b964b07152d234b70', 1),
+('1231232PKY', '202cb962ac59075b964b07152d234b70', 1),
+('1231233BJM', '202cb962ac59075b964b07152d234b70', 1),
+('1231233PKY', '202cb962ac59075b964b07152d234b70', 1),
+('1231234BJM', '202cb962ac59075b964b07152d234b70', 1),
+('1231234PKY', '202cb962ac59075b964b07152d234b70', 1),
+('1231235BJM', '202cb962ac59075b964b07152d234b70', 1),
+('1231236PKY', '202cb962ac59075b964b07152d234b70', 1),
+('1231237PKY', '202cb962ac59075b964b07152d234b70', 1),
+('1234567ADM', '202cb962ac59075b964b07152d234b70', 2),
+('1234567MNJ', '202cb962ac59075b964b07152d234b70', 4),
+('1234567PLT', '202cb962ac59075b964b07152d234b70', 5),
+('1234567SPV', '202cb962ac59075b964b07152d234b70', 3);
 
 -- --------------------------------------------------------
 
@@ -611,13 +590,12 @@ INSERT INTO `user` (`id_user`, `username`, `password`, `id_user_level`, `id_user
 --
 
 CREATE TABLE `user_detail` (
-  `id_user_detail` varchar(256) NOT NULL,
   `nama_lengkap` varchar(30) DEFAULT NULL,
   `nik` varchar(20) NOT NULL,
   `id_jenis_kelamin` int(12) DEFAULT NULL,
   `no_telp` varchar(30) DEFAULT NULL,
   `alamat` text DEFAULT NULL,
-  `nip` varchar(10) DEFAULT NULL,
+  `nip` varchar(10) NOT NULL,
   `proyek` int(12) DEFAULT NULL,
   `jabatan` int(12) DEFAULT NULL,
   `penempatan` int(11) DEFAULT NULL,
@@ -631,6 +609,7 @@ CREATE TABLE `user_detail` (
   `tanggal_masuk` date DEFAULT NULL,
   `jumlah_cuti` int(2) DEFAULT NULL,
   `no_spk` varchar(50) NOT NULL,
+  `spk` varchar(50) NOT NULL,
   `no_serti` varchar(50) NOT NULL,
   `tgl_berlaku` date NOT NULL,
   `tgl_berakhir` date NOT NULL,
@@ -642,22 +621,22 @@ CREATE TABLE `user_detail` (
 -- Dumping data for table `user_detail`
 --
 
-INSERT INTO `user_detail` (`id_user_detail`, `nama_lengkap`, `nik`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `komunikasi`, `uang_hadir`, `kontribusi`, `insentif`, `tanggal_masuk`, `jumlah_cuti`, `no_spk`, `no_serti`, `tgl_berlaku`, `tgl_berakhir`, `kategori`, `kode_wajib`) VALUES
-('134e349e4f50a051d8ca3687d6a7de1a', 'Admin', '', 1, NULL, NULL, '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, 0, '', '', '0000-00-00', '0000-00-00', 0, 0),
-('135b31d37c7c2bbb758b8151db8665f4', 'Rahmat', '', 1, '0812345678', 'Jl. Pengayaan', '1231232PKY', 1, 1, NULL, 1, 1, 1, 2, 2, 2, 3, '2023-11-20', 0, '', '', '0000-00-00', '0000-00-00', 0, 0),
-('13afa9a1477ed79f6ae6909556d00818', 'Asep', '', 1, '0812345678', 'Jl. Karamunting', '1231236PKY', 0, 1, NULL, 3, 2, 1, 2, 2, 0, 3, '2023-11-20', 0, '', '', '0000-00-00', '0000-00-00', 0, 0),
-('21ce9f88901187545268813989373cc4', 'Admin PLNT', '', 2, NULL, NULL, '1234567PLT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '0000-00-00', '0000-00-00', 0, 0),
-('23bdd1cd96888f836956a97a0fdc6bd5', 'Yendi', '', 1, '0812345678', 'Jl. Listrik 2', '1231231PKY', 2, 15, NULL, 3, 1, 3, 2, 2, 3, 5, '2023-11-23', 0, '', '', '2023-11-01', '2023-12-02', 1, 1),
-('240da85a0ccef5e081e75610614713b9', 'Fitri', '', 2, '0876543', 'Jl. Negara', '1231233PKY', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, '2023-11-20', 0, '', '', '0000-00-00', '0000-00-00', 0, 0),
-('3be7679db1758d177f0ce012cf9e3c21', 'Amat', '', 1, '098765', 'Jl. Hasan Basri', '1231235BJM', 1, 1, NULL, 1, 1, 5, 0, 0, 0, 0, '2023-10-02', 0, '', '', '0000-00-00', '0000-00-00', 0, 0),
-('494980575570192dc9328b10ed5c74b8', 'Tet', '', 2, '0987654', 'Jl. LN 2', '1231237PKY', 0, 1, NULL, 1, 3, 3, 2, 2, 2, 3, '2023-11-20', 0, '', '', '0000-00-00', '0000-00-00', 1, 0),
-('5ed4d0b87388632ecb567b745a1cdf68', 'Rendi', '', 1, '90987654', 'Jl. Hasan Basri', '1231233BJM', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0, '', '', '0000-00-00', '0000-00-00', 0, 0),
-('a39976b1e1fe2c17022e944a2f0c19dd', 'Jamal', '', 1, '09876543', 'Jl. Hasan Basri', '1231234BJM', 1, 15, NULL, 1, 1, 3, 3, 2, 3, 4, '2023-06-01', 0, '', '', '0000-00-00', '0000-00-00', 0, 0),
-('b47e7355884c086901144e5f15d6356f', 'Budi', '', 1, '09876543', 'Jl. Karamunting', '1231234PKY', 2, 13, NULL, 3, 1, 1, 2, 2, 2, 3, '2023-11-20', 0, '', '', '0000-00-00', '0000-00-00', 0, 0),
-('cd333c4693523fb52e4e6a04fae07782', 'RENDI', '', 1, '09876', 'Jl. Hasan Basri', '1231232BJM', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0, '', '', '0000-00-00', '0000-00-00', 0, 0),
-('eb71208764d1a8a02cdf86a49ccd1489', 'Maulana Rizman Muttaqin', '', 1, NULL, NULL, '1234567MNJ', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, '', '', '0000-00-00', '0000-00-00', 0, 0),
-('f5972fbf4ef53843c1e12c3ae99e5005', 'Nama Supervisior', '', 1, NULL, NULL, '1234567SPV', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, '', '', '0000-00-00', '0000-00-00', 0, 0),
-('fb6049cf299977a56a3c4e8a4baa26c1', 'Udin', '', 1, '0812345678', 'Jl. Karamunting', '1231231BJM', 1, 1, 13, 1, 2, 3, 3, 2, 3, 5, '2012-11-27', 2, '0026.PJ/KIT.02.03/DIR-TRK/2019', '1771.0.28.P042.09.2020', '2023-11-01', '2023-11-30', 1, 1);
+INSERT INTO `user_detail` (`nama_lengkap`, `nik`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `komunikasi`, `uang_hadir`, `kontribusi`, `insentif`, `tanggal_masuk`, `jumlah_cuti`, `no_spk`, `spk`, `no_serti`, `tgl_berlaku`, `tgl_berakhir`, `kategori`, `kode_wajib`) VALUES
+('Udin', '62130302010002', 1, '0812', 'Jl. Karamunting', '1231231BJM', 1, 1, 13, 1, 2, 3, 3, 2, 3, 5, '2012-11-27', 6, '0029.PJ/DAN.01.03/C49000000/2023', '0026.PJ/KIT.02.03/DIR-TRK/2019', '1771.0.28.P042.09.2020', '2023-11-01', '2023-11-30', 1, 1),
+('Yendi', '', 1, '0812345678', 'Jl. Listrik 2', '1231231PKY', 2, 15, NULL, 3, 1, 3, 2, 2, 3, 5, '2023-11-23', 6, '', '', '', '2023-11-01', '2023-12-02', 1, 1),
+('RENDI', '62130', 1, '08123', 'Jl. Hasan Basri', '1231232BJM', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('Rahmat', '', 1, '0812345678', 'Jl. Pengayaan', '1231232PKY', 1, 1, NULL, 1, 1, 1, 2, 2, 2, 3, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('Rendi', '', 1, '90987654', 'Jl. Hasan Basri', '1231233BJM', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('Fitri', '', 2, '0876543', 'Jl. Negara', '1231233PKY', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('Jamal', '', 1, '09876543', 'Jl. Hasan Basri', '1231234BJM', 1, 15, NULL, 1, 1, 3, 3, 2, 3, 4, '2023-06-01', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('Budi', '', 1, '09876543', 'Jl. Karamunting', '1231234PKY', 2, 13, NULL, 3, 1, 1, 2, 2, 2, 3, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('Amat', '', 1, '098765', 'Jl. Hasan Basri', '1231235BJM', 1, 1, NULL, 1, 1, 5, 0, 0, 0, 0, '2023-10-02', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('Asep', '', 1, '0812345678', 'Jl. Karamunting', '1231236PKY', 0, 1, NULL, 3, 2, 1, 2, 2, 0, 3, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('Tet', '', 2, '0987654', 'Jl. LN 2', '1231237PKY', 0, 1, NULL, 1, 3, 3, 2, 2, 2, 3, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 1, 0),
+('Admin', '', 1, NULL, NULL, '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('Maulana Rizman Muttaqin', '', 1, NULL, NULL, '1234567MNJ', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('Admin PLNT', '', 2, NULL, NULL, '1234567PLT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('Nama Supervisior', '', 1, NULL, NULL, '1234567SPV', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -827,13 +806,13 @@ ALTER TABLE `tipe_cuti`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`username`);
 
 --
 -- Indexes for table `user_detail`
 --
 ALTER TABLE `user_detail`
-  ADD PRIMARY KEY (`id_user_detail`);
+  ADD PRIMARY KEY (`nip`);
 
 --
 -- Indexes for table `user_level`
@@ -855,7 +834,7 @@ ALTER TABLE `absensi_level`
 -- AUTO_INCREMENT for table `cuti`
 --
 ALTER TABLE `cuti`
-  MODIFY `id_cuti_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_cuti_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `jenis_kelamin`
@@ -873,7 +852,7 @@ ALTER TABLE `operator_level`
 -- AUTO_INCREMENT for table `status_absensi`
 --
 ALTER TABLE `status_absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`
@@ -897,7 +876,7 @@ ALTER TABLE `status_delta`
 -- AUTO_INCREMENT for table `status_gaji_bulanan`
 --
 ALTER TABLE `status_gaji_bulanan`
-  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
+  MODIFY `no_sgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
 
 --
 -- AUTO_INCREMENT for table `status_insentif`

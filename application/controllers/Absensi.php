@@ -68,8 +68,8 @@ class Absensi extends CI_Controller {
 	public function view_operator()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 1) {
-			$id_user_detail = $this->session->userdata('id_user');		
-			$data['absensi'] = $this->m_absensi->get_data_absensi_operator($id_user_detail);
+			$username = $this->session->userdata('username');		
+			$data['absensi'] = $this->m_absensi->get_data_absensi_operator($username);
 			$this->load->view('operator/absensi', $data);
 
 		}else{
@@ -87,27 +87,27 @@ class Absensi extends CI_Controller {
 		// Tambahkan 5 menit dan 13 detik
 		$datetime->modify('+5 minutes +23 seconds');
 		$waktu_sekarang = $datetime->format('H:i:s');
-		$id_user = $this->input->post("id_user"); // Dapatkan id_user dari input
+		$username = $this->input->post("username"); // Dapatkan id_user dari input
 		$action = $this->input->post('action'); // Dapatkan tindakan yang diambil dari input
 		// Pemeriksaan hari
 		$dayOfWeek = date('N'); // Dapatkan hari dalam format 1 hingga 7 (Senin hingga Minggu)
 
 		if ($dayOfWeek >= 1 && $dayOfWeek <= 5) { // Hanya lanjutkan jika hari Senin hingga Jumat
 			if ($waktu_sekarang >= '08:00' && $waktu_sekarang <= '08:20')  {	
-				$ketersediaan_data = $this->m_absensi->cek_kehadiran_absensi($id_user);	
+				$ketersediaan_data = $this->m_absensi->cek_kehadiran_absensi($username);	
 				if($ketersediaan_data !== null){
 					if ($action === 'hadir') {
 						$this->session->set_flashdata('input_hadir', 'input_hadir');
-						$this->m_absensi->insert_hadir($id_user); // Panggil fungsi model yang sesuai
+						$this->m_absensi->insert_hadir($username); // Panggil fungsi model yang sesuai
 					} elseif ($action === 'sakit') {
 						$this->session->set_flashdata('input_sakit', 'input_sakit');
-						$this->m_absensi->insert_sakit($id_user); // Panggil fungsi model yang sesuai
+						$this->m_absensi->insert_sakit($username); // Panggil fungsi model yang sesuai
 					} elseif ($action === 'ijin') {
 						$this->session->set_flashdata('input_izin', 'input_izin');
-						$this->m_absensi->insert_ijin($id_user); // Panggil fungsi model yang sesuai
+						$this->m_absensi->insert_ijin($username); // Panggil fungsi model yang sesuai
 					} elseif ($action === 'cuti') {
 						$this->session->set_flashdata('input_cuti', 'input_cuti');
-						$this->m_absensi->insert_cuti($id_user); // Panggil fungsi model yang sesuai
+						$this->m_absensi->insert_cuti($username); // Panggil fungsi model yang sesuai
 					} else {
 						$this->session->set_flashdata('error', 'Tindakan tidak valid.');
 					}
@@ -131,19 +131,19 @@ class Absensi extends CI_Controller {
 		// Tambahkan 5 menit dan 13 detik
 		$datetime->modify('+5 minutes +23 seconds');
 		$waktu_sekarang = $datetime->format('H:i:s');
-		$id_user = $this->input->post("id_user"); // Dapatkan id_user dari input
+		$username = $this->input->post("username"); // Dapatkan id_user dari input
 		
 		// Pemeriksaan hari
 		$dayOfWeek = date('N'); // Dapatkan hari dalam format 1 hingga 7 (Senin hingga Minggu)
 
 		if ($dayOfWeek >= 1 && $dayOfWeek <= 5) { // Hanya lanjutkan jika hari Senin hingga Jumat
 			if ($waktu_sekarang >= '15:40' && $waktu_sekarang <= '16:00') {
-				$cek_absen_pulang = $this->m_absensi->cek_status_untuk_absen_pulang($id_user);
+				$cek_absen_pulang = $this->m_absensi->cek_status_untuk_absen_pulang($username);
 
 				if ($cek_absen_pulang > 0) {
 					$action = $this->input->post('action'); // Dapatkan tindakan yang diambil dari input
 					$this->session->set_flashdata('input_pulang', 'input_pulang');
-					$this->m_absensi->insert_pulang($id_user);
+					$this->m_absensi->insert_pulang($username);
 				} else {
 					$this->session->set_flashdata('mencoba_akses', 'mencoba_akses');
 				}
@@ -161,6 +161,7 @@ class Absensi extends CI_Controller {
 
 	public function edit_absensi_admin(){
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 2) {
+			$username = $this->input->post("username");
             $nip = $this->input->post("nip");
             $tanggal = $this->input->post("tanggal");
             $status_absen = $this->input->post("status");
@@ -175,8 +176,7 @@ class Absensi extends CI_Controller {
 					$this->session->set_flashdata('edit','edit');
 				}else{
 					$result = $this->m_absensi->cari_absensi_admin_data_kosong($nip);
-					$id_user_detail = $result->id_user_detail;
-					$hasil = $this->m_absensi->edit_absensi_admin_data_kosong($id_user_detail, $tanggal,$status_absen);
+					$hasil = $this->m_absensi->edit_absensi_admin_data_kosong($username, $tanggal,$status_absen);
 					$this->session->set_flashdata('edit2','edit2');
 				}
 			}
@@ -191,6 +191,7 @@ class Absensi extends CI_Controller {
 
 	public function edit_absensi_super_admin(){
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 3) {
+			$username = $this->input->post("username");
             $nip = $this->input->post("nip");
             $tanggal = $this->input->post("tanggal");
             $status_absen = $this->input->post("status");
@@ -205,8 +206,7 @@ class Absensi extends CI_Controller {
 					$this->session->set_flashdata('edit','edit');
 				}else{
 					$result = $this->m_absensi->cari_absensi_admin_data_kosong($nip);
-					$id_user_detail = $result->id_user_detail;
-					$hasil = $this->m_absensi->edit_absensi_admin_data_kosong($id_user_detail, $tanggal,$status_absen);
+					$hasil = $this->m_absensi->edit_absensi_admin_data_kosong($username, $tanggal,$status_absen);
 					$this->session->set_flashdata('edit2','edit2');
 				}
 			}
