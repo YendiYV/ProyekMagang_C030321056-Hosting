@@ -293,4 +293,33 @@ class Settings extends CI_Controller {
             redirect('Login/index');
         }
 	}
+
+	public function upload_foto_ops() {
+		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 1) {
+			$username= $this->session->userdata('username');
+			$config['upload_path']   = FCPATH . 'assets/pasFoto/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size']      = 1024;
+			$config['overwrite']     = TRUE; // Set to TRUE to overwrite the file if it already exists
+			$config['file_name']     = 'pasFoto-ops-'.$username.'.jpg';
+
+			$this->load->library('upload', $config);
+
+			if ($this->upload->do_upload('fotoFile')) {
+				// File uploaded successfully
+				$file_path = 'assets/pasFoto/' . $this->upload->data('file_name');
+				// You can do further processing with the file path if needed
+				$this->session->set_flashdata('foto_upload', 'foto_upload');
+			} else {
+				// File upload failed
+				$this->session->set_flashdata('foto_gagal', 'foto_gagal');
+			}
+
+			redirect('Settings/view_operator');
+		} else {
+            // Handle kasus ketika pengguna tidak memiliki hak akses
+            $this->session->set_flashdata('loggin_err', 'loggin_err');
+            redirect('Login/index');
+        }
+	}
 }

@@ -51,6 +51,42 @@
     });
     </script>
     <?php } ?>
+    <?php if ($this->session->flashdata('foto_upload')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Pas Foto Berhasil Diupload!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('foto_gagal')){ ?>
+    <script>
+    swal({
+        title: "Error!",
+        text: "Pas Foto Gagal Diupload!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('ttd_upload')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Tanda Tangan Berhasil Diupload!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('ttd_gagal')){ ?>
+    <script>
+    swal({
+        title: "Error!",
+        text: "Tanda Tangan Gagal Diupload!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -110,7 +146,14 @@
                                         <div class="col-sm-auto text-sm-right">
                                             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                                 <div class="btn-group" role="group" >
-                                                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleTtd">Upload TandaTangan</button>
+                                                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleTtd">Upload Tanda Tangan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-auto text-sm-right">
+                                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                                <div class="btn-group" role="group" >
+                                                    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleFoto">Upload Pas Foto</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -161,9 +204,23 @@
                                                     $imagePath = 'assets/ttd/ttd-ops-' . $operator_item['username'] . '.jpg';
 
                                                     if (!empty($operator_item['username']) && file_exists($imagePath)) {
-                                                        echo 'Tanda Tangan Tersedia.';
+                                                        echo 'Tanda Tangan Tersedia ';echo '<i class="fas fa-check"></i>';
                                                     } else {
-                                                        echo 'Tanda Tangan tidak Tersedia atau ada masalah dengan path/file.';
+                                                        echo 'Tanda Tangan tidak Tersedia atau ada masalah dengan path/file';echo '<i class="fas fa-times" style="color: red;></i>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                 <th>Pas Foto</th><td>:</td>
+                                                 <td>
+                                                    <?php
+                                                    $imagePath = 'assets/pasFoto/pasFoto-ops-' . $operator_item['username'] . '.jpg';
+
+                                                    if (!empty($operator_item['username']) && file_exists($imagePath)) {
+                                                        echo 'Pas Foto Tersedia';echo '<i class="fas fa-check"></i>';
+                                                    } else {
+                                                        echo 'Pas Foto tidak Tersedia atau ada masalah dengan path/file';echo '<i class="fas fa-times" style="color: red;"></i>';
                                                     }
                                                     ?>
                                                 </td>
@@ -209,6 +266,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Inputan TTD --->
             <div class="modal fade" id="exampleTtd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -235,6 +293,48 @@
                         <script>
                         function displayFileName() {
                             var input = document.getElementById('signatureFile');
+                            var label = document.getElementById('fileLabel');
+                            if (input.files.length > 0) {
+                                label.innerText = input.files[0].name;
+                            } else {
+                                label.innerText = 'Choose file';
+                            }
+                        }
+                        </script>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Inputan Pas Foto --->
+            <div class="modal fade" id="exampleFoto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Upload Pas Foto</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        <form action="<?= base_url(); ?>Settings/upload_foto_ops" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="fotoFile">Pilih File</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="fotoFile" name="fotoFile" accept=".png, .jpg, .jpeg" onchange="displayFileName()">
+                                    <label class="custom-file-label" for="fotoFile" id="fileLabel">Pilih File</label>
+                                    <small><b>Ukuran Max 1024 KB</b></small>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
+
+                        <script>
+                        function displayFileName() {
+                            var input = document.getElementById('fotoFile');
                             var label = document.getElementById('fileLabel');
                             if (input.files.length > 0) {
                                 label.innerText = input.files[0].name;

@@ -148,10 +148,10 @@
                                                     if (file_exists($imagePath)) {
 
                                                         // Display the image
-                                                        echo 'Tanda Tangan Tersedia';
+                                                        echo 'Tanda Tangan Tersedia ';echo '<i class="fas fa-check"></i>';
                                                     } else {
                                                         // Show an error message if the file doesn't exist
-                                                        echo 'Tanda Tangan tidak Tersedia atau ada masalah dengan path/file.';
+                                                        echo 'Tanda Tangan tidak Tersedia atau ada masalah dengan path/file '; echo '<i class="fas fa-times"></i>';
                                                     }
                                                     ?>
                                                 </td>

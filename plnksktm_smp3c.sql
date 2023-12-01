@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 30, 2023 at 04:03 PM
+-- Generation Time: Dec 01, 2023 at 03:39 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -138,7 +138,8 @@ INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `st
 (46, '1231231PKY', '2023-11-14', '2'),
 (67, '1231232PKY', '2023-11-20', '1'),
 (95, '1231231BJM', '2023-11-30', '5'),
-(96, '1231231BJM', '2023-11-15', '3');
+(96, '1231231BJM', '2023-11-15', '3'),
+(100, '1231231BJM', '2023-12-01', '5');
 
 -- --------------------------------------------------------
 
@@ -852,7 +853,7 @@ ALTER TABLE `operator_level`
 -- AUTO_INCREMENT for table `status_absensi`
 --
 ALTER TABLE `status_absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`
