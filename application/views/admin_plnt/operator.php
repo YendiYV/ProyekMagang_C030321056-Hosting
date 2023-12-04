@@ -105,15 +105,16 @@
                                     <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th style="background-color: #87CEFA;">NIP</th>
-                                                <th style="background-color: #87CEFA;">Nama Lengkap</th>
-                                                <th style="background-color: #87CEFA;">NIK</th>
-                                                <th style="background-color: #87CEFA;">Jabatan</th>
-                                                <th style="background-color: #87CEFA;">Penempatan</th>
-                                                <th style="background-color: #87CEFA;">Alamat</th>
-                                                <th style="background-color: #87CEFA;">No. Telp</th>
-                                                <th style="background-color: #87CEFA;">SPK(PCN)</th>
-                                                <th>No. SPK PLNT</th>
+                                                <th>NIP</th>
+                                                <th>Nama Lengkap</th>
+                                                <th>NIK</th>
+                                                <th>Jenis Kelamin</th>
+                                                <th>Jabatan</th>
+                                                <th>Penempatan</th>
+                                                <th>Alamat</th>
+                                                <th>No. Telp</th>
+                                                <th>SPK(PCN)</th>
+                                                <th style="background-color: #87CEFA;">No. SPK PLNT</th>
                                                 <th>No. Sertifikat</th>
                                                 <th>Tanggal Berlaku</th>
                                                 <th>Tanggal Berakhir</th>
@@ -121,6 +122,7 @@
                                                 <th>Kategori</th>
                                                 <th>Wajib / Tidak</th>
                                                 <th>Cetak Fakta Intregitas</th>
+                                                <th>Cetak Format Perpanjangan</th>
                                                 <th>Cetak Format Perpanjangan</th>
                                                 <th>Aksi</th>
                                                 
@@ -137,6 +139,7 @@
                                             $penempatan =$i['nama_penempatan'];
                                             $nama_lengkap = $i['nama_lengkap'];
                                             $nik =$i['nik'];
+                                            $jenis_kelamin = $i['jenis_kelamin'];
                                             $alamat = $i['alamat'];
                                             $no_telp = $i['no_telp'];
                                             $no_spk = $i['no_spk'];
@@ -148,17 +151,29 @@
                                             $kategori = $i['nama_kategori'];
                                             $jenis_wajib = $i['jenis_wajib'];
                                             $kode_wajib = $i['kode_wajib'];
-                                            $date_berlaku = new DateTime($tgl_berlaku);
-                                            $date_berakhir = new DateTime($tgl_berakhir);
-                                            $hari_ini = new DateTime();
-                                            $sisa_hari_objek = $hari_ini->diff($date_berakhir);
-                                            $sisa_hari = $sisa_hari_objek->days +1;
+                                            
+                                            $now = time();
+                                            $date_berakhir = strtotime($i['tgl_berakhir']);
+                                            $datediff = $date_berakhir - $now;
+                                            $date_akhir = round($datediff / (60 * 60 * 24));
+
+                                            $your_date = strtotime($i['tgl_berlaku']);
+                                            $datediff = $now - $your_date;
+                                            $date_mulai = round($datediff / (60 * 60 * 24));
+
+                                            if ($date_mulai >= 0 && $date_akhir >= 0) {
+                                                $sisa_hari = $date_akhir +1; // Subtract 1 day
+                                            } else {
+                                                $sisa_hari = null;
+                                            }
+
                                             ?>
                                             <tr>
                                                 <td><?= $no ?></td>
                                                 <td style="<?= $username ? '' : 'color: red;' ?>"><?= $username ?: "Data Kosong" ?></td>
                                                 <td style="<?= $nama_lengkap ? '' : 'color: red;' ?>"><?= $nama_lengkap ?: "Data Kosong" ?></td>
                                                 <td style="<?= $nik ? '' : 'color: red;' ?>"><?= $nik ?: "Data Kosong" ?></td>
+                                                <td style="<?= $jenis_kelamin ? '' : 'color: red;' ?>"><?= $jenis_kelamin ?: "Data Kosong" ?></td>
                                                 <td style="<?= $jabatan ? '' : 'color: red;' ?>"><?= $jabatan ?: "Data Kosong" ?></td>
                                                 <td style="<?= $penempatan ? '' : 'color: red;' ?>"><?= $penempatan ?: "Data Kosong" ?></td>
                                                 <td style="<?= $alamat ? '' : 'color: red;' ?>"><?= $alamat ?: "Data Kosong" ?></td>
@@ -168,14 +183,13 @@
                                                 <td style="<?= $no_serti ? '' : 'color: red;' ?>"><?= $no_serti ?: "Data Kosong" ?></td>
                                                 <td style="<?= $tgl_berlaku ? '' : 'color: red;' ?>"><?= $tgl_berlaku ? date('d-m-Y', strtotime($tgl_berlaku)) : "Data Kosong" ?></td>
                                                 <td style="<?= $tgl_berakhir ? '' : 'color: red;' ?>"><?= $tgl_berakhir ? date('d-m-Y', strtotime($tgl_berakhir)) : "Data Kosong" ?></td>
-                                                <td style="<?= $sisa_hari ? '' : 'color: red;' ?>"><?= $sisa_hari ?: "Data Kosong" ?></td>
+                                                <td style="<?= $sisa_hari ? '' : 'color: red;' ?>"><?= $sisa_hari ?: "-" ?></td>
                                                 <td style="<?= $kategori ? '' : 'color: red;' ?>"><?= $kategori ?: "Data Kosong" ?></td>
                                                 <td style="<?= $jenis_wajib ? '' : 'color: red;' ?>"><?= $jenis_wajib ?: "Data Kosong" ?></td>
                                                 <td style="text-align: center;">
                                                     <form action="<?php echo base_url()?>Cetak/cetak_fakta_integritas/<?= $username ?>" method="post" enctype="multipart/form-data">
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <input type="hidden" name="username" value="<?php echo $username?>" />
                                                                 <input type="hidden" name="nama_lengkap" value="<?php echo $nama_lengkap?>" />
                                                                 <input type="hidden" name="nik" value="<?php echo $nik?>" />
                                                                 <input type="hidden" name="alamat" value="<?php echo $alamat?>" />
@@ -185,7 +199,19 @@
                                                     </form>   
                                                 </td>
                                                 <td style="text-align: center;">
-                                                    <a href="<?= base_url(); ?>Cetak/cetak_perpanjangan/<?= $username ?>" target="_blank" class="btn btn-info">Cetak</a>
+                                                    <form action="<?php echo base_url()?>Cetak/cetak_perpanjangan/<?= $username ?>" method="post" enctype="multipart/form-data">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <input type="hidden" name="nama_lengkap" value="<?php echo $nama_lengkap?>" />
+                                                                <input type="hidden" name="nik" value="<?php echo $nik?>" />
+                                                                <input type="hidden" name="alamat" value="<?php echo $alamat?>" />
+                                                                <input type="hidden" name="jenis_kelamin" value="<?php echo $jenis_kelamin?>" />
+                                                                <input type="hidden" name="no_telp" value="<?php echo $no_telp?>" />
+                                                                <input type="hidden" name="jabatan" value="<?php echo $jabatan?>" />
+                                                                <button type="submit" class="btn btn-info">Cetak</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>   
                                                 </td>
                                                 <td>
                                                     <div class="table-responsive">

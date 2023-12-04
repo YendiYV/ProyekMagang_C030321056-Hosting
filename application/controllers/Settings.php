@@ -11,9 +11,9 @@ class Settings extends CI_Controller {
 
 	public function view_manager()
 	{
-		$id = $this->session->userdata('id_user');
+		$username = $this->session->userdata('username');
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 4) {
-			$data['manager'] = $this->m_user->get_all_operator_setting($id)->result_array();
+			$data['manager'] = $this->m_user->get_all_operator_setting($username)->result_array();
 			$this->load->view('manager/settings',$data);
 		} else {
 			// Handle kasus ketika pengguna tidak memiliki hak akses

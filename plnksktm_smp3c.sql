@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 01, 2023 at 03:39 PM
+-- Generation Time: Dec 04, 2023 at 10:37 AM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -135,11 +135,7 @@ CREATE TABLE `status_absensi` (
 --
 
 INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `status_absen`) VALUES
-(46, '1231231PKY', '2023-11-14', '2'),
-(67, '1231232PKY', '2023-11-20', '1'),
-(95, '1231231BJM', '2023-11-30', '5'),
-(96, '1231231BJM', '2023-11-15', '3'),
-(100, '1231231BJM', '2023-12-01', '5');
+(105, '1231231BJM', '2023-12-04', '5');
 
 -- --------------------------------------------------------
 
@@ -591,12 +587,12 @@ INSERT INTO `user` (`username`, `password`, `id_user_level`) VALUES
 --
 
 CREATE TABLE `user_detail` (
+  `nip` varchar(10) NOT NULL,
   `nama_lengkap` varchar(30) DEFAULT NULL,
   `nik` varchar(20) NOT NULL,
   `id_jenis_kelamin` int(12) DEFAULT NULL,
   `no_telp` varchar(30) DEFAULT NULL,
   `alamat` text DEFAULT NULL,
-  `nip` varchar(10) NOT NULL,
   `proyek` int(12) DEFAULT NULL,
   `jabatan` int(12) DEFAULT NULL,
   `penempatan` int(11) DEFAULT NULL,
@@ -622,22 +618,22 @@ CREATE TABLE `user_detail` (
 -- Dumping data for table `user_detail`
 --
 
-INSERT INTO `user_detail` (`nama_lengkap`, `nik`, `id_jenis_kelamin`, `no_telp`, `alamat`, `nip`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `komunikasi`, `uang_hadir`, `kontribusi`, `insentif`, `tanggal_masuk`, `jumlah_cuti`, `no_spk`, `spk`, `no_serti`, `tgl_berlaku`, `tgl_berakhir`, `kategori`, `kode_wajib`) VALUES
-('Udin', '62130302010002', 1, '0812', 'Jl. Karamunting', '1231231BJM', 1, 1, 13, 1, 2, 3, 3, 2, 3, 5, '2012-11-27', 6, '0029.PJ/DAN.01.03/C49000000/2023', '0026.PJ/KIT.02.03/DIR-TRK/2019', '1771.0.28.P042.09.2020', '2023-11-01', '2023-11-30', 1, 1),
-('Yendi', '', 1, '0812345678', 'Jl. Listrik 2', '1231231PKY', 2, 15, NULL, 3, 1, 3, 2, 2, 3, 5, '2023-11-23', 6, '', '', '', '2023-11-01', '2023-12-02', 1, 1),
-('RENDI', '62130', 1, '08123', 'Jl. Hasan Basri', '1231232BJM', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
-('Rahmat', '', 1, '0812345678', 'Jl. Pengayaan', '1231232PKY', 1, 1, NULL, 1, 1, 1, 2, 2, 2, 3, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
-('Rendi', '', 1, '90987654', 'Jl. Hasan Basri', '1231233BJM', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
-('Fitri', '', 2, '0876543', 'Jl. Negara', '1231233PKY', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
-('Jamal', '', 1, '09876543', 'Jl. Hasan Basri', '1231234BJM', 1, 15, NULL, 1, 1, 3, 3, 2, 3, 4, '2023-06-01', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
-('Budi', '', 1, '09876543', 'Jl. Karamunting', '1231234PKY', 2, 13, NULL, 3, 1, 1, 2, 2, 2, 3, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
-('Amat', '', 1, '098765', 'Jl. Hasan Basri', '1231235BJM', 1, 1, NULL, 1, 1, 5, 0, 0, 0, 0, '2023-10-02', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
-('Asep', '', 1, '0812345678', 'Jl. Karamunting', '1231236PKY', 0, 1, NULL, 3, 2, 1, 2, 2, 0, 3, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
-('Tet', '', 2, '0987654', 'Jl. LN 2', '1231237PKY', 0, 1, NULL, 1, 3, 3, 2, 2, 2, 3, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 1, 0),
-('Admin', '', 1, NULL, NULL, '1234567ADM', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
-('Maulana Rizman Muttaqin', '', 1, NULL, NULL, '1234567MNJ', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
-('Admin PLNT', '', 2, NULL, NULL, '1234567PLT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
-('Nama Supervisior', '', 1, NULL, NULL, '1234567SPV', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0);
+INSERT INTO `user_detail` (`nip`, `nama_lengkap`, `nik`, `id_jenis_kelamin`, `no_telp`, `alamat`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `komunikasi`, `uang_hadir`, `kontribusi`, `insentif`, `tanggal_masuk`, `jumlah_cuti`, `no_spk`, `spk`, `no_serti`, `tgl_berlaku`, `tgl_berakhir`, `kategori`, `kode_wajib`) VALUES
+('1231231BJM', 'Udin', '62130302010002', 1, '0812', 'Jl. Karamunting', 1, 1, 13, 1, 2, 3, 3, 2, 3, 5, '2012-11-27', 6, '0029.PJ/DAN.01.03/C49000000/2023', '0026.PJ/KIT.02.03/DIR-TRK/2019', '1771.0.28.P042.09.2020', '2023-11-01', '2023-11-30', 1, 1),
+('1231231PKY', 'Yendi', '', 1, '0812345678', 'Jl. Listrik 2', 2, 15, NULL, 3, 1, 3, 2, 2, 3, 5, '2023-11-23', 6, '', '', '', '2023-11-01', '2023-12-05', 1, 1),
+('1231232BJM', 'RENDI', '62130', 1, '08123', 'Jl. Hasan Basri', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('1231232PKY', 'Rahmat', '', 1, '0812345678', 'Jl. Pengayaan', 1, 1, NULL, 1, 1, 1, 2, 2, 2, 3, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('1231233BJM', 'Rendi', '', 1, '90987654', 'Jl. Hasan Basri', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('1231233PKY', 'Fitri', '', 2, '0876543', 'Jl. Negara', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('1231234BJM', 'Jamal', '', 1, '09876543', 'Jl. Hasan Basri', 1, 15, NULL, 1, 1, 3, 3, 2, 3, 4, '2023-06-01', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('1231234PKY', 'Budi', '', 1, '09876543', 'Jl. Karamunting', 2, 13, NULL, 3, 1, 1, 2, 2, 2, 3, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('1231235BJM', 'Amat', '', 1, '098765', 'Jl. Hasan Basri', 1, 1, NULL, 1, 1, 5, 0, 0, 0, 0, '2023-10-02', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('1231236PKY', 'Asep', '', 1, '0812345678', 'Jl. Karamunting', 0, 1, NULL, 3, 2, 1, 2, 2, 0, 3, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('1231237PKY', 'Tet', '', 2, '0987654', 'Jl. LN 2', 0, 1, NULL, 1, 3, 3, 2, 2, 2, 3, '2023-11-20', 0, '', '', '', '0000-00-00', '0000-00-00', 1, 0),
+('1234567ADM', 'Admin', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('1234567MNJ', 'Maulana Rizman Muttaqin', '', 1, '082156090440', NULL, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('1234567PLT', 'Admin PLNT', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', '0000-00-00', '0000-00-00', 0, 0),
+('1234567SPV', 'Nama Supervisior', '', 1, NULL, NULL, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, '', '', '', '0000-00-00', '0000-00-00', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -853,7 +849,7 @@ ALTER TABLE `operator_level`
 -- AUTO_INCREMENT for table `status_absensi`
 --
 ALTER TABLE `status_absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`

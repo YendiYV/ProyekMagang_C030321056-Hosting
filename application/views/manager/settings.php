@@ -129,16 +129,16 @@
                                                 <th>Nama</th><td>:</td><td><?= !empty($manager_item['nama_lengkap']) ? $manager_item['nama_lengkap'] : '-' ?></td>
                                             </tr>
                                             <tr>
-                                                <th>Jenis Kelamin</th><td>:</td><td><?= !empty($manager['jenis_kelamin']) ? $manager_item['jenis_kelamin'] : '-' ?></td>
+                                                <th>NIP</th><td>:</td><td><?= !empty($manager_item['nip']) ? $manager_item['nip'] : '-' ?></td>
                                             </tr>
                                             <tr>
-                                                <th>No. Telepon</th><td>:</td><td><?= !empty($manager_item['no_telp']) ? $manager['no_telp'] : '-' ?></td>
+                                                <th>Jenis Kelamin</th><td>:</td><td><?= !empty($manager_item['jenis_kelamin']) ? $manager_item['jenis_kelamin'] : '-' ?></td>
                                             </tr>
                                             <tr>
-                                                <th>Alamat</th><td>:</td><td><?= !empty($manager['alamat']) ? $manager_item['alamat'] : '-' ?></td>
+                                                <th>No. Telepon</th><td>:</td><td><?= !empty($manager_item['no_telp']) ? $manager_item['no_telp'] : '-' ?></td>
                                             </tr>
                                             <tr>
-                                                <th>NIP</th><td>:</td><td><?= !empty($manager['nip']) ? $manager['nip'] : '-' ?></td>
+                                                <th>Alamat</th><td>:</td><td><?= !empty($manager_item['alamat']) ? $manager_item['alamat'] : '-' ?></td>
                                             </tr>
                                             <tr>
                                                  <th>Tanda Tangan</th><td>:</td>

@@ -121,7 +121,7 @@ class Absensi extends CI_Controller {
 			$this->session->set_flashdata('error', 'error');
 		}
 
-		redirect('Dashboard/dashboard_operator');
+		redirect('Dashboard/view_operator');
 	}
 
 	public function tambah_absensi_pulang() {
@@ -155,7 +155,7 @@ class Absensi extends CI_Controller {
 			$this->session->set_flashdata('error', 'error');
 		}
 
-		redirect('Dashboard/dashboard_operator');
+		redirect('Dashboard/view_operator');
 	}
 
 

@@ -154,7 +154,7 @@
                         <span class="smp3c-char p">P</span>
                         <span class="smp3c-char tiga">3</span>
                         <span class="smp3c-char c">C</span><br>
-                        PLN Tarakan UP2
+                        PLN Nusa Daya UP2
                     </span>
                     
                    <div class="wrap-input100 validate-input" data-validate="Masukkan NIP yang terdiri dari 7 Angka 3 Huruf">

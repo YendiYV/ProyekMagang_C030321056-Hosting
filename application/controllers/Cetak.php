@@ -70,8 +70,10 @@ class Cetak extends CI_Controller {
         $templateProcessor->setValue('tanggal', $tanggal);
         $templateProcessor->setValue('hari', $hari);
 
+        $imagePath = 'assets/ttd/ttd-ops-'.$username.'.jpg';
+        $templateProcessor->setImageValue('ttd_ops', ['path' => $imagePath, 'width' => 160, 'height' => 80]);
         // Nama file output
-        $outputFileName = 'Integritas.docx';
+        $outputFileName = 'Integritas-'.$username.'.docx';
 
         // Set header untuk memberi tahu browser bahwa ini adalah dokumen Word
         header("Content-Disposition: attachment; filename=$outputFileName");
@@ -81,7 +83,53 @@ class Cetak extends CI_Controller {
         $templateProcessor->saveAs('php://output');
     }
 
+    public function cetak_perpanjangan($username)
+    {
+        $nama = $this->input->post("nama_lengkap");
+        $nik = $this->input->post("nik");
+        $alamat = $this->input->post("alamat");
+        $jenis_kelamin = $this->input->post("jenis_kelamin");
+        $no_telp=$this->input->post("no_telp");
+        $jabatan=$this->input->post("jabatan");
 
+        $templatePath = 'assets/plnt/perpanjangan_sertifikat.docx';
 
+        $templateProcessor = new TemplateProcessor($templatePath);
 
+        $templateProcessor->setValue('nama', $nama);
+        $templateProcessor->setValue('nik', $nik);
+        $templateProcessor->setValue('alamat', $alamat);
+        $templateProcessor->setValue('jenis_kelamin', $jenis_kelamin);
+        $templateProcessor->setValue('no_telp', $no_telp);
+        $templateProcessor->setValue('jabatan', $jabatan);
+
+        setlocale(LC_TIME, 'id_ID');
+
+        $tanggal = strftime('%d %B %Y');
+        $hari = strftime('%A');
+
+        $templateProcessor->setValue('tanggal', $tanggal);
+        $templateProcessor->setValue('hari', $hari);
+
+        $imagePath = 'assets/ttd/ttd-ops-'.$username.'.jpg';
+        if (file_exists($imagePath)) {
+            $templateProcessor->setImageValue('ttd_ops', ['path' => $imagePath, 'width' => 160, 'height' => 80]);
+        } else {
+            $templateProcessor->setValue('ttd_ops', ' Data Tidak Tersedia');
+        }
+
+        $pasFoto = 'assets/pasFoto/pasFoto-ops-'.$username.'.jpg';
+        if (file_exists($pasFoto)) {
+            $templateProcessor->setImageValue('pasFoto_ops', ['path' => $pasFoto, 'width' => 160, 'height' => 213]);
+        } else {
+            $templateProcessor->setValue('pasFoto_ops', ' Data Tidak Tersedia');
+        }
+    
+        $outputFileName = 'Perpanpanjangan Sertifikat-'.$username.'.docx';
+
+        header("Content-Disposition: attachment; filename=$outputFileName");
+        header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+
+        $templateProcessor->saveAs('php://output');
+    }
 }

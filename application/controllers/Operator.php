@@ -116,7 +116,7 @@ class operator extends CI_Controller {
 	public function edit_data_plnt()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 5) {
-			$id_user = $this->input->post("id_user");
+			$username = $this->input->post("username");
 			$no_spk = $this->input->post("no_spk");
 			$spk = $this->input->post("spk");
 			$no_serti = $this->input->post("no_serti");
@@ -125,7 +125,7 @@ class operator extends CI_Controller {
 			$id_kategori = $this->input->post("id_kategori");
 			$id_wajib= $this->input->post("id_wajib");
 			$this->session->set_flashdata('edit','edit');
-			$hasil = $this->m_user->update_data_plnt($id_user,$no_spk,$spk,$no_serti,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib);
+			$hasil = $this->m_user->update_data_plnt($username,$no_spk,$spk,$no_serti,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib);
 			redirect($_SERVER['HTTP_REFERER']);
 		}else{
 			$this->session->set_flashdata('loggin_err','loggin_err');
