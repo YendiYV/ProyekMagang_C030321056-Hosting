@@ -29,6 +29,16 @@
     });
     </script>
     <?php } ?>
+    <?php if ($this->session->flashdata('error_edit')){ ?>
+    <script>
+    swal({
+        title: "Error!",
+        text: "Data Gagal Diedit!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -116,11 +126,16 @@
                                                 <th>SPK(PCN)</th>
                                                 <th style="background-color: #87CEFA;">No. SPK PLNT</th>
                                                 <th>No. Sertifikat</th>
+                                                <th>No. Registrasi</th>
                                                 <th>Tanggal Berlaku</th>
                                                 <th>Tanggal Berakhir</th>
                                                 <th>Sisa Hari</th>
                                                 <th>Kategori</th>
                                                 <th>Wajib / Tidak</th>
+                                                <th>Kegiatan 1</th>
+                                                <th>Kegiatan 2</th>
+                                                <th>Kegiatan 3</th>
+                                                <th>Kegiatan 4</th>
                                                 <th>Cetak Fakta Intregitas</th>
                                                 <th>Cetak Format Perpanjangan</th>
                                                 <th>Cetak Format Perpanjangan</th>
@@ -145,13 +160,19 @@
                                             $no_spk = $i['no_spk'];
                                             $spk = $i['spk'];
                                             $no_serti = $i['no_serti'];
+                                            $no_regis = $i['no_regis'];
                                             $tgl_berlaku = $i['tgl_berlaku'];
                                             $tgl_berakhir = $i['tgl_berakhir'];
                                             $user_kategori = $i['kategori'];
                                             $kategori = $i['nama_kategori'];
                                             $jenis_wajib = $i['jenis_wajib'];
                                             $kode_wajib = $i['kode_wajib'];
-                                            
+
+                                            $kegiatan1 = $i['kegiatan1'];
+                                            $kegiatan2 = $i['kegiatan2'];
+                                            $kegiatan3 = $i['kegiatan3'];
+                                            $kegiatan4 = $i['kegiatan4'];
+
                                             $now = time();
                                             $date_berakhir = strtotime($i['tgl_berakhir']);
                                             $datediff = $date_berakhir - $now;
@@ -181,11 +202,16 @@
                                                 <td style="<?= $spk ? '' : 'color: red;' ?>"><?= $spk ?: "Data Kosong" ?></td>
                                                 <td style="<?= $no_spk ? '' : 'color: red;' ?>"><?= $no_spk ?: "Data Kosong" ?></td>
                                                 <td style="<?= $no_serti ? '' : 'color: red;' ?>"><?= $no_serti ?: "Data Kosong" ?></td>
+                                                <td style="<?= $no_regis ? '' : 'color: red;' ?>"><?= $no_regis ?: "Data Kosong" ?></td>
                                                 <td style="<?= $tgl_berlaku ? '' : 'color: red;' ?>"><?= $tgl_berlaku ? date('d-m-Y', strtotime($tgl_berlaku)) : "Data Kosong" ?></td>
                                                 <td style="<?= $tgl_berakhir ? '' : 'color: red;' ?>"><?= $tgl_berakhir ? date('d-m-Y', strtotime($tgl_berakhir)) : "Data Kosong" ?></td>
                                                 <td style="<?= $sisa_hari ? '' : 'color: red;' ?>"><?= $sisa_hari ?: "-" ?></td>
                                                 <td style="<?= $kategori ? '' : 'color: red;' ?>"><?= $kategori ?: "Data Kosong" ?></td>
                                                 <td style="<?= $jenis_wajib ? '' : 'color: red;' ?>"><?= $jenis_wajib ?: "Data Kosong" ?></td>
+                                                <td style="<?= $kegiatan1 ? '' : 'color: red;' ?>"><?= $kegiatan1 ?: "Data Kosong" ?></td>
+                                                <td style="<?= $kegiatan2 ? '' : 'color: red;' ?>"><?= $kegiatan2 ?: "Data Kosong" ?></td>
+                                                <td style="<?= $kegiatan3 ? '' : 'color: red;' ?>"><?= $kegiatan3 ?: "Data Kosong" ?></td>
+                                                <td style="<?= $kegiatan4 ? '' : 'color: red;' ?>"><?= $kegiatan4 ?: "Data Kosong" ?></td>
                                                 <td style="text-align: center;">
                                                     <form action="<?php echo base_url()?>Cetak/cetak_fakta_integritas/<?= $username ?>" method="post" enctype="multipart/form-data">
                                                         <div class="row">
@@ -243,15 +269,19 @@
                                                                 <input type="text" value="<?= $username?>" name="username" hidden>
                                                                 <div class="form-group">
                                                                     <label for="no_spk">No. SPK (PLN-T)</label>
-                                                                    <input type="text" class="form-control" id="no_spk" aria-describedby="no_spk" name="no_spk" value="<?= $no_spk ?>">
+                                                                    <input type="text" class="form-control" id="no_spk" aria-describedby="no_spk" name="no_spk" value="<?= $no_spk ?>" placeholder="Inputkan No. SPK dari PLN-T">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="spk">SPK(PCN)</label>
-                                                                    <input type="text" class="form-control" id="spk" aria-describedby="spk" name="spk" value="<?= $spk ?>">
+                                                                    <input type="text" class="form-control" id="spk" aria-describedby="spk" name="spk" value="<?= $spk ?>" placeholder="Inputkan No.SPK dari PCN">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="no_serti">No. Sertifikasi</label>
-                                                                    <input type="text" class="form-control" id="no_serti" name="no_serti" value="<?= $no_serti?>" >
+                                                                    <input type="text" class="form-control" id="no_serti" name="no_serti" value="<?= $no_serti?>" placeholder="Input No. Sertifikat">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="no_regis">No. Registrasi</label>
+                                                                    <input type="text" class="form-control" id="no_regis" name="no_regis" value="<?= $no_regis?>" placeholder="Input No. Registrasi">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="tgl_berlaku">Tanggal Berlaku</label>
@@ -265,6 +295,7 @@
                                                                 <div class="form-group">
                                                                     <label for="id_kategori">Kategori</label>
                                                                     <select class="form-control" id="id_kategori" name="id_kategori" >
+                                                                        <option value="null">Tidak Ada</option>
                                                                         <?php foreach($data_kategori as $dk) : ?>
                                                                             <?php
                                                                             $id = $dk["id_kategori"];
@@ -283,6 +314,7 @@
                                                                 <div class="form-group">
                                                                     <label for="$id_wajib">Wajib / Tidak Wajib</label>
                                                                     <select class="form-control" id="id_wajib" name="id_wajib">
+                                                                        <option value="null">Tidak Ada</option>
                                                                         <?php foreach($data_wajib as $w)
                                                                         :
                                                                         $id = $w["id_wajib"];
@@ -298,6 +330,22 @@
 
                                                                         <?php endforeach?>
                                                                     </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="kegiatan1">Kegiatan 1</label>
+                                                                    <input type="text" class="form-control" id="kegiatan1" name="kegiatan1" value="<?= $kegiatan1?>" placeholder="Inputkan Kegiatan 1 Operator" >
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="kegiatan2">Kegiatan 2</label>
+                                                                    <input type="text" class="form-control" id="kegiatan2" name="kegiatan2" value="<?= $kegiatan2?>" placeholder="Inputkan Kegiatan 2 Operator" >
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="kegiatan3">Kegiatan 3</label>
+                                                                    <input type="text" class="form-control" id="kegiatan3" name="kegiatan3" value="<?= $kegiatan3?>" placeholder="Inputkan Kegiatan 3 Operator" >
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="kegiatan4">Kegiatan 4</label>
+                                                                    <input type="text" class="form-control" id="kegiatan4" name="kegiatan4" value="<?= $kegiatan4?>" placeholder="Inputkan Kegiatan 4 Operator" >
                                                                 </div>
                                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                                             </form>

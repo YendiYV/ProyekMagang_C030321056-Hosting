@@ -50,6 +50,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= base_url(); ?>Form_Kegiatan/view_operator" class="nav-link">
+                        <i class="nav-icon fas fa-plug"></i>
+                        <p>Form Kegiatan Operator</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= base_url();?>Settings/view_operator" class="nav-link">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>Settings</p>

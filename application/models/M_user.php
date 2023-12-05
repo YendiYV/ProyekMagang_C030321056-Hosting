@@ -82,10 +82,10 @@ class M_user extends CI_Model
         return $hasil;
     }
 
-    public function get_operator_by_id($id_user)
+    public function get_operator_by_id($username)
     {
         $hasil = $this->db->query("SELECT * FROM user JOIN user_detail ON user.username = user_detail.nip 
-        WHERE user.username='$id_user'");
+        WHERE user.username='$username'");
         return $hasil;
     }
 
@@ -105,11 +105,8 @@ class M_user extends CI_Model
         $this->db->trans_start();
         $query = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username'");
         if ($query->num_rows() == 0) {   
-            // Insert data ke tabel 'user'
             $this->db->query("INSERT INTO user(username, password, id_user_level) VALUES ( '$username', '$password', '$id_user_level')");
-            // Insert data ke tabel 'user_detail' termasuk jabatan dan tanggal_masuk
             $this->db->query("INSERT INTO user_detail(nama_lengkap,nik, id_jenis_kelamin, no_telp, alamat,spk, proyek, nip, jabatan,penempatan,bpk,delta,transport,komunikasi,uang_hadir,kontribusi,insentif, tanggal_masuk ) VALUES ('$nama_lengkap', '$nik','$id_jenis_kelamin', '$no_telp', '$alamat','$spk', '$proyek', '$username', '$jabatan','$penempatan', '$bpk','$delta','$transport' ,'$komunikasi','$uang_hadir','$kontribusi','$insentif','$tanggal_masuk')");
-            // Insert data ke tabel 'status_insfeksi'
             $this->db->query("INSERT INTO status_insfeksi(nip) VALUES ('$username')");
             
             $this->db->trans_complete();
@@ -124,7 +121,6 @@ class M_user extends CI_Model
     {
         $this->db->trans_start();
         $this->db->query("UPDATE user SET username='$username',password='$password', id_user_level='$id_user_level' WHERE username='$username'");
-        // NIP ada, lakukan update di tabel user_detail
         $this->db->query("UPDATE user_detail SET nama_lengkap='$nama_lengkap',nik='$nik' , id_jenis_kelamin='$id_jenis_kelamin', no_telp='$no_telp', nip='$username', alamat='$alamat',spk='$spk', jabatan='$jabatan', penempatan='$penempatan', bpk='$bpk', delta='$delta', transport='$transport',komunikasi='$komunikasi',uang_hadir='$uang_hadir',kontribusi='$kontribusi',insentif='$insentif', proyek='$id_status_proyek', tanggal_masuk='$tanggal_masuk' WHERE nip='$username'");
 
         $this->db->trans_complete();
@@ -163,10 +159,16 @@ class M_user extends CI_Model
             return false;
     }
 
-    public function update_data_plnt($username,$no_spk,$spk,$no_serti,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib)
+    public function update_data_plnt($username,$no_spk,$spk,$no_serti,$no_regis,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib,$k1,$k2,$k3,$k4)
     {
         $this->db->trans_start();  
-        $this->db->query("UPDATE user_detail SET  no_spk='$no_spk',spk='$spk' ,no_serti='$no_serti',tgl_berlaku='$tgl_berlaku' , tgl_berakhir='$tgl_berakhir',kategori='$id_kategori',kode_wajib='$id_wajib' WHERE nip='$username'");
+        $this->db->query("UPDATE user_detail SET  no_spk='$no_spk',spk='$spk' ,no_serti='$no_serti',no_regis='$no_regis',tgl_berlaku='$tgl_berlaku' , tgl_berakhir='$tgl_berakhir',kategori='$id_kategori',kode_wajib='$id_wajib' ,kegiatan1 = '$k1', kegiatan2 = '$k2' , kegiatan3 = '$k3', kegiatan4 = '$k4' WHERE nip='$username'");
+        $this->db->trans_complete();
+    }
+
+    public function update_data_kegiatan($username,$kegiatan1,$kegiatan2,$kegiatan3,$kegiatan4){
+        $this->db->trans_start();  
+        $this->db->query("UPDATE user_detail SET  kegiatan1='$kegiatan1',kegiatan2='$kegiatan2' ,kegiatan3='$kegiatan3' , kegiatan4='$kegiatan4' WHERE nip='$username'");
         $this->db->trans_complete();
     }
 }

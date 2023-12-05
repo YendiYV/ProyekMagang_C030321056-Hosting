@@ -120,12 +120,23 @@ class operator extends CI_Controller {
 			$no_spk = $this->input->post("no_spk");
 			$spk = $this->input->post("spk");
 			$no_serti = $this->input->post("no_serti");
+			$no_regis = $this->input->post("no_regis");
 			$tgl_berlaku = $this->input->post("tgl_berlaku");
 			$tgl_berakhir = $this->input->post("tgl_berakhir");
 			$id_kategori = $this->input->post("id_kategori");
 			$id_wajib= $this->input->post("id_wajib");
-			$this->session->set_flashdata('edit','edit');
-			$hasil = $this->m_user->update_data_plnt($username,$no_spk,$spk,$no_serti,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib);
+			$k1= $this->input->post("kegiatan1");
+			$k2= $this->input->post("kegiatan2");
+			$k3= $this->input->post("kegiatan3");
+			$k4= $this->input->post("kegiatan4");
+
+
+			$hasil = $this->m_user->update_data_plnt($username,$no_spk,$spk,$no_serti,$no_regis,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib,$k1,$k2,$k3,$k4);
+			if ($hasil) {
+				$this->session->set_flashdata('error_edit', 'error_edit');
+			} else {
+				$this->session->set_flashdata('edit', 'edit');
+			}
 			redirect($_SERVER['HTTP_REFERER']);
 		}else{
 			$this->session->set_flashdata('loggin_err','loggin_err');
