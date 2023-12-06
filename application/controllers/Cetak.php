@@ -91,17 +91,27 @@ class Cetak extends CI_Controller {
         $jenis_kelamin = $this->input->post("jenis_kelamin");
         $no_telp=$this->input->post("no_telp");
         $jabatan=$this->input->post("jabatan");
-
+        $no_regis = $this->input->post("no_regis");
+        $kegiatan1 = $this->input->post("kegiatan1");
+        $kegiatan2 = $this->input->post("kegiatan2");
+        $kegiatan3 = $this->input->post("kegiatan3");
+        $kegiatan4 = $this->input->post("kegiatan4");
+        
         $templatePath = 'assets/plnt/perpanjangan_sertifikat.docx';
 
-        $templateProcessor = new TemplateProcessor($templatePath);
+        $templateProcessor = new TemplateProcessor($templatePath, true, 'UTF-8');
 
-        $templateProcessor->setValue('nama', $nama);
-        $templateProcessor->setValue('nik', $nik);
-        $templateProcessor->setValue('alamat', $alamat);
-        $templateProcessor->setValue('jenis_kelamin', $jenis_kelamin);
-        $templateProcessor->setValue('no_telp', $no_telp);
-        $templateProcessor->setValue('jabatan', $jabatan);
+        $templateProcessor->setValue('nama', $nama ? $nama : '-');
+        $templateProcessor->setValue('nik', $nik ? $nik : '-');
+        $templateProcessor->setValue('alamat', $alamat ? $alamat : '-');
+        $templateProcessor->setValue('jenis_kelamin', $jenis_kelamin ? $jenis_kelamin : '-');
+        $templateProcessor->setValue('no_telp', $no_telp ? $no_telp : '-');
+        $templateProcessor->setValue('jabatan', $jabatan ? $jabatan : '-');
+        $templateProcessor->setValue('no_regis', $no_regis ? $no_regis : '-');
+        $templateProcessor->setValue('kegiatan1', $kegiatan1 ? $kegiatan1 : '-');
+        $templateProcessor->setValue('kegiatan2', $kegiatan2 ? $kegiatan2 : '-');
+        $templateProcessor->setValue('kegiatan3', $kegiatan3 ? $kegiatan3 : '-');
+        $templateProcessor->setValue('kegiatan4', $kegiatan4 ? $kegiatan4 : '-');
 
         setlocale(LC_TIME, 'id_ID');
 
@@ -113,23 +123,155 @@ class Cetak extends CI_Controller {
 
         $imagePath = 'assets/ttd/ttd-ops-'.$username.'.jpg';
         if (file_exists($imagePath)) {
-            $templateProcessor->setImageValue('ttd_ops', ['path' => $imagePath, 'width' => 160, 'height' => 80]);
+            $templateProcessor->setImageValue('ttd_ops', ['path' => $imagePath, 'width' => 150, 'height' => 75]);
         } else {
-            $templateProcessor->setValue('ttd_ops', ' Data Tidak Tersedia');
+            $templateProcessor->setValue('ttd_ops', '-');
         }
 
         $pasFoto = 'assets/pasFoto/pasFoto-ops-'.$username.'.jpg';
         if (file_exists($pasFoto)) {
             $templateProcessor->setImageValue('pasFoto_ops', ['path' => $pasFoto, 'width' => 160, 'height' => 213]);
         } else {
-            $templateProcessor->setValue('pasFoto_ops', ' Data Tidak Tersedia');
+            $templateProcessor->setValue('pasFoto_ops', '-');
         }
-    
+
+        $kegiatan1 = 'assets/kegiatan/k1-ops-'.$username.'.jpg';
+        if (file_exists($kegiatan1)) {
+            $templateProcessor->setImageValue('kegiatan1_ops', ['path' => $kegiatan1, 'width' => 160, 'height' => 80]);
+        } else {
+            $templateProcessor->setValue('kegiatan1_ops', '-');
+        }
+
+        $kegiatan2 = 'assets/kegiatan/k2-ops-'.$username.'.jpg';
+        if (file_exists($kegiatan2)) {
+            $templateProcessor->setImageValue('kegiatan2_ops', ['path' => $kegiatan2, 'width' => 160, 'height' => 80]);
+        } else {
+            $templateProcessor->setValue('kegiatan2_ops', ' -');
+        }
+
+        $kegiatan3 = 'assets/kegiatan/k3-ops-'.$username.'.jpg';
+        if (file_exists($kegiatan3)) {
+            $templateProcessor->setImageValue('kegiatan3_ops', ['path' => $kegiatan3, 'width' => 160, 'height' => 80]);
+        } else {
+            $templateProcessor->setValue('kegiatan3_ops', '-');
+        }
+
+        $kegiatan4 = 'assets/kegiatan/k4-ops-'.$username.'.jpg';
+        if (file_exists($kegiatan4)) {
+            $templateProcessor->setImageValue('kegiatan4_ops', ['path' => $kegiatan4, 'width' => 160, 'height' => 80]);
+        } else {
+            $templateProcessor->setValue('kegiatan4_ops', '-');
+        }
+
         $outputFileName = 'Perpanpanjangan Sertifikat-'.$username.'.docx';
 
         header("Content-Disposition: attachment; filename=$outputFileName");
         header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        $templateProcessor->saveAs('php://output');
+    }
 
+    public function bukti_visual($username)
+    {
+        $kegiatan1 = $this->input->post("kegiatan1");
+        $kegiatan2 = $this->input->post("kegiatan2");
+        $kegiatan3 = $this->input->post("kegiatan3");
+        $kegiatan4 = $this->input->post("kegiatan4");
+        
+        $templatePath = 'assets/plnt/bukti_visual.docx';
+
+        $templateProcessor = new TemplateProcessor($templatePath, true, 'UTF-8');
+
+        $templateProcessor->setValue('username', $username ? $username : '-');
+        $templateProcessor->setValue('kegiatan1', $kegiatan1 ? $kegiatan1 : '-');
+        $templateProcessor->setValue('kegiatan2', $kegiatan2 ? $kegiatan2 : '-');
+        $templateProcessor->setValue('kegiatan3', $kegiatan3 ? $kegiatan3 : '-');
+        $templateProcessor->setValue('kegiatan4', $kegiatan4 ? $kegiatan4 : '-');
+
+        $kegiatan1 = 'assets/kegiatan/k1-ops-'.$username.'.jpg';
+        if (file_exists($kegiatan1)) {
+            $templateProcessor->setImageValue('kegiatan1_ops', ['path' => $kegiatan1, 'width' => 300, 'height' =>150]);
+        } else {
+            $templateProcessor->setValue('kegiatan1_ops', '-');
+        }
+
+        $kegiatan2 = 'assets/kegiatan/k2-ops-'.$username.'.jpg';
+        if (file_exists($kegiatan2)) {
+            $templateProcessor->setImageValue('kegiatan2_ops', ['path' => $kegiatan2, 'width' => 300, 'height' =>150]);
+        } else {
+            $templateProcessor->setValue('kegiatan2_ops', ' -');
+        }
+
+        $kegiatan3 = 'assets/kegiatan/k3-ops-'.$username.'.jpg';
+        if (file_exists($kegiatan3)) {
+            $templateProcessor->setImageValue('kegiatan3_ops', ['path' => $kegiatan3, 'width' => 300, 'height' => 150]);
+        } else {
+            $templateProcessor->setValue('kegiatan3_ops', '-');
+        }
+
+        $kegiatan4 = 'assets/kegiatan/k4-ops-'.$username.'.jpg';
+        if (file_exists($kegiatan4)) {
+            $templateProcessor->setImageValue('kegiatan4_ops', ['path' => $kegiatan4, 'width' => 300, 'height' => 150]);
+        } else {
+            $templateProcessor->setValue('kegiatan4_ops', '-');
+        }
+
+        $outputFileName = 'Bukti Visual-'.$username.'.docx';
+
+        header("Content-Disposition: attachment; filename=$outputFileName");
+        header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        $templateProcessor->saveAs('php://output');
+    }
+
+    public function bukti_visual_ops()
+    {
+        $username = $this->input->post("username");
+        $kegiatan1 = $this->input->post("kegiatan1");
+        $kegiatan2 = $this->input->post("kegiatan2");
+        $kegiatan3 = $this->input->post("kegiatan3");
+        $kegiatan4 = $this->input->post("kegiatan4");
+        
+        $templatePath = 'assets/plnt/bukti_visual.docx';
+
+        $templateProcessor = new TemplateProcessor($templatePath, true, 'UTF-8');
+
+        $templateProcessor->setValue('username', $username ? $username : '-');
+        $templateProcessor->setValue('kegiatan1', $kegiatan1 ? $kegiatan1 : '-');
+        $templateProcessor->setValue('kegiatan2', $kegiatan2 ? $kegiatan2 : '-');
+        $templateProcessor->setValue('kegiatan3', $kegiatan3 ? $kegiatan3 : '-');
+        $templateProcessor->setValue('kegiatan4', $kegiatan4 ? $kegiatan4 : '-');
+
+        $kegiatan1 = 'assets/kegiatan/k1-ops-'.$username.'.jpg';
+        if (file_exists($kegiatan1)) {
+            $templateProcessor->setImageValue('kegiatan1_ops', ['path' => $kegiatan1, 'width' => 300, 'height' =>150]);
+        } else {
+            $templateProcessor->setValue('kegiatan1_ops', '-');
+        }
+
+        $kegiatan2 = 'assets/kegiatan/k2-ops-'.$username.'.jpg';
+        if (file_exists($kegiatan2)) {
+            $templateProcessor->setImageValue('kegiatan2_ops', ['path' => $kegiatan2, 'width' => 300, 'height' =>150]);
+        } else {
+            $templateProcessor->setValue('kegiatan2_ops', ' -');
+        }
+
+        $kegiatan3 = 'assets/kegiatan/k3-ops-'.$username.'.jpg';
+        if (file_exists($kegiatan3)) {
+            $templateProcessor->setImageValue('kegiatan3_ops', ['path' => $kegiatan3, 'width' => 300, 'height' => 150]);
+        } else {
+            $templateProcessor->setValue('kegiatan3_ops', '-');
+        }
+
+        $kegiatan4 = 'assets/kegiatan/k4-ops-'.$username.'.jpg';
+        if (file_exists($kegiatan4)) {
+            $templateProcessor->setImageValue('kegiatan4_ops', ['path' => $kegiatan4, 'width' => 300, 'height' => 150]);
+        } else {
+            $templateProcessor->setValue('kegiatan4_ops', '-');
+        }
+
+        $outputFileName = 'Bukti Visual-'.$username.'.docx';
+
+        header("Content-Disposition: attachment; filename=$outputFileName");
+        header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
         $templateProcessor->saveAs('php://output');
     }
 }

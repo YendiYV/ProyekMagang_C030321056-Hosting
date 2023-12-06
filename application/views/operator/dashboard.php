@@ -276,7 +276,7 @@
                                             // Tampilkan tombol-tombol tindakan jika waktu berada dalam rentang
                                             echo '<div class="small-box-buttons text-center mt-3">
                                                 <form action="' . base_url() . 'absensi/tambah_absensi_masuk" method="POST">
-                                                    <input type="text" value="' . $this->session->userdata('id_user') . '" name="id_user" hidden>
+                                                    <input type="text" value="' . $this->session->userdata('username') . '" name="username" hidden>
                                                     <button class="btn btn-primary mx-2" type="submit" name="action" value="hadir">Hadir</button>
                                                     <button class="btn btn-danger mx-2" type="submit" name="action" value="sakit">Sakit</button>
                                                     <button class="btn btn-warning mx-2" type of="submit" name="action" value="ijin">Ijin</button>

@@ -6,8 +6,6 @@ class Form_Kegiatan extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('m_user');
-		$this->load->library('upload');
-
 	}
     public function view_operator()
 	{
@@ -41,49 +39,150 @@ class Form_Kegiatan extends CI_Controller {
 		}
 	}
 
-	public function upload_foto_kegiatan() {
-		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 1) {
-			$username = $this->session->userdata('username');
-			$config['upload_path']   = FCPATH . 'assets/kegiatan/';
-			$config['allowed_types'] = 'jpg|jpeg|png';
-			$config['max_size']      = 1024;
-			$config['overwrite']     = TRUE;
-			$config['file_name1']    = 'fotoKegiatan1-ops-' . $username . '.jpg';
-			$config['file_name2']    = 'fotoKegiatan2-ops-' . $username . '.jpg';
-			$config['file_name3']    = 'fotoKegiatan3-ops-' . $username . '.jpg';
-			$config['file_name4']    = 'fotoKegiatan4-ops-' . $username . '.jpg';
+	public function upload_kegiatan1()
+	{
+		$username = $this->session->userdata('username');
+		$config['upload_path']   = FCPATH . 'assets/kegiatan/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['max_size']      = 1024;
+		$config['overwrite']     = TRUE; // Set to TRUE to overwrite the file if it already exists
+		$config['file_name']     = 'k1-ops-'.$username.'.jpg'; // Set the desired file name with the file extension
 
-			$this->upload->initialize($config);
+		$this->load->library('upload', $config);
 
-			$file_paths = array();
-
-			// Upload File 1
-			if ($this->upload->do_upload('fotoKegiatan1')) {
-				$file_paths[] = 'assets/kegiatan/' . $this->upload->data('file_name1');
-			}
-
-			// Upload File 2
-			if ($this->upload->do_upload('fotoKegiatan2')) {
-				$file_paths[] = 'assets/kegiatan/' . $this->upload->data('file_name2');
-			}
-
-			// Upload File 3
-			if ($this->upload->do_upload('fotoKegiatan3')) {
-				$file_paths[] = 'assets/kegiatan/' . $this->upload->data('file_name3');
-			}
-
-			// Upload File 4
-			if ($this->upload->do_upload('fotoKegiatan4')) {
-				$file_paths[] = 'assets/kegiatan/' . $this->upload->data('file_name4');
-			}
-
+		if ($this->upload->do_upload('fotoKegiatan1')) {
+			// File uploaded successfully
+			$file_path = 'assets/kegiatan/' . $this->upload->data('file_name');
+			// You can do further processing with the file path if needed
+			$this->session->set_flashdata('foto_upload', 'foto_upload');
 		} else {
-			
-			$this->session->set_flashdata('loggin_err', 'loggin_err');
-			redirect('Login/index');
+			// File upload failed
+			$this->session->set_flashdata('foto_gagal', 'foto_gagal');
 		}
-		$this->session->set_flashdata('foto_gagal', 'foto_gagal');
+
+		redirect($_SERVER['HTTP_REFERER']);
+	}
+	public function upload_kegiatan2()
+	{
+		$username = $this->session->userdata('username');
+		$config['upload_path']   = FCPATH . 'assets/kegiatan/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['max_size']      = 1024;
+		$config['overwrite']     = TRUE; // Set to TRUE to overwrite the file if it already exists
+		$config['file_name']     = 'k2-ops-'.$username.'.jpg'; // Set the desired file name with the file extension
+
+		$this->load->library('upload', $config);
+
+		if ($this->upload->do_upload('fotoKegiatan2')) {
+			// File uploaded successfully
+			$file_path = 'assets/kegiatan/' . $this->upload->data('file_name');
+			// You can do further processing with the file path if needed
+			$this->session->set_flashdata('foto_upload', 'foto_upload');
+		} else {
+			// File upload failed
+			$this->session->set_flashdata('foto_gagal', 'foto_gagal');
+		}
+
+		redirect($_SERVER['HTTP_REFERER']);
+	}
+	public function upload_kegiatan3()
+	{
+		$username = $this->session->userdata('username');
+		$config['upload_path']   = FCPATH . 'assets/kegiatan/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['max_size']      = 1024;
+		$config['overwrite']     = TRUE; // Set to TRUE to overwrite the file if it already exists
+		$config['file_name']     = 'k3-ops-'.$username.'.jpg'; // Set the desired file name with the file extension
+
+		$this->load->library('upload', $config);
+
+		if ($this->upload->do_upload('fotoKegiatan3')) {
+			// File uploaded successfully
+			$file_path = 'assets/kegiatan/' . $this->upload->data('file_name');
+			// You can do further processing with the file path if needed
+			$this->session->set_flashdata('foto_upload', 'foto_upload');
+		} else {
+			// File upload failed
+			$this->session->set_flashdata('foto_gagal', 'foto_gagal');
+		}
+
+		redirect($_SERVER['HTTP_REFERER']);
+	}
+	public function upload_kegiatan4()
+	{
+		$username = $this->session->userdata('username');
+		$config['upload_path']   = FCPATH . 'assets/kegiatan/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['max_size']      = 1024;
+		$config['overwrite']     = TRUE; // Set to TRUE to overwrite the file if it already exists
+		$config['file_name']     = 'k4-ops-'.$username.'.jpg'; // Set the desired file name with the file extension
+
+		$this->load->library('upload', $config);
+
+		if ($this->upload->do_upload('fotoKegiatan4')) {
+			// File uploaded successfully
+			$file_path = 'assets/kegiatan/' . $this->upload->data('file_name');
+			// You can do further processing with the file path if needed
+			$this->session->set_flashdata('foto_upload', 'foto_upload');
+		} else {
+			// File upload failed
+			$this->session->set_flashdata('foto_gagal', 'foto_gagal');
+		}
+
 		redirect($_SERVER['HTTP_REFERER']);
 	}
 
+
+	public function delete_kegiatan1() {
+		$username = $this->session->userdata('username');
+        $imagePath = FCPATH . 'assets/kegiatan/k1-ops-'.$username . '.jpg';
+
+        if (file_exists($imagePath)) {
+            unlink($imagePath); // Menghapus file dari direktori
+            $this->session->set_flashdata('foto_hapus', 'foto_hapus');
+        } else {
+            $this->session->set_flashdata('foto_gagal_hapus', 'foto_gagal_hapus');
+        }
+
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+	public function delete_kegiatan2() {
+		$username = $this->session->userdata('username');
+        $imagePath = FCPATH . 'assets/kegiatan/k2-ops-'.$username . '.jpg';
+
+        if (file_exists($imagePath)) {
+            unlink($imagePath); // Menghapus file dari direktori
+            $this->session->set_flashdata('foto_hapus', 'foto_hapus');
+        } else {
+            $this->session->set_flashdata('foto_gagal_hapus', 'foto_gagal_hapus');
+        }
+
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+	public function delete_kegiatan3() {
+		$username = $this->session->userdata('username');
+        $imagePath = FCPATH . 'assets/kegiatan/k3-ops-'.$username . '.jpg';
+
+        if (file_exists($imagePath)) {
+            unlink($imagePath); // Menghapus file dari direktori
+            $this->session->set_flashdata('foto_hapus', 'foto_hapus');
+        } else {
+            $this->session->set_flashdata('foto_gagal_hapus', 'foto_gagal_hapus');
+        }
+
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+	public function delete_kegiatan4() {
+		$username = $this->session->userdata('username');
+        $imagePath = FCPATH . 'assets/kegiatan/k4-ops-'.$username . '.jpg';
+
+        if (file_exists($imagePath)) {
+            unlink($imagePath); // Menghapus file dari direktori
+            $this->session->set_flashdata('foto_hapus', 'foto_hapus');
+        } else {
+            $this->session->set_flashdata('foto_gagal_hapus', 'foto_gagal_hapus');
+        }
+
+        redirect($_SERVER['HTTP_REFERER']);
+    }
 }

@@ -79,7 +79,6 @@ class Cuti extends CI_Controller {
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 1) {
 			$id_cuti_detail = $this->input->post("id_cuti_detail");
-			$id_user = $this->input->post("id_user");
 
 			$hasil = $this->m_cuti->delete_cuti($id_cuti_detail);
 			

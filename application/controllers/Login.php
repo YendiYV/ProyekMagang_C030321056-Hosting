@@ -30,7 +30,6 @@ class Login extends CI_Controller {
 				// Berdasarkan tingkat pengguna (id_user_level), sesi pengguna akan diatur
 				if ($user['id_user_level'] == 1) {
 					$this->session->set_userdata('logged_in', true);
-					$this->session->set_userdata('id_user', $user['id_user']);
 					$this->session->set_userdata('username', $user['username']);
 					$this->session->set_userdata('id_user_level', $user['id_user_level']);
 					$this->session->set_userdata('nama_lengkap', $user['nama_lengkap']);
@@ -40,16 +39,14 @@ class Login extends CI_Controller {
 				} else if ($user['id_user_level'] == 2) {
 					// Jika tingkat pengguna adalah 2 (Admin), sesi diatur untuk Admin
 					$this->session->set_userdata('logged_in', true);
-					$this->session->set_userdata('id_user', $user['id_user']);
 					$this->session->set_userdata('username', $user['username']);
 					$this->session->set_userdata('id_user_level', $user['id_user_level']);
 
 					$this->session->set_flashdata('success_login', 'success_login');
 					redirect('Dashboard/view_admin');
 				} else if ($user['id_user_level'] == 3) {
-					// Jika tingkat pengguna adalah 3 (Super Admin), sesi diatur untuk Super Admin
+					// Jika tingkat pengguna adalah 3 (Supervisior), sesi diatur untuk Super Admin
 					$this->session->set_userdata('logged_in', true);
-					$this->session->set_userdata('id_user', $user['id_user']);
 					$this->session->set_userdata('username', $user['username']);
 					$this->session->set_userdata('id_user_level', $user['id_user_level']);
 
@@ -58,7 +55,6 @@ class Login extends CI_Controller {
 				} else if ($user['id_user_level'] == 4) {
 					// Jika tingkat pengguna adalah 4 (Manager), sesi diatur untuk Manager
 					$this->session->set_userdata('logged_in', true);
-					$this->session->set_userdata('id_user', $user['id_user']);
 					$this->session->set_userdata('username', $user['username']);
 					$this->session->set_userdata('id_user_level', $user['id_user_level']);
 
@@ -67,7 +63,6 @@ class Login extends CI_Controller {
 				} else if ($user['id_user_level'] == 5) {
 					// Jika tingkat pengguna adalah 5 (Admin PLNT), sesi diatur untuk Admin PLT
 					$this->session->set_userdata('logged_in', true);
-					$this->session->set_userdata('id_user', $user['id_user']);
 					$this->session->set_userdata('username', $user['username']);
 					$this->session->set_userdata('id_user_level', $user['id_user_level']);
 

@@ -138,7 +138,7 @@
                                                 <th>Kegiatan 4</th>
                                                 <th>Cetak Fakta Intregitas</th>
                                                 <th>Cetak Format Perpanjangan</th>
-                                                <th>Cetak Format Perpanjangan</th>
+                                                <th>Cetak Bukti Visual</th>
                                                 <th>Aksi</th>
                                                 
                                             </tr>
@@ -234,6 +234,24 @@
                                                                 <input type="hidden" name="jenis_kelamin" value="<?php echo $jenis_kelamin?>" />
                                                                 <input type="hidden" name="no_telp" value="<?php echo $no_telp?>" />
                                                                 <input type="hidden" name="jabatan" value="<?php echo $jabatan?>" />
+                                                                <input type="hidden" name="no_regis" value="<?php echo $no_regis?>" />
+                                                                <input type="hidden" name="kegiatan1" value="<?php echo $kegiatan1?>" />
+                                                                <input type="hidden" name="kegiatan2" value="<?php echo $kegiatan2?>" />
+                                                                <input type="hidden" name="kegiatan3" value="<?php echo $kegiatan3?>" />
+                                                                <input type="hidden" name="kegiatan4" value="<?php echo $kegiatan4?>" />
+                                                                <button type="submit" class="btn btn-info">Cetak</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>   
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    <form action="<?php echo base_url()?>Cetak/bukti_visual/<?= $username ?>" method="post" enctype="multipart/form-data">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <input type="hidden" name="kegiatan1" value="<?php echo $kegiatan1?>" />
+                                                                <input type="hidden" name="kegiatan2" value="<?php echo $kegiatan2?>" />
+                                                                <input type="hidden" name="kegiatan3" value="<?php echo $kegiatan3?>" />
+                                                                <input type="hidden" name="kegiatan4" value="<?php echo $kegiatan4?>" />
                                                                 <button type="submit" class="btn btn-info">Cetak</button>
                                                             </div>
                                                         </div>
