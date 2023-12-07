@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 05, 2023 at 03:16 PM
+-- Generation Time: Dec 07, 2023 at 01:57 PM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `plnksktm_smp3c`
+-- Database: `plnksktm_smp5c`
 --
 
 -- --------------------------------------------------------
@@ -136,7 +136,20 @@ CREATE TABLE `status_absensi` (
 
 INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `status_absen`) VALUES
 (105, '1231231BJM', '2023-12-04', '5'),
-(106, '1231231BJM', '2023-12-05', '5');
+(106, '1231231BJM', '2023-12-05', '5'),
+(107, '', '2023-12-06', '4'),
+(108, '', '2023-12-06', '4'),
+(109, '', '2023-12-06', '3'),
+(110, '', '2023-12-06', '1'),
+(111, '', '2023-12-06', '2'),
+(112, '', '2023-12-06', '1'),
+(113, '', '2023-12-06', '1'),
+(114, '', '2023-12-06', '3'),
+(115, '', '2023-12-06', '1'),
+(116, '', '2023-12-06', '1'),
+(117, '1231231BJM', '2023-12-06', '1'),
+(118, '1231231PKY', '2023-12-06', '4'),
+(119, '1231231BJM', '2023-12-07', '5');
 
 -- --------------------------------------------------------
 
@@ -855,7 +868,7 @@ ALTER TABLE `operator_level`
 -- AUTO_INCREMENT for table `status_absensi`
 --
 ALTER TABLE `status_absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `status_bpk`

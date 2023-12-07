@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>WEB-SMP3C</title>
+    <title>WEB-SMP5C</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -43,7 +43,7 @@
             cursor: pointer;
         }
 
-        .smp3c-char {
+        .smp5c-char {
             display: inline-block;
         }
 
@@ -149,12 +149,12 @@
 
                 <form class="login100-form validate-form" action="<?= base_url();?>Login/proses" method="POST">
                     <span class="login100-form-title color-changing-text">
-                        <span class="smp3c-char s">S</span>
-                        <span class="smp3c-char m">M</span>
-                        <span class="smp3c-char p">P</span>
-                        <span class="smp3c-char tiga">3</span>
-                        <span class="smp3c-char c">C</span><br>
-                        PLN Nusa Daya UP2
+                        <span class="smp5c-char s">S</span>
+                        <span class="smp5c-char m">M</span>
+                        <span class="smp5c-char p">P</span>
+                        <span class="smp5c-char tiga">5</span>
+                        <span class="smp5c-char c">C</span><br>
+                        PLN Nusa Daya X PCN
                     </span>
                     
                    <div class="wrap-input100 validate-input" data-validate="Masukkan NIP yang terdiri dari 7 Angka 3 Huruf">

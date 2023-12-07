@@ -115,7 +115,6 @@ switch (ENVIRONMENT)
  * NO TRAILING SLASH!
  */
 	$application_folder = 'application';
-
 /*
  *---------------------------------------------------------------
  * VIEW DIRECTORY NAME

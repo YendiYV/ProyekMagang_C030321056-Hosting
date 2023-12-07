@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
         <img src="<?= base_url();?>assets/login/images/logo1.jpg" alt="adminLTE Logo"
-            class="brand-image " style="opacity: .8"> <span class="brand-text font-weight-light">WEB-SMP3C</span>
+            class="brand-image " style="opacity: .8"> <span class="brand-text font-weight-light">WEB-SMP5C</span>
     </a>
 
     <!-- Sidebar -->

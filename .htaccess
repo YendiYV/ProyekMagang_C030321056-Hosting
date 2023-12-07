@@ -1,13 +1,19 @@
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php/$1 [L]
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /SMP5C/
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+
 <IfModule mod_headers.c>
   <FilesMatch "\.(ttf|ttc|otf|eot|woff|font.css|css)$">
     Header set Access-Control-Allow-Origin "*"
   </FilesMatch>
 </IfModule>
+
 AuthGroupFile /dev/null
-AuthUserFile /home/plnksktm/domains/pln-kskt.my.id/.htpasswd/public_html/SMP3C/.htpasswd
+AuthUserFile /home/plnksktm/domains/pln-kskt.my.id/.htpasswd/public_html/SMP5C/.htpasswd
 AuthName "Yendi"
 ErrorDocument 401 "Unauthorized Access"
