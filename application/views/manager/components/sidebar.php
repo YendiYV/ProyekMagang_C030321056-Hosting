@@ -57,77 +57,25 @@
                         <p>Data Rekap THP</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Proyek/view_manager" class="nav-link">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownManager" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="nav-icon fas fa-list"></i>
-                        <p>Data Proyek</p>
+                        <p>Data-Data List Gaji</p>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Jabatan/view_manager" class="nav-link">
-                        <i class="nav-icon fas fa-people-arrows"></i>
-                        <p>Data Jabatan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Transport/view_manager" class="nav-link">
-                        <i class="nav-icon fas fa-motorcycle"></i>
-                        <p>Tunjangan Transport</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Komunikasi/view_manager" class="nav-link">
-                        <i class="nav-icon fas fa-phone"></i>
-                        <p>Tunjangan Komunikasi</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Uang_Hadir/view_manager" class="nav-link">
-                        <i class="nav-icon fas fa-check"></i>
-                        <p>Tunjangan Uang Hadir</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Kontribusi/view_manager" class="nav-link">
-                        <i class="nav-icon fas fa-child"></i>
-                        <p>Tunjangan Kontribusi</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Insentif/view_manager" class="nav-link">
-                        <i class="nav-icon fas fa-plus"></i>
-                            <p>Tunjangan Insentif</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Insfeksi/view_manager" class="nav-link">
-                        <i class="nav-icon fas fa-plug"></i>
-                            <p>Insfeksi Pegawai</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Penempatan/view_manager" class="nav-link">
-                        <i class="nav-icon fas fa-map"></i>
-                        <p>Data Penempatan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Tmk/view_manager" class="nav-link">
-                        <i class="nav-icon fas fa-chart-bar"></i>
-                        <p>Data TMK</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Bpk/view_manager" class="nav-link">
-                        <i class="nav-icon fas fa-coins"></i>
-                        <p>Data BPK</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Delta/view_manager" class="nav-link">
-                        <i class="nav-icon fas fa-cubes"></i>
-                        <p>Data Delta</p>
-                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownManager">
+                        <a class="dropdown-item" href="<?= base_url();?>Proyek/view_manager" style="color: black;">Data Proyek</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Jabatan/view_manager" style="color: black;">Data Jabatan</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Transport/view_manager" style="color: black;">Tunjangan Transport</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Komunikasi/view_manager" style="color: black;">Tunjangan Komunikasi</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Uang_Hadir/view_manager" style="color: black;">Tunjangan Uang Hadir</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Kontribusi/view_manager" style="color: black;">Tunjangan Kontribusi</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Insentif/view_manager" style="color: black;">Tunjangan Insentif</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Insfeksi/view_manager" style="color: black;">Insfeksi Pegawai</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Penempatan/view_manager" style="color: black;">Data Penempatan</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Tmk/view_manager" style="color: black;">Data TMK</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Bpk/view_manager" style="color: black;">Data BPK</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Delta/view_manager" style="color: black;">Data Delta</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="<?= base_url();?>Dmunit/view_manager" class="nav-link">
