@@ -59,7 +59,39 @@
                                 <div class="icon">
                                     <i class="ion ion-person-stalker"></i>
                                 </div>
-                                <a href="<?=base_url();?>operator/view_super_admin" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>operator/view_admin_plnt" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- Col-->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3><?=$data_spk['total_spk']?></h3>
+
+                                    <p>Total SPK PCN</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-document"></i>
+                                </div>
+                                <a href="<?=base_url();?>spk/view_admin_plnt" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- Col-->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3><?=$data_no_spk['total_no_spk']?></h3>
+
+                                    <p>Total SPK PLN-T</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-drag"></i>
+                                </div>
+                                <a href="<?=base_url();?>No_Spk/view_admin_plnt" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>

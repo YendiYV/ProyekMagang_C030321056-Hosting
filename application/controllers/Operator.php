@@ -20,6 +20,8 @@ class operator extends CI_Controller {
 		$this->load->model('m_insentif');
 		$this->load->model('m_kategori');
 		$this->load->model('m_wajib');
+		$this->load->model('m_spk');
+		$this->load->model('m_no_spk');
 	}
 	
 	public function view_admin()
@@ -38,6 +40,7 @@ class operator extends CI_Controller {
 			$data['nama_uang_hadir_list'] = $this->m_uang_hadir->get_all_uang_hadir();
 			$data['nama_kontribusi_list'] = $this->m_kontribusi->get_all_kontribusi();
 			$data['nama_insentif_list'] = $this->m_insentif->get_all_insentif();
+			$data['data_spk'] = $this->m_spk->get_all_spk();
 			$this->load->view('admin/operator', $data);
 
 		}else{
@@ -64,6 +67,7 @@ class operator extends CI_Controller {
 			$data['nama_uang_hadir_list'] = $this->m_uang_hadir->get_all_uang_hadir();
 			$data['nama_kontribusi_list'] = $this->m_kontribusi->get_all_kontribusi();
 			$data['nama_insentif_list'] = $this->m_insentif->get_all_insentif();
+			$data['data_spk'] = $this->m_spk->get_all_spk();
 			$this->load->view('super_admin/operator', $data);
 
 		}else{
@@ -104,6 +108,8 @@ class operator extends CI_Controller {
 			$data['operator'] = $this->m_user->get_all_operator()->result_array();
 			$data['data_wajib'] = $this->m_wajib->get_all_wajib();
 			$data['data_kategori'] = $this->m_kategori->get_all_kategori();
+			$data['data_spk'] = $this->m_spk->get_all_spk();
+			$data['data_no_spk'] = $this->m_no_spk->get_all_no_spk();
 			$this->load->view('admin_plnt/operator', $data);
 			
 		}else{

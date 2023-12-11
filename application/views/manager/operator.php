@@ -132,7 +132,7 @@
                                             $id_jenis_kelamin = $i['id_jenis_kelamin'];
                                             $no_telp = $i['no_telp'];
                                             $alamat = $i['alamat'];
-                                            $spk = $i['spk'];
+                                            $nama_spk = $i['nama_spk'];
                                             $penempatan = $i['nama_penempatan'];
                                             $nama_proyek = $i['nama_proyek'];
                                             $operator_level = $i['operator_level'];
@@ -154,7 +154,7 @@
                                                 <td style="<?= $jenis_kelamin ? '' : 'color: red;' ?>"><?= $jenis_kelamin ?: "Data Kosong" ?></td>
                                                 <td style="<?= $no_telp ? '' : 'color: red;' ?>"><?= $no_telp ?: "Data Kosong" ?></td>
                                                 <td style="<?= $alamat ? '' : 'color: red;' ?>"><?= $alamat ?: "Data Kosong" ?></td>
-                                                <td style="<?= $spk ? '' : 'color: red;' ?>"><?= $spk ?: "Data Kosong" ?></td>
+                                                <td style="<?= $nama_spk ? '' : 'color: red;' ?>"><?= $nama_spk ?: "Data Kosong" ?></td>
                                                 <td style="<?= $nama_proyek ? '' : 'color: red;' ?>"><?= $nama_proyek ?: "Data Kosong" ?></td>
                                                 <td style="<?= $operator_level ? '' : 'color: red;' ?>"><?= $operator_level ?: "Data Kosong" ?></td>
                                                 <td style="<?= $penempatan ? '' : 'color: red;' ?>"><?= $penempatan ?: "Data Kosong" ?></td>

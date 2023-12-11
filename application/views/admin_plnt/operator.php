@@ -159,6 +159,8 @@
                                             $no_telp = $i['no_telp'];
                                             $no_spk = $i['no_spk'];
                                             $spk = $i['spk'];
+                                            $nama_no_spk = $i['nama_no_spk'];
+                                            $nama_spk = $i['nama_spk'];
                                             $no_serti = $i['no_serti'];
                                             $no_regis = $i['no_regis'];
                                             $tgl_berlaku = $i['tgl_berlaku'];
@@ -199,8 +201,8 @@
                                                 <td style="<?= $penempatan ? '' : 'color: red;' ?>"><?= $penempatan ?: "Data Kosong" ?></td>
                                                 <td style="<?= $alamat ? '' : 'color: red;' ?>"><?= $alamat ?: "Data Kosong" ?></td>
                                                 <td style="<?= $no_telp ? '' : 'color: red;' ?>"><?= $no_telp ?: "Data Nomor Kosong" ?></td>
-                                                <td style="<?= $spk ? '' : 'color: red;' ?>"><?= $spk ?: "Data Kosong" ?></td>
-                                                <td style="<?= $no_spk ? '' : 'color: red;' ?>"><?= $no_spk ?: "Data Kosong" ?></td>
+                                                <td style="<?= $nama_spk ? '' : 'color: red;' ?>"><?= $nama_spk ?: "Data Kosong" ?></td>
+                                                <td style="<?= $nama_no_spk ? '' : 'color: red;' ?>"><?= $nama_no_spk ?: "Data Kosong" ?></td>
                                                 <td style="<?= $no_serti ? '' : 'color: red;' ?>"><?= $no_serti ?: "Data Kosong" ?></td>
                                                 <td style="<?= $no_regis ? '' : 'color: red;' ?>"><?= $no_regis ?: "Data Kosong" ?></td>
                                                 <td style="<?= $tgl_berlaku ? '' : 'color: red;' ?>"><?= $tgl_berlaku ? date('d-m-Y', strtotime($tgl_berlaku)) : "Data Kosong" ?></td>
@@ -290,8 +292,42 @@
                                                                     <input type="text" class="form-control" id="no_spk" aria-describedby="no_spk" name="no_spk" value="<?= $no_spk ?>" placeholder="Inputkan No. SPK dari PLN-T">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="spk">SPK(PCN)</label>
-                                                                    <input type="text" class="form-control" id="spk" aria-describedby="spk" name="spk" value="<?= $spk ?>" placeholder="Inputkan No.SPK dari PCN">
+                                                                    <label for="id_kategori">No. SPK</label>
+                                                                    <select class="form-control" id="no_spk" name="no_spk" >
+                                                                        <option value="null">Tidak Ada</option>
+                                                                        <?php foreach($data_no_spk as $dns) : ?>
+                                                                            <?php
+                                                                            $id = $dns["id_no_spk"];
+                                                                            $nama_no_spk = $dns["nama_no_spk"];
+                                                                            ?>
+                                                                            <option value="<?= $id ?>" <?php
+                                                                                if ($id == $no_spk) {
+                                                                                    echo 'selected';
+                                                                                }
+                                                                            ?>>
+                                                                                <?= $nama_no_spk ?>
+                                                                            </option>
+                                                                        <?php endforeach ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="id_kategori">SPK</label>
+                                                                    <select class="form-control" id="spk" name="spk" >
+                                                                        <option value="null">Tidak Ada</option>
+                                                                        <?php foreach($data_spk as $ds) : ?>
+                                                                            <?php
+                                                                            $id = $ds["id_spk"];
+                                                                            $nama_spk = $ds["nama_spk"];
+                                                                            ?>
+                                                                            <option value="<?= $id ?>" <?php
+                                                                                if ($id == $spk) {
+                                                                                    echo 'selected';
+                                                                                }
+                                                                            ?>>
+                                                                                <?= $nama_spk ?>
+                                                                            </option>
+                                                                        <?php endforeach ?>
+                                                                    </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="no_serti">No. Sertifikasi</label>

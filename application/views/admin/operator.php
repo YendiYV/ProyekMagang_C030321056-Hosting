@@ -211,6 +211,7 @@
                                             $no_telp = $i['no_telp'];
                                             $alamat = $i['alamat'];
                                             $spk = $i['spk'];
+                                            $nama_spk = $i['nama_spk'];
                                             $penempatan = $i['nama_penempatan'];
                                             $nama_proyek = $i['nama_proyek'];
                                             $operator_level = $i['operator_level'];
@@ -242,7 +243,7 @@
                                                 <td style="<?= $jenis_kelamin ? '' : 'color: red;' ?>"><?= $jenis_kelamin ?: "Data Kosong" ?></td>
                                                 <td style="<?= $no_telp ? '' : 'color: red;' ?>"><?= $no_telp ?: "Data Kosong" ?></td>
                                                 <td style="<?= $alamat ? '' : 'color: red;' ?>"><?= $alamat ?: "Data Kosong" ?></td>
-                                                <td style="<?= $spk ? '' : 'color: red;' ?>"><?= $spk ?: "Data Kosong" ?></td>
+                                                <td style="<?= $nama_spk ? '' : 'color: red;' ?>"><?= $nama_spk ?: "Data Kosong" ?></td>
                                                 <td style="<?= $nama_proyek ? '' : 'color: red;' ?>"><?= $nama_proyek ?: "Data Kosong" ?></td>
                                                 <td style="<?= $operator_level ? '' : 'color: red;' ?>"><?= $operator_level ?: "Data Kosong" ?></td>
                                                 <td style="<?= $penempatan ? '' : 'color: red;' ?>"><?= $penempatan ?: "Data Kosong" ?></td>
@@ -411,9 +412,23 @@
                                                                         aria-describedby="alamat" name="alamat" value="<?= $alamat ?>" required>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="spk">SPK</label>
-                                                                    <input type="text" class="form-control" id="spk"
-                                                                        aria-describedby="spk" name="spk" value="<?= $spk?>">
+                                                                    <label for="id_kategori">SPK</label>
+                                                                    <select class="form-control" id="spk" name="spk" >
+                                                                        <option value="null">Tidak Ada</option>
+                                                                        <?php foreach($data_spk as $ds) : ?>
+                                                                            <?php
+                                                                            $id = $ds["id_spk"];
+                                                                            $nama_spk = $ds["nama_spk"];
+                                                                            ?>
+                                                                            <option value="<?= $id ?>" <?php
+                                                                                if ($id == $spk) {
+                                                                                    echo 'selected';
+                                                                                }
+                                                                            ?>>
+                                                                                <?= $nama_spk ?>
+                                                                            </option>
+                                                                        <?php endforeach ?>
+                                                                    </select>
                                                                 </div>
                                                                  <div class="form-group">
                                                                     <label for="id_status_proyek">Proyek</label>
@@ -706,9 +721,23 @@
                                         name="alamat" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="spk">SPK</label>
-                                    <input type="text" class="form-control" id="spk" aria-describedby="spk"
-                                        name="spk">
+                                    <label for="id_kategori">SPK</label>
+                                    <select class="form-control" id="spk" name="spk" >
+                                        <option value="null">Tidak Ada</option>
+                                        <?php foreach($data_spk as $ds) : ?>
+                                            <?php
+                                            $id = $ds["id_spk"];
+                                            $nama_spk = $ds["nama_spk"];
+                                            ?>
+                                            <option value="<?= $id ?>" <?php
+                                                if ($id == $spk) {
+                                                    echo 'selected';
+                                                }
+                                            ?>>
+                                                <?= $nama_spk ?>
+                                            </option>
+                                        <?php endforeach ?>
+                                    </select>
                                 </div>
                                <div class="form-group">
                                     <label for="id_status_proyek">Proyek</label>

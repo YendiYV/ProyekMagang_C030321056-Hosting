@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 07, 2023 at 01:57 PM
+-- Generation Time: Dec 11, 2023 at 09:53 AM
 -- Server version: 10.3.37-MariaDB-cll-lve
 -- PHP Version: 7.3.33
 
@@ -137,16 +137,6 @@ CREATE TABLE `status_absensi` (
 INSERT INTO `status_absensi` (`id_absen`, `id_user_detail`, `tanggal_absen`, `status_absen`) VALUES
 (105, '1231231BJM', '2023-12-04', '5'),
 (106, '1231231BJM', '2023-12-05', '5'),
-(107, '', '2023-12-06', '4'),
-(108, '', '2023-12-06', '4'),
-(109, '', '2023-12-06', '3'),
-(110, '', '2023-12-06', '1'),
-(111, '', '2023-12-06', '2'),
-(112, '', '2023-12-06', '1'),
-(113, '', '2023-12-06', '1'),
-(114, '', '2023-12-06', '3'),
-(115, '', '2023-12-06', '1'),
-(116, '', '2023-12-06', '1'),
 (117, '1231231BJM', '2023-12-06', '1'),
 (118, '1231231PKY', '2023-12-06', '4'),
 (119, '1231231BJM', '2023-12-07', '5');
@@ -370,6 +360,25 @@ INSERT INTO `status_manager_u` (`nip_manager_u`, `nama_manager_u`, `jk`, `nomor_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `status_no_spk`
+--
+
+CREATE TABLE `status_no_spk` (
+  `id_no_spk` int(11) NOT NULL,
+  `nama_no_spk` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `status_no_spk`
+--
+
+INSERT INTO `status_no_spk` (`id_no_spk`, `nama_no_spk`) VALUES
+(2, '0012.PJ/DAN.02.03/UIW-KSKT/2019\r\n'),
+(3, '0012.PJ/DAN.02.03/UIW-KSKT/2020');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `status_penempatan`
 --
 
@@ -427,6 +436,25 @@ INSERT INTO `status_proyek` (`id_status_proyek`, `nama_proyek`, `gaji_proyek`) V
 (3, 'Proyek Gardu', 1600000),
 (11, 'Proyek Pembuatan Gardu', 3000000),
 (13, 'Mobil Listrik', 1200000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status_spk`
+--
+
+CREATE TABLE `status_spk` (
+  `id_spk` int(11) NOT NULL,
+  `nama_spk` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `status_spk`
+--
+
+INSERT INTO `status_spk` (`id_spk`, `nama_spk`) VALUES
+(1, '0026.PJ/KIT.02.03/DIR-TRK/2019'),
+(3, '0030.PJ/HKM.02.01/B57000000/2020');
 
 -- --------------------------------------------------------
 
@@ -619,8 +647,8 @@ CREATE TABLE `user_detail` (
   `insentif` int(11) DEFAULT NULL,
   `tanggal_masuk` date DEFAULT NULL,
   `jumlah_cuti` int(2) DEFAULT NULL,
-  `no_spk` varchar(50) NOT NULL,
-  `spk` varchar(50) NOT NULL,
+  `no_spk` int(11) NOT NULL,
+  `spk` int(11) NOT NULL,
   `no_serti` varchar(50) NOT NULL,
   `no_regis` varchar(25) NOT NULL,
   `tgl_berlaku` date NOT NULL,
@@ -638,21 +666,21 @@ CREATE TABLE `user_detail` (
 --
 
 INSERT INTO `user_detail` (`nip`, `nama_lengkap`, `nik`, `id_jenis_kelamin`, `no_telp`, `alamat`, `proyek`, `jabatan`, `penempatan`, `bpk`, `delta`, `transport`, `komunikasi`, `uang_hadir`, `kontribusi`, `insentif`, `tanggal_masuk`, `jumlah_cuti`, `no_spk`, `spk`, `no_serti`, `no_regis`, `tgl_berlaku`, `tgl_berakhir`, `kategori`, `kode_wajib`, `kegiatan1`, `kegiatan2`, `kegiatan3`, `kegiatan4`) VALUES
-('1231231BJM', 'Udin', '62130302010002', 1, '0812', 'Jl. Karamunting', 1, 1, 13, 1, 2, 3, 3, 2, 3, 5, '2012-11-27', 6, '0029.PJ/DAN.01.03/C49000000/2023', '0026.PJ/KIT.02.03/DIR-TRK/2019', '1771.0.28.P042.09.2020', '56621.1.2023', '0000-00-00', '2023-11-01', 0, 1, 'Melaksanakan pemeliharaan peralatan gardu induk', 'Melaksanakan pemeliharaan proteksi internal transformator', '', ''),
-('1231231PKY', 'Yendi', '', 1, '0812345678', 'Jl. Listrik 2', 2, 15, NULL, 3, 1, 3, 2, 2, 3, 5, '2023-11-23', 6, '', '', '', '', '2023-11-01', '2023-12-05', 1, 3, '', '', '', ''),
-('1231232BJM', 'RENDI', '62130', 1, '08123', 'Jl. Hasan Basri', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0, '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
-('1231232PKY', 'Rahmat', '', 1, '0812345678', 'Jl. Pengayaan', 1, 1, NULL, 1, 1, 1, 2, 2, 2, 3, '2023-11-20', 0, '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
-('1231233BJM', 'Rendi', '', 1, '90987654', 'Jl. Hasan Basri', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0, '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
-('1231233PKY', 'Fitri', '', 2, '0876543', 'Jl. Negara', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, '2023-11-20', 0, '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
-('1231234BJM', 'Jamal', '', 1, '09876543', 'Jl. Hasan Basri', 1, 15, NULL, 1, 1, 3, 3, 2, 3, 4, '2023-06-01', 0, '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
-('1231234PKY', 'Budi', '', 1, '09876543', 'Jl. Karamunting', 2, 13, NULL, 3, 1, 1, 2, 2, 2, 3, '2023-11-20', 0, '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
-('1231235BJM', 'Amat', '', 1, '098765', 'Jl. Hasan Basri', 1, 1, NULL, 1, 1, 5, 0, 0, 0, 0, '2023-10-02', 0, '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
-('1231236PKY', 'Asep', '', 1, '0812345678', 'Jl. Karamunting', 0, 1, NULL, 3, 2, 1, 2, 2, 0, 3, '2023-11-20', 0, '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
-('1231237PKY', 'Tet', '', 2, '0987654', 'Jl. LN 2', 0, 1, NULL, 1, 3, 3, 2, 2, 2, 3, '2023-11-20', 0, '', '', '', '', '0000-00-00', '0000-00-00', 1, 0, '', '', '', ''),
-('1234567ADM', 'Admin', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, 0, '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
-('1234567MNJ', 'Maulana Rizman Muttaqin', '', 1, '082156090440', NULL, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
-('1234567PLT', 'Admin PLNT', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
-('1234567SPV', 'Nama Supervisior', '', 1, NULL, NULL, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, '', '', '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', '');
+('1231231BJM', 'Udin', '62130302010002', 1, '0812', 'Jl. Karamunting', 1, 1, 13, 1, 2, 3, 3, 2, 3, 5, '2012-11-27', 6, 0, 1, '1771.0.28.P042.09.2020', '56621.1.2023', '0000-00-00', '2023-11-01', 0, 1, 'Melaksanakan pemeliharaan peralatan gardu induk', 'Melaksanakan pemeliharaan proteksi internal transformator', '', ''),
+('1231231PKY', 'Yendi', '', 1, '0812345678', 'Jl. Listrik 2', 2, 15, NULL, 3, 1, 3, 2, 2, 3, 5, '2023-11-23', 6, 2, 0, '', '', '2023-11-01', '2023-12-05', 1, 0, '', '', '', ''),
+('1231232BJM', 'RENDI', '62130', 1, '08123', 'Jl. Hasan Basri', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0, 0, 0, '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
+('1231232PKY', 'Rahmat', '', 1, '0812345678', 'Jl. Pengayaan', 1, 1, NULL, 1, 1, 1, 2, 2, 2, 3, '2023-11-20', 0, 0, 0, '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
+('1231233BJM', 'Rendi', '', 1, '90987654', 'Jl. Hasan Basri', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, '2023-11-22', 0, 0, 0, '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
+('1231233PKY', 'Fitri', '', 2, '0876543', 'Jl. Negara', 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, '2023-11-20', 0, 0, 0, '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
+('1231234BJM', 'Jamal', '', 1, '09876543', 'Jl. Hasan Basri', 1, 15, NULL, 1, 1, 3, 3, 2, 3, 4, '2023-06-01', 0, 0, 0, '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
+('1231234PKY', 'Budi', '', 1, '09876543', 'Jl. Karamunting', 2, 13, NULL, 3, 1, 1, 2, 2, 2, 3, '2023-11-20', 0, 0, 0, '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
+('1231235BJM', 'Amat', '', 1, '098765', 'Jl. Hasan Basri', 1, 1, NULL, 1, 1, 5, 0, 0, 0, 0, '2023-10-02', 0, 0, 0, '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
+('1231236PKY', 'Asep', '', 1, '0812345678', 'Jl. Karamunting', 0, 1, NULL, 3, 2, 1, 2, 2, 0, 3, '2023-11-20', 0, 0, 0, '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
+('1231237PKY', 'Tet', '', 2, '0987654', 'Jl. LN 2', 0, 1, NULL, 1, 3, 3, 2, 2, 2, 3, '2023-11-20', 0, 3, 1, '', '', '0000-00-00', '0000-00-00', 1, 0, '', '', '', ''),
+('1234567ADM', 'Admin', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, 0, 0, 0, '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
+('1234567MNJ', 'Maulana Rizman Muttaqin', '', 1, '082156090440', NULL, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
+('1234567PLT', 'Admin PLNT', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', ''),
+('1234567SPV', 'Nama Supervisior', '', 1, NULL, NULL, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, '', '', '0000-00-00', '0000-00-00', 0, 0, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -771,6 +799,12 @@ ALTER TABLE `status_manager_u`
   ADD PRIMARY KEY (`nip_manager_u`);
 
 --
+-- Indexes for table `status_no_spk`
+--
+ALTER TABLE `status_no_spk`
+  ADD PRIMARY KEY (`id_no_spk`);
+
+--
 -- Indexes for table `status_penempatan`
 --
 ALTER TABLE `status_penempatan`
@@ -781,6 +815,12 @@ ALTER TABLE `status_penempatan`
 --
 ALTER TABLE `status_proyek`
   ADD PRIMARY KEY (`id_status_proyek`);
+
+--
+-- Indexes for table `status_spk`
+--
+ALTER TABLE `status_spk`
+  ADD PRIMARY KEY (`id_spk`);
 
 --
 -- Indexes for table `status_tmk`
@@ -919,6 +959,12 @@ ALTER TABLE `status_kontribusi`
   MODIFY `id_kontribusi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `status_no_spk`
+--
+ALTER TABLE `status_no_spk`
+  MODIFY `id_no_spk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `status_penempatan`
 --
 ALTER TABLE `status_penempatan`
@@ -929,6 +975,12 @@ ALTER TABLE `status_penempatan`
 --
 ALTER TABLE `status_proyek`
   MODIFY `id_status_proyek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `status_spk`
+--
+ALTER TABLE `status_spk`
+  MODIFY `id_spk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `status_transport`

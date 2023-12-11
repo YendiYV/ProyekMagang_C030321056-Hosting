@@ -26,35 +26,27 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Operator/view_admin" class="nav-link">
-                        <i class="nav-icon fas fa-users "></i>
-                        <p>Operator</p>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Data-Data Operator</p>
                     </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= base_url();?>Operator/view_admin" style="color: black;">Data Operator</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Spk/view_admin" style="color: black;">Data SPK Operator</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Absensi/view_admin" style="color: black;">Data Absensi Operator</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Cuti/view_admin" style="color: black;">Data Cuti Operator</a>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Absensi/view_admin" class="nav-link">
-                        <i class="nav-icon fas fa-calendar-day"></i>
-                        <p>Status Absensi Operator</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Cuti/view_admin" class="nav-link">
-                        <i class="nav-icon fas fa-envelope"></i>
-                        <p>Data Cuti</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Gaji/view_admin" class="nav-link">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                        <p>Data Total Gaji</p>
+                        <p>Menu Gaji</p>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url();?>Rgaji/view_admin" class="nav-link">
-                        <i class="nav-icon fas fa-university"></i>
-                        <p>Data Rekap THP</p>
-                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= base_url();?>Gaji/view_admin" style="color: black;">Data Total Gaji(THP)</a>
+                        <a class="dropdown-item" href="<?= base_url();?>Rgaji/view_admin" style="color: black;">Data Gaji(THP)</a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

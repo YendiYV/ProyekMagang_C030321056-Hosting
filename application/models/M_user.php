@@ -4,7 +4,7 @@ class M_user extends CI_Model
 {
     public function get_all_operator()
     {
-        $hasil = $this->db->query('SELECT user.*, user_detail.*, jenis_kelamin.*,operator_level.* ,status_proyek.nama_proyek,status_penempatan.*,status_bpk.*,status_delta.*,status_transport.*,status_komunikasi.*,status_uang_hadir.*,status_kontribusi.*,status_insentif.*, status_wajib.*,status_kategori.*
+        $hasil = $this->db->query('SELECT user.*, user_detail.*, jenis_kelamin.*,operator_level.* ,status_proyek.nama_proyek,status_penempatan.*,status_bpk.*,status_delta.*,status_transport.*,status_komunikasi.*,status_uang_hadir.*,status_kontribusi.*,status_insentif.*, status_wajib.*,status_kategori.*,status_no_spk.*,status_spk.*
                                     FROM user_detail
                                     JOIN user ON user.username = user_detail.nip
                                     JOIN jenis_kelamin ON user_detail.id_jenis_kelamin = jenis_kelamin.id_jenis_kelamin
@@ -20,6 +20,8 @@ class M_user extends CI_Model
                                     LEFT JOIN status_insentif ON user_detail.insentif = status_insentif.id_insentif
                                     LEFT JOIN status_kategori ON user_detail.kategori = status_kategori.id_kategori
                                     LEFT JOIN status_wajib ON user_detail.kode_wajib = status_wajib.id_wajib
+                                    LEFT JOIN status_spk ON user_detail.spk = status_spk.id_spk
+                                    LEFT JOIN status_no_spk ON user_detail.no_spk = status_no_spk.id_no_spk
                                     WHERE user.id_user_level = 1
                                     ORDER BY user_detail.nip ASC
                                 ');

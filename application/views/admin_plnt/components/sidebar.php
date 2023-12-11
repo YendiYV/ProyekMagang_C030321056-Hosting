@@ -34,6 +34,24 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="<?= base_url();?>Rekap_Gj/view_admin_plnt" class="nav-link">
+                        <i class="nav-icon fas fa-calculator "></i>
+                        <p>Rekap GJ</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>No_Spk/view_admin_plnt" class="nav-link">
+                        <i class="nav-icon fas fa-list-alt "></i>
+                        <p>Data No. SPK</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url();?>Spk/view_admin_plnt" class="nav-link">
+                        <i class="nav-icon fas fa-file "></i>
+                        <p>Data SPK</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="<?= base_url();?>Settings/view_admin_plnt" class="nav-link">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>Settings</p>

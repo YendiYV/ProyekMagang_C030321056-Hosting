@@ -23,12 +23,16 @@ class Dashboard extends CI_Controller {
 		$this->load->model('m_kontribusi');
 		$this->load->model('m_insentif');
 		$this->load->model('m_insfeksi');
+		$this->load->model('m_spk');
+		$this->load->model('m_no_spk');
 	}
 
 	public function view_admin_plnt()
 	{
 		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 5) {
 			$data['operator'] = $this->m_user->count_all_operator()->row_array();
+			$data['data_spk'] = $this->m_spk->count_all_spk()->row_array();
+			$data['data_no_spk'] = $this->m_no_spk->count_all_no_spk()->row_array();
 			$this->load->view('admin_plnt/dashboard',$data);
 		}else{
 			$this->session->set_flashdata('loggin_err','loggin_err');
@@ -58,6 +62,7 @@ class Dashboard extends CI_Controller {
 			$data['tunj_kontribusi'] = $this->m_kontribusi->count_all_kontribusi()->row_array();
 			$data['tunj_insentif'] = $this->m_insentif->count_all_insentif()->row_array();
 			$data['tunj_insfeksi'] = $this->m_insfeksi->count_all_insfeksi()->row_array();
+			$data['data_spk'] = $this->m_spk->count_all_spk()->row_array();
 			$this->load->view('manager/dashboard', $data);
 
 		}else{
@@ -89,6 +94,7 @@ class Dashboard extends CI_Controller {
 			$data['tunj_kontribusi'] = $this->m_kontribusi->count_all_kontribusi()->row_array();
 			$data['tunj_insentif'] = $this->m_insentif->count_all_insentif()->row_array();
 			$data['tunj_insfeksi'] = $this->m_insfeksi->count_all_insfeksi()->row_array();
+			$data['data_spk'] = $this->m_spk->count_all_spk()->row_array();
 			$this->load->view('super_admin/dashboard', $data);
 	}else{
 
@@ -120,6 +126,7 @@ class Dashboard extends CI_Controller {
 			$data['tunj_kontribusi'] = $this->m_kontribusi->count_all_kontribusi()->row_array();
 			$data['tunj_insentif'] = $this->m_insentif->count_all_insentif()->row_array();
 			$data['tunj_insfeksi'] = $this->m_insfeksi->count_all_insfeksi()->row_array();
+			$data['data_spk'] = $this->m_spk->count_all_spk()->row_array();
 			$this->load->view('admin/dashboard', $data);
 
 		}else{

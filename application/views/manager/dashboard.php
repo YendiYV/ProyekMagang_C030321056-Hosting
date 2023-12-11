@@ -305,7 +305,7 @@
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
-                            <div class="col-lg-3 col-6">
+                        <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
@@ -316,7 +316,23 @@
                                 <div class="icon">
                                     <i class="ion ion-lightbulb"></i>
                                 </div>
-                                <a href="<?=base_url();?>Insentif/view_managfer" class="small-box-footer">More info <i
+                                <a href="<?=base_url();?>Insentif/view_manager" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3><?=$data_spk['total_spk']?></h3>
+
+                                    <p>Data SPK</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-document"></i>
+                                </div>
+                                <a href="<?=base_url();?>Spk/view_manager" class="small-box-footer">More info <i
                                         class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
