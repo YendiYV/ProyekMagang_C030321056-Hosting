@@ -30,7 +30,6 @@
         @keyframes colorChange {
             0%, 60% { color: red; }
             20%, 80% { color: blue; }
-            40% { color: yellow; }
         }
 
         .login100-form-title.color-changing-text {
@@ -48,21 +47,21 @@
         }
 
         .s {
-            color: red;
+            color: black;
         }
 
         .m {
-            color: blue;
+            color: black;
         }
 
         .p {
-            color: yellow;
+            color: black;
         }
         .tiga {
             color: red;
         }
         .c {
-            color: blue;
+            color: black ;
         }
     </style>
 
