@@ -135,8 +135,7 @@ class operator extends CI_Controller {
 			$k2= $this->input->post("kegiatan2");
 			$k3= $this->input->post("kegiatan3");
 			$k4= $this->input->post("kegiatan4");
-
-
+	
 			$hasil = $this->m_user->update_data_plnt($username,$no_spk,$spk,$no_serti,$no_regis,$tgl_berlaku,$tgl_berakhir,$id_kategori,$id_wajib,$k1,$k2,$k3,$k4);
 			if ($hasil) {
 				$this->session->set_flashdata('error_edit', 'error_edit');
@@ -149,6 +148,7 @@ class operator extends CI_Controller {
 			redirect('Login/index');
 		}
     }
+
 	public function tambah_operator()
 	{
 		if ($this->session->userdata('logged_in') == true && ($this->session->userdata('id_user_level') >= 2 && $this->session->userdata('id_user_level') <= 3)) {

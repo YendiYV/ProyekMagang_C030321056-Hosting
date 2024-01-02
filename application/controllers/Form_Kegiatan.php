@@ -41,7 +41,7 @@ class Form_Kegiatan extends CI_Controller {
 
 	public function upload_kegiatan1()
 	{
-		$username = $this->session->userdata('username');
+		$username = $this->input->post("username");
 		$config['upload_path']   = FCPATH . 'assets/kegiatan/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
 		$config['allowed_types'] = 'jpg|jpeg|png';
 		$config['max_size']      = 1024;
@@ -64,7 +64,7 @@ class Form_Kegiatan extends CI_Controller {
 	}
 	public function upload_kegiatan2()
 	{
-		$username = $this->session->userdata('username');
+		$username = $this->input->post("username");
 		$config['upload_path']   = FCPATH . 'assets/kegiatan/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
 		$config['allowed_types'] = 'jpg|jpeg|png';
 		$config['max_size']      = 1024;
@@ -87,7 +87,7 @@ class Form_Kegiatan extends CI_Controller {
 	}
 	public function upload_kegiatan3()
 	{
-		$username = $this->session->userdata('username');
+		$username = $this->input->post("username");
 		$config['upload_path']   = FCPATH . 'assets/kegiatan/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
 		$config['allowed_types'] = 'jpg|jpeg|png';
 		$config['max_size']      = 1024;
@@ -110,7 +110,7 @@ class Form_Kegiatan extends CI_Controller {
 	}
 	public function upload_kegiatan4()
 	{
-		$username = $this->session->userdata('username');
+		$username = $this->input->post("username");
 		$config['upload_path']   = FCPATH . 'assets/kegiatan/'; // FCPATH gives you the full server path to the CodeIgniter index.php file
 		$config['allowed_types'] = 'jpg|jpeg|png';
 		$config['max_size']      = 1024;
@@ -134,7 +134,7 @@ class Form_Kegiatan extends CI_Controller {
 
 
 	public function delete_kegiatan1() {
-		$username = $this->session->userdata('username');
+		$username = $this->input->post("username");
         $imagePath = FCPATH . 'assets/kegiatan/k1-ops-'.$username . '.jpg';
 
         if (file_exists($imagePath)) {
@@ -147,7 +147,7 @@ class Form_Kegiatan extends CI_Controller {
         redirect($_SERVER['HTTP_REFERER']);
     }
 	public function delete_kegiatan2() {
-		$username = $this->session->userdata('username');
+		$username = $this->input->post("username");
         $imagePath = FCPATH . 'assets/kegiatan/k2-ops-'.$username . '.jpg';
 
         if (file_exists($imagePath)) {
@@ -160,7 +160,7 @@ class Form_Kegiatan extends CI_Controller {
         redirect($_SERVER['HTTP_REFERER']);
     }
 	public function delete_kegiatan3() {
-		$username = $this->session->userdata('username');
+		$username = $this->input->post("username");
         $imagePath = FCPATH . 'assets/kegiatan/k3-ops-'.$username . '.jpg';
 
         if (file_exists($imagePath)) {
@@ -173,7 +173,7 @@ class Form_Kegiatan extends CI_Controller {
         redirect($_SERVER['HTTP_REFERER']);
     }
 	public function delete_kegiatan4() {
-		$username = $this->session->userdata('username');
+		$username = $this->input->post("username");
         $imagePath = FCPATH . 'assets/kegiatan/k4-ops-'.$username . '.jpg';
 
         if (file_exists($imagePath)) {

@@ -48,38 +48,30 @@ class Cetak extends CI_Controller {
         $nik = $this->input->post("nik");
         $alamat = $this->input->post("alamat");
 
-        // Lokasi template Word
         $templatePath = 'assets/plnt/integritas.docx';
 
-        // Inisialisasi TemplateProcessor
         $templateProcessor = new TemplateProcessor($templatePath);
 
-        // Ganti variabel dalam template dengan data yang diberikan
         $templateProcessor->setValue('nama', $nama);
         $templateProcessor->setValue('nik', $nik);
         $templateProcessor->setValue('alamat', $alamat);
 
-        // Menetapkan lokal ke Indonesia
         setlocale(LC_TIME, 'id_ID');
 
-        // Mengambil tanggal dan hari dalam bahasa Indonesia
-        $tanggal = strftime('%d %B %Y'); // %d untuk tanggal, %B untuk nama bulan, %Y untuk tahun
-        $hari = strftime('%A'); // %A untuk nama hari
+        $tanggal = strftime('%d %B %Y');
+        $hari = strftime('%A');
 
-        // Menambahkan nilai tanggal dan hari ke template
         $templateProcessor->setValue('tanggal', $tanggal);
         $templateProcessor->setValue('hari', $hari);
 
         $imagePath = 'assets/ttd/ttd-ops-'.$username.'.jpg';
         $templateProcessor->setImageValue('ttd_ops', ['path' => $imagePath, 'width' => 160, 'height' => 80]);
-        // Nama file output
+
         $outputFileName = 'Integritas-'.$username.'.docx';
 
-        // Set header untuk memberi tahu browser bahwa ini adalah dokumen Word
         header("Content-Disposition: attachment; filename=$outputFileName");
         header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
 
-        // Simpan hasil ke output HTTP
         $templateProcessor->saveAs('php://output');
     }
 

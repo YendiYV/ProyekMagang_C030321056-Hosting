@@ -38,6 +38,60 @@
     });
     </script>
     <?php } ?>
+    <?php if ($this->session->flashdata('edit')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Data Berhasil Diedit!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('eror_edit')){ ?>
+    <script>
+    swal({
+        title: "Erorr!",
+        text: "Data Gagal Diedit!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('foto_upload')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Foto Kegiatan Berhasil Diupload!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('foto_gagal')){ ?>
+    <script>
+    swal({
+        title: "Error!",
+        text: "Foto Kegiatan Gagal Diupload!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('foto_hapus')){ ?>
+    <script>
+    swal({
+        title: "Success!",
+        text: "Foto Kegiatan Berhasil dihapus!",
+        icon: "success"
+    });
+    </script>
+    <?php } ?>
+    <?php if ($this->session->flashdata('foto_gagal_hapus')){ ?>
+    <script>
+    swal({
+        title: "Error!",
+        text: "Foto Kegiatan Gagal dihapus!",
+        icon: "error"
+    });
+    </script>
+    <?php } ?>
 
     <div class="wrapper">
 
@@ -133,9 +187,17 @@
                                                 <th>Kategori</th>
                                                 <th>Wajib / Tidak</th>
                                                 <th>Kegiatan 1</th>
+                                                <th>Foto Kegiatan 1</th>
+                                                <th>Tindakan Foto 1</th>
                                                 <th>Kegiatan 2</th>
+                                                <th>Foto Kegiatan 2</th>
+                                                <th>Tindakan Foto 2</th>
                                                 <th>Kegiatan 3</th>
+                                                <th>Foto Kegiatan 3</th>
+                                                <th>Tindakan Foto 3</th>
                                                 <th>Kegiatan 4</th>
+                                                <th>Foto Kegiatan 4</th>
+                                                <th>Tindakan Foto 4</th>
                                                 <th>Cetak Fakta Intregitas</th>
                                                 <th>Cetak Format Perpanjangan</th>
                                                 <th>Cetak Bukti Visual</th>
@@ -211,9 +273,323 @@
                                                 <td style="<?= $kategori ? '' : 'color: red;' ?>"><?= $kategori ?: "Data Kosong" ?></td>
                                                 <td style="<?= $jenis_wajib ? '' : 'color: red;' ?>"><?= $jenis_wajib ?: "Data Kosong" ?></td>
                                                 <td style="<?= $kegiatan1 ? '' : 'color: red;' ?>"><?= $kegiatan1 ?: "Data Kosong" ?></td>
+                                                <td>
+                                                    <?php
+                                                    $imagePath1 = 'assets/kegiatan/k1-ops-' . $username . '.jpg';
+                                                    if (!empty($username) && file_exists($imagePath1)) {
+                                                        echo '<div style="color: green; font-size: 20px;">&#10004;</div>'; // Checkmark
+                                                    } else {
+                                                        echo '<div style="color: red; font-size: 20px;">&#10006;</div>'; // X
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php if (!empty($username && file_exists('assets/kegiatan/k1-ops-' . $username . '.jpg'))){ ?>
+                                                        <a href="#" data-toggle="modal" data-target="#hapus_kegiatan_1_<?= $username ?>" class="btn btn-danger">
+                                                            <i class="fas fa-trash"></i> Hapus
+                                                        </a>
+                                                    <?php }else{?>
+                                                        <a href="#" data-toggle="modal" data-target="#upload_kegiatan_1_<?= $username ?>" class="btn btn-success">
+                                                            <i class="fas fa-upload"></i> Upload
+                                                        </a>
+                                                    <?php } ?>
+                                                    <!-- /.Upload Kegiatan 1 -->
+                                                     <div class="modal fade" id="upload_kegiatan_1_<?= $username ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <form action="<?=base_url();?>Form_Kegiatan/upload_kegiatan1" method="POST" enctype="multipart/form-data">
+                                                                        <div class="form-group">
+                                                                            <label for="fotoKegiatan1">Pilih File Kegiatan 1</label>
+                                                                            <input type="text" value="<?= $username?>" name="username" hidden>
+                                                                            <div class="custom-file">
+                                                                                <input type="file" class="custom-file-input" id="fotoKegiatan1" name="fotoKegiatan1" accept=".png, .jpg, .jpeg" onchange="displayFileName('fotoKegiatan1', 'fileLabel1')">
+                                                                                <label class="custom-file-label" for="fotoKegiatan1" id="fileLabel1">Pilih File Kegiatan 1</label>
+                                                                            </div>
+                                                                            <small><b>Ukuran Max 1024 KB</b></small>
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <script>
+                                                        function displayFileName(inputId, labelId) {
+                                                            var input = document.getElementById(inputId);
+                                                            var label = document.getElementById(labelId);
+                                                            var fileName = input.files[0].name;
+                                                            label.innerHTML = fileName;
+                                                        }
+                                                    </script>
+                                                </td>
+                                                    <!-- /.Hapus Kegiatan 1 -->
+                                                    <div class="modal fade" id="hapus_kegiatan_1_<?= $username ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Foto Kegiatan 1</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="<?= base_url() ?>Form_Kegiatan/delete_kegiatan1" method="POST" enctype="multipart/form-data">
+                                                                        <input type="text" value="<?= $username?>" name="username" hidden>
+                                                                        <div class="row">
+                                                                            <div class="col-md-11">
+                                                                                <p>Apakah Anda yakin ingin menghapus Foto Kegiatan 1 ini?</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tidak</button>
+                                                                            <button type="submit" class="btn btn-success ripple save-category">Ya</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                                 <td style="<?= $kegiatan2 ? '' : 'color: red;' ?>"><?= $kegiatan2 ?: "Data Kosong" ?></td>
+                                                <td>
+                                                    <?php
+                                                    $imagePath1 = 'assets/kegiatan/k2-ops-' . $username . '.jpg';
+                                                    if (!empty($username) && file_exists($imagePath1)) {
+                                                        echo '<div style="color: green; font-size: 20px;">&#10004;</div>'; // Checkmark
+                                                    } else {
+                                                        echo '<div style="color: red; font-size: 20px;">&#10006;</div>'; // X
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php if (!empty($username && file_exists('assets/kegiatan/k2-ops-' . $username . '.jpg'))){ ?>
+                                                        <a href="#" data-toggle="modal" data-target="#hapus_kegiatan_2_<?= $username ?>" class="btn btn-danger">
+                                                            <i class="fas fa-trash"></i> Hapus
+                                                        </a>
+                                                    <?php }else{?>
+                                                        <a href="#" data-toggle="modal" data-target="#upload_kegiatan_2_<?= $username ?>" class="btn btn-success">
+                                                            <i class="fas fa-upload"></i> Upload
+                                                        </a>
+                                                    <?php } ?>
+                                                    <!-- /.Upload Kegiatan 2 -->
+                                                     <div class="modal fade" id="upload_kegiatan_2_<?= $username ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <form action="<?=base_url();?>Form_Kegiatan/upload_kegiatan2" method="POST" enctype="multipart/form-data">
+                                                                        <div class="form-group">
+                                                                            <label for="fotoKegiatan2">Pilih File Kegiatan 2</label>
+                                                                            <input type="text" value="<?= $username?>" name="username" hidden>
+                                                                            <div class="custom-file">
+                                                                                <input type="file" class="custom-file-input" id="fotoKegiatan2" name="fotoKegiatan2" accept=".png, .jpg, .jpeg" onchange="displayFileName('fotoKegiatan2', 'fileLabel2')">
+                                                                                <label class="custom-file-label" for="fotoKegiatan2" id="fileLabel2">Pilih File Kegiatan 2</label>
+                                                                            </div>
+                                                                            <small><b>Ukuran Max 1022 KB</b></small>
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <script>
+                                                        function displayFileName(inputId, labelId) {
+                                                            var input = document.getElementById(inputId);
+                                                            var label = document.getElementById(labelId);
+                                                            var fileName = input.files[0].name;
+                                                            label.innerHTML = fileName;
+                                                        }
+                                                    </script>
+                                                </td>
+                                                    <!-- /.Hapus Kegiatan 2 -->
+                                                    <div class="modal fade" id="hapus_kegiatan_2_<?= $username ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Foto Kegiatan 2</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="<?= base_url() ?>Form_Kegiatan/delete_kegiatan2" method="POST" enctype="multipart/form-data">
+                                                                        <input type="text" value="<?= $username?>" name="username" hidden>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <p>Apakah Anda yakin ingin menghapus Foto Kegiatan 2 ini?</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tidak</button>
+                                                                            <button type="submit" class="btn btn-success ripple save-category">Ya</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>   
                                                 <td style="<?= $kegiatan3 ? '' : 'color: red;' ?>"><?= $kegiatan3 ?: "Data Kosong" ?></td>
+                                                <td>
+                                                    <?php
+                                                    $imagePath1 = 'assets/kegiatan/k3-ops-' . $username . '.jpg';
+                                                    if (!empty($username) && file_exists($imagePath1)) {
+                                                        echo '<div style="color: green; font-size: 20px;">&#10004;</div>'; // Checkmark
+                                                    } else {
+                                                        echo '<div style="color: red; font-size: 20px;">&#10006;</div>'; // X
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php if (!empty($username && file_exists('assets/kegiatan/k3-ops-' . $username . '.jpg'))){ ?>
+                                                        <a href="#" data-toggle="modal" data-target="#hapus_kegiatan_3_<?= $username ?>" class="btn btn-danger">
+                                                            <i class="fas fa-trash"></i> Hapus
+                                                        </a>
+                                                    <?php }else{?>
+                                                        <a href="#" data-toggle="modal" data-target="#upload_kegiatan_3_<?= $username ?>" class="btn btn-success">
+                                                            <i class="fas fa-upload"></i> Upload
+                                                        </a>
+                                                    <?php } ?>
+                                                    <!-- /.Upload Kegiatan 3 -->
+                                                     <div class="modal fade" id="upload_kegiatan_3_<?= $username ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <form action="<?=base_url();?>Form_Kegiatan/upload_kegiatan3" method="POST" enctype="multipart/form-data">
+                                                                        <div class="form-group">
+                                                                            <label for="fotoKegiatan3">Pilih File Kegiatan 3</label>
+                                                                            <input type="text" value="<?= $username?>" name="username" hidden>
+                                                                            <div class="custom-file">
+                                                                                <input type="file" class="custom-file-input" id="fotoKegiatan3" name="fotoKegiatan3" accept=".png, .jpg, .jpeg" onchange="displayFileName('fotoKegiatan3', 'fileLabel3')">
+                                                                                <label class="custom-file-label" for="fotoKegiatan3" id="fileLabel3">Pilih File Kegiatan 3</label>
+                                                                            </div>
+                                                                            <small><b>Ukuran Max 1024 KB</b></small>
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <script>
+                                                        function displayFileName(inputId, labelId) {
+                                                            var input = document.getElementById(inputId);
+                                                            var label = document.getElementById(labelId);
+                                                            var fileName = input.files[0].name;
+                                                            label.innerHTML = fileName;
+                                                        }
+                                                    </script>
+                                                </td>
+                                                    <!-- /.Hapus Kegiatan 3 -->
+                                                    <div class="modal fade" id="hapus_kegiatan_3_<?= $username ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Foto Kegiatan 3</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="<?= base_url() ?>Form_Kegiatan/delete_kegiatan3" method="POST" enctype="multipart/form-data">
+                                                                        <input type="text" value="<?= $username?>" name="username" hidden>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <p>Apakah Anda yakin ingin menghapus Foto Kegiatan 3 ini?</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tidak</button>
+                                                                            <button type="submit" class="btn btn-success ripple save-category">Ya</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>   
                                                 <td style="<?= $kegiatan4 ? '' : 'color: red;' ?>"><?= $kegiatan4 ?: "Data Kosong" ?></td>
+                                                <td style="text-align: center;">
+                                                    <?php
+                                                    $imagePath1 = 'assets/kegiatan/k4-ops-' . $username . '.jpg';
+
+                                                    if (!empty($username) && file_exists($imagePath1)) {
+                                                        echo '<div style="color: green; font-size: 20px;">&#10004;</div>'; // Checkmark
+                                                    } else {
+                                                        echo '<div style="color: red; font-size: 20px;">&#10006;</div>'; // X
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php if (!empty($username && file_exists('assets/kegiatan/k4-ops-' . $username . '.jpg'))){ ?>
+                                                        <a href="#" data-toggle="modal" data-target="#hapus_kegiatan_4_<?= $username ?>" class="btn btn-danger">
+                                                            <i class="fas fa-trash"></i> Hapus
+                                                        </a>
+                                                    <?php }else{?>
+                                                        <a href="#" data-toggle="modal" data-target="#upload_kegiatan_4_<?= $username ?>" class="btn btn-success">
+                                                            <i class="fas fa-upload"></i> Upload
+                                                        </a>
+                                                    <?php } ?>
+                                                    <!-- /.Upload Kegiatan 4 -->
+                                                     <div class="modal fade" id="upload_kegiatan_4_<?= $username ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <form action="<?=base_url();?>Form_Kegiatan/upload_kegiatan4" method="POST" enctype="multipart/form-data">
+                                                                        <div class="form-group">
+                                                                            <label for="fotoKegiatan4">Pilih File Kegiatan 4</label>
+                                                                            <input type="text" value="<?= $username?>" name="username" hidden>
+                                                                            <div class="custom-file">
+                                                                                <input type="file" class="custom-file-input" id="fotoKegiatan4_<?= $username ?>" name="fotoKegiatan4" accept=".png, .jpg, .jpeg" onchange="displayFileName<?= $username ?>('fotoKegiatan4_<?= $username ?>', 'fileLabel4_<?= $username ?>')">
+
+                                                                                <label class="custom-file-label" for="fotoKegiatan4" id="fileLabel4">Pilih File Kegiatan 4</label>
+                                                                            </div>
+                                                                            <small><b>Ukuran Max 1024 KB</b></small>
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <script>
+                                                        function displayFileName<?= $username ?>(inputId, labelId) {
+                                                            var input = document.getElementById(inputId);
+                                                            var label = document.getElementById(labelId);
+                                                            var fileName = input.files[0].name;
+                                                            label.innerHTML = fileName;
+                                                        }
+                                                    </script>
+                                                </td>
+                                                    <!-- /.Hapus Kegiatan 4 -->
+                                                    <div class="modal fade" id="hapus_kegiatan_4_<?= $username ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Foto Kegiatan 4</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="<?= base_url() ?>Form_Kegiatan/delete_kegiatan4" method="POST" enctype="multipart/form-data">
+                                                                        <input type="text" value="<?= $username?>" name="username" hidden>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <p>Apakah Anda yakin ingin menghapus Foto Kegiatan 4 ini?</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-danger ripple" data-dismiss="modal">Tidak</button>
+                                                                            <button type="submit" class="btn btn-success ripple save-category">Ya</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                                 <td style="text-align: center;">
                                                     <form action="<?php echo base_url()?>Cetak/cetak_fakta_integritas/<?= $username ?>" method="post" enctype="multipart/form-data">
                                                         <div class="row">
@@ -384,22 +760,6 @@
 
                                                                         <?php endforeach?>
                                                                     </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="kegiatan1">Kegiatan 1</label>
-                                                                    <input type="text" class="form-control" id="kegiatan1" name="kegiatan1" value="<?= $kegiatan1?>" placeholder="Inputkan Kegiatan 1 Operator" >
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="kegiatan2">Kegiatan 2</label>
-                                                                    <input type="text" class="form-control" id="kegiatan2" name="kegiatan2" value="<?= $kegiatan2?>" placeholder="Inputkan Kegiatan 2 Operator" >
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="kegiatan3">Kegiatan 3</label>
-                                                                    <input type="text" class="form-control" id="kegiatan3" name="kegiatan3" value="<?= $kegiatan3?>" placeholder="Inputkan Kegiatan 3 Operator" >
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="kegiatan4">Kegiatan 4</label>
-                                                                    <input type="text" class="form-control" id="kegiatan4" name="kegiatan4" value="<?= $kegiatan4?>" placeholder="Inputkan Kegiatan 4 Operator" >
                                                                 </div>
                                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                                             </form>

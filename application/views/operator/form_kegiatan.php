@@ -181,6 +181,7 @@
                                                                     <form action="<?=base_url();?>Form_Kegiatan/upload_kegiatan1" method="POST" enctype="multipart/form-data">
                                                                         <div class="form-group">
                                                                             <label for="fotoKegiatan1">Pilih File Kegiatan 1</label>
+                                                                             <input type="hidden" name="username" value="<?php echo $username?>" />
                                                                             <div class="custom-file">
                                                                                 <input type="file" class="custom-file-input" id="fotoKegiatan1" name="fotoKegiatan1" accept=".png, .jpg, .jpeg" onchange="displayFileName('fotoKegiatan1', 'fileLabel1')">
                                                                                 <label class="custom-file-label" for="fotoKegiatan1" id="fileLabel1">Pilih File Kegiatan 1</label>
