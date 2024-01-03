@@ -67,7 +67,7 @@ class Login extends CI_Controller {
 					$this->session->set_userdata('id_user_level', $user['id_user_level']);
 
 					$this->session->set_flashdata('success_login', 'success_login');
-					redirect('Dashboard/view_admin_plnt');
+					redirect('Dashboard/view_operasional');
 				} else {
 					// Jika tingkat pengguna tidak sesuai dengan yang diharapkan
 					$this->session->set_flashdata('loggin_err', 'loggin_err');

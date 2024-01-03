@@ -44,10 +44,10 @@ class Settings extends CI_Controller {
 			redirect('Login/index');
         }
 	}
-	public function view_admin_plnt()
+	public function view_operasional()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 5) {
-			$this->load->view('admin_plnt/settings');
+			$this->load->view('operasional/settings');
 		} else {
 			// Handle kasus ketika pengguna tidak memiliki hak akses
 			$this->session->set_flashdata('loggin_err', 'loggin_err');

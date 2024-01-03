@@ -67,11 +67,11 @@ class Spk extends CI_Controller {
             redirect('Login/index');
         }
     }
-    public function view_admin_plnt()
+    public function view_operasional()
     {
         if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 5) {
             $data['spk'] = $this->m_spk->get_all_spk();
-            $this->load->view('admin_plnt/spk', $data);
+            $this->load->view('operasional/spk', $data);
         } else {
             // Handle kasus ketika pengguna tidak memiliki hak akses
             $this->session->set_flashdata('loggin_err', 'loggin_err');

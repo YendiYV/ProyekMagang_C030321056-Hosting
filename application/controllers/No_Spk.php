@@ -44,11 +44,11 @@ class No_Spk extends CI_Controller {
         }
     }
     
-    public function view_admin_plnt()
+    public function view_operasional()
     {
         if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 5) {
             $data['no_spk'] = $this->m_no_spk->get_all_no_spk();
-            $this->load->view('admin_plnt/no_spk', $data);
+            $this->load->view('operasional/no_spk', $data);
         } else {
             // Handle kasus ketika pengguna tidak memiliki hak akses
             $this->session->set_flashdata('loggin_err', 'loggin_err');

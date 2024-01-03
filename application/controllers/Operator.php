@@ -102,7 +102,7 @@ class operator extends CI_Controller {
 
 		}
     }
-	public function view_admin_plnt()
+	public function view_operasional()
 	{
 		if ($this->session->userdata('logged_in') == true AND $this->session->userdata('id_user_level') == 5) {
 			$data['operator'] = $this->m_user->get_all_operator()->result_array();
@@ -110,7 +110,7 @@ class operator extends CI_Controller {
 			$data['data_kategori'] = $this->m_kategori->get_all_kategori();
 			$data['data_spk'] = $this->m_spk->get_all_spk();
 			$data['data_no_spk'] = $this->m_no_spk->get_all_no_spk();
-			$this->load->view('admin_plnt/operator', $data);
+			$this->load->view('operasional/operator', $data);
 			
 		}else{
 

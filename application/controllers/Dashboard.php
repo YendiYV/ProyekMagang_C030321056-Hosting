@@ -27,13 +27,13 @@ class Dashboard extends CI_Controller {
 		$this->load->model('m_no_spk');
 	}
 
-	public function view_admin_plnt()
+	public function view_operasional()
 	{
 		if ($this->session->userdata('logged_in') == true && $this->session->userdata('id_user_level') == 5) {
 			$data['operator'] = $this->m_user->count_all_operator()->row_array();
 			$data['data_spk'] = $this->m_spk->count_all_spk()->row_array();
 			$data['data_no_spk'] = $this->m_no_spk->count_all_no_spk()->row_array();
-			$this->load->view('admin_plnt/dashboard',$data);
+			$this->load->view('operasional/dashboard',$data);
 		}else{
 			$this->session->set_flashdata('loggin_err','loggin_err');
 			redirect('Login/index');

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php $this->load->view("admin_plnt/components/header.php") ?>
+    <?php $this->load->view("operasional/components/header.php") ?>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -15,11 +15,11 @@
         </div>
 
         <!-- Navbar -->
-        <?php $this->load->view("admin_plnt/components/navbar.php") ?>
+        <?php $this->load->view("operasional/components/navbar.php") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php $this->load->view("admin_plnt/components/sidebar.php") ?>
+        <?php $this->load->view("operasional/components/sidebar.php") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -33,7 +33,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"></a>Admin PLNT</li>
+                                <li class="breadcrumb-item"></a>Operasional</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Dashboard</li>
                             </ol>
@@ -112,7 +112,7 @@
     </div>
     <!-- ./wrapper -->
 
-    <?php $this->load->view("admin_plnt/components/js.php") ?>
+    <?php $this->load->view("operasional/components/js.php") ?>
 </body>
 
 </html>

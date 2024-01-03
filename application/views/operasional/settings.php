@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php $this->load->view("admin_plnt/components/header.php") ?>
+    <?php $this->load->view("operasional/components/header.php") ?>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -42,11 +42,11 @@
         </div>
 
         <!-- Navbar -->
-        <?php $this->load->view("admin_plnt/components/navbar.php") ?>
+        <?php $this->load->view("operasional/components/navbar.php") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php $this->load->view("admin_plnt/components/sidebar.php") ?>
+        <?php $this->load->view("operasional/components/sidebar.php") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -59,7 +59,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"></a>Admin PLNT</li>
+                                <li class="breadcrumb-item"></a>Operasional</li>
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Setting</li>
                             </ol>
@@ -72,7 +72,7 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    <form action="<?=base_url();?>Settings/settings_account_admin_plnt" method="POST">
+                    <form action="<?=base_url();?>Settings/settings_account_operasional" method="POST">
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" name="password"
@@ -100,7 +100,7 @@
     </div>
     <!-- ./wrapper -->
 
-    <?php $this->load->view("admin_plnt/components/js.php") ?>
+    <?php $this->load->view("operasional/components/js.php") ?>
 </body>
 
 </html>
